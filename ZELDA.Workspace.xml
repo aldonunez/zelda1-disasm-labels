@@ -89,7 +89,7 @@
       <BreakOnRead>false</BreakOnRead>
       <BreakOnWrite>false</BreakOnWrite>
       <BreakOnExec>true</BreakOnExec>
-      <Enabled>false</Enabled>
+      <Enabled>true</Enabled>
       <MarkEvent>false</MarkEvent>
       <ProcessDummyReadWrites>false</ProcessDummyReadWrites>
       <Address>126188</Address>
@@ -163,90 +163,6 @@
       <MarkEvent>false</MarkEvent>
       <ProcessDummyReadWrites>false</ProcessDummyReadWrites>
       <Address>70543</Address>
-      <StartAddress>0</StartAddress>
-      <EndAddress>0</EndAddress>
-      <AddressType>SingleAddress</AddressType>
-      <Condition />
-      <MemoryType>PrgRom</MemoryType>
-    </Breakpoint>
-    <Breakpoint>
-      <BreakOnRead>false</BreakOnRead>
-      <BreakOnWrite>false</BreakOnWrite>
-      <BreakOnExec>true</BreakOnExec>
-      <Enabled>true</Enabled>
-      <MarkEvent>false</MarkEvent>
-      <ProcessDummyReadWrites>false</ProcessDummyReadWrites>
-      <Address>70976</Address>
-      <StartAddress>0</StartAddress>
-      <EndAddress>0</EndAddress>
-      <AddressType>SingleAddress</AddressType>
-      <Condition />
-      <MemoryType>PrgRom</MemoryType>
-    </Breakpoint>
-    <Breakpoint>
-      <BreakOnRead>false</BreakOnRead>
-      <BreakOnWrite>true</BreakOnWrite>
-      <BreakOnExec>true</BreakOnExec>
-      <Enabled>true</Enabled>
-      <MarkEvent>false</MarkEvent>
-      <ProcessDummyReadWrites>false</ProcessDummyReadWrites>
-      <Address>45</Address>
-      <StartAddress>0</StartAddress>
-      <EndAddress>0</EndAddress>
-      <AddressType>SingleAddress</AddressType>
-      <Condition>value &gt;= $10</Condition>
-      <MemoryType>CpuMemory</MemoryType>
-    </Breakpoint>
-    <Breakpoint>
-      <BreakOnRead>false</BreakOnRead>
-      <BreakOnWrite>true</BreakOnWrite>
-      <BreakOnExec>true</BreakOnExec>
-      <Enabled>true</Enabled>
-      <MarkEvent>false</MarkEvent>
-      <ProcessDummyReadWrites>false</ProcessDummyReadWrites>
-      <Address>50</Address>
-      <StartAddress>0</StartAddress>
-      <EndAddress>0</EndAddress>
-      <AddressType>SingleAddress</AddressType>
-      <Condition>value &gt;= $10</Condition>
-      <MemoryType>CpuMemory</MemoryType>
-    </Breakpoint>
-    <Breakpoint>
-      <BreakOnRead>false</BreakOnRead>
-      <BreakOnWrite>false</BreakOnWrite>
-      <BreakOnExec>true</BreakOnExec>
-      <Enabled>true</Enabled>
-      <MarkEvent>false</MarkEvent>
-      <ProcessDummyReadWrites>false</ProcessDummyReadWrites>
-      <Address>70963</Address>
-      <StartAddress>0</StartAddress>
-      <EndAddress>0</EndAddress>
-      <AddressType>SingleAddress</AddressType>
-      <Condition />
-      <MemoryType>PrgRom</MemoryType>
-    </Breakpoint>
-    <Breakpoint>
-      <BreakOnRead>false</BreakOnRead>
-      <BreakOnWrite>false</BreakOnWrite>
-      <BreakOnExec>true</BreakOnExec>
-      <Enabled>true</Enabled>
-      <MarkEvent>false</MarkEvent>
-      <ProcessDummyReadWrites>false</ProcessDummyReadWrites>
-      <Address>70936</Address>
-      <StartAddress>0</StartAddress>
-      <EndAddress>0</EndAddress>
-      <AddressType>SingleAddress</AddressType>
-      <Condition />
-      <MemoryType>PrgRom</MemoryType>
-    </Breakpoint>
-    <Breakpoint>
-      <BreakOnRead>false</BreakOnRead>
-      <BreakOnWrite>false</BreakOnWrite>
-      <BreakOnExec>true</BreakOnExec>
-      <Enabled>true</Enabled>
-      <MarkEvent>false</MarkEvent>
-      <ProcessDummyReadWrites>false</ProcessDummyReadWrites>
-      <Address>70808</Address>
       <StartAddress>0</StartAddress>
       <EndAddress>0</EndAddress>
       <AddressType>SingleAddress</AddressType>
@@ -1469,7 +1385,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>72905</Address>
       <AddressType>PrgRom</AddressType>
       <Label>UpdateLikeLike</Label>
-      <Comment />
+      <Comment> If the monster captured Link, then go handle it.&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -1477,7 +1394,9 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>71152</Address>
       <AddressType>PrgRom</AddressType>
       <Label>UpdateDigdogger</Label>
-      <Comment />
+      <Comment> If we have the magic clock, or the monster is stunned,&#xD;
+ then go check room boundaries and object collisions, and draw.&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -1617,7 +1536,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>130640</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>UpdateRupieStash</Label>
+      <Label>UpdateRupeeStash</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -18506,6 +18425,7 @@ def</Comment>
  [0C]: mirrored&#xD;
  [0F]: flip horizontally&#xD;
 &#xD;
+ Note:&#xD;
  If the object is not mirrored, then it's horizontally flippable.&#xD;
  But Link uses [0F] for flipping without checking [0C].&#xD;
 &#xD;
@@ -25872,7 +25792,8 @@ def</Comment>
       <Address>1298</Address>
       <AddressType>InternalRam</AddressType>
       <Label>LinkParalyzed</Label>
-      <Comment />
+      <Comment> Put the monster at the same location as Link.&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -36193,7 +36114,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>66223</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_ShootFireball</Label>
+      <Label>ShootFireball</Label>
       <Comment> Params:&#xD;
  A: object type&#xD;
  X: shooter's object index&#xD;
@@ -37903,13 +37824,10 @@ For example:&#xD;
       <Address>6685</Address>
       <AddressType>SaveRam</AddressType>
       <Label />
-      <Comment> TODO:&#xD;
- If the monster is a wallmaster or like-like and [0C] &lt;&gt; 0, then&#xD;
- increment [042C][X].&#xD;
- [0C] is returned by 7AA7 CheckLinkCollision.&#xD;
+      <Comment> If the monster is a wallmaster or like-like and there's a hit&#xD;
+ (using [0C] flag), then set the monster's capture flag.&#xD;
 &#xD;
-&#xD;
- Wallmaster</Comment>
+ Wallmaster object type</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -37917,7 +37835,7 @@ For example:&#xD;
       <Address>6689</Address>
       <AddressType>SaveRam</AddressType>
       <Label />
-      <Comment> LikeLike</Comment>
+      <Comment> LikeLike object type</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -47159,7 +47077,7 @@ For example:&#xD;
       <Address>74382</Address>
       <AddressType>PrgRom</AddressType>
       <Label>Manhandla_Move</Label>
-      <Comment> Implement a way of expressing the fractional part of the speed&#xD;
+      <Comment> Implement a way of manifesting the fractional part of the speed&#xD;
  in the movement.&#xD;
 &#xD;
  Let's say the 16-bit speed is $0140. If we only took the high&#xD;
@@ -47459,7 +47377,7 @@ For example:&#xD;
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>74403</Address>
+      <Address>74405</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> If direction has a right component (1), then add offset to X coordinate.&#xD;
@@ -48220,7 +48138,1906 @@ For example:&#xD;
       <Address>70761</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
+      <Comment> Set low speed byte to $3F.&#xD;
+ This assumes that the high byte is 0 from when the room&#xD;
+ was reset; or will bet set during digdogger split-up.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71159</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the flute was used, then go start splitting up,&#xD;
+ or handling a child digdogger.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71352</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Digdogger_SlowDown</Label>
+      <Comment> Subtract 1 from 16-bit speed.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71184</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_L_Digdogger_Move</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71403</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Digdogger_Move</Label>
+      <Comment> This calculation is the same one used in Manhandla to&#xD;
+ manifest the fractional speed over several frames.&#xD;
+&#xD;
+ To summarize, the formula is:&#xD;
+&#xD;
+   (SA=speed accumulator, SH=speed high, SL=speed low)&#xD;
+&#xD;
+   SA := SA + (SL AND $E0)&#xD;
+   [03] := SH + carry&#xD;
+&#xD;
+ See 04:A28E Manhandla_Move.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71408</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Add the low speed byte to speed accumulator.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71415</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Assign (high speed byte + carry) to [03].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71422</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Change coordinates by the speed amount/offset in [03]&#xD;
+ according to the direction.&#xD;
+&#xD;
+ Start with a mask of $A1 in [02]:&#xD;
+ - low nibble represents the right direction&#xD;
+ - high nibble is used to set or clear carry as we go along&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71426</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If direction has a right component (1), then add offset to X coordinate.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71439</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If direction has a left component (2), then subtract offset from X coordinate.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71441</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Bit 7 of mask $A1 sets Carry now.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71453</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If direction has a down component (4), then add offset to Y coordinate.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71455</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Bit 6 of mask $A1 clears Carry now.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71467</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If direction has an up component (8), then subtract offset from Y coordinate.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71469</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Bit 5 of mask $A1 sets Carry now.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71496</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Digdogger_Draw</Label>
+      <Comment> 6 animation frames a screen frame</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71187</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If this is a child, then finish updating this little digdogger.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71201</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Save the original coordinates.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71247</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Restore the original coordinates.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71207</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO:&#xD;
+ Reset [0478][X].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71212</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Digdogger is big, but room boundary checks and&#xD;
+ object collision checks assume a 16x16 monster or smaller.&#xD;
+ Therefore, we have to check these things four times,&#xD;
+ in different corners of the boss.&#xD;
+&#xD;
+ TODO:&#xD;
+ Loop 4 times, from 0 to 3, indexed by [0478][X].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71039</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>DigdoggerCornerOffsetsX</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>4</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71043</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>DigdoggerCornerOffsetsY</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>4</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71215</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Change the coordinates to one corner.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71231</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Check the room boundary and object collisions in this temporary location.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71237</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Increase the loop index, and loop again until it = 4.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71256</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_L_DrawAsLittleDigdogger</Label>
+      <Comment> Save the original coordinates.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71303</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Restore the original coordinates.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71262</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Add 8 to Y and X.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71274</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Save the child flag and object type.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71295</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Restore the child flag and object type.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71282</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Change object type to $18 (Little Digdogger),&#xD;
+ and child flag to 1, in order to draw as a little digdogger.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71167</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the object timer has expired, then set it to $10,&#xD;
+ and randomly choose to turn toward Link or randomly.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71320</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Digdogger_SpeedUp</Label>
+      <Comment> Add 1 to 16-bit speed.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71310</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Digdogger_ChangeSpeed</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71328</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the 16-bit speed has not reached the 16-bit target speed, then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71344</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set speed flag to 1 meaning decelerate.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71347</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Go set target speed to $0040 (or $0140 if this is a child).&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71365</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the 16-bit speed has not reached the 16-bit target speed, then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71381</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set speed flag to 0 meaning accelerate.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71384</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set target speed to $0080.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71394</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> But if this is a child, then make the target speed $0180.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71047</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Params:&#xD;
+ Y: flute state&#xD;
+&#xD;
+ If flute state = 2, go switch between big and little appearance.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71050</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Flute state = 1.&#xD;
+&#xD;
+ If this is a child digdogger, then go turn and move as usual.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71055</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set object timer to $40, and increase flute state to 2.&#xD;
+ Then go check collisions as a big digdogger.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71065</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the timer = 0, then skip the block below, and go split up.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71069</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Every 8 frames, switch between behaving as a big and little digdogger.&#xD;
+&#xD;
+ TODO:&#xD;
+ But is this possible, given the following?&#xD;
+ a. all object timers run concurrently&#xD;
+ b. all object updates are paused until the flute timer expires&#xD;
+ c. the flute timer lasts longer&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71086</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Decrement flute state to 1.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71089</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Loop to make a number of child digdoggers.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1287</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>ChildDigdoggerCount</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71092</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> [00] is the loop counter</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71094</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Replace the object count with the number of children.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71097</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Save the current object index in X register.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71133</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Restore the current object index in X register.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71099</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Initialize a child digdogger (type $18) in the next object slot.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71108</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Start with a target speed of $0100.&#xD;
+ The low byte is still 0 from when room data was reset.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71116</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The speed will increase.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71111</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Flag this a child digdogger.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71121</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Copy the parent's coordinates to the child.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71129</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Bottom of the loop.&#xD;
+ Decrement [00] until 0.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71138</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Destroy the big digdogger by resetting the object type.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71501</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If this is a child digdogger, then go draw it.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71549</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> A little digdogger is easy to draw.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71543</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Bottom of the loop.&#xD;
+ Increment Y register until = 4.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71506</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> For each part of the big digdogger, from 0 to 3,&#xD;
+ indexed by Y register:&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71484</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>DigdoggerSpriteOffsetsX</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>4</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71488</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>DigdoggerSpriteOffsetsY</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>4</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71492</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>DigdoggerSpriteAttrs</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>4</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71530</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Save the loop index.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71541</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Restore the loop index.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71532</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Parts at odd indexes are flipped horizontally.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71524</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Load and set the sprite attributes for this part.&#xD;
+ Vertical flipping is set appropriately here.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71536</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> There's only 1 frame image.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71508</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Store in [00] the X coordinate offset for the current corner.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71516</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Store in [01] the Y coordinate offset for the current corner.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70766</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set low target speed byte to $80.&#xD;
+ This assumes that the high byte is 0 from when the room&#xD;
+ was reset; or will bet set during digdogger split-up.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71143</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Don't let the digdogger disappear until the next frame when&#xD;
+ the children can draw themselves. Go draw the big digdogger&#xD;
+ as a little one.&#xD;
+&#xD;
+ This will work, even though the object type was reset. No&#xD;
+ other object data has not been touched. Also, the code block&#xD;
+ we'll jump to temporarily sets the object type.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>72910</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Turn rate $80</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>72915</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Like-like has a 4 animation frame cycle unlike most monsters&#xD;
+ which have 2.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>72935</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Draw.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>72944</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Check collisions. If Link was not captured, then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>72952</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The monster captured Link.&#xD;
+ Put the monster at the same location as him.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>72960</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO:&#xD;
+ Reset Link's timer, metastate? , and shove info.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>72971</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Restart the monster's movement frame cycle: frame 0, counter 4&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>72979</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Now Link can't move.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>72983</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Animate up to frame 3. Then stay there.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73002</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Increment capture time.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73005</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Once capture time &gt;= $60 screen frames, remove the magic shield.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73017</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set a value above $60 over and over.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73022</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> In this state, we have to draw Like-like under Link.&#xD;
+ So, don't use the usual sprite writing code that cycles sprites.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73031</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Check object collisions.&#xD;
+ If this monster hasn't died, then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73039</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> But once it has died, then let Link move again.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66186</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>HideSpritesUnderLink</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>6148</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>_DrawObjectWithAnimAndSpecificSprites</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66199</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>DrawObjectMirroredUnderLink</Label>
+      <Comment> Params:&#xD;
+ A: frame image&#xD;
+&#xD;
+ Mirrored</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66207</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> [0D] holds frame image</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66209</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> [0E] holds animation index</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66211</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> [08] holds object index</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66213</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Sprite $10: left sprite under Link</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66218</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Sprite $11: right sprite under Link</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66203</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The animation index is (object type + 1) to account for Link&#xD;
+ having two animation indexes.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66201</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> [0C] holds mirrored flag</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66195</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>DrawObjectNotMirroredUnderLink</Label>
+      <Comment> Not mirrored</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73869</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitGleeok</Label>
       <Comment> TODO: ?&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73927</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO:&#xD;
+ Bottom of the loop.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73874</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO:&#xD;
+ Loop 6 times&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73876</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO:&#xD;
+ Set [0438][], [0452][], [046C][], [0395][], and ObjX+1 to $7C.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73892</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO:&#xD;
+ Set [0445][], [045F][], [0479][], [03BD][], and ObjY+1 to&#xD;
+ the value from array.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73909</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set HP of each neck to $A0.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73914</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Reset metastate an unintialized flag, so that this neck is ready to go.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73922</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Invincible to everything but the sword.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73930</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO:&#xD;
+ Set [0422], [0430], [0383], and [03AC] to $FF.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73942</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO:&#xD;
+ Set [0421], [042E], [0382], and [03AA] to 3.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73956</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO:&#xD;
+ Set [0420], [042D], [0381], and [03A9] to 6.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73969</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO:&#xD;
+ Set [0432] to 12.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73973</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO:&#xD;
+ Set [0386] to 24.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73977</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO:&#xD;
+ Set [03AE] to 36.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73919</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO: Is this a mistake? (+2)</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74081</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitGohma</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76143</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitGanon</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>130648</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitTrap</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76078</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitPatra</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74105</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitGleeokHead</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76004</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitLamnola</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75978</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitZelda</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>130632</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitRupeeStash</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75858</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Point to the next available sprite record.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75803</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>GleeokBodyBaseTileOffsets</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>4</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75813</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Gleeok_DrawBody</Label>
+      <Comment> TODO: ?&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75785</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>GleeokBodyTiles0</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>6</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75791</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>GleeokBodyTiles1</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>6</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75797</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>GleeokBodyTiles2</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>6</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75844</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> For each row, from 0 to 1, indexed by [06]:&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75854</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> For each column from 0 to 2, indexed by [07]:&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75833</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Cycle the animation frame from 0 to 3.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75848</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Get the base tile offset for the current animation frame.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75865</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set sprite's Y to ($57 + row * $10).&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75876</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Look up and set the tile for this spot.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75882</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If temporarily invincible, then set sprite attributes to&#xD;
+ cycled palette rows.&#xD;
+&#xD;
+ Else use level palette row 7.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75894</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set sprite's X to ($74 + column * 8).&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75904</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Increment the index for fetching tiles.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75908</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Bottom of the column loop.&#xD;
+ Increment the column until it = 3.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75916</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Bottom of the row loop.&#xD;
+ Increment the row until it = 2.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75807</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO: ?&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>6565</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>Anim_WriteSpecificSprite</Label>
+      <Comment> Params:&#xD;
+ A: tile number&#xD;
+ X: object index&#xD;
+ Y: sprite record offset&#xD;
+ [03]: sprite attributes&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75467</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Params:&#xD;
+ A: tile number&#xD;
+&#xD;
+ Normal sprite with level palette row</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75469</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> [03] holds sprite attributes</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75471</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Save the tile number.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75486</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Restore the tile number.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75514</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_Gleeok_CheckCollisions</Label>
+      <Comment> If this segment is not the head nor the bottom of the neck,&#xD;
+ then loop again to process the next segment.&#xD;
+&#xD;
+ This kind of segment is only drawn, and is not checked&#xD;
+ for object collisions.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75495</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_Gleeok_DrawSegmentAndCheckCollisions</Label>
+      <Comment> Neck segment tile</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75501</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Head tile</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>6541</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>Anim_WriteLevelPaletteSprite</Label>
+      <Comment> Params:&#xD;
+ A: tile number&#xD;
+ X: object index&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75493</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_Gleeok_DrawHeadAndCheckCollisions</Label>
+      <Comment> Head object slot</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74977</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO:&#xD;
+ Store (ObjType[1] - $42) in [04D7] to get the index of the last&#xD;
+ neck of this kind of gleeok.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74986</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the bit for this neck is in the dead neck mask,&#xD;
+ then go loop again.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75085</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Gleeok_FetchNeckAddrs</Label>
+      <Comment> Returns:&#xD;
+ X: neck index&#xD;
+ Y: 5 -- the last segment index&#xD;
+ [00:01]: address of segment X array&#xD;
+ [02:03]: address of segment Y array&#xD;
+ [04:05]: address of segment HP array&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75003</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Load neck data.&#xD;
+&#xD;
+ For each segment from 5 to 0, indexed by Y register:&#xD;
+ - load coordinates into object slots 6 to 1&#xD;
+ - load HP into an array at [0413]&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75000</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Get the addresses of this neck's segment data arrays.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74950</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>GleeokNeckXAddrsLo</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>4</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74954</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>GleeokNeckXAddrsHi</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>4</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74958</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>GleeokNeckYAddrsLo</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>4</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74962</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>GleeokNeckYAddrsHi</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>4</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74966</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>GleeokNeckHpAddrsLo</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>4</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74970</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>GleeokNeckHpAddrsHi</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>4</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74983</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO:&#xD;
+ For each neck, indexed by [04D7]:&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75079</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Bottom of the neck loop.&#xD;
+ Decrement the neck index until it &lt; 0.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75021</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Each screen frame, one neck is chosen to move and try to shoot.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75039</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If Random &lt; $20, and there's no object (fireball) in slot $B,&#xD;
+ then shoot fireball $56.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75058</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Store the neck data.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75037</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The head is in object slot 5. Set it for when we want to shoot,&#xD;
+ so that it looks like the fireball came from the head.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75126</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_Gleeok_MoveNeck</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75684</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Gleeok_MoveHead</Label>
+      <Comment> Don't do anything until the head's initial timer expires.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75118</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Start loading data from segment 5.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75775</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_Gleeok_ChangeCoordinateBySpeedFlag</Label>
+      <Comment> Params:&#xD;
+ A: a value to change&#xD;
+ Y: 0 =&gt; increment, 1 =&gt; decrement&#xD;
+&#xD;
+ Returns:&#xD;
+ A: original value +/- 1&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75689</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Add 1 or -1 to X as needed.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75699</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Add 1 or -1 to Y as needed.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75709</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Increment the counter to change directions.&#xD;
+ If it's still &lt; 4, then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75719</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The counter reached 4. So, reset it.&#xD;
+ Then check the individual direction counters.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75724</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Increment the horizontal direction counter.&#xD;
+ If &gt;= $C, then reset the counter, and flip direction.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75747</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Increment the vertical direction counter.&#xD;
+ If &gt;= 6, then reset the counter, and flip direction.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75551</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If this neck has not died, then go loop again.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75556</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> This neck died. So, prepare to make a flying head.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75528</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If this segment was harmed, then set the writhing timer.&#xD;
+&#xD;
+ TODO: Which is it: [04E6] or [0510]? And what is the other for?&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75544</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If this is the bottom segment, then go reset metastate and loop again.&#xD;
+ It can't die.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75561</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Save the segment object slot in X.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75592</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Restore the segment object slot in X.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75567</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The flying head will go in slot (neck index + 7).&#xD;
+ Set the X register to it.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75574</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Flag it uninitialized, so that it starts with the spawn cloud.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75579</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Copy the original head's coordinates to it.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75587</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set object type $46 (flying head).&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75594</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Hide the original head's sprite.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75606</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO: ?</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75609</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Add the bit for this neck to the dead neck mask.&#xD;
+ Copy it to [00].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75623</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Loop over the four bits in the copy of the dead neck mask.&#xD;
+ Count them up, and store the amount in [00].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75636</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Compare the number of dead necks to the original number&#xD;
+ (object type - $41).&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75644</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If they're equal, then go handle the whole boss dying.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75646</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO:&#xD;
+ Else reset object metastate of the segment, and return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75055</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> This is run for all necks.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75652</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Bottom of the segment loop.&#xD;
+ Decrement segment object slot.&#xD;
+&#xD;
+ If &gt;= 1, then go draw the next segment and check collisions.&#xD;
+ Else return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75660</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The whole gleeok died, because the last neck died.&#xD;
+&#xD;
+ First, hide the first $10 sprites: the heads.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75666</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> We want a death spark. So, set the metastate of the first&#xD;
+ monster slot to $11.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75671</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Reset the object type of slots 2 to $A.&#xD;
+&#xD;
+ Beware a left over fireball in slot $B!&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75511</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The segment is not a head nor bottom. So, we can use a&#xD;
+ standard routine to draw. It uses one of the rolling sprite&#xD;
+ records that is drawn under Link and the heads.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>

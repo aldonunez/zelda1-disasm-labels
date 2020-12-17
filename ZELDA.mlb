@@ -138,10 +138,11 @@ R:04F0-04FC:ObjInvincibilityTimer
 R:0504:LeftAlignHalfWidthObj
 R:0505:ItemTypeToLift
 R:0506:ItemLiftTimer
+R:0507:ChildDigdoggerCount
 R:0508:_SummonedWhirlwind
 R:0509:TriforceFanfareActive
 R:0510:ActiveRedLeeverCount
-R:0512:LinkParalyzed
+R:0512:LinkParalyzed: Put the monster at the same location as Link.\n
 R:0513:UsedCandle
 R:0514:ZoraActive
 R:0515:ActiveBoulders
@@ -1084,7 +1085,17 @@ P:1026D:: If the block has not moved $10 pixels, then return.\n
 P:10278:: The block has moved enough.\n Play the "secret revealed" tune.\n Change the tiles at the destination to the block tile.\n Set state 2, and increment BlockPushComplete.\n
 P:1027D:: Switch back to bank 4 when returning from the call below.
 P:10289:UpdateBlock2Done
-P:102AF:_ShootFireball: Params:\n A: object type\n X: shooter's object index\n\n\n [00] holds the object type.
+P:1028A:HideSpritesUnderLink
+P:10293:DrawObjectNotMirroredUnderLink: Not mirrored
+P:10297:DrawObjectMirroredUnderLink: Params:\n A: frame image\n\n Mirrored
+P:10299:: [0C] holds mirrored flag
+P:1029B:: The animation index is (object type + 1) to account for Link\n having two animation indexes.\n
+P:1029F:: [0D] holds frame image
+P:102A1:: [0E] holds animation index
+P:102A3:: [08] holds object index
+P:102A5:: Sprite $10: left sprite under Link
+P:102AA:: Sprite $11: right sprite under Link
+P:102AF:ShootFireball: Params:\n A: object type\n X: shooter's object index\n\n\n [00] holds the object type.
 P:102B1:: Return, if there's no empty slot.\n
 P:102B6:: Save the shooter's object index.
 P:102B8:: Switch to and save the new object's slot.
@@ -1615,7 +1626,8 @@ P:1144C:: TODO: ?\n
 P:11451:: The monster goes at ($B0, $80).\n
 P:1145A:_InitDigdogger1: TODO: ?\n
 P:1145F:: Set a random 8-way direction.\n
-P:11469:: TODO: ?\n
+P:11469:: Set low speed byte to $3F.\n This assumes that the high byte is 0 from when the room\n was reset; or will bet set during digdogger split-up.\n
+P:1146E:: Set low target speed byte to $80.\n This assumes that the high byte is 0 from when the room\n was reset; or will bet set during digdogger split-up.\n
 P:11473:: Set child count of 3.\n
 P:11479:_InitDigdogger2
 P:1147C:: TODO:\n Change object type to $38 (Digdogger1).\n\n Probably to simplify a test.\n
@@ -1658,7 +1670,81 @@ P:11561:: Bottom of the loop.\n Increment segment index.\n Decrement loop counte
 P:11566:: Copy current direction to old direction.\n
 P:1156C:Flyer_MoldormDecideState: If Random >= $40, go to flying state 2, else 3.\n\n Set up 8 turns.\n
 P:11579:: Set 8 turns for the next flying state.
-P:115F0:UpdateDigdogger
+P:1157F-11582:DigdoggerCornerOffsetsX
+P:11583-11586:DigdoggerCornerOffsetsY
+P:11587:: Params:\n Y: flute state\n\n If flute state = 2, go switch between big and little appearance.\n
+P:1158A:: Flute state = 1.\n\n If this is a child digdogger, then go turn and move as usual.\n
+P:1158F:: Set object timer to $40, and increase flute state to 2.\n Then go check collisions as a big digdogger.\n
+P:11599:: If the timer = 0, then skip the block below, and go split up.\n
+P:1159D:: Every 8 frames, switch between behaving as a big and little digdogger.\n\n TODO:\n But is this possible, given the following?\n a. all object timers run concurrently\n b. all object updates are paused until the flute timer expires\n c. the flute timer lasts longer\n
+P:115AE:: Decrement flute state to 1.\n
+P:115B1:: Loop to make a number of child digdoggers.\n
+P:115B4:: [00] is the loop counter
+P:115B6:: Replace the object count with the number of children.
+P:115B9:: Save the current object index in X register.
+P:115BB:: Initialize a child digdogger (type $18) in the next object slot.\n
+P:115C4:: Start with a target speed of $0100.\n The low byte is still 0 from when room data was reset.\n
+P:115C7:: Flag this a child digdogger.\n
+P:115CC:: The speed will increase.\n
+P:115D1:: Copy the parent's coordinates to the child.\n
+P:115D9:: Bottom of the loop.\n Decrement [00] until 0.\n
+P:115DD:: Restore the current object index in X register.
+P:115E2:: Destroy the big digdogger by resetting the object type.\n
+P:115E7:: Don't let the digdogger disappear until the next frame when\n the children can draw themselves. Go draw the big digdogger\n as a little one.\n\n This will work, even though the object type was reset. No\n other object data has not been touched. Also, the code block\n we'll jump to temporarily sets the object type.\n
+P:115F0:UpdateDigdogger: If we have the magic clock, or the monster is stunned,\n then go check room boundaries and object collisions, and draw.\n
+P:115F7:: If the flute was used, then go start splitting up,\n or handling a child digdogger.\n
+P:115FF:: If the object timer has expired, then set it to $10,\n and randomly choose to turn toward Link or randomly.\n
+P:11610:_L_Digdogger_Move
+P:11613:: If this is a child, then finish updating this little digdogger.\n
+P:11621:: Save the original coordinates.\n
+P:11627:: TODO:\n Reset [0478][X].\n
+P:1162C:: Digdogger is big, but room boundary checks and\n object collision checks assume a 16x16 monster or smaller.\n Therefore, we have to check these things four times,\n in different corners of the boss.\n\n TODO:\n Loop 4 times, from 0 to 3, indexed by [0478][X].\n
+P:1162F:: Change the coordinates to one corner.\n
+P:1163F:: Check the room boundary and object collisions in this temporary location.\n
+P:11645:: Increase the loop index, and loop again until it = 4.\n
+P:1164F:: Restore the original coordinates.\n
+P:11658:_L_DrawAsLittleDigdogger: Save the original coordinates.\n
+P:1165E:: Add 8 to Y and X.\n
+P:1166A:: Save the child flag and object type.\n
+P:11672:: Change object type to $18 (Little Digdogger),\n and child flag to 1, in order to draw as a little digdogger.\n
+P:1167F:: Restore the child flag and object type.\n
+P:11687:: Restore the original coordinates.\n
+P:1168E:Digdogger_ChangeSpeed
+P:11698:Digdogger_SpeedUp: Add 1 to 16-bit speed.\n
+P:116A0:: If the 16-bit speed has not reached the 16-bit target speed, then return.\n
+P:116B0:: Set speed flag to 1 meaning decelerate.\n
+P:116B3:: Go set target speed to $0040 (or $0140 if this is a child).\n
+P:116B8:Digdogger_SlowDown: Subtract 1 from 16-bit speed.\n
+P:116C5:: If the 16-bit speed has not reached the 16-bit target speed, then return.\n
+P:116D5:: Set speed flag to 0 meaning accelerate.\n
+P:116D8:: Set target speed to $0080.\n
+P:116E2:: But if this is a child, then make the target speed $0180.\n
+P:116EB:Digdogger_Move: This calculation is the same one used in Manhandla to\n manifest the fractional speed over several frames.\n\n To summarize, the formula is:\n\n   (SA=speed accumulator, SH=speed high, SL=speed low)\n\n   SA := SA + (SL AND $E0)\n   [03] := SH + carry\n\n See 04:A28E Manhandla_Move.\n
+P:116F0:: Add the low speed byte to speed accumulator.
+P:116F7:: Assign (high speed byte + carry) to [03].\n
+P:116FE:: Change coordinates by the speed amount/offset in [03]\n according to the direction.\n\n Start with a mask of $A1 in [02]:\n - low nibble represents the right direction\n - high nibble is used to set or clear carry as we go along\n
+P:11702:: If direction has a right component (1), then add offset to X coordinate.\n
+P:1170F:: If direction has a left component (2), then subtract offset from X coordinate.\n
+P:11711:: Bit 7 of mask $A1 sets Carry now.
+P:1171D:: If direction has a down component (4), then add offset to Y coordinate.\n
+P:1171F:: Bit 6 of mask $A1 clears Carry now.
+P:1172B:: If direction has an up component (8), then subtract offset from Y coordinate.\n
+P:1172D:: Bit 5 of mask $A1 sets Carry now.
+P:1173C-1173F:DigdoggerSpriteOffsetsX
+P:11740-11743:DigdoggerSpriteOffsetsY
+P:11744-11747:DigdoggerSpriteAttrs
+P:11748:Digdogger_Draw: 6 animation frames a screen frame
+P:1174D:: If this is a child digdogger, then go draw it.\n
+P:11752:: For each part of the big digdogger, from 0 to 3,\n indexed by Y register:\n
+P:11754:: Store in [00] the X coordinate offset for the current corner.\n
+P:1175C:: Store in [01] the Y coordinate offset for the current corner.\n
+P:11764:: Load and set the sprite attributes for this part.\n Vertical flipping is set appropriately here.\n
+P:1176A:: Save the loop index.
+P:1176C:: Parts at odd indexes are flipped horizontally.\n
+P:11770:: There's only 1 frame image.
+P:11775:: Restore the loop index.
+P:11777:: Bottom of the loop.\n Increment Y register until = 4.\n
+P:1177D:: A little digdogger is easy to draw.\n
 P:11786:UpdateAquamentus
 P:1179A:_CheckBossDeathReaction: TODO: was _InhibitCommonHitReaction,\n  but should it still be something else?\n
 P:117A0-117A1:AquamentusSpeeds
@@ -1851,7 +1937,22 @@ P:11CAE:PolsVoice_GetCollidingTile: Returns:\n C: 0 if walkable\n [041F][X]: til
 P:11CB6:: Return C=0 if walkable.\n
 P:11CB9:: Remember the tile that the monster is over.\n
 P:11CBD:PolsVoice_MoveX: Returns:\n Y: facing direction - 1 (so, 0 to 7)\n\n Add the X offset for the current direction to the X coordinate.\n
-P:11CC9:UpdateLikeLike
+P:11CC9:UpdateLikeLike: If the monster captured Link, then go handle it.\n
+P:11CCE:: Turn rate $80
+P:11CD3:: Like-like has a 4 animation frame cycle unlike most monsters\n which have 2.\n
+P:11CE7:: Draw.\n
+P:11CF0:: Check collisions. If Link was not captured, then return.\n
+P:11CF8:: The monster captured Link.\n Put the monster at the same location as him.\n
+P:11D00:: TODO:\n Reset Link's timer, metastate? , and shove info.\n
+P:11D0B:: Restart the monster's movement frame cycle: frame 0, counter 4\n
+P:11D13:: Now Link can't move.\n
+P:11D17:: Animate up to frame 3. Then stay there.\n
+P:11D2A:: Increment capture time.\n
+P:11D2D:: Once capture time >= $60 screen frames, remove the magic shield.\n
+P:11D39:: Set a value above $60 over and over.\n
+P:11D3E:: In this state, we have to draw Like-like under Link.\n So, don't use the usual sprite writing code that cycles sprites.\n
+P:11D47:: Check object collisions.\n If this monster hasn't died, then return.\n
+P:11D4F:: But once it has died, then let Link move again.\n
 P:11D57:UpdateVire
 P:11D5A:: If state >= 2, then go split up into 2 keeses.\n
 P:11D66:: As with Zol, we'll destroy one monster, and make two.\n So, increase object count by 1.\n
@@ -1873,6 +1974,21 @@ P:11DD1:DrawVire: Animation counter $A
 P:11DD6:: TODO: name: movement frame\n\n The movement frame is the fram image number, unless facing up.\n In this case, add 2 to the frame image.\n
 P:11DE3:UpdateBlueWizzrobe
 P:11FA9:UpdateRedWizzrobe
+P:1208D:InitGleeok: TODO: ?\n
+P:12092:: TODO:\n Loop 6 times\n
+P:12094:: TODO:\n Set [0438][], [0452][], [046C][], [0395][], and ObjX+1 to $7C.\n
+P:120A4:: TODO:\n Set [0445][], [045F][], [0479][], [03BD][], and ObjY+1 to\n the value from array.\n
+P:120B5:: Set HP of each neck to $A0.\n
+P:120BA:: Reset metastate an unintialized flag, so that this neck is ready to go.\n
+P:120BF:: TODO: Is this a mistake? (+2)
+P:120C2:: Invincible to everything but the sword.\n
+P:120C7:: TODO:\n Bottom of the loop.\n
+P:120CA:: TODO:\n Set [0422], [0430], [0383], and [03AC] to $FF.\n
+P:120D6:: TODO:\n Set [0421], [042E], [0382], and [03AA] to 3.\n
+P:120E4:: TODO:\n Set [0420], [042D], [0381], and [03A9] to 6.\n
+P:120F1:: TODO:\n Set [0432] to 12.\n
+P:120F5:: TODO:\n Set [0386] to 24.\n
+P:120F9:: TODO:\n Set [03AE] to 36.\n
 P:12100-12104:ManhandlaBaseFrameImagesAndAttrs
 P:12105-12106:ManhandlaSegmentOffsetsX
 P:12107-1210B:ManhandlaSegmentOffsetsY
@@ -1887,6 +2003,8 @@ P:12132:: All segments start out autonomous, and can update immediately.\n
 P:1213A:: Copy object attributes and HP from the base segment.\n
 P:12146:: Look up the offset of this segment. Add it to the position of\n the base segment.\n\n The position of the base segment in slot 5 is calculated first.\n Its base position is the spawn position.\n
 P:12158:: Set low speed byte $80.\n
+P:12161:InitGohma
+P:12179:InitGleeokHead
 P:12187:UpdateManhandla: If this segment is not the base, then skip turning and speeding up.\n
 P:1218B:: If no segment just died, then skip increasing the speed.\n
 P:12190:: For each segment from 4 to 0, indexed by Y register:\n
@@ -1922,11 +2040,11 @@ P:1226A:: The last hand died. So, kill the base.\n\n Change the base segment's o
 P:12279:: Set the "segment just died" flag.\n
 P:1227D:: Dead dummy object type
 P:12285:Manhandla_SetAllSegmentsDirection: Params:\n A: direction\n
-P:1228E:Manhandla_Move: Implement a way of expressing the fractional part of the speed\n in the movement.\n\n Let's say the 16-bit speed is $0140. If we only took the high\n byte to add to the coordinates, then the effective speed would\n be 1 pixel a second instead of 1.25.\n\n By keeping a speed accumulator, we can turn speed $0140\n into 1.25 pixels a frame over four frames, using this calculation:\n\n   (SA=speed accumulator, SH=speed high, SL=speed low)\n\n   SA := SA + (SL AND $E0)\n   [03] := SH + carry\n\n AND'ing the low speed byte with $E0 isn't strictly needed.\n
+P:1228E:Manhandla_Move: Implement a way of manifesting the fractional part of the speed\n in the movement.\n\n Let's say the 16-bit speed is $0140. If we only took the high\n byte to add to the coordinates, then the effective speed would\n be 1 pixel a second instead of 1.25.\n\n By keeping a speed accumulator, we can turn speed $0140\n into 1.25 pixels a frame over four frames, using this calculation:\n\n   (SA=speed accumulator, SH=speed high, SL=speed low)\n\n   SA := SA + (SL AND $E0)\n   [03] := SH + carry\n\n AND'ing the low speed byte with $E0 isn't strictly needed.\n
 P:12293:: Add the low speed byte to speed accumulator.
 P:1229A:: Assign (high speed byte + carry) to [03].\n
 P:122A1:: Change coordinates by the speed amount/offset in [03]\n according to the direction.\n\n Start with a mask of $A1 in [02]:\n - low nibble represents the right direction\n - high nibble is used to set or clear carry as we go along\n
-P:122A3:: If direction has a right component (1), then add offset to X coordinate.\n
+P:122A5:: If direction has a right component (1), then add offset to X coordinate.\n
 P:122B2:: If direction has a left component (2), then subtract offset from X coordinate.\n
 P:122B4:: Bit 7 of mask $A1 sets Carry now.
 P:122C0:: If direction has a down component (4), then add offset to Y coordinate.\n
@@ -1945,7 +2063,87 @@ P:12305:: Pop the "frame image and sprite attributes" value.
 P:12306:: If the low nibble = 2 or 3, then go draw not mirrored.\n These are the 2 frame images of the horizontal hands.\n\n Else draw the base and vertical hands mirrored.\n
 P:12316:UpdateGohma
 P:12477:UpdateGleeokHead
+P:124C6-124C9:GleeokNeckXAddrsLo
+P:124CA-124CD:GleeokNeckXAddrsHi
+P:124CE-124D1:GleeokNeckYAddrsLo
+P:124D2-124D5:GleeokNeckYAddrsHi
+P:124D6-124D9:GleeokNeckHpAddrsLo
+P:124DA-124DD:GleeokNeckHpAddrsHi
 P:124DE:UpdateGleeok
+P:124E1:: TODO:\n Store (ObjType[1] - $42) in [04D7] to get the index of the last\n neck of this kind of gleeok.\n
+P:124E7:: TODO:\n For each neck, indexed by [04D7]:\n
+P:124EA:: If the bit for this neck is in the dead neck mask,\n then go loop again.\n
+P:124F8:: Get the addresses of this neck's segment data arrays.\n
+P:124FB:: Load neck data.\n\n For each segment from 5 to 0, indexed by Y register:\n - load coordinates into object slots 6 to 1\n - load HP into an array at [0413]\n
+P:1250D:: Each screen frame, one neck is chosen to move and try to shoot.\n
+P:1251D:: The head is in object slot 5. Set it for when we want to shoot,\n so that it looks like the fireball came from the head.\n
+P:1251F:: If Random < $20, and there's no object (fireball) in slot $B,\n then shoot fireball $56.\n
+P:1252F:: This is run for all necks.\n
+P:12532:: Store the neck data.\n
+P:12547:: Bottom of the neck loop.\n Decrement the neck index until it < 0.\n
+P:1254D:Gleeok_FetchNeckAddrs: Returns:\n X: neck index\n Y: 5 -- the last segment index\n [00:01]: address of segment X array\n [02:03]: address of segment Y array\n [04:05]: address of segment HP array\n
+P:1256E:: Start loading data from segment 5.
+P:12576:_Gleeok_MoveNeck
+P:126CB:: Params:\n A: tile number\n\n Normal sprite with level palette row
+P:126CD:: [03] holds sprite attributes
+P:126CF:: Save the tile number.
+P:126DE:: Restore the tile number.
+P:126E5:_Gleeok_DrawHeadAndCheckCollisions: Head object slot
+P:126E7:_Gleeok_DrawSegmentAndCheckCollisions: Neck segment tile
+P:126ED:: Head tile
+P:126F7:: The segment is not a head nor bottom. So, we can use a\n standard routine to draw. It uses one of the rolling sprite\n records that is drawn under Link and the heads.\n
+P:126FA:_Gleeok_CheckCollisions: If this segment is not the head nor the bottom of the neck,\n then loop again to process the next segment.\n\n This kind of segment is only drawn, and is not checked\n for object collisions.\n
+P:12708:: If this segment was harmed, then set the writhing timer.\n\n TODO: Which is it: [04E6] or [0510]? And what is the other for?\n
+P:12718:: If this is the bottom segment, then go reset metastate and loop again.\n It can't die.\n
+P:1271F:: If this neck has not died, then go loop again.\n
+P:12724:: This neck died. So, prepare to make a flying head.\n
+P:12729:: Save the segment object slot in X.
+P:1272F:: The flying head will go in slot (neck index + 7).\n Set the X register to it.\n
+P:12736:: Flag it uninitialized, so that it starts with the spawn cloud.\n
+P:1273B:: Copy the original head's coordinates to it.\n
+P:12743:: Set object type $46 (flying head).\n
+P:12748:: Restore the segment object slot in X.
+P:1274A:: Hide the original head's sprite.\n
+P:12756:: TODO: ?
+P:12759:: Add the bit for this neck to the dead neck mask.\n Copy it to [00].\n
+P:12767:: Loop over the four bits in the copy of the dead neck mask.\n Count them up, and store the amount in [00].\n
+P:12774:: Compare the number of dead necks to the original number\n (object type - $41).\n
+P:1277C:: If they're equal, then go handle the whole boss dying.\n
+P:1277E:: TODO:\n Else reset object metastate of the segment, and return.\n
+P:12784:: Bottom of the segment loop.\n Decrement segment object slot.\n\n If >= 1, then go draw the next segment and check collisions.\n Else return.\n
+P:1278C:: The whole gleeok died, because the last neck died.\n\n First, hide the first $10 sprites: the heads.\n
+P:12792:: We want a death spark. So, set the metastate of the first\n monster slot to $11.\n
+P:12797:: Reset the object type of slots 2 to $A.\n\n Beware a left over fireball in slot $B!\n
+P:127A4:Gleeok_MoveHead: Don't do anything until the head's initial timer expires.\n
+P:127A9:: Add 1 or -1 to X as needed.\n
+P:127B3:: Add 1 or -1 to Y as needed.\n
+P:127BD:: Increment the counter to change directions.\n If it's still < 4, then return.\n
+P:127C7:: The counter reached 4. So, reset it.\n Then check the individual direction counters.\n
+P:127CC:: Increment the horizontal direction counter.\n If >= $C, then reset the counter, and flip direction.\n
+P:127E3:: Increment the vertical direction counter.\n If >= 6, then reset the counter, and flip direction.\n
+P:127FF:_Gleeok_ChangeCoordinateBySpeedFlag: Params:\n A: a value to change\n Y: 0 => increment, 1 => decrement\n\n Returns:\n A: original value +/- 1\n
+P:12809-1280E:GleeokBodyTiles0
+P:1280F-12814:GleeokBodyTiles1
+P:12815-1281A:GleeokBodyTiles2
+P:1281B-1281E:GleeokBodyBaseTileOffsets
+P:1281F:: TODO: ?\n
+P:12825:Gleeok_DrawBody: TODO: ?\n
+P:12839:: Cycle the animation frame from 0 to 3.\n
+P:12844:: For each row, from 0 to 1, indexed by [06]:\n
+P:12848:: Get the base tile offset for the current animation frame.\n
+P:1284E:: For each column from 0 to 2, indexed by [07]:\n
+P:12852:: Point to the next available sprite record.\n
+P:12859:: Set sprite's Y to ($57 + row * $10).\n
+P:12864:: Look up and set the tile for this spot.\n
+P:1286A:: If temporarily invincible, then set sprite attributes to\n cycled palette rows.\n\n Else use level palette row 7.\n
+P:12876:: Set sprite's X to ($74 + column * 8).\n
+P:12880:: Increment the index for fetching tiles.\n
+P:12884:: Bottom of the column loop.\n Increment the column until it = 3.\n
+P:1288C:: Bottom of the row loop.\n Increment the row until it = 2.\n
+P:128CA:InitZelda
+P:128E4:InitLamnola
+P:1292E:InitPatra
+P:1296F:InitGanon
 P:12987:UpdateZelda
 P:129D8:UpdateGuardFire
 P:129EB:UpdateLamnola
@@ -4508,7 +4706,9 @@ P:1FD75:: Init cave
 P:1FD78:: If object is a cave or tile object (type >= $5F),\n go assign object attribute $81, and get\n it ready to behave autonomously and updating.\n
 P:1FD7F:: Else run the object initialization routine.\n
 P:1FE40:UpdateWhirlwind
-P:1FE50:UpdateRupieStash
+P:1FE48:InitRupeeStash
+P:1FE50:UpdateRupeeStash
+P:1FE58:InitTrap
 P:1FE60:UpdateTrap
 P:1FE80:UpdatePerson
 P:1FE88:UpdatePerson7
@@ -4933,13 +5133,14 @@ S:17DF:DrawObjectNotMirrored: Params:\n A: frame image\n X: object index\n [00]:
 S:17E1:: Set [0C] not mirrored.
 S:17E3:: Set animation index = object type + 1.\n
 S:17E6:DrawObjectWithType: Params:\n A: frame\n X: object index/cycle sprite index\n Y: object type\n [00]: object X\n [01]: object Y\n [0C]: mirrored\n [0F]: flip horizontally\n\n Note:\n If the object is not mirrored, then it's horizontally flippable.\n\n The animation index of most objects is (object type + 1),\n to make up for the fact that Link uses two animation indexes.\n
-S:17E7:_DrawObjectWithAnim: Params:\n A: frame\n X: object index/cycle sprite index\n Y: animation index\n [00]: object X\n [01]: object Y\n [0C]: mirrored\n [0F]: flip horizontally\n\n If the object is not mirrored, then it's horizontally flippable.\n But Link uses [0F] for flipping without checking [0C].\n\n\n [0D] holds frame.
+S:17E7:_DrawObjectWithAnim: Params:\n A: frame\n X: object index/cycle sprite index\n Y: animation index\n [00]: object X\n [01]: object Y\n [0C]: mirrored\n [0F]: flip horizontally\n\n Note:\n If the object is not mirrored, then it's horizontally flippable.\n But Link uses [0F] for flipping without checking [0C].\n\n\n [0D] holds frame.
 S:17E9:: [0E] holds animation index.
 S:17EB:: [08] holds object index/cycle sprite index
 S:17ED:: Set the left and right sprite record offsets for CurSpriteIndex.\n
 S:17F9:: But if it's Link, then hardcode them to sprites $12 and $13.\n
 S:17FD:: Link's left sprite record offset
 S:1802:: Link's right sprite record offset
+S:1804:_DrawObjectWithAnimAndSpecificSprites
 S:1809:: This object has 2 sides.
 S:180D:: The right side is 8 pixels away from the left.
 S:1815:: Add frame number.
@@ -5003,7 +5204,9 @@ S:197B:: Make the right side the same as the left.
 S:197D:: Flip the right side horizontally.
 S:1986:Anim_SetSpriteDescriptorRedPaletteRow: Returns:\n A: 2\n [04]: left sprite attributes\n [05]: right sprite attributes\n
 S:1988:Anim_SetSpriteDescriptorAttributes: Params:\n A: sprite attributes for both sides\n\n Returns:\n [04]: left side sprite attributes\n [05]: right side sprite attributes\n\n Doesn't change A.\n
+S:198D:Anim_WriteLevelPaletteSprite: Params:\n A: tile number\n X: object index\n
 S:1991:Anim_WriteSprite: Params:\n A: tile number\n X: object index\n [03]: sprite attributes\n
+S:19A5:Anim_WriteSpecificSprite: Params:\n A: tile number\n X: object index\n Y: sprite record offset\n [03]: sprite attributes\n
 S:19AF:_Anim_EndWriteSprite: Params:\n A: Y coordinate\n Y: sprite record offset\n [03]: sprite attributes\n
 S:19D0:CheckMonsterCollisions: Params:\n X: object index\n
 S:19D3:: If the object is invincible, skip checking collisions with Link's weapons.\n But go check for a collision with Link.\n
@@ -5014,8 +5217,8 @@ S:1A00:: If the monster is not dying, then go see about monsters\n that capture 
 S:1A08:: This monster is dying.\n\n If it's a goriya that threw a boomerang, then destroy the boomerang.\n
 S:1A0C:: Red Goriya
 S:1A14:: Get the object slot of this goriya's boomerang.
-S:1A1D:: TODO:\n If the monster is a wallmaster or like-like and [0C] <> 0, then\n increment [042C][X].\n [0C] is returned by 7AA7 CheckLinkCollision.\n\n\n Wallmaster
-S:1A21:: LikeLike
+S:1A1D:: If the monster is a wallmaster or like-like and there's a hit\n (using [0C] flag), then set the monster's capture flag.\n\n Wallmaster object type
+S:1A21:: LikeLike object type
 S:1A2D:GetObjectMiddle: Params:\n X: object index\n\n Returns:\n [02]: center X\n [03]: center Y\n\n\n Start with offset 8 for X and Y in [02] and [03].\n
 S:1A33:: If object attribute $40 is set, make X offset 4.\n
 S:1A36:: Half width (for collision detection)
