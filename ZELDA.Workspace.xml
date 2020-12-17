@@ -48973,7 +48973,7 @@ For example:&#xD;
       <Address>73022</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> In this state, we have to draw Like-like under Link.&#xD;
+      <Comment> In this state, we have to draw Like-like over Link.&#xD;
  So, don't use the usual sprite writing code that cycles sprites.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -49001,7 +49001,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>66186</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>HideSpritesUnderLink</Label>
+      <Label>HideSpritesOverLink</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -49017,7 +49017,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>66199</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>DrawObjectMirroredUnderLink</Label>
+      <Label>DrawObjectMirroredOverLink</Label>
       <Comment> Params:&#xD;
  A: frame image&#xD;
 &#xD;
@@ -49086,7 +49086,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>66195</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>DrawObjectNotMirroredUnderLink</Label>
+      <Label>DrawObjectNotMirroredOverLink</Label>
       <Comment> Not mirrored</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -49104,8 +49104,7 @@ For example:&#xD;
       <Address>73927</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO:&#xD;
- Bottom of the loop.&#xD;
+      <Comment> Bottom of the loop.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -49114,8 +49113,7 @@ For example:&#xD;
       <Address>73874</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO:&#xD;
- Loop 6 times&#xD;
+      <Comment> Loop 6 times to initialize each segment of 4 necks.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -49124,8 +49122,7 @@ For example:&#xD;
       <Address>73876</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO:&#xD;
- Set [0438][], [0452][], [046C][], [0395][], and ObjX+1 to $7C.&#xD;
+      <Comment> Set the X of the current segment of each neck to $7C.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -49134,9 +49131,7 @@ For example:&#xD;
       <Address>73892</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO:&#xD;
- Set [0445][], [045F][], [0479][], [03BD][], and ObjY+1 to&#xD;
- the value from array.&#xD;
+      <Comment> Look up and set the Y of the current segment of each neck.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -49146,6 +49141,13 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Set HP of each neck to $A0.&#xD;
+&#xD;
+ Because there's only one HP value for each neck,&#xD;
+ it's stored right in the object slot -- unlike coordinates.&#xD;
+&#xD;
+ Also, note that even though these aren't independent objects&#xD;
+ in the object slots -- because object type = 0 -- the values in&#xD;
+ these object slots will be useful during collision detection.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -49154,7 +49156,7 @@ For example:&#xD;
       <Address>73914</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Reset metastate an unintialized flag, so that this neck is ready to go.&#xD;
+      <Comment> Reset metastate and unintialized flag, so that this neck is ready to go.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -49304,7 +49306,7 @@ For example:&#xD;
       <Address>75858</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Point to the next available sprite record.&#xD;
+      <Comment> Point to the next rolling sprite record.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -49321,7 +49323,8 @@ For example:&#xD;
       <Address>75813</Address>
       <AddressType>PrgRom</AddressType>
       <Label>Gleeok_DrawBody</Label>
-      <Comment> TODO: ?&#xD;
+      <Comment> The animation timer controls when the animation frame changes.&#xD;
+ If it has not expired, then go decrement it and draw.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -49458,7 +49461,7 @@ For example:&#xD;
       <Address>75807</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: ?&#xD;
+      <Comment> Decrement animation timer, and go draw.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -49480,7 +49483,12 @@ For example:&#xD;
       <Address>75467</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Params:&#xD;
+      <Comment> Description:&#xD;
+ This block applies to heads and the bottom segment of a neck.&#xD;
+ These are drawn with sprites that come first in order, so that&#xD;
+ they are drawn above all other sprites, including Link.&#xD;
+&#xD;
+ Params:&#xD;
  A: tile number&#xD;
 &#xD;
  Normal sprite with level palette row</Comment>
@@ -49563,9 +49571,8 @@ For example:&#xD;
       <Address>74977</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO:&#xD;
- Store (ObjType[1] - $42) in [04D7] to get the index of the last&#xD;
- neck of this kind of gleeok.&#xD;
+      <Comment> Calculate the index of the last neck of this kind of gleeok.&#xD;
+ Subtract $42 (Gleeok1) from ObjType[1].&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -49589,7 +49596,7 @@ For example:&#xD;
  Y: 5 -- the last segment index&#xD;
  [00:01]: address of segment X array&#xD;
  [02:03]: address of segment Y array&#xD;
- [04:05]: address of segment HP array&#xD;
+ [04:05]: address of segment miscellaneous array&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -49602,7 +49609,7 @@ For example:&#xD;
 &#xD;
  For each segment from 5 to 0, indexed by Y register:&#xD;
  - load coordinates into object slots 6 to 1&#xD;
- - load HP into an array at [0413]&#xD;
+ - load miscellany into an array at [0413]&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -49651,7 +49658,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>74966</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>GleeokNeckHpAddrsLo</Label>
+      <Label>GleeokNeckMiscAddrsLo</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>4</Length>
@@ -49659,7 +49666,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>74970</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>GleeokNeckHpAddrsHi</Label>
+      <Label>GleeokNeckMiscAddrsHi</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>4</Length>
@@ -49669,7 +49676,7 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> TODO:&#xD;
- For each neck, indexed by [04D7]:&#xD;
+ For each neck, counting down, indexed by [04D7]:&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -49841,9 +49848,8 @@ For example:&#xD;
       <Address>75528</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> If this segment was harmed, then set the writhing timer.&#xD;
-&#xD;
- TODO: Which is it: [04E6] or [0510]? And what is the other for?&#xD;
+      <Comment> If this segment was harmed, then set the writhing counter,&#xD;
+ and the animation counter to its lower value.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -49879,7 +49885,7 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> The flying head will go in slot (neck index + 7).&#xD;
- Set the X register to it.&#xD;
+ Switch the X register to it.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -50005,7 +50011,7 @@ For example:&#xD;
       <Label />
       <Comment> The whole gleeok died, because the last neck died.&#xD;
 &#xD;
- First, hide the first $10 sprites: the heads.&#xD;
+ First, hide the first $10 sprites: the attached heads.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -50036,8 +50042,85 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> The segment is not a head nor bottom. So, we can use a&#xD;
- standard routine to draw. It uses one of the rolling sprite&#xD;
- records that is drawn under Link and the heads.&#xD;
+ standard routine to draw. It uses one of the rolling sprites&#xD;
+ that is drawn under Link and the heads.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73890</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> I don't think this one is needed.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73907</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> I don't think this one is needed.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73863</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>GleeokSegmentYs</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>6</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75818</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The animation timer has expired. There are two choices for arming it.&#xD;
+&#xD;
+ When writhing after a hit, Gleeok animates faster.&#xD;
+ So, when the writhing counter &lt;&gt; 0, set a shorter time (6).&#xD;
+ Otherwise, set a longer time ($10).&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75472</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> To calculate the base offset of the sprite record:&#xD;
+ offset := neck index * 8&#xD;
+&#xD;
+ This ends up pointing to one of the first 8 eight sprites,&#xD;
+ at an even index.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75478</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> But if the segment is not a head (not at object slot 5), then&#xD;
+ add $20. This moves the offset to the second set of 8 sprites.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75558</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO: I don't see why this is need, since it won't go in this obj slot.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75563</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO: ?&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>

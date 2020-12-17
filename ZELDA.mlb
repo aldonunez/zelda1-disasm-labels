@@ -1085,9 +1085,9 @@ P:1026D:: If the block has not moved $10 pixels, then return.\n
 P:10278:: The block has moved enough.\n Play the "secret revealed" tune.\n Change the tiles at the destination to the block tile.\n Set state 2, and increment BlockPushComplete.\n
 P:1027D:: Switch back to bank 4 when returning from the call below.
 P:10289:UpdateBlock2Done
-P:1028A:HideSpritesUnderLink
-P:10293:DrawObjectNotMirroredUnderLink: Not mirrored
-P:10297:DrawObjectMirroredUnderLink: Params:\n A: frame image\n\n Mirrored
+P:1028A:HideSpritesOverLink
+P:10293:DrawObjectNotMirroredOverLink: Not mirrored
+P:10297:DrawObjectMirroredOverLink: Params:\n A: frame image\n\n Mirrored
 P:10299:: [0C] holds mirrored flag
 P:1029B:: The animation index is (object type + 1) to account for Link\n having two animation indexes.\n
 P:1029F:: [0D] holds frame image
@@ -1950,7 +1950,7 @@ P:11D17:: Animate up to frame 3. Then stay there.\n
 P:11D2A:: Increment capture time.\n
 P:11D2D:: Once capture time >= $60 screen frames, remove the magic shield.\n
 P:11D39:: Set a value above $60 over and over.\n
-P:11D3E:: In this state, we have to draw Like-like under Link.\n So, don't use the usual sprite writing code that cycles sprites.\n
+P:11D3E:: In this state, we have to draw Like-like over Link.\n So, don't use the usual sprite writing code that cycles sprites.\n
 P:11D47:: Check object collisions.\n If this monster hasn't died, then return.\n
 P:11D4F:: But once it has died, then let Link move again.\n
 P:11D57:UpdateVire
@@ -1974,15 +1974,18 @@ P:11DD1:DrawVire: Animation counter $A
 P:11DD6:: TODO: name: movement frame\n\n The movement frame is the fram image number, unless facing up.\n In this case, add 2 to the frame image.\n
 P:11DE3:UpdateBlueWizzrobe
 P:11FA9:UpdateRedWizzrobe
+P:12087-1208C:GleeokSegmentYs
 P:1208D:InitGleeok: TODO: ?\n
-P:12092:: TODO:\n Loop 6 times\n
-P:12094:: TODO:\n Set [0438][], [0452][], [046C][], [0395][], and ObjX+1 to $7C.\n
-P:120A4:: TODO:\n Set [0445][], [045F][], [0479][], [03BD][], and ObjY+1 to\n the value from array.\n
-P:120B5:: Set HP of each neck to $A0.\n
-P:120BA:: Reset metastate an unintialized flag, so that this neck is ready to go.\n
+P:12092:: Loop 6 times to initialize each segment of 4 necks.\n
+P:12094:: Set the X of the current segment of each neck to $7C.\n
+P:120A2:: I don't think this one is needed.
+P:120A4:: Look up and set the Y of the current segment of each neck.\n
+P:120B3:: I don't think this one is needed.
+P:120B5:: Set HP of each neck to $A0.\n\n Because there's only one HP value for each neck,\n it's stored right in the object slot -- unlike coordinates.\n\n Also, note that even though these aren't independent objects\n in the object slots -- because object type = 0 -- the values in\n these object slots will be useful during collision detection.\n
+P:120BA:: Reset metastate and unintialized flag, so that this neck is ready to go.\n
 P:120BF:: TODO: Is this a mistake? (+2)
 P:120C2:: Invincible to everything but the sword.\n
-P:120C7:: TODO:\n Bottom of the loop.\n
+P:120C7:: Bottom of the loop.\n
 P:120CA:: TODO:\n Set [0422], [0430], [0383], and [03AC] to $FF.\n
 P:120D6:: TODO:\n Set [0421], [042E], [0382], and [03AA] to 3.\n
 P:120E4:: TODO:\n Set [0420], [042D], [0381], and [03A9] to 6.\n
@@ -2067,38 +2070,42 @@ P:124C6-124C9:GleeokNeckXAddrsLo
 P:124CA-124CD:GleeokNeckXAddrsHi
 P:124CE-124D1:GleeokNeckYAddrsLo
 P:124D2-124D5:GleeokNeckYAddrsHi
-P:124D6-124D9:GleeokNeckHpAddrsLo
-P:124DA-124DD:GleeokNeckHpAddrsHi
+P:124D6-124D9:GleeokNeckMiscAddrsLo
+P:124DA-124DD:GleeokNeckMiscAddrsHi
 P:124DE:UpdateGleeok
-P:124E1:: TODO:\n Store (ObjType[1] - $42) in [04D7] to get the index of the last\n neck of this kind of gleeok.\n
-P:124E7:: TODO:\n For each neck, indexed by [04D7]:\n
+P:124E1:: Calculate the index of the last neck of this kind of gleeok.\n Subtract $42 (Gleeok1) from ObjType[1].\n
+P:124E7:: TODO:\n For each neck, counting down, indexed by [04D7]:\n
 P:124EA:: If the bit for this neck is in the dead neck mask,\n then go loop again.\n
 P:124F8:: Get the addresses of this neck's segment data arrays.\n
-P:124FB:: Load neck data.\n\n For each segment from 5 to 0, indexed by Y register:\n - load coordinates into object slots 6 to 1\n - load HP into an array at [0413]\n
+P:124FB:: Load neck data.\n\n For each segment from 5 to 0, indexed by Y register:\n - load coordinates into object slots 6 to 1\n - load miscellany into an array at [0413]\n
 P:1250D:: Each screen frame, one neck is chosen to move and try to shoot.\n
 P:1251D:: The head is in object slot 5. Set it for when we want to shoot,\n so that it looks like the fireball came from the head.\n
 P:1251F:: If Random < $20, and there's no object (fireball) in slot $B,\n then shoot fireball $56.\n
 P:1252F:: This is run for all necks.\n
 P:12532:: Store the neck data.\n
 P:12547:: Bottom of the neck loop.\n Decrement the neck index until it < 0.\n
-P:1254D:Gleeok_FetchNeckAddrs: Returns:\n X: neck index\n Y: 5 -- the last segment index\n [00:01]: address of segment X array\n [02:03]: address of segment Y array\n [04:05]: address of segment HP array\n
+P:1254D:Gleeok_FetchNeckAddrs: Returns:\n X: neck index\n Y: 5 -- the last segment index\n [00:01]: address of segment X array\n [02:03]: address of segment Y array\n [04:05]: address of segment miscellaneous array\n
 P:1256E:: Start loading data from segment 5.
 P:12576:_Gleeok_MoveNeck
-P:126CB:: Params:\n A: tile number\n\n Normal sprite with level palette row
+P:126CB:: Description:\n This block applies to heads and the bottom segment of a neck.\n These are drawn with sprites that come first in order, so that\n they are drawn above all other sprites, including Link.\n\n Params:\n A: tile number\n\n Normal sprite with level palette row
 P:126CD:: [03] holds sprite attributes
 P:126CF:: Save the tile number.
+P:126D0:: To calculate the base offset of the sprite record:\n offset := neck index * 8\n\n This ends up pointing to one of the first 8 eight sprites,\n at an even index.\n
+P:126D6:: But if the segment is not a head (not at object slot 5), then\n add $20. This moves the offset to the second set of 8 sprites.\n
 P:126DE:: Restore the tile number.
 P:126E5:_Gleeok_DrawHeadAndCheckCollisions: Head object slot
 P:126E7:_Gleeok_DrawSegmentAndCheckCollisions: Neck segment tile
 P:126ED:: Head tile
-P:126F7:: The segment is not a head nor bottom. So, we can use a\n standard routine to draw. It uses one of the rolling sprite\n records that is drawn under Link and the heads.\n
+P:126F7:: The segment is not a head nor bottom. So, we can use a\n standard routine to draw. It uses one of the rolling sprites\n that is drawn under Link and the heads.\n
 P:126FA:_Gleeok_CheckCollisions: If this segment is not the head nor the bottom of the neck,\n then loop again to process the next segment.\n\n This kind of segment is only drawn, and is not checked\n for object collisions.\n
-P:12708:: If this segment was harmed, then set the writhing timer.\n\n TODO: Which is it: [04E6] or [0510]? And what is the other for?\n
+P:12708:: If this segment was harmed, then set the writhing counter,\n and the animation counter to its lower value.\n
 P:12718:: If this is the bottom segment, then go reset metastate and loop again.\n It can't die.\n
 P:1271F:: If this neck has not died, then go loop again.\n
 P:12724:: This neck died. So, prepare to make a flying head.\n
+P:12726:: TODO: I don't see why this is need, since it won't go in this obj slot.
 P:12729:: Save the segment object slot in X.
-P:1272F:: The flying head will go in slot (neck index + 7).\n Set the X register to it.\n
+P:1272B:: TODO: ?\n
+P:1272F:: The flying head will go in slot (neck index + 7).\n Switch the X register to it.\n
 P:12736:: Flag it uninitialized, so that it starts with the spawn cloud.\n
 P:1273B:: Copy the original head's coordinates to it.\n
 P:12743:: Set object type $46 (flying head).\n
@@ -2111,7 +2118,7 @@ P:12774:: Compare the number of dead necks to the original number\n (object type
 P:1277C:: If they're equal, then go handle the whole boss dying.\n
 P:1277E:: TODO:\n Else reset object metastate of the segment, and return.\n
 P:12784:: Bottom of the segment loop.\n Decrement segment object slot.\n\n If >= 1, then go draw the next segment and check collisions.\n Else return.\n
-P:1278C:: The whole gleeok died, because the last neck died.\n\n First, hide the first $10 sprites: the heads.\n
+P:1278C:: The whole gleeok died, because the last neck died.\n\n First, hide the first $10 sprites: the attached heads.\n
 P:12792:: We want a death spark. So, set the metastate of the first\n monster slot to $11.\n
 P:12797:: Reset the object type of slots 2 to $A.\n\n Beware a left over fireball in slot $B!\n
 P:127A4:Gleeok_MoveHead: Don't do anything until the head's initial timer expires.\n
@@ -2126,13 +2133,14 @@ P:12809-1280E:GleeokBodyTiles0
 P:1280F-12814:GleeokBodyTiles1
 P:12815-1281A:GleeokBodyTiles2
 P:1281B-1281E:GleeokBodyBaseTileOffsets
-P:1281F:: TODO: ?\n
-P:12825:Gleeok_DrawBody: TODO: ?\n
+P:1281F:: Decrement animation timer, and go draw.\n
+P:12825:Gleeok_DrawBody: The animation timer controls when the animation frame changes.\n If it has not expired, then go decrement it and draw.\n
+P:1282A:: The animation timer has expired. There are two choices for arming it.\n\n When writhing after a hit, Gleeok animates faster.\n So, when the writhing counter <> 0, set a shorter time (6).\n Otherwise, set a longer time ($10).\n
 P:12839:: Cycle the animation frame from 0 to 3.\n
 P:12844:: For each row, from 0 to 1, indexed by [06]:\n
 P:12848:: Get the base tile offset for the current animation frame.\n
 P:1284E:: For each column from 0 to 2, indexed by [07]:\n
-P:12852:: Point to the next available sprite record.\n
+P:12852:: Point to the next rolling sprite record.\n
 P:12859:: Set sprite's Y to ($57 + row * $10).\n
 P:12864:: Look up and set the tile for this spot.\n
 P:1286A:: If temporarily invincible, then set sprite attributes to\n cycled palette rows.\n\n Else use level palette row 7.\n
