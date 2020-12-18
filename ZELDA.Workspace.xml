@@ -30,20 +30,6 @@
       <MemoryType>CpuMemory</MemoryType>
     </Breakpoint>
     <Breakpoint>
-      <BreakOnRead>false</BreakOnRead>
-      <BreakOnWrite>true</BreakOnWrite>
-      <BreakOnExec>true</BreakOnExec>
-      <Enabled>true</Enabled>
-      <MarkEvent>false</MarkEvent>
-      <ProcessDummyReadWrites>false</ProcessDummyReadWrites>
-      <Address>0</Address>
-      <StartAddress>512</StartAddress>
-      <EndAddress>575</EndAddress>
-      <AddressType>AddressRange</AddressType>
-      <Condition>PC != $E5FD &amp;&amp; (PC &lt; $B76A || PC &gt; $B797) &amp;&amp; (PC != $7519) &amp;&amp; ([$12] == 5)</Condition>
-      <MemoryType>CpuMemory</MemoryType>
-    </Breakpoint>
-    <Breakpoint>
       <BreakOnRead>true</BreakOnRead>
       <BreakOnWrite>true</BreakOnWrite>
       <BreakOnExec>true</BreakOnExec>
@@ -89,7 +75,7 @@
       <BreakOnRead>false</BreakOnRead>
       <BreakOnWrite>false</BreakOnWrite>
       <BreakOnExec>true</BreakOnExec>
-      <Enabled>true</Enabled>
+      <Enabled>false</Enabled>
       <MarkEvent>false</MarkEvent>
       <ProcessDummyReadWrites>false</ProcessDummyReadWrites>
       <Address>126188</Address>
@@ -42898,7 +42884,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>1296</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>ActiveRedLeeverCount</Label>
+      <Label>_ActiveRedLeeverCount</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -49174,8 +49160,13 @@ For example:&#xD;
       <Address>73930</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO:&#xD;
- Set [0422], [0430], [0383], and [03AC] to $FF.&#xD;
+      <Comment> Set speed flags to $FF (non-0/decelerate):&#xD;
+ * neck 0 X&#xD;
+ * neck 1 Y&#xD;
+ * neck 2 X&#xD;
+ * neck 3 Y&#xD;
+&#xD;
+ Leave the other other speed flags 0 (accelerate).&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -49184,8 +49175,7 @@ For example:&#xD;
       <Address>73942</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO:&#xD;
- Set [0421], [042E], [0382], and [03AA] to 3.&#xD;
+      <Comment> Set the V-direction counter of all necks to 3.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -49194,8 +49184,7 @@ For example:&#xD;
       <Address>73956</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO:&#xD;
- Set [0420], [042D], [0381], and [03A9] to 6.&#xD;
+      <Comment> Set the H-direction counter of all necks to 6.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -49204,8 +49193,7 @@ For example:&#xD;
       <Address>73969</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO:&#xD;
- Set [0432] to 12.&#xD;
+      <Comment> Set neck 1 head delay timer to 12.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -49214,8 +49202,7 @@ For example:&#xD;
       <Address>73973</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO:&#xD;
- Set [0386] to 24.&#xD;
+      <Comment> Set neck 2 head delay timer to 24.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -49224,8 +49211,7 @@ For example:&#xD;
       <Address>73977</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO:&#xD;
- Set [03AE] to 36.&#xD;
+      <Comment> Set neck 3 head delay timer to 36.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -49522,7 +49508,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>75514</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_Gleeok_CheckCollisions</Label>
+      <Label>Gleeok_CheckCollisions</Label>
       <Comment> If this segment is not the head nor the bottom of the neck,&#xD;
  then loop again to process the next segment.&#xD;
 &#xD;
@@ -49535,7 +49521,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>75495</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_Gleeok_DrawSegmentAndCheckCollisions</Label>
+      <Label>Gleeok_DrawSegmentAndCheckCollisions</Label>
       <Comment> Neck segment tile</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -49562,7 +49548,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>75493</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_Gleeok_DrawHeadAndCheckCollisions</Label>
+      <Label>Gleeok_DrawHeadAndCheckCollisions</Label>
       <Comment> Head object slot</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -49732,8 +49718,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>75126</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_Gleeok_MoveNeck</Label>
-      <Comment />
+      <Label>Gleeok_MoveNeck</Label>
+      <Comment> Get the H-distance from the head to the base.&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -49859,7 +49846,7 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> If this is the bottom segment, then go reset metastate and loop again.&#xD;
- It can't die.&#xD;
+ Gleeok can writhe when it's hit here, but it can't die.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -49894,7 +49881,7 @@ For example:&#xD;
       <Address>75574</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Flag it uninitialized, so that it starts with the spawn cloud.&#xD;
+      <Comment> Flag it uninitialized, so that it will be initialized next frame.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -49921,16 +49908,8 @@ For example:&#xD;
       <Address>75594</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Hide the original head's sprite.&#xD;
+      <Comment> Hide the original head's sprite, and the base segment's sprite.&#xD;
 </Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
-      <Address>75606</Address>
-      <AddressType>PrgRom</AddressType>
-      <Label />
-      <Comment> TODO: ?</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -50112,7 +50091,7 @@ For example:&#xD;
       <Address>75558</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: I don't see why this is need, since it won't go in this obj slot.</Comment>
+      <Comment> TODO: I don't see why this is needed, since it won't go in this obj slot.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -50120,10 +50099,528 @@ For example:&#xD;
       <Address>75563</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: ?&#xD;
+      <Comment> If the segment is not a head, then skip making a flying head.&#xD;
+&#xD;
+ TODO:&#xD;
+ But how can we get here in this case, since earlier branches&#xD;
+ would have been taken to skip all this for all other segments?&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73983</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Leave neck 0 head delay timer as 0.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75131</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the difference is positive, then go divide by 4 unsigned.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75297</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_Gleeok_CalcSegmentLimits</Label>
+      <Comment> Params:&#xD;
+ A: primary reference segment distance&#xD;
+ X: 0 for horizontal, 1 for vertical&#xD;
+&#xD;
+ Store primary distance, capped at 4.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75266</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Keep the segments in slots 4 and 3 between their neighbors vertically.&#xD;
+ So if they're not, then move them 1 pixel toward that goal.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75239</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO:&#xD;
+&#xD;
+ [04D8] is the quarter horizontal distance from the head to the base.&#xD;
+ It represents the reference distance from each segment to the base.&#xD;
+ Multiples of it are used to mark the reference point of each segment.&#xD;
+ Move every segment one pixel closer to its reference point.&#xD;
+&#xD;
+ Loop over each middle segment, from 2 to 0 in X register.&#xD;
+ Access object slots 4 to 2.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75229</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Stretch or contract depending on the distance of one segment to the next.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75166</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Keep segments within the third tier distance of each other.&#xD;
+ Any segment that is too far from the previous one is moved&#xD;
+ 2 pixels toward it.&#xD;
+&#xD;
+ Loop over the 4 segments above the base, from 0 to 3,&#xD;
+ accessing slots 2 to 5.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75144</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Get the absolute horizontal reference segment distance.&#xD;
+ This is the first tier of reference distances.&#xD;
+&#xD;
+ Pass the value here to calculate and store the&#xD;
+ second and third tier horizontal distances.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75152</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Get the absolute V-distance from the head to the base,&#xD;
+ and divide it be 4.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75162</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Calculate and store the second and third tier vertical distances.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75306</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Add 4 and store secondary distance, capped at 8.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75318</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Add 4 and store tertiary distance, capped at $B.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75196</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Get the absolute V-distance between the current segment&#xD;
+ and the previous one.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75168</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Get the absolute H-distance between the current segment&#xD;
+ and the previous one.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75176</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If H-distance &lt; third tier H-distance, then this distance is OK.&#xD;
+ Go look at the vertical distance.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75181</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Otherwise, generally, bring this segment closer to&#xD;
+ the previous one by 2 pixels.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75204</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If V-distance &lt; third tier V-distance, then this distance is OK.&#xD;
+ Go loop again.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75209</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Otherwise, generally, bring this segment closer to&#xD;
+ the previous one by 2 pixels.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75241</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Calculate the reference X coordinate:&#xD;
+   base X + ([04D8] * (loop index + 1))&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75252</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If current segment X &lt; reference X, add 1 to it.&#xD;
+ Else subtract 1.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75261</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Store the new segment X, and loop again.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75224</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Bottom of the loop keeping segments from getting too far apart.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75133</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Else divide by 4 signed.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75141</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Store the signed reference segment distance.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75147</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> 0 for horizontal distances.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75331</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Gleeok_StretchNeck</Label>
+      <Comment> Params:&#xD;
+ X: segment index (0 to 2, corresponding to slots 2 to 4)&#xD;
+&#xD;
+ Choose the index of a routine that will move the segment&#xD;
+ based on which boundaries are crossed.&#xD;
+&#xD;
+ 0 will be used, if X and Y are within primary distances of&#xD;
+ the next segment.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75336</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO: seems to be a mistake. shout probably be ObjX+2,X</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75399</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Gleeok_ExpandSegment</Label>
+      <Comment> Randomly, 50% of the time, go move away from the next segment horizontally.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75420</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Gleeok_IgnoreSegment</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75445</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Gleeok_ContractSegmentX</Label>
+      <Comment> Move toward the next segment horizontally.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75421</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Gleeok_ContractSegmentY</Label>
+      <Comment> Move toward the next segment vertically.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75461</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Gleeok_ContractSegment</Label>
+      <Comment> Randomly, 50% of the time, go move toward the next segment horizontally.&#xD;
+ Else go move vertically.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75333</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the absolute H-distance &gt;= primary reference segment distance,&#xD;
+ then increment the routine index.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75347</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the absolute H-distance &gt;= secondary reference segment distance,&#xD;
+ then increment the routine index.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75353</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the absolute V-distance &gt;= primary reference segment distance,&#xD;
+ then add 3 to the routine index.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75369</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the absolute V-distance &gt;= secondary reference segment distance,&#xD;
+ then add 3 to the routine index.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75403</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Else move away vertically.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75434</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Move away from the next segment horizontally.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74108</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set flying speed $BF and maximum $E0.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74924</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ControlGleeokHeadFlight</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66753</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Flyer_SetStateAndTurns</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74938</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_Flyer_GleeokHeadDecideState</Label>
+      <Comment> Go to the next flying state randomly:&#xD;
+ Random &lt; $D0: 2&#xD;
+ Else:         3&#xD;
+&#xD;
+ Set up 6 turns.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74877</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the low bit of the distance traveled is clear,&#xD;
+ and Random &lt; $20,&#xD;
+ and there's no object (fireball) in slot $B,&#xD;
+ then shoot a fireball $56.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74900</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Switch animation frames every screen frame.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74914</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Reset object state, shove info, and invincibility timer,&#xD;
+ because this monster can't get hurt nor die.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1239</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>GleeokCurNeck</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1240</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>GleeokSignedRefSegmentDistance</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1254</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>GleeokAnimationTimer</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1255</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>GleeokBodyAnimationFrame</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1297</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>GleeokDeadNeckMask</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1241</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>GleeokPrimarySegmentLimits</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>2</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1243</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>GleeokSecondarySegmentLimits</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>2</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1245</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>GleeokTertiarySegmentLimits</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>2</Length>
     </CodeLabel>
   </Labels>
   <TblMappings />

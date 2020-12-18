@@ -133,7 +133,14 @@ R:04CD:LevelBlockAttrsByteF: This seems to be used for convenience in accessing 
 R:04CE:ShutterTrigger
 R:04CF:BlockPushComplete
 R:04D1:FlyingMaxSpeedFrac
+R:04D7:GleeokCurNeck
+R:04D8:GleeokSignedRefSegmentDistance
+R:04D9-04DA:GleeokPrimarySegmentLimits
+R:04DB-04DC:GleeokSecondarySegmentLimits
+R:04DD-04DE:GleeokTertiarySegmentLimits
 R:04E5:StatusBarMapTrigger
+R:04E6:GleeokAnimationTimer
+R:04E7:GleeokBodyAnimationFrame
 R:04F0-04FC:ObjInvincibilityTimer
 R:0504:LeftAlignHalfWidthObj
 R:0505:ItemTypeToLift
@@ -141,7 +148,8 @@ R:0506:ItemLiftTimer
 R:0507:ChildDigdoggerCount
 R:0508:_SummonedWhirlwind
 R:0509:TriforceFanfareActive
-R:0510:ActiveRedLeeverCount
+R:0510:_ActiveRedLeeverCount
+R:0511:GleeokDeadNeckMask
 R:0512:LinkParalyzed: Put the monster at the same location as Link.\n
 R:0513:UsedCandle
 R:0514:ZoraActive
@@ -1148,6 +1156,7 @@ P:104B3:Flyer_KeeseDecideState: Go to the next state randomly:\n Random >= $A0: 
 P:104B9:: If >= $A0, go to state 2.
 P:104BE:: If >= $20, go to state 3.
 P:104C0:: Else go to state 4.
+P:104C1:Flyer_SetStateAndTurns
 P:104C5:: Set 6 turns for the next state.
 P:104CB:UpdateZol
 P:104D4:: Every 8 screen frames, switch between frame image 0 and 1.\n
@@ -1986,12 +1995,13 @@ P:120BA:: Reset metastate and unintialized flag, so that this neck is ready to g
 P:120BF:: TODO: Is this a mistake? (+2)
 P:120C2:: Invincible to everything but the sword.\n
 P:120C7:: Bottom of the loop.\n
-P:120CA:: TODO:\n Set [0422], [0430], [0383], and [03AC] to $FF.\n
-P:120D6:: TODO:\n Set [0421], [042E], [0382], and [03AA] to 3.\n
-P:120E4:: TODO:\n Set [0420], [042D], [0381], and [03A9] to 6.\n
-P:120F1:: TODO:\n Set [0432] to 12.\n
-P:120F5:: TODO:\n Set [0386] to 24.\n
-P:120F9:: TODO:\n Set [03AE] to 36.\n
+P:120CA:: Set speed flags to $FF (non-0/decelerate):\n * neck 0 X\n * neck 1 Y\n * neck 2 X\n * neck 3 Y\n\n Leave the other other speed flags 0 (accelerate).\n
+P:120D6:: Set the V-direction counter of all necks to 3.\n
+P:120E4:: Set the H-direction counter of all necks to 6.\n
+P:120F1:: Set neck 1 head delay timer to 12.\n
+P:120F5:: Set neck 2 head delay timer to 24.\n
+P:120F9:: Set neck 3 head delay timer to 36.\n
+P:120FF:: Leave neck 0 head delay timer as 0.\n
 P:12100-12104:ManhandlaBaseFrameImagesAndAttrs
 P:12105-12106:ManhandlaSegmentOffsetsX
 P:12107-1210B:ManhandlaSegmentOffsetsY
@@ -2008,6 +2018,7 @@ P:12146:: Look up the offset of this segment. Add it to the position of\n the ba
 P:12158:: Set low speed byte $80.\n
 P:12161:InitGohma
 P:12179:InitGleeokHead
+P:1217C:: Set flying speed $BF and maximum $E0.\n
 P:12187:UpdateManhandla: If this segment is not the base, then skip turning and speeding up.\n
 P:1218B:: If no segment just died, then skip increasing the speed.\n
 P:12190:: For each segment from 4 to 0, indexed by Y register:\n
@@ -2066,6 +2077,11 @@ P:12305:: Pop the "frame image and sprite attributes" value.
 P:12306:: If the low nibble = 2 or 3, then go draw not mirrored.\n These are the 2 frame images of the horizontal hands.\n\n Else draw the base and vertical hands mirrored.\n
 P:12316:UpdateGohma
 P:12477:UpdateGleeokHead
+P:1247D:: If the low bit of the distance traveled is clear,\n and Random < $20,\n and there's no object (fireball) in slot $B,\n then shoot a fireball $56.\n
+P:12494:: Switch animation frames every screen frame.
+P:124A2:: Reset object state, shove info, and invincibility timer,\n because this monster can't get hurt nor die.\n
+P:124AC:ControlGleeokHeadFlight
+P:124BA:_Flyer_GleeokHeadDecideState: Go to the next flying state randomly:\n Random < $D0: 2\n Else:         3\n\n Set up 6 turns.\n
 P:124C6-124C9:GleeokNeckXAddrsLo
 P:124CA-124CD:GleeokNeckXAddrsHi
 P:124CE-124D1:GleeokNeckYAddrsLo
@@ -2086,32 +2102,68 @@ P:12532:: Store the neck data.\n
 P:12547:: Bottom of the neck loop.\n Decrement the neck index until it < 0.\n
 P:1254D:Gleeok_FetchNeckAddrs: Returns:\n X: neck index\n Y: 5 -- the last segment index\n [00:01]: address of segment X array\n [02:03]: address of segment Y array\n [04:05]: address of segment miscellaneous array\n
 P:1256E:: Start loading data from segment 5.
-P:12576:_Gleeok_MoveNeck
+P:12576:Gleeok_MoveNeck: Get the H-distance from the head to the base.\n
+P:1257B:: If the difference is positive, then go divide by 4 unsigned.\n
+P:1257D:: Else divide by 4 signed.\n
+P:12585:: Store the signed reference segment distance.\n
+P:12588:: Get the absolute horizontal reference segment distance.\n This is the first tier of reference distances.\n\n Pass the value here to calculate and store the\n second and third tier horizontal distances.\n
+P:1258B:: 0 for horizontal distances.
+P:12590:: Get the absolute V-distance from the head to the base,\n and divide it be 4.\n
+P:1259A:: Calculate and store the second and third tier vertical distances.\n
+P:1259E:: Keep segments within the third tier distance of each other.\n Any segment that is too far from the previous one is moved\n 2 pixels toward it.\n\n Loop over the 4 segments above the base, from 0 to 3,\n accessing slots 2 to 5.\n
+P:125A0:: Get the absolute H-distance between the current segment\n and the previous one.\n
+P:125A8:: If H-distance < third tier H-distance, then this distance is OK.\n Go look at the vertical distance.\n
+P:125AD:: Otherwise, generally, bring this segment closer to\n the previous one by 2 pixels.\n
+P:125BC:: Get the absolute V-distance between the current segment\n and the previous one.\n
+P:125C4:: If V-distance < third tier V-distance, then this distance is OK.\n Go loop again.\n
+P:125C9:: Otherwise, generally, bring this segment closer to\n the previous one by 2 pixels.\n
+P:125D8:: Bottom of the loop keeping segments from getting too far apart.\n
+P:125DD:: Stretch or contract depending on the distance of one segment to the next.\n
+P:125E7:: TODO:\n\n [04D8] is the quarter horizontal distance from the head to the base.\n It represents the reference distance from each segment to the base.\n Multiples of it are used to mark the reference point of each segment.\n Move every segment one pixel closer to its reference point.\n\n Loop over each middle segment, from 2 to 0 in X register.\n Access object slots 4 to 2.\n
+P:125E9:: Calculate the reference X coordinate:\n   base X + ([04D8] * (loop index + 1))\n
+P:125F4:: If current segment X < reference X, add 1 to it.\n Else subtract 1.\n
+P:125FD:: Store the new segment X, and loop again.\n
+P:12602:: Keep the segments in slots 4 and 3 between their neighbors vertically.\n So if they're not, then move them 1 pixel toward that goal.\n
+P:12621:_Gleeok_CalcSegmentLimits: Params:\n A: primary reference segment distance\n X: 0 for horizontal, 1 for vertical\n\n Store primary distance, capped at 4.\n
+P:1262A:: Add 4 and store secondary distance, capped at 8.\n
+P:12636:: Add 4 and store tertiary distance, capped at $B.\n
+P:12643:Gleeok_StretchNeck: Params:\n X: segment index (0 to 2, corresponding to slots 2 to 4)\n\n Choose the index of a routine that will move the segment\n based on which boundaries are crossed.\n\n 0 will be used, if X and Y are within primary distances of\n the next segment.\n
+P:12645:: If the absolute H-distance >= primary reference segment distance,\n then increment the routine index.\n
+P:12648:: TODO: seems to be a mistake. shout probably be ObjX+2,X
+P:12653:: If the absolute H-distance >= secondary reference segment distance,\n then increment the routine index.\n
+P:12659:: If the absolute V-distance >= primary reference segment distance,\n then add 3 to the routine index.\n
+P:12669:: If the absolute V-distance >= secondary reference segment distance,\n then add 3 to the routine index.\n
+P:12687:Gleeok_ExpandSegment: Randomly, 50% of the time, go move away from the next segment horizontally.\n
+P:1268B:: Else move away vertically.\n
+P:1269C:Gleeok_IgnoreSegment
+P:1269D:Gleeok_ContractSegmentY: Move toward the next segment vertically.\n
+P:126AA:: Move away from the next segment horizontally.\n
+P:126B5:Gleeok_ContractSegmentX: Move toward the next segment horizontally.\n
+P:126C5:Gleeok_ContractSegment: Randomly, 50% of the time, go move toward the next segment horizontally.\n Else go move vertically.\n
 P:126CB:: Description:\n This block applies to heads and the bottom segment of a neck.\n These are drawn with sprites that come first in order, so that\n they are drawn above all other sprites, including Link.\n\n Params:\n A: tile number\n\n Normal sprite with level palette row
 P:126CD:: [03] holds sprite attributes
 P:126CF:: Save the tile number.
 P:126D0:: To calculate the base offset of the sprite record:\n offset := neck index * 8\n\n This ends up pointing to one of the first 8 eight sprites,\n at an even index.\n
 P:126D6:: But if the segment is not a head (not at object slot 5), then\n add $20. This moves the offset to the second set of 8 sprites.\n
 P:126DE:: Restore the tile number.
-P:126E5:_Gleeok_DrawHeadAndCheckCollisions: Head object slot
-P:126E7:_Gleeok_DrawSegmentAndCheckCollisions: Neck segment tile
+P:126E5:Gleeok_DrawHeadAndCheckCollisions: Head object slot
+P:126E7:Gleeok_DrawSegmentAndCheckCollisions: Neck segment tile
 P:126ED:: Head tile
 P:126F7:: The segment is not a head nor bottom. So, we can use a\n standard routine to draw. It uses one of the rolling sprites\n that is drawn under Link and the heads.\n
-P:126FA:_Gleeok_CheckCollisions: If this segment is not the head nor the bottom of the neck,\n then loop again to process the next segment.\n\n This kind of segment is only drawn, and is not checked\n for object collisions.\n
+P:126FA:Gleeok_CheckCollisions: If this segment is not the head nor the bottom of the neck,\n then loop again to process the next segment.\n\n This kind of segment is only drawn, and is not checked\n for object collisions.\n
 P:12708:: If this segment was harmed, then set the writhing counter,\n and the animation counter to its lower value.\n
-P:12718:: If this is the bottom segment, then go reset metastate and loop again.\n It can't die.\n
+P:12718:: If this is the bottom segment, then go reset metastate and loop again.\n Gleeok can writhe when it's hit here, but it can't die.\n
 P:1271F:: If this neck has not died, then go loop again.\n
 P:12724:: This neck died. So, prepare to make a flying head.\n
-P:12726:: TODO: I don't see why this is need, since it won't go in this obj slot.
+P:12726:: TODO: I don't see why this is needed, since it won't go in this obj slot.
 P:12729:: Save the segment object slot in X.
-P:1272B:: TODO: ?\n
+P:1272B:: If the segment is not a head, then skip making a flying head.\n\n TODO:\n But how can we get here in this case, since earlier branches\n would have been taken to skip all this for all other segments?\n
 P:1272F:: The flying head will go in slot (neck index + 7).\n Switch the X register to it.\n
-P:12736:: Flag it uninitialized, so that it starts with the spawn cloud.\n
+P:12736:: Flag it uninitialized, so that it will be initialized next frame.\n
 P:1273B:: Copy the original head's coordinates to it.\n
 P:12743:: Set object type $46 (flying head).\n
 P:12748:: Restore the segment object slot in X.
-P:1274A:: Hide the original head's sprite.\n
-P:12756:: TODO: ?
+P:1274A:: Hide the original head's sprite, and the base segment's sprite.\n
 P:12759:: Add the bit for this neck to the dead neck mask.\n Copy it to [00].\n
 P:12767:: Loop over the four bits in the copy of the dead neck mask.\n Count them up, and store the amount in [00].\n
 P:12774:: Compare the number of dead necks to the original number\n (object type - $41).\n
