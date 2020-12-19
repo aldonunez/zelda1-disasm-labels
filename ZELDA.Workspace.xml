@@ -157,11 +157,8 @@
     </Breakpoint>
   </Breakpoints>
   <WatchValues>
-    <string>[GameMode]</string>
-    <string>[GameSubmode]</string>
-    <string>[IsUpdatingMode]</string>
-    <string>[$452]</string>
-    <string>[$99]</string>
+    <string>[$0397]</string>
+    <string>[$0398]</string>
   </WatchValues>
   <Labels>
     <CodeLabel>
@@ -1434,7 +1431,13 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>73187</Address>
       <AddressType>PrgRom</AddressType>
       <Label>UpdateBlueWizzrobe</Label>
-      <Comment />
+      <Comment> Description:&#xD;
+ Blue Wizzrobe has two states: walking and teleporting.&#xD;
+ When walking, the object timer is set. When teleporting,&#xD;
+ the teleporting distance remaining is set.&#xD;
+&#xD;
+ If we have the magic clock, then only go draw and check collisions.&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -1442,7 +1445,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>73641</Address>
       <AddressType>PrgRom</AddressType>
       <Label>UpdateRedWizzrobe</Label>
-      <Comment />
+      <Comment> If we have the magic clock, then go check collisions and draw.&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -50621,6 +50625,913 @@ For example:&#xD;
       <Comment />
       <Flags>None</Flags>
       <Length>2</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73780</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_UpdateRedWizzrobe_0</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73709</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_UpdateRedWizzrobe_1</Label>
+      <Comment> Handle state group 1 ($40 to $7F).&#xD;
+&#xD;
+ If state = $7F, make it $4F.&#xD;
+ $7F is the first frame of state group ($40 to $7F).&#xD;
+ By doing this, we skip $30 frames.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73781</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_UpdateRedWizzrobe_2</Label>
+      <Comment> Handle state group 2 ($80 to $BF).&#xD;
+&#xD;
+ If state = $B0, then shoot a magic shot $59.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73725</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_UpdateRedWizzrobe_3</Label>
+      <Comment> Handle state group 3 ($C0 to $FF).&#xD;
+&#xD;
+ If state &lt;&gt; $FF, go fade as in state group 1.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73730</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> State $FF.&#xD;
+&#xD;
+ Face in a random direction.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73705</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>RedWizzrobeDirections</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>4</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73732</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Save the random value.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73741</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Restore the random value.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73673</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>RedWizzrobeOffsetsX</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>16</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73689</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>RedWizzrobeOffsetsY</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>16</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73742</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Use a random value from 0 to $F to index into an array of offsets.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73747</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Add the X offset and Link's X to set the monster's position.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73750</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Align with a square.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73754</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Add the Y offset and Link's Y to set the monster's position.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73757</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Add 3 to help with the alignment calculation below.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73488</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_AlignAndSetRedWizzrobeY</Label>
+      <Comment> Params:&#xD;
+ A: Y coordinate, square ($10) aligned&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73765</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If Y coordinate &gt;= $5D and &lt; $C4, then the monster&#xD;
+ is not in a wall. So, check tile collision.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73800</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If invincibility timer = 0, then check collisions with weapons.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73792</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_DrawWizzrobeAndCheckCollisions</Label>
+      <Comment> Invincible to everything but sword and bomb.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73825</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> In this state, the monster can always harm Link,&#xD;
+ even if it can't be harmed.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73828</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Every 4 frames switch between two frame images.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73835</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Save the frame image number.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73852</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Restore the frame image number.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73839</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If facing up, then go add 2 to frame image number, and draw mirrored.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73845</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If facing left, then flip horizontally.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73858</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Up facing frame image numbers are 2 and 3.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73626</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ShootMagicShot</Label>
+      <Comment> Params:&#xD;
+ A: shot object type&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73649</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Else increase animation counter and decrease state every frame.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73654</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Shift the state right 6 times to get the index (0 to 3) of a state routine.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73628</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If we have the magic clock, then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73633</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Else play the magic sound, shoot, and return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73719</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Increment the fade counter. Depending on the low bit,&#xD;
+ the monster will be drawn every other frame.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73198</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_DrawWizzrobeAndCheckCollisionsIntermittently</Label>
+      <Comment> If the teleporting distance remaining is even, then draw&#xD;
+ and check collisions, else return.&#xD;
+&#xD;
+ This means that when 0, the monster is walking.&#xD;
+ So, draw and check collisions every frame.&#xD;
+&#xD;
+ When not 0, the monster is teleporting, and must be drawn&#xD;
+ translucently -- every other frame.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73496</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>WizzrobeCollisionOffsetsX</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>10</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73506</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>WizzrobeCollisionOffsetsY</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>10</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73518</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_GetWizzrobeCollidableTileForDir</Label>
+      <Comment> Params:&#xD;
+ X: object index&#xD;
+ Y: 8-way direction&#xD;
+&#xD;
+ Returns:&#xD;
+ C: 0 if walkable&#xD;
+&#xD;
+ Subtract 1 from direction to make an 8-way direction index.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73521</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Save the original X.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73530</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Save the original Y.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73540</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Restore the original Y.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73543</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Restore the original X.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73519</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Look up and add the collision offset to the monster's X coordinate.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73528</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Look up and add the collision offset to the monster's Y coordinate.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73547</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_GetWizzrobeBaseCollidableTile</Label>
+      <Comment> Params:&#xD;
+ X: object index&#xD;
+&#xD;
+ Returns:&#xD;
+ C: 0 if walkable&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73553</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Return C=0 if walkable.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73556</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Store the last collided tile.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73516</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_GetWizzrobeCollidableTile</Label>
+      <Comment> Params:&#xD;
+ X: object index&#xD;
+&#xD;
+ Returns:&#xD;
+ C: 0 if walkable&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73776</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If walkable, then return.&#xD;
+ Else increase state to 0, in order to check again next frame.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73560</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>BlueWizzrobe_TryShooting</Label>
+      <Comment> Once every $20 frames, and when not fading, we'll try to shoot.&#xD;
+ Otherwise, return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73207</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>BlueWizzrobe_WalkOrTeleport</Label>
+      <Comment> If timer has not expired, then go walk.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73585</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the monster is to the right of Link, then choose left.&#xD;
+ Else choose right.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73594</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the direction chosen = the monster's facing direction,&#xD;
+ then go shoot.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73611</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the monster is down from Link, then choose up.&#xD;
+ Else choose down.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73620</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the direction chosen &lt;&gt; the monster's facing direction,&#xD;
+ then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73571</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If Link and the monster are not within the same square row,&#xD;
+ then go see about the same square column.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73599</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If Link and the monster are not within the same square column,&#xD;
+ then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73468</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_BlueWizzrobe_AlignWithNearestSquareAndRandomizeTimer</Label>
+      <Comment> Set a random timer &gt;= $70.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73474</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_BlueWizzrobe_AlignWithNearestSquare</Label>
+      <Comment> If in the left half of a square, jump to the left edge.&#xD;
+ Else jump to the next square.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73483</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If in the top half of a square, jump to the top edge.&#xD;
+ Else jump to the next square.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73451</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Will move $20 pixels horizontally and vertically.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73456</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Flip bit 6 of turn counter; so that we change the axis to turn toward.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73464</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Reset the timer to note that the monster is teleporting.&#xD;
+ Align with the nearest square.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73404</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>BlueWizzrobe_ChooseTeleportTarget</Label>
+      <Comment> Choose a random value between 0 and 3 that will be used&#xD;
+ to test and set a direction to move in.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73409</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The random value implies a random direction.&#xD;
+ Save the original X coordinate; and add to it the offset for&#xD;
+ the random direction.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73418</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Save the original Y coordinate; and add to it the offset for&#xD;
+ the random direction.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73400</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>BlueWizzrobeTeleportDirs</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>4</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73392</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>BlueWizzrobeTeleportMaxOffsetsX</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>4</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73396</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>BlueWizzrobeTeleportMaxOffsetsY</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>4</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73427</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Save the random index.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73436</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Restore the random index.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73438</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Restore the original Y.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73441</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Restore the original X.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73429</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Test the walkability in the random direction chosen.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73444</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If not walkable, then all we can do is align with the nearest square.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73446</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set the random diagonal direction.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73373</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>BlueWizzrobe_Move</Label>
+      <Comment> Index the offsets using the direction value directly.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73351</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>BlueWizzrobeTeleportOffsetsX</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>11</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73362</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>BlueWizzrobeTeleportOffsetsY</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>11</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73333</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the monster's Y &gt;= Link's Y, then choose up, else down.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73321</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the monster's X &gt;= Link's X, then choose left, else right.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73342</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the direction chosen = facing direction, then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73346</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Else face toward Link.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73307</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_L_BlueWizzrobe_TurnTowardLinkIfNeeded</Label>
+      <Comment> Description:&#xD;
+ When the counter is a multiple of $40, switch between facing&#xD;
+ toward Link horizontally or vertically. All other times, return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73304</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_BlueWizzrobe_AdvanceCounterAndTurnTowardLinkIfNeeded</Label>
+      <Comment> Description:&#xD;
+ Increment the turn counter. Then turn toward Link&#xD;
+ when the turn counter is a multiple of $40.&#xD;
+&#xD;
+ Increment the turn counter.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73254</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If walkable, then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73256</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Go handle a wall, if the tile is not a block nor water.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73269</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the monster was already teleporting, then return,&#xD;
+ so that we move again next frame.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73228</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Timer:&#xD;
+   &gt;= $10: Turn if needed and move every other frame&#xD;
+   &gt; 1:    Do nothing&#xD;
+   = 1:    Choose a place to teleport to.&#xD;
+&#xD;
+ Notice that walking is slower than teleporting; and there is&#xD;
+ a pause of $10 frames at the end.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73314</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_BlueWizzrobe_TurnTowardLink</Label>
+      <Comment> If the multiple of $40 is even, then turn horizontally,&#xD;
+ else vertically.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73211</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Timer = 0. Only teleporting now.&#xD;
+&#xD;
+ If there is still distance to go while translucent, then&#xD;
+ decrement the distance remaining, and move.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73245</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_BlueWizzrobe_TurnSometimesAndMoveAndCheckTile</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73222</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Distance remaining = 0. Still teleporting.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73248</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>BlueWizzrobe_MoveAndCheckTile</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73240</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Every other frame, advance the turn counter, turn if needed,&#xD;
+ and move.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73274</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Else go start teleporting thru this obstacle.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73277</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The monster hit a wall.&#xD;
+ If facing direction has a vertical component, then flip it.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73290</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If facing direction has a horizontal component, then flip it.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
     </CodeLabel>
   </Labels>
   <TblMappings />
