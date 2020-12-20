@@ -51564,8 +51564,11 @@ For example:&#xD;
     <CodeLabel>
       <Address>76937</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>Ganon_Phase0</Label>
-      <Comment> Lift the Triforce of Courage -- represented with a triforce piece.&#xD;
+      <Label>Ganon_ScenePhase0</Label>
+      <Comment> Description:&#xD;
+ Lift up the Triforce of Courage while the room is dark.&#xD;
+&#xD;
+ Lift the Triforce of Courage -- represented with a triforce piece.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -51573,8 +51576,11 @@ For example:&#xD;
     <CodeLabel>
       <Address>76998</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>Ganon_Phase1</Label>
-      <Comment> Lift the Triforce of Courage -- represented with a triforce piece.&#xD;
+      <Label>Ganon_ScenePhase1</Label>
+      <Comment> Description:&#xD;
+ Lift up the Triforce of Courage while the room is light.&#xD;
+&#xD;
+ Lift the Triforce of Courage -- represented with a triforce piece.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -51582,8 +51588,11 @@ For example:&#xD;
     <CodeLabel>
       <Address>77028</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>Ganon_Phase2</Label>
-      <Comment> If Ganon is dying, go handle it.&#xD;
+      <Label>Ganon_ScenePhase2</Label>
+      <Comment> Description:&#xD;
+ Fighting Ganon.&#xD;
+&#xD;
+ If Ganon is dying, go handle it.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -51888,24 +51897,24 @@ For example:&#xD;
     <CodeLabel>
       <Address>77685</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_AppendGanonPaletteRowTransferRecord_8_YellowRed</Label>
-      <Comment> TODO: ?</Comment>
+      <Label>_AppendGanonPaletteRowTransferRecord_Triforce</Label>
+      <Comment> Yellow and red colors at AF6A.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>77677</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_AppendGanonPaletteRowTransferRecord_2_BrownWhite</Label>
-      <Comment> TODO: ?</Comment>
+      <Label>_AppendGanonPaletteRowTransferRecord_Brown</Label>
+      <Comment> Brown and white colors at AF64.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>77681</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_AppendGanonPaletteRowTransferRecord_5_RedBlue</Label>
-      <Comment> TODO: ?</Comment>
+      <Label>_AppendGanonPaletteRowTransferRecord_Blue</Label>
+      <Comment> Red and blue colors at AF67.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -52355,7 +52364,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>77103</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_Ganon_UpdateRedState</Label>
+      <Label>_Ganon_UpdateBrownState</Label>
       <Comment> Every other frame decrement the state.&#xD;
  But every frame draw Ganon either translucent or opaque.&#xD;
 </Comment>
@@ -52385,7 +52394,7 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label>_Ganon_RandomizeLocation</Label>
       <Comment> Description:&#xD;
- Put Ganon at Y=$A0, and X randomly at $30 or $B0.&#xD;
+ Put Ganon at Y=$A0, and a random X of $30 or $B0.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -52404,7 +52413,7 @@ For example:&#xD;
       <Address>77039</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Go handle the red state specially.&#xD;
+      <Comment> Go handle the brown state specially.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -52474,6 +52483,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Move like a blue wizzrobe teleporting.&#xD;
+&#xD;
+ MULTI: [0394][X]&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -52503,8 +52514,8 @@ For example:&#xD;
       <Label />
       <Comment> Once the timer expires:&#xD;
  1. unhalt Link&#xD;
- 2. remove the item to lift&#xD;
- 3. play Triforce/Ganon song&#xD;
+ 2. clear the item to lift&#xD;
+ 3. play level 9 song&#xD;
  4. go to scene phase 2: fighting / not holding triforce&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -52551,7 +52562,8 @@ For example:&#xD;
       <Address>76953</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: ?&#xD;
+      <Comment> Turn off the room brightening flag, because we're controlling it&#xD;
+ here instead of in the Mode 5 object update loop.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -52560,9 +52572,7 @@ For example:&#xD;
       <Address>76958</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: confirm the song&#xD;
-&#xD;
- On the first frame of the fade-to-light cycle, play the&#xD;
+      <Comment> On the first frame of the fade-to-light cycle, play the&#xD;
  Triforce/Ganon song.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -52599,7 +52609,7 @@ For example:&#xD;
       <Address>76152</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Set Link's timer to $40 for the scene phase 0.&#xD;
+      <Comment> Set Link's timer to $40 for scene phase 0.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>

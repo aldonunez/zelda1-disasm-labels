@@ -2301,7 +2301,7 @@ P:128E4:InitLamnola
 P:1292E:InitPatra
 P:1296F:InitGanon: Invincible to everything but sword and arrow.
 P:12974:: Halt Link.\n
-P:12978:: Set Link's timer to $40 for the scene phase 0.\n
+P:12978:: Set Link's timer to $40 for scene phase 0.\n
 P:1297A:: TODO: ?\n
 P:12987:UpdateZelda
 P:129D8:UpdateGuardFire
@@ -2309,32 +2309,32 @@ P:129EB:UpdateLamnola
 P:12B66:UpdatePatra
 P:12BDA:UpdatePatraChild
 P:12C7D:UpdateGanon
-P:12C89:Ganon_Phase0: Lift the Triforce of Courage -- represented with a triforce piece.\n
+P:12C89:Ganon_ScenePhase0: Description:\n Lift up the Triforce of Courage while the room is dark.\n\n Lift the Triforce of Courage -- represented with a triforce piece.\n
 P:12C8E:: If Link's timer has not expired, then go do nothing until the last frame.\n
 P:12C92:: Once the timer expires, it's time to brighten the room.\n\n Save the current object slot.
 P:12C97:: Restore the current object slot.
-P:12C99:: TODO: ?\n
-P:12C9E:: TODO: confirm the song\n\n On the first frame of the fade-to-light cycle, play the\n Triforce/Ganon song.\n
+P:12C99:: Turn off the room brightening flag, because we're controlling it\n here instead of in the Mode 5 object update loop.\n
+P:12C9E:: On the first frame of the fade-to-light cycle, play the\n Triforce/Ganon song.\n
 P:12CAA:: If the fade cycle has not ended, then go draw Ganon.\n
 P:12CB3:: Set Link's timer to $C0 for the next scene phase.\n
 P:12CB7:: Set scene phase 1, and go draw Ganon.\n
 P:12CBC:: TODO:\n If state = 1, then\n
-P:12CC6:Ganon_Phase1: Lift the Triforce of Courage -- represented with a triforce piece.\n
+P:12CC6:Ganon_ScenePhase1: Description:\n Lift up the Triforce of Courage while the room is light.\n\n Lift the Triforce of Courage -- represented with a triforce piece.\n
 P:12CCB:: If Link's timer hasn't expired, then go draw Ganon.\n
-P:12CCF:: Once the timer expires:\n 1. unhalt Link\n 2. remove the item to lift\n 3. play Triforce/Ganon song\n 4. go to scene phase 2: fighting / not holding triforce\n
+P:12CCF:: Once the timer expires:\n 1. unhalt Link\n 2. clear the item to lift\n 3. play level 9 song\n 4. go to scene phase 2: fighting / not holding triforce\n
 P:12CDC:: When holding the Triforce of Courage, only draw Ganon\n with animation frame 0.\n
-P:12CE4:Ganon_Phase2: If Ganon is dying, go handle it.\n
-P:12CEF:: Go handle the red state specially.\n
+P:12CE4:Ganon_ScenePhase2: Description:\n Fighting Ganon.\n\n If Ganon is dying, go handle it.\n
+P:12CEF:: Go handle the brown state specially.\n
 P:12CF3:: State = 0: Blue\n\n If timer = 0, then go move around and shoot.\n
 P:12CF7:: If timer > 1, then Ganon is blue and visible. Only draw.\n Collisions were checked already.\n\n Else timer = 1. Fall thru and randomize Ganon's location,\n in anticipation of moving around when timer becomes 0 next frame.\n
-P:12CFB:_Ganon_RandomizeLocation: Description:\n Put Ganon at Y=$A0, and X randomly at $30 or $B0.\n
+P:12CFB:_Ganon_RandomizeLocation: Description:\n Put Ganon at Y=$A0, and a random X of $30 or $B0.\n
 P:12D0A:: Change the animation frame every screen frame; so that\n when Ganon is hit, he appears in a random pose.\n
 P:12D0D:: The animation cycle has 6 frames.\n
-P:12D19:: Move like a blue wizzrobe teleporting.\n
+P:12D19:: Move like a blue wizzrobe teleporting.\n\n MULTI: [0394][X]\n
 P:12D21:: Shoot every $40 frames.\n
 P:12D27:: Fireball
 P:12D2D-12D2E:GanonStartXs
-P:12D2F:_Ganon_UpdateRedState: Every other frame decrement the state.\n But every frame draw Ganon either translucent or opaque.\n
+P:12D2F:_Ganon_UpdateBrownState: Every other frame decrement the state.\n But every frame draw Ganon either translucent or opaque.\n
 P:12D36:: If the state becomes 0, then Ganon is blue again.\n Go switch his palette row to reflect it.\n
 P:12D3E:: When state >= $30, draw Ganon opaque.\n When state goes below, draw him translucent.\n
 P:12D4D:: Ganon is dying.\n Increment Ganon phase every frame.\n
@@ -2406,9 +2406,9 @@ P:12F51:: Now his body does flash.\n
 P:12F56:: Set initial cloud distance 8.\n
 P:12F5C-12F63:GanonColorTransferRecord
 P:12F64-12F6C:GanonColorSets
-P:12F6D:_AppendGanonPaletteRowTransferRecord_2_BrownWhite: TODO: ?
-P:12F71:_AppendGanonPaletteRowTransferRecord_5_RedBlue: TODO: ?
-P:12F75:_AppendGanonPaletteRowTransferRecord_8_YellowRed: TODO: ?
+P:12F6D:_AppendGanonPaletteRowTransferRecord_Brown: Brown and white colors at AF64.
+P:12F71:_AppendGanonPaletteRowTransferRecord_Blue: Red and blue colors at AF67.
+P:12F75:_AppendGanonPaletteRowTransferRecord_Triforce: Yellow and red colors at AF6A.
 P:12F77:: Save the end index of the colors.
 P:12F79:: Get the length, to append to the dynamic transfer buf.\n
 P:12F7C:: Copy the 8 bytes of the palette row transfer record template.\n
