@@ -33,7 +33,7 @@
       <BreakOnRead>true</BreakOnRead>
       <BreakOnWrite>true</BreakOnWrite>
       <BreakOnExec>true</BreakOnExec>
-      <Enabled>true</Enabled>
+      <Enabled>false</Enabled>
       <MarkEvent>false</MarkEvent>
       <ProcessDummyReadWrites>false</ProcessDummyReadWrites>
       <Address>0</Address>
@@ -37761,6 +37761,7 @@ For example:&#xD;
 &#xD;
  Returns:&#xD;
  [00]: weapon slot&#xD;
+ [06]: 1 if objects collide&#xD;
 &#xD;
  [00] holds the weapon slot</Comment>
       <Flags>None</Flags>
@@ -37778,6 +37779,7 @@ For example:&#xD;
 &#xD;
  Returns:&#xD;
  [00]: weapon slot&#xD;
+ [06]: 1 if objects collide&#xD;
 &#xD;
  [00] holds the weapon slot</Comment>
       <Flags>None</Flags>
@@ -40190,7 +40192,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>6853</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>_CheckLinkCollisionPreInit</Label>
       <Comment> If Link is halted or paralyzed, then return no collision.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -41048,6 +41050,9 @@ For example:&#xD;
  [02]: monster mid X&#xD;
  [03]: monster mid Y&#xD;
  [09]: damage type&#xD;
+&#xD;
+ Returns:&#xD;
+ [06]: 1 if objects collide&#xD;
 &#xD;
  [07] damage points</Comment>
       <Flags>None</Flags>
@@ -49240,7 +49245,7 @@ For example:&#xD;
       <Address>76143</Address>
       <AddressType>PrgRom</AddressType>
       <Label>InitGanon</Label>
-      <Comment />
+      <Comment> Invincible to everything but sword and arrow.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -51324,7 +51329,12 @@ For example:&#xD;
       <Address>73373</Address>
       <AddressType>PrgRom</AddressType>
       <Label>BlueWizzrobe_Move</Label>
-      <Comment> Index the offsets using the direction value directly.&#xD;
+      <Comment> TODO:&#xD;
+ Consider calling this function something like MoveSimple8.&#xD;
+ Also, consider deleting the references to BlueWizzrobe in&#xD;
+ teleport offsets above.&#xD;
+&#xD;
+ Index the offsets using the direction value directly.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -51428,7 +51438,7 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> If the monster was already teleporting, then return,&#xD;
- so that we move again next frame.&#xD;
+ so that it moves again next frame.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -51529,6 +51539,1067 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> If facing direction has a horizontal component, then flip it.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76148</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Halt Link.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76154</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO: ?&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76937</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Ganon_Phase0</Label>
+      <Comment> Lift the Triforce of Courage -- represented with a triforce piece.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76998</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Ganon_Phase1</Label>
+      <Comment> Lift the Triforce of Courage -- represented with a triforce piece.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77028</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Ganon_Phase2</Label>
+      <Comment> If Ganon is dying, go handle it.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77493</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_DrawGanon</Label>
+      <Comment> Loop over four 16x16 images that make up Ganon.&#xD;
+ There are 6 animation frames.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77481</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>GanonSpriteOffsetsX</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>4</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77485</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>GanonSpriteOffsetsY</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>4</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77489</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>GanonSpriteHFlips</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>4</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77457</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>GanonFrameImages</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>24</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77495</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Add an offset to Ganon's X, and store the result in [00] -- the sprite's X.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77503</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Add an offset to Ganon's Y, and store the result in [01] -- the sprite's Y.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77511</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Each part has a horizontal flipping flag.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77516</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Save and copy the loop index (the current part) to [07].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77534</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Restore the loop index.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77520</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Multiply the animation frame by 4, because of the 4 parts&#xD;
+ that make it up.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77525</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Add [07] -- the index of the current part.&#xD;
+&#xD;
+ Now you have an index into the frame image table, for the&#xD;
+ current image part of the current animation frame.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77535</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Bottom of the part loop.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77540</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Ganon_CheckCollisions</Label>
+      <Comment> Calculate Ganon's midpoint at offset ($10, $10) from his coordinates.&#xD;
+ Store in [02] and [03].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77554</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Check for a collision with Link.&#xD;
+&#xD;
+ We can't call CheckLinkCollision, because we need to&#xD;
+ customize Ganon's midpoint.&#xD;
+&#xD;
+ So, we've calculated the midpoint hotspot. Now, skip collision&#xD;
+ detection, if Link is invincible. Initialize variables that will&#xD;
+ be returned from the partial collision check routine. Then&#xD;
+ call it.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77572</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If Ganon is not in state 0, then he's red.&#xD;
+ Go check collision with an arrow.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77576</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If timer &lt;&gt; 0, then Ganon is visible.&#xD;
+ He can't be harmed like this. So, return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77580</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Sword slot</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77585</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO: is red the right description of this color and state?&#xD;
+&#xD;
+ If Ganon has died, according to the usual collision check rules&#xD;
+ (HP = 0), then:&#xD;
+ 1. Restore HP to the initial value $F0&#xD;
+ 2. Set state to $FF to note that Ganon is vulnerable to silver arrows&#xD;
+ 3. Change palette row 7 to make Ganon red&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77600</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If Ganon was harmed, then play the sound effect&#xD;
+ and set timer to $40, so that he's visible for $40 frames.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77612</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Reset metastate, because Ganon cannot die this way.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>7318</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>_ResetShoveInfoAndInvincibilityTimer</Label>
+      <Comment> Params:&#xD;
+ A: 0&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77615</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Reset shove info and invincibility timer, because Ganon&#xD;
+ doesn't react at all as a usual monster.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77619</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the silver arrow is not in the inventory, then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77626</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Reset the collision return value [06].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77630</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If there's no arrow in flight, then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77639</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Check for collision with an arrow; and return if no collision.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77646</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set the Ganon phase to "dying".&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77642</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> [06] collision result</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77649</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Now his body does flash.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77654</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set initial cloud distance 8.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77685</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_AppendGanonPaletteRowTransferRecord_8_YellowRed</Label>
+      <Comment> TODO: ?</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77677</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_AppendGanonPaletteRowTransferRecord_2_BrownWhite</Label>
+      <Comment> TODO: ?</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77681</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_AppendGanonPaletteRowTransferRecord_5_RedBlue</Label>
+      <Comment> TODO: ?</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77687</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Save the end index of the colors.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77709</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Restore the end index of the colors.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77711</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Overwrite the last 3 colors in the record, with the ones&#xD;
+ ending at the index passed in.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77668</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>GanonColorSets</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>9</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77660</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>GanonColorTransferRecord</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>8</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77689</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Get the length, to append to the dynamic transfer buf.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77692</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Copy the 8 bytes of the palette row transfer record template.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77727</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_DrawGanonAshes</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77421</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Ganon_GetCurCloudLeft</Label>
+      <Comment> Returns:&#xD;
+ [00]: X coordinate&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77430</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Ganon_GetCurCloudRight</Label>
+      <Comment> Returns:&#xD;
+ [00]: X coordinate&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77439</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Ganon_GetCurCloudTop</Label>
+      <Comment> Returns:&#xD;
+ [01]: Y coordinate&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77448</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Ganon_GetCurCloudBottom</Label>
+      <Comment> Returns:&#xD;
+ [01]: Y coordinate&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77260</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Ganon_DrawCloud</Label>
+      <Comment> Params:&#xD;
+ [00]: X&#xD;
+ [01]: Y&#xD;
+&#xD;
+ Save the coordinates.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77291</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_L_Ganon_DrawBurst</Label>
+      <Comment> If cloud distance &lt;&gt; 0, then decrement it once every 8 frames.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77305</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Draw the four clouds at diagonal corners.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77335</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Draw the top and bottom clouds.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77351</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Draw the left and right clouds.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77367</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Save the object index.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77416</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Restore the object index.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77371</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Loop over the 8 burst rays in slots 2 to 9, to move and draw them.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77411</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Bottom of the loop.&#xD;
+ Increment object slot while &lt;= 9.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77284</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Restore the coordinates.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77266</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If cloud distance &lt; 6, then use frame image $C (medium).&#xD;
+ Else use frame image $D (low).&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77277</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> No horizontal flipping.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77275</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Low density cloud frame image (tile $74)</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77233</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_Ganon_SetUpBurstRays</Label>
+      <Comment> Loop over 8 burst rays, from 7 to 0, indexed by Y register.&#xD;
+ Access object slots 9 to 2.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77213</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>GanonBurstSpriteAttrs</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>10</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77223</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>GanonBurstTiles</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>10</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77235</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Start each piece at offset (4, 4) from Ganon's location.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77250</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set the direction.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77205</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>GanonBurstDirs</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>8</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77376</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If object slot &lt; 5 or = 7, then move every frame.&#xD;
+ Else move 3 out of every 4 frames.&#xD;
+&#xD;
+ This makes pieces spread out in somewhat of a circle,&#xD;
+ by making the pieces at cardinal directions move at&#xD;
+ full speed while the diagonal ones move a little slower.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77396</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The frame counter will make the sprite flash.&#xD;
+ The array has the horizontal and vertical flipping attributes.&#xD;
+ Combine them into [03].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77133</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Ganon is dying.&#xD;
+ Increment Ganon phase every frame.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77136</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If it just went from $FF to 0, then keep it at $FF.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77146</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If Ganon phase &lt; $50, then go draw only.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77150</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If &gt; $50, then go handle ashes only.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77152</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Otherwise Ganon phase = $50.&#xD;
+ Set up the burst and ashes.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77155</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Ganon is now a pile of ashes at offset (7, 8) from where he was.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77173</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Ganon/Triforce song</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77181</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Keep drawing the burst artifacts while Ganon phase &lt; $A0.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77188</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If &gt; $A0, then there's nothing left to do, except return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77748</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Play "item appears" tune.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77744</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Activate the room item, by setting its state to 0.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77190</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Otherwise Ganon phase = $A0.&#xD;
+ Activate the room item (triforce of power).&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77735</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Ganon_ActivateRoomItem</Label>
+      <Comment> If the room item was already active or taken, then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77193</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Put it at Ganon's ashes' location.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77201</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Increase the room kill count.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77103</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_Ganon_UpdateRedState</Label>
+      <Comment> Every other frame decrement the state.&#xD;
+ But every frame draw Ganon either translucent or opaque.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77110</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the state becomes 0, then Ganon is blue again.&#xD;
+ Go switch his palette row to reflect it.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77101</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>GanonStartXs</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>2</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77051</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_Ganon_RandomizeLocation</Label>
+      <Comment> Description:&#xD;
+ Put Ganon at Y=$A0, and X randomly at $30 or $B0.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77118</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> When state &gt;= $30, draw Ganon opaque.&#xD;
+ When state goes below, draw him translucent.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77039</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Go handle the red state specially.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77043</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> State = 0: Blue&#xD;
+&#xD;
+ If timer = 0, then go move around and shoot.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77047</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If timer &gt; 1, then Ganon is blue and visible. Only draw.&#xD;
+ Collisions were checked already.&#xD;
+&#xD;
+ Else timer = 1. Fall thru and randomize Ganon's location,&#xD;
+ in anticipation of moving around when timer becomes 0 next frame.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77066</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Change the animation frame every screen frame; so that&#xD;
+ when Ganon is hit, he appears in a random pose.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77069</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The animation cycle has 6 frames.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77095</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Fireball</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77089</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Shoot every $40 frames.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77081</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Move like a blue wizzrobe teleporting.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77003</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If Link's timer hasn't expired, then go draw Ganon.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77020</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> When holding the Triforce of Courage, only draw Ganon&#xD;
+ with animation frame 0.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77007</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Once the timer expires:&#xD;
+ 1. unhalt Link&#xD;
+ 2. remove the item to lift&#xD;
+ 3. play Triforce/Ganon song&#xD;
+ 4. go to scene phase 2: fighting / not holding triforce&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76988</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO:&#xD;
+ If state = 1, then&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76942</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If Link's timer has not expired, then go do nothing until the last frame.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76946</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Once the timer expires, it's time to brighten the room.&#xD;
+&#xD;
+ Save the current object slot.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76951</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Restore the current object slot.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76953</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO: ?&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76958</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO: confirm the song&#xD;
+&#xD;
+ On the first frame of the fade-to-light cycle, play the&#xD;
+ Triforce/Ganon song.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76970</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the fade cycle has not ended, then go draw Ganon.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76979</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set Link's timer to $C0 for the next scene phase.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76983</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set scene phase 1, and go draw Ganon.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76152</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set Link's timer to $40 for the scene phase 0.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>

@@ -1992,7 +1992,7 @@ P:11E1D:_BlueWizzrobe_TurnSometimesAndMoveAndCheckTile
 P:11E20:BlueWizzrobe_MoveAndCheckTile
 P:11E26:: If walkable, then return.\n
 P:11E28:: Go handle a wall, if the tile is not a block nor water.\n
-P:11E35:: If the monster was already teleporting, then return,\n so that we move again next frame.\n
+P:11E35:: If the monster was already teleporting, then return,\n so that it moves again next frame.\n
 P:11E3A:: Else go start teleporting thru this obstacle.\n
 P:11E3D:: The monster hit a wall.\n If facing direction has a vertical component, then flip it.\n
 P:11E4A:: If facing direction has a horizontal component, then flip it.\n
@@ -2005,7 +2005,7 @@ P:11E7E:: If the direction chosen = facing direction, then return.\n
 P:11E82:: Else face toward Link.\n
 P:11E87-11E91:BlueWizzrobeTeleportOffsetsX
 P:11E92-11E9C:BlueWizzrobeTeleportOffsetsY
-P:11E9D:BlueWizzrobe_Move: Index the offsets using the direction value directly.\n
+P:11E9D:BlueWizzrobe_Move: TODO:\n Consider calling this function something like MoveSimple8.\n Also, consider deleting the references to BlueWizzrobe in\n teleport offsets above.\n\n Index the offsets using the direction value directly.\n
 P:11EB0-11EB3:BlueWizzrobeTeleportMaxOffsetsX
 P:11EB4-11EB7:BlueWizzrobeTeleportMaxOffsetsY
 P:11EB8-11EBB:BlueWizzrobeTeleportDirs
@@ -2299,13 +2299,125 @@ P:1288C:: Bottom of the row loop.\n Increment the row until it = 2.\n
 P:128CA:InitZelda
 P:128E4:InitLamnola
 P:1292E:InitPatra
-P:1296F:InitGanon
+P:1296F:InitGanon: Invincible to everything but sword and arrow.
+P:12974:: Halt Link.\n
+P:12978:: Set Link's timer to $40 for the scene phase 0.\n
+P:1297A:: TODO: ?\n
 P:12987:UpdateZelda
 P:129D8:UpdateGuardFire
 P:129EB:UpdateLamnola
 P:12B66:UpdatePatra
 P:12BDA:UpdatePatraChild
 P:12C7D:UpdateGanon
+P:12C89:Ganon_Phase0: Lift the Triforce of Courage -- represented with a triforce piece.\n
+P:12C8E:: If Link's timer has not expired, then go do nothing until the last frame.\n
+P:12C92:: Once the timer expires, it's time to brighten the room.\n\n Save the current object slot.
+P:12C97:: Restore the current object slot.
+P:12C99:: TODO: ?\n
+P:12C9E:: TODO: confirm the song\n\n On the first frame of the fade-to-light cycle, play the\n Triforce/Ganon song.\n
+P:12CAA:: If the fade cycle has not ended, then go draw Ganon.\n
+P:12CB3:: Set Link's timer to $C0 for the next scene phase.\n
+P:12CB7:: Set scene phase 1, and go draw Ganon.\n
+P:12CBC:: TODO:\n If state = 1, then\n
+P:12CC6:Ganon_Phase1: Lift the Triforce of Courage -- represented with a triforce piece.\n
+P:12CCB:: If Link's timer hasn't expired, then go draw Ganon.\n
+P:12CCF:: Once the timer expires:\n 1. unhalt Link\n 2. remove the item to lift\n 3. play Triforce/Ganon song\n 4. go to scene phase 2: fighting / not holding triforce\n
+P:12CDC:: When holding the Triforce of Courage, only draw Ganon\n with animation frame 0.\n
+P:12CE4:Ganon_Phase2: If Ganon is dying, go handle it.\n
+P:12CEF:: Go handle the red state specially.\n
+P:12CF3:: State = 0: Blue\n\n If timer = 0, then go move around and shoot.\n
+P:12CF7:: If timer > 1, then Ganon is blue and visible. Only draw.\n Collisions were checked already.\n\n Else timer = 1. Fall thru and randomize Ganon's location,\n in anticipation of moving around when timer becomes 0 next frame.\n
+P:12CFB:_Ganon_RandomizeLocation: Description:\n Put Ganon at Y=$A0, and X randomly at $30 or $B0.\n
+P:12D0A:: Change the animation frame every screen frame; so that\n when Ganon is hit, he appears in a random pose.\n
+P:12D0D:: The animation cycle has 6 frames.\n
+P:12D19:: Move like a blue wizzrobe teleporting.\n
+P:12D21:: Shoot every $40 frames.\n
+P:12D27:: Fireball
+P:12D2D-12D2E:GanonStartXs
+P:12D2F:_Ganon_UpdateRedState: Every other frame decrement the state.\n But every frame draw Ganon either translucent or opaque.\n
+P:12D36:: If the state becomes 0, then Ganon is blue again.\n Go switch his palette row to reflect it.\n
+P:12D3E:: When state >= $30, draw Ganon opaque.\n When state goes below, draw him translucent.\n
+P:12D4D:: Ganon is dying.\n Increment Ganon phase every frame.\n
+P:12D50:: If it just went from $FF to 0, then keep it at $FF.\n
+P:12D5A:: If Ganon phase < $50, then go draw only.\n
+P:12D5E:: If > $50, then go handle ashes only.\n
+P:12D60:: Otherwise Ganon phase = $50.\n Set up the burst and ashes.\n
+P:12D63:: Ganon is now a pile of ashes at offset (7, 8) from where he was.\n
+P:12D75:: Ganon/Triforce song
+P:12D7D:: Keep drawing the burst artifacts while Ganon phase < $A0.\n
+P:12D84:: If > $A0, then there's nothing left to do, except return.\n
+P:12D86:: Otherwise Ganon phase = $A0.\n Activate the room item (triforce of power).\n
+P:12D89:: Put it at Ganon's ashes' location.\n
+P:12D91:: Increase the room kill count.\n
+P:12D95-12D9C:GanonBurstDirs
+P:12D9D-12DA6:GanonBurstSpriteAttrs
+P:12DA7-12DB0:GanonBurstTiles
+P:12DB1:_Ganon_SetUpBurstRays: Loop over 8 burst rays, from 7 to 0, indexed by Y register.\n Access object slots 9 to 2.\n
+P:12DB3:: Start each piece at offset (4, 4) from Ganon's location.\n
+P:12DC2:: Set the direction.\n
+P:12DCC:Ganon_DrawCloud: Params:\n [00]: X\n [01]: Y\n\n Save the coordinates.\n
+P:12DD2:: If cloud distance < 6, then use frame image $C (medium).\n Else use frame image $D (low).\n
+P:12DDB:: Low density cloud frame image (tile $74)
+P:12DDD:: No horizontal flipping.
+P:12DE4:: Restore the coordinates.\n
+P:12DEB:_L_Ganon_DrawBurst: If cloud distance <> 0, then decrement it once every 8 frames.\n
+P:12DF9:: Draw the four clouds at diagonal corners.\n
+P:12E17:: Draw the top and bottom clouds.\n
+P:12E27:: Draw the left and right clouds.\n
+P:12E37:: Save the object index.\n
+P:12E3B:: Loop over the 8 burst rays in slots 2 to 9, to move and draw them.\n
+P:12E40:: If object slot < 5 or = 7, then move every frame.\n Else move 3 out of every 4 frames.\n\n This makes pieces spread out in somewhat of a circle,\n by making the pieces at cardinal directions move at\n full speed while the diagonal ones move a little slower.\n
+P:12E54:: The frame counter will make the sprite flash.\n The array has the horizontal and vertical flipping attributes.\n Combine them into [03].\n
+P:12E63:: Bottom of the loop.\n Increment object slot while <= 9.\n
+P:12E68:: Restore the object index.\n
+P:12E6D:Ganon_GetCurCloudLeft: Returns:\n [00]: X coordinate\n
+P:12E76:Ganon_GetCurCloudRight: Returns:\n [00]: X coordinate\n
+P:12E7F:Ganon_GetCurCloudTop: Returns:\n [01]: Y coordinate\n
+P:12E88:Ganon_GetCurCloudBottom: Returns:\n [01]: Y coordinate\n
+P:12E91-12EA8:GanonFrameImages
+P:12EA9-12EAC:GanonSpriteOffsetsX
+P:12EAD-12EB0:GanonSpriteOffsetsY
+P:12EB1-12EB4:GanonSpriteHFlips
+P:12EB5:_DrawGanon: Loop over four 16x16 images that make up Ganon.\n There are 6 animation frames.\n
+P:12EB7:: Add an offset to Ganon's X, and store the result in [00] -- the sprite's X.\n
+P:12EBF:: Add an offset to Ganon's Y, and store the result in [01] -- the sprite's Y.\n
+P:12EC7:: Each part has a horizontal flipping flag.\n
+P:12ECC:: Save and copy the loop index (the current part) to [07].\n
+P:12ED0:: Multiply the animation frame by 4, because of the 4 parts\n that make it up.\n
+P:12ED5:: Add [07] -- the index of the current part.\n\n Now you have an index into the frame image table, for the\n current image part of the current animation frame.\n
+P:12EDE:: Restore the loop index.
+P:12EDF:: Bottom of the part loop.\n
+P:12EE4:Ganon_CheckCollisions: Calculate Ganon's midpoint at offset ($10, $10) from his coordinates.\n Store in [02] and [03].\n
+P:12EF2:: Check for a collision with Link.\n\n We can't call CheckLinkCollision, because we need to\n customize Ganon's midpoint.\n\n So, we've calculated the midpoint hotspot. Now, skip collision\n detection, if Link is invincible. Initialize variables that will\n be returned from the partial collision check routine. Then\n call it.\n
+P:12F04:: If Ganon is not in state 0, then he's red.\n Go check collision with an arrow.\n
+P:12F08:: If timer <> 0, then Ganon is visible.\n He can't be harmed like this. So, return.\n
+P:12F0C:: Sword slot
+P:12F11:: TODO: is red the right description of this color and state?\n\n If Ganon has died, according to the usual collision check rules\n (HP = 0), then:\n 1. Restore HP to the initial value $F0\n 2. Set state to $FF to note that Ganon is vulnerable to silver arrows\n 3. Change palette row 7 to make Ganon red\n
+P:12F20:: If Ganon was harmed, then play the sound effect\n and set timer to $40, so that he's visible for $40 frames.\n
+P:12F2C:: Reset metastate, because Ganon cannot die this way.\n
+P:12F2F:: Reset shove info and invincibility timer, because Ganon\n doesn't react at all as a usual monster.\n
+P:12F33:: If the silver arrow is not in the inventory, then return.\n
+P:12F3A:: Reset the collision return value [06].\n
+P:12F3E:: If there's no arrow in flight, then return.\n
+P:12F47:: Check for collision with an arrow; and return if no collision.\n
+P:12F4A:: [06] collision result
+P:12F4E:: Set the Ganon phase to "dying".\n
+P:12F51:: Now his body does flash.\n
+P:12F56:: Set initial cloud distance 8.\n
+P:12F5C-12F63:GanonColorTransferRecord
+P:12F64-12F6C:GanonColorSets
+P:12F6D:_AppendGanonPaletteRowTransferRecord_2_BrownWhite: TODO: ?
+P:12F71:_AppendGanonPaletteRowTransferRecord_5_RedBlue: TODO: ?
+P:12F75:_AppendGanonPaletteRowTransferRecord_8_YellowRed: TODO: ?
+P:12F77:: Save the end index of the colors.
+P:12F79:: Get the length, to append to the dynamic transfer buf.\n
+P:12F7C:: Copy the 8 bytes of the palette row transfer record template.\n
+P:12F8D:: Restore the end index of the colors.
+P:12F8F:: Overwrite the last 3 colors in the record, with the ones\n ending at the index passed in.\n
+P:12F9F:_DrawGanonAshes
+P:12FA7:Ganon_ActivateRoomItem: If the room item was already active or taken, then return.\n
+P:12FB0:: Activate the room item, by setting its state to 0.\n
+P:12FB4:: Play "item appears" tune.\n
 P:13000:_ExtractHitPointValue: Params:\n A: hit point doublet (byte)\n [00]: object type\n\n Returns:\n A: hit points for object type\n
 P:13001:: Even object types only have to mask off the bottom nibble.\n
 P:1300B:: Odd object types have to multiply by 16.\n
@@ -5385,7 +5497,7 @@ S:1A4A-1AA6:ObjTypeToDamagePoints
 S:1AA7:CheckLinkCollision: Params:\n X: monster object index\n\n Returns:\n [00]: 0 for Link slot\n [06]: 1 if objects collide\n [09]: 0 for Link damage type (none)\n [0C]: 1 if objects collide\n [034B]: ShotCollidesWithLink\n
 S:1AAA:: Reset variables to return.\n
 S:1AB9:: If Link is invincible, or we have the magic clock,\n or Link is stunned, or the monster is stunned;\n then return no collision.\n
-S:1AC5:: If Link is halted or paralyzed, then return no collision.\n
+S:1AC5:_CheckLinkCollisionPreInit: If Link is halted or paralyzed, then return no collision.\n
 S:1AD0:: If the object is a monster's shot/projectile, and it's not in a\n state that it can do damage; then return no collision.\n
 S:1ADF:: Store Link's midpoint coordinates in [04] and [05].\n
 S:1AED:: If both objects are 9 pixels apart or more, then return no collision.\n
@@ -5436,6 +5548,7 @@ S:1C76:: Handle the monster dying.\n
 S:1C79:: Increase the help drop counter, if not at max ($A).\n
 S:1C81:: If the help drop counter has reached the max, and damage type = bomb (8);\n then set [51] HelpDropValue in order to drop a bomb next time.\n
 S:1C8F:: Set the dying metastate, and reset some object info.\n
+S:1C96:_ResetShoveInfoAndInvincibilityTimer: Params:\n A: 0\n
 S:1C9D:CheckMonsterSwordShotOrMagicShotCollision: Params:\n X: monster slot\n Y: weapon slot\n [02]: monster mid X\n [03]: monster mid Y\n\n Returns:\n [00]: weapon slot\n\n [00] holds the weapon slot
 S:1C9F:: Set magic shot damage type ($10) in [09].\n
 S:1CA3:: If the shot is a sword shot that's spreading out, then return.\n
@@ -5461,15 +5574,15 @@ S:1D11:: Pass collision threshold in A.
 S:1D13:: If the objects do not collide, then return.\n
 S:1D1B:: If the monster is weak to the damage type, then shove it.\n
 S:1D25-1D28:_SwordDamagePoints: TODO:\n Overlaps the last byte of routine above.\n When this address is used as an RTS, it should have one label.\n But when it's used as an array of damage points, it should have a different name.\n
-S:1D29:CheckMonsterSwordCollision: Params:\n X: monster slot\n Y: weapon slot\n [02]: monster mid X\n [03]: monster mid Y\n\n Returns:\n [00]: weapon slot\n\n [00] holds the weapon slot
+S:1D29:CheckMonsterSwordCollision: Params:\n X: monster slot\n Y: weapon slot\n [02]: monster mid X\n [03]: monster mid Y\n\n Returns:\n [00]: weapon slot\n [06]: 1 if objects collide\n\n [00] holds the weapon slot
 S:1D2B::Set sword damage type (1) in [09].\n
 S:1D2F:: If the sword is not fully extended, then return.\n
 S:1D36:: Look up and set the damage points for the sword type.\n
-S:1D3C:_CheckMonsterStabbingCollision: Params:\n A: damage points\n X: monster slot\n Y: weapon slot\n [02]: monster mid X\n [03]: monster mid Y\n [09]: damage type\n\n [07] damage points
+S:1D3C:_CheckMonsterStabbingCollision: Params:\n A: damage points\n X: monster slot\n Y: weapon slot\n [02]: monster mid X\n [03]: monster mid Y\n [09]: damage type\n\n Returns:\n [06]: 1 if objects collide\n\n [07] damage points
 S:1D3E:: If Link's direction is vertical, then set collision thresholds accordingly:\n [0D] := $C\n [0E] := $10\n
 S:1D4D:: Else switch it:\n [0D] := $10\n [0E] := $C\n
 S:1D58:: If no collision, then return.\n
-S:1D5F:CheckMonsterArrowOrRodCollision: Params:\n X: monster slot\n Y: weapon slot\n [02]: monster mid X\n [03]: monster mid Y\n\n Returns:\n [00]: weapon slot\n\n [00] holds the weapon slot
+S:1D5F:CheckMonsterArrowOrRodCollision: Params:\n X: monster slot\n Y: weapon slot\n [02]: monster mid X\n [03]: monster mid Y\n\n Returns:\n [00]: weapon slot\n [06]: 1 if objects collide\n\n [00] holds the weapon slot
 S:1D64:: If the weapon is a rod, then\n go check a stabbing collision using rod parameters.\n
 S:1D6A:: [09] holds sword damage type
 S:1D6C:: Pass $20 damage points.
