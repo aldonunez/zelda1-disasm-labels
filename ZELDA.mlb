@@ -2112,7 +2112,10 @@ P:12132:: All segments start out autonomous, and can update immediately.\n
 P:1213A:: Copy object attributes and HP from the base segment.\n
 P:12146:: Look up the offset of this segment. Add it to the position of\n the base segment.\n\n The position of the base segment in slot 5 is calculated first.\n Its base position is the spawn position.\n
 P:12158:: Set low speed byte $80.\n
-P:12161:InitGohma
+P:12161:InitGohma: TODO: ?\n
+P:12166:: Invincible to everything but arrows.\n
+P:1216B:: Set shoot timer to 1, so that Gohma doesn't shoot right away.\n
+P:1216E:: Start at location ($80, $70).\n
 P:12179:InitGleeokHead
 P:1217C:: Set flying speed $BF and maximum $E0.\n
 P:12187:UpdateManhandla: If this segment is not the base, then skip turning and speeding up.\n
@@ -2171,7 +2174,55 @@ P:122FD:: Get the "frame image and sprite attributes" value again.
 P:122FF:: If bit 6 is set, then enable horizontal flipping in [0F].\n
 P:12305:: Pop the "frame image and sprite attributes" value.
 P:12306:: If the low nibble = 2 or 3, then go draw not mirrored.\n These are the 2 frame images of the horizontal hands.\n\n Else draw the base and vertical hands mirrored.\n
-P:12316:UpdateGohma
+P:12316:UpdateGohma: If flagged not to continue straight, then choose a random facing direction.\n
+P:1231B:: If Random:\n   >= $B0: right\n   >= $60: left\n   Else:   down\n
+P:1232B:: Now we can go straight without changing direction for some time.\n
+P:1232E:: Go animate the eye.\n
+P:12331:: Add $80 to the movement accumulator.\n
+P:1233A:: If movement accumulator didn't overflow, then go animate the eye.\n
+P:1233C:: Increase the distance traveled, and move 1.\n
+P:1233F:: Set a direction mask in [02], starting with right (1).\n
+P:12343:: If Gohma's facing direction has a right component, then add 1 to X.\n
+P:1234B:: If Gohma's facing direction has a left component, then subtract 1 from X.\n
+P:12353:: If Gohma's facing direction has a down component, then add 1 to Y.\n
+P:1235B:: If Gohma's facing direction has an up component, then subtract 1 from Y.\n
+P:12363:: If Gohma has not traveled $20 pixels, then go animate the eye.\n
+P:1236A:: Gohma has traveled $20 pixels. Reset the distance traveled.\n Reverse the facing direction, and increase the number of sprints.\n
+P:12378:: If the previous number of sprints was odd, then flag that Gohma\n should randomly change direction.\n
+P:12380:: Animate the eye.\n\n First, if the counter for when to open the eye next = 0, then\n set it to a random value at least $C0; and set the timer for\n keeping the eye open to $80.\n\n Note that $C0 is not a number of frames, because it's changed\n every other frame.\n
+P:12391:: Decrement the next open eye counter.\n
+P:12399:: If open eye timer = 0, then the eye is closed.\n Go animate it differently.\n
+P:1239E:: Else decrement the open eye timer.\n
+P:123A1:: If open eye timer >= $70 and < $10, then the eye is fully open.\n So, set its frame image to 2. Else use 3 for a half open eye.\n
+P:123B0:: Decrement the shoot timer.\n
+P:123B3:: If it became 0, then set it to $41, and shoot fireball $56.\n
+P:123BF:: Pass the frame image for the eye.\n
+P:123C8:: Here the eye is closed. So animate it this way.\n Increment the animation counter, and if <> 8, then\n go shoot, draw, and check collisions.\n
+P:123D2:: Roll over the eye animation counter to 0.\n Clear bit 1 and invert bit 0 to switch between frame images 0 and 1.\n
+P:123DE:: Go shoot, draw, and check collisions\n
+P:123E1-123E2:GohmaLegOffsetsX
+P:123E3:_AnimateAndDrawGohma: Params:\n A: eye frame image\n\n Draw the eye with the frame image passed in.\n
+P:123F3:: Draw the right legs.\n
+P:123F8:: Draw the left legs.\n
+P:123FA:_Gohma_DrawLegsOneSide: Params:\n Y: side: 0 for left, 1 for right\n\n Add the horizontal offset for the current side to Gohma's X to\n store the sprite's X in [00].\n
+P:12402:: The object's Y is the sprite's.\n
+P:12409:: There are only two frame images for legs: left and right.\n There are two animation frames. They are animated as follows:\n\n Frame 0:\n ((leg index + frame number) AND 1) = 0 or 1\n horizontal flipping = frame number = 0\n \n Frame 1:\n ((leg index + frame number) AND 1) = 1 or 0\n horizontal flipping = frame number = 1\n
+P:12411:: There are only two images.
+P:12414:: Leg frame images start at 4.
+P:12419:Gohma_SetSpriteAttributes: Returns:\n [04]: left side sprite attributes\n [05]: right side sprite attributes\n
+P:12422:Gohma_CheckCollisions: Save the boss's X coordinate.\n
+P:12425:: Subtract $10 from the X coordinate, so we start checking collisions\n on the left side.\n
+P:1242A:: Check object collisions in 5 parts, 8 pixels apart,\n from left to right, indexed by [0F].\n
+P:1242C:: Loop counter
+P:12431:: Add 8 to the X coordinate for the next part.\n
+P:12438:: Loop counter
+P:1243C:: Restore the boss's X coordinate.\n
+P:12440:Gohma_HandleWeaponCollision: TODO:\n If hit by an arrow, then set the arrow to spark\n
+P:1244E:: If it did not hit part 3 nor 4, then go play the parry sound effect.\n
+P:12458:: If the state of the eye is not 3, then go parry.\n
+P:1245F:: If the direction of the arrow is not up, then go parry.\n
+P:12466:: TODO:\n
+P:1246B:: Deal damage and cry out.\n
 P:12477:UpdateGleeokHead
 P:1247D:: If the low bit of the distance traveled is clear,\n and Random < $20,\n and there's no object (fireball) in slot $B,\n then shoot a fireball $56.\n
 P:12494:: Switch animation frames every screen frame.
@@ -5534,7 +5585,7 @@ S:1C02:: Set the boomerang state to return fast to the thrower.\n
 S:1C07:: If the monster is invincible to the boomerang, then return.\n
 S:1C0E:: Still the boomerang.\n Reset [07] damage points, and set the monster's stun timer to $10 ($A0 frames).\n
 S:1C16:_HandleMonsterWeaponCollision: If the monster is invincible to this damage type, then\n go play parry sound if needed, and return.\n
-S:1C1D:: TODO:\n If the monster is Blue Gohma or Red Gohma, \n
+S:1C1D:: If the monster is Blue Gohma or Red Gohma, then\n let it handle the collision.\n
 S:1C2B:: If the monster is Zol or Vire, then\n   If not hit by the boomerang, then\n     Set monster's direction to the weapon's\n   Go deal damage\n
 S:1C3F:: If the monster is a red or blue darknut, and it and the weapon\n are facing opposite directions, then only play the parry sound.\n
 S:1C54:DealDamage: Play the "harmed" sound.\n

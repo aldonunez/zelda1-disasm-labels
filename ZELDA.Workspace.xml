@@ -1519,7 +1519,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>74518</Address>
       <AddressType>PrgRom</AddressType>
       <Label>UpdateGohma</Label>
-      <Comment />
+      <Comment> If flagged not to continue straight, then choose a random facing direction.&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -40491,8 +40492,8 @@ For example:&#xD;
       <Address>7197</Address>
       <AddressType>SaveRam</AddressType>
       <Label />
-      <Comment> TODO:&#xD;
- If the monster is Blue Gohma or Red Gohma, &#xD;
+      <Comment> If the monster is Blue Gohma or Red Gohma, then&#xD;
+ let it handle the collision.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -49237,7 +49238,8 @@ For example:&#xD;
       <Address>74081</Address>
       <AddressType>PrgRom</AddressType>
       <Label>InitGohma</Label>
-      <Comment />
+      <Comment> TODO: ?&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -52610,6 +52612,498 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Set Link's timer to $40 for scene phase 0.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74086</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Invincible to everything but arrows.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74094</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Start at location ($80, $70).&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74091</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set shoot timer to 1, so that Gohma doesn't shoot right away.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74523</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If Random:&#xD;
+   &gt;= $B0: right&#xD;
+   &gt;= $60: left&#xD;
+   Else:   down&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74539</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Now we can go straight without changing direction for some time.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74542</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Go animate the eye.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74545</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Add $80 to the movement accumulator.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74554</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If movement accumulator didn't overflow, then go animate the eye.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74556</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Increase the distance traveled, and move 1.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74559</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set a direction mask in [02], starting with right (1).&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74563</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If Gohma's facing direction has a right component, then add 1 to X.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74571</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If Gohma's facing direction has a left component, then subtract 1 from X.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74579</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If Gohma's facing direction has a down component, then add 1 to Y.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74587</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If Gohma's facing direction has an up component, then subtract 1 from Y.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74595</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If Gohma has not traveled $20 pixels, then go animate the eye.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74602</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Gohma has traveled $20 pixels. Reset the distance traveled.&#xD;
+ Reverse the facing direction, and increase the number of sprints.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74624</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Animate the eye.&#xD;
+&#xD;
+ First, if the counter for when to open the eye next = 0, then&#xD;
+ set it to a random value at least $C0; and set the timer for&#xD;
+ keeping the eye open to $80.&#xD;
+&#xD;
+ Note that $C0 is not a number of frames, because it's changed&#xD;
+ every other frame.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74641</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Decrement the next open eye counter.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74649</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If open eye timer = 0, then the eye is closed.&#xD;
+ Go animate it differently.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74654</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Else decrement the open eye timer.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74657</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If open eye timer &gt;= $70 and &lt; $10, then the eye is fully open.&#xD;
+ So, set its frame image to 2. Else use 3 for a half open eye.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74672</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Decrement the shoot timer.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74675</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If it became 0, then set it to $41, and shoot fireball $56.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74723</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_AnimateAndDrawGohma</Label>
+      <Comment> Params:&#xD;
+ A: eye frame image&#xD;
+&#xD;
+ Draw the eye with the frame image passed in.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74786</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Gohma_CheckCollisions</Label>
+      <Comment> Save the boss's X coordinate.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74687</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Pass the frame image for the eye.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74696</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Here the eye is closed. So animate it this way.&#xD;
+ Increment the animation counter, and if &lt;&gt; 8, then&#xD;
+ go shoot, draw, and check collisions.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74706</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Roll over the eye animation counter to 0.&#xD;
+ Clear bit 1 and invert bit 0 to switch between frame images 0 and 1.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74718</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Go shoot, draw, and check collisions&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74777</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Gohma_SetSpriteAttributes</Label>
+      <Comment> Returns:&#xD;
+ [04]: left side sprite attributes&#xD;
+ [05]: right side sprite attributes&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74746</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_Gohma_DrawLegsOneSide</Label>
+      <Comment> Params:&#xD;
+ Y: side: 0 for left, 1 for right&#xD;
+&#xD;
+ Add the horizontal offset for the current side to Gohma's X to&#xD;
+ store the sprite's X in [00].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74739</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Draw the right legs.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74744</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Draw the left legs.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74721</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>GohmaLegOffsetsX</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>2</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74754</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The object's Y is the sprite's.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74772</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Leg frame images start at 4.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74769</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> There are only two images.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74761</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> There are only two frame images for legs: left and right.&#xD;
+ There are two animation frames. They are animated as follows:&#xD;
+&#xD;
+ Frame 0:&#xD;
+ ((leg index + frame number) AND 1) = 0 or 1&#xD;
+ horizontal flipping = frame number = 0&#xD;
+ &#xD;
+ Frame 1:&#xD;
+ ((leg index + frame number) AND 1) = 1 or 0&#xD;
+ horizontal flipping = frame number = 1&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74812</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Restore the boss's X coordinate.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74789</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Subtract $10 from the X coordinate, so we start checking collisions&#xD;
+ on the left side.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74794</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Check object collisions in 5 parts, 8 pixels apart,&#xD;
+ from left to right, indexed by [0F].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74796</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Loop counter</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74808</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Loop counter</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74801</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Add 8 to the X coordinate for the next part.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74816</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Gohma_HandleWeaponCollision</Label>
+      <Comment> TODO:&#xD;
+ If hit by an arrow, then set the arrow to spark&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74830</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If it did not hit part 3 nor 4, then go play the parry sound effect.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74840</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the state of the eye is not 3, then go parry.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74847</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the direction of the arrow is not up, then go parry.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74854</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO:&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74859</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Deal damage and cry out.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74616</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the previous number of sprints was odd, then flag that Gohma&#xD;
+ should randomly change direction.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
