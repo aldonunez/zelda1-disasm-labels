@@ -2349,16 +2349,62 @@ P:12884:: Bottom of the column loop.\n Increment the column until it = 3.\n
 P:1288C:: Bottom of the row loop.\n Increment the row until it = 2.\n
 P:128CA:InitZelda
 P:128E4:InitLamnola
-P:1292E:InitPatra
+P:1292E:InitPatra: Invincible to everything but sword.\n
+P:12933:: Start at location ($80, $70) and facing up.\n
+P:1293F:: Set flying speed $1F, and maximum $40.\n
+P:12949:: TODO: set [0601] to $40\n
+P:1294C:: Set object timer to $FF. When it runs out, the maneuver will be switched.\n
+P:12950:: Patra type $47 goes with Patra Child type $25.\n Patra type $48 goes with Patra Child type $26.\n
+P:1295B:: Loop over object slots 2 to 9, making patra children.\n
+P:1295D:: [00] holds the patra child type.
+P:12964:: Patra children are also only weak to the sword.
 P:1296F:InitGanon: Invincible to everything but sword and arrow.
 P:12974:: Halt Link.\n
 P:12978:: Set Link's timer to $40 for scene phase 0.\n
 P:1297A:: TODO: ?\n
 P:12987:UpdateZelda
 P:129D8:UpdateGuardFire
+P:129E5:_SetDeadDummyObjType
 P:129EB:UpdateLamnola
 P:12B66:UpdatePatra
-P:12BDA:UpdatePatraChild
+P:12B69:: Reset flying distance traveled, so that we know what offset to\n apply to the children.\n
+P:12B74:: 2 animation frames a screen frame
+P:12B79:: Loop over the object slots of the 8 children.\n If any are found, then go check for collision with Link only.\n
+P:12B7E:: Patra Child 1 object type
+P:12B82:: Patra Child 2 object type
+P:12B89:: If there are no children, then Link can harm Patra.\n
+P:12B95:: Else there are child patras left.\n Link cannot harm Patra, but it can harm Link.\n
+P:12B98:: If timer = 0 and the angle of patra child in slot 3 = 0, then\n flip the maneuver index.\n
+P:12BA8:: TODO:\n for this to make sense, Y must be 0 or 1. But where is is set?\n
+P:12BAE:ControlPatraFlight
+P:12BBC:Flyer_PatraDecideState: Go to the next state randomly:\n Random >= $40: 2\n Else:          3\n\n Set up 8 turns.\n
+P:12BCF-12BD5:PatraChildStartAngles
+P:12BD6:PatraChild1RotationCosineBits
+P:12BD7:PatraChild2RotationBits
+P:12BD8-12BD9:PatraChild1RotationSineBits
+P:12BDA:UpdatePatraChild: If state = 1, then go orbit.\n
+P:12BDE:: State = 0.\n\n If the current object slot is 2, then go initialize the patra child.\n This is the only patra child shown in the first fame.\n
+P:12BE2:: The patra child in slot 2 is the last one to be updated.\n So all other patra children will see slot 2's state = 0, and return.\n\n This means that in the first frame, slot 2 is the only one to be\n shown.\n
+P:12BE6:: In subsequent frames, patra children in slots >= 3 will reach\n here to wait to be shown at the top position (N) one at a time.\n
+P:12BE7:: Subtract 3 from the object slot to get the angle where the\n patra child in object slot 2 should be for the current one to appear.\n
+P:12BEB:: If the patra child in slot 2 has not reached the required angle,\n then return.\n
+P:12BF3:: Once the patra child in the last slot 9 reaches here, advance\n the patra parent's state.\n
+P:12BF9:: Go to state 1 to orbit.\n
+P:12BFB:: TODO: ?\n
+P:12BFF:: Set angle $18 (N).\n
+P:12C04:: This location is right above Patra.\n Set X coordinate to Patra's.\n
+P:12C08:: If patra child type = $25, then the radius of its orbit is $2C.\n Else use radius $18. Store the chosen value in [00].\n
+P:12C15:: This location is right above Patra.\n Set Y coordinate to (Patra's Y - [00]).\n
+P:12C1D:: Add Patra's distance traveled since the last frame to this child's coordinates.\n
+P:12C2D:: Reset [0B]. The high byte of the amount to subtract is 0.\n
+P:12C31:: If the monster is type $25 Patra Child1, then decrease the\n monster's angle by $70, else by $60 to go slower.\n
+P:12C3F:: Load Patra's maneuver index.\n It determines which counts of bits are looked up below.\n
+P:12C42:: If the monster is Patra Child 1 ($25), then look up two separate\n counts of bits to use for Y and X increment calculations in rotation.\n This leads to a large circle (6,6) and a wobbling ring (5,6).\n
+P:12C55:: Else it's Patra Child 2 ($26). Look up one value that will be used\n for both Y and X increment calculations in rotation. This leads to\n a small circle (5) and a large circle (6).\n
+P:12C61:: If Patra's state still = 0, then the last patra child has not\n shown up yet. In this case don't check collisions yet, only return.\n
+P:12C68:: If the monster died, then change to the dead dummy object.\n
+P:12C71:_DrawPatraChild
+P:12C74:: 2 was returned from the routine above in A.\n Pass it as the animation counter value to the routine below.\n
 P:12C7D:UpdateGanon
 P:12C89:Ganon_ScenePhase0: Description:\n Lift up the Triforce of Courage while the room is dark.\n\n Lift the Triforce of Courage -- represented with a triforce piece.\n
 P:12C8E:: If Link's timer has not expired, then go do nothing until the last frame.\n
@@ -2613,6 +2659,28 @@ P:13388:_TurnRandomlyDir8: Turn according to a random value:\n >= $A0: don't tur
 P:1339C:: Go set object direction for 8-way index.
 P:1339F:GetObjDir8Index: Returns:\n Y: index of 8-way direction of flyer object\n
 P:133AB:: If not found, then use index 0.
+P:133AD-133BC:_PatraSines
+P:133BD:_RotateObjectLocation: Params:\n A: whole bits of cosine to use in calculating Y increment\n Y: whole bits of sine to use in calculating X increment\n\n Returns:\n A: new Y coordinate of object\n\n [06] holds the number of high bits of cosine to use
+P:133BF:: [05] holds the number of high bits of sine to use
+P:133C1:: First, rotate the X coordinate.\n\n Look up the sine for the current angle, and store it in [00].\n
+P:133CC:: Mutliply q-speed by [00].\n\n Q-speed has the default value $20 set when entering the room.\n
+P:133D4:: The absolute X increment for the current angle is now in [02:03].\n\n If angle >= $10, then the monster is in the top half of circle going left.\n
+P:133D7:: TODO: Why AND with $18?
+P:133DD:: Subtract the product's fraction from the X coordinate fraction.\n
+P:133E6:: And subtract the product's whole part from the X coordinate with carry.\n
+P:133ED:: Else angle < $10. So, the monster is in the bottom half of circle going right.\n Add the product's fraction to the X coordinate fraction.\n
+P:133F6:: And add the product's whole part to the X coordinate with carry.\n
+P:133FC:: Now rotate the Y coordinate.\n\n Look up the cosine for the current angle, and store it in [00].\n The cosine corresponds to the sine offset by a quarter circle (8).\n
+P:1340A:: Multiply q-speed by [00].\n
+P:13412:: The absolute Y increment for the current angle is now in [02:03].\n\n If (angle - 8) >= $10, then the monster is in the right half of circle going up.\n
+P:1341E:: Subtract the product's fraction from the Y coordinate fraction.\n
+P:13427:: And subtract the product's whole part from the Y coordinate.\n
+P:1342C:: Else (angle - 8) < $10. So, the monster is in the left half of circle going down.\n Add the product's fraction to the Y coordinate fraction.\n
+P:13435:: And add the product's whole part to the Y coordinate with carry.\n
+P:1343A:ShiftMultiply: Params:\n A: multiplicand\n Y: number of high bits of [00] to use\n [00]: multiplier (high Y bits are used)\n\n Returns:\n [02:03]: product\n
+P:13459:_DecreaseObjectAngle: Params:\n A: low amount byte\n X: object index\n [0B]: high amount byte\n\n Subtract the low amount byte from low angle byte.\n
+P:13464:: Subtract the high amount byte from high angle byte with borrow.\n
+P:13469:: Cap the high byte at $1F.\n
 P:14000:UpdateMenuAndMeters
 P:14006:UpdateMenu
 P:1400C:: Update menu in UW.\n
@@ -5545,7 +5613,7 @@ S:1A3A:: Cut the X offset [02] in half.
 S:1A3C:: Add object's X coordinate to [02].\n
 S:1A43:: Add object's Y coordinate to [03].\n
 S:1A4A-1AA6:ObjTypeToDamagePoints
-S:1AA7:CheckLinkCollision: Params:\n X: monster object index\n\n Returns:\n [00]: 0 for Link slot\n [06]: 1 if objects collide\n [09]: 0 for Link damage type (none)\n [0C]: 1 if objects collide\n [034B]: ShotCollidesWithLink\n
+S:1AA7:CheckLinkCollision: Params:\n X: monster object index\n\n Returns:\n [00]: 0 for Link slot\n [06]: 1 if objects collide\n [09]: 0 for Link damage type (none)\n [0C]: 1 if objects collide\n [034B]: ShotCollidesWithLink\n\n TODO:\n Returns:\n Y: 0\n
 S:1AAA:: Reset variables to return.\n
 S:1AB9:: If Link is invincible, or we have the magic clock,\n or Link is stunned, or the monster is stunned;\n then return no collision.\n
 S:1AC5:_CheckLinkCollisionPreInit: If Link is halted or paralyzed, then return no collision.\n

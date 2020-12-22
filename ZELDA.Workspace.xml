@@ -1454,7 +1454,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>76762</Address>
       <AddressType>PrgRom</AddressType>
       <Label>UpdatePatraChild</Label>
-      <Comment />
+      <Comment> If state = 1, then go orbit.&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -25758,6 +25759,10 @@ def</Comment>
  [09]: 0 for Link damage type (none)&#xD;
  [0C]: 1 if objects collide&#xD;
  [034B]: ShotCollidesWithLink&#xD;
+&#xD;
+ TODO:&#xD;
+ Returns:&#xD;
+ Y: 0&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -49263,7 +49268,8 @@ For example:&#xD;
       <Address>76078</Address>
       <AddressType>PrgRom</AddressType>
       <Label>InitPatra</Label>
-      <Comment />
+      <Comment> Invincible to everything but sword.&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -53105,6 +53111,665 @@ For example:&#xD;
       <Comment> If the previous number of sprints was odd, then flag that Gohma&#xD;
  should randomly change direction.&#xD;
 </Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76718</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ControlPatraFlight</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76732</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Flyer_PatraDecideState</Label>
+      <Comment> Go to the next state randomly:&#xD;
+ Random &gt;= $40: 2&#xD;
+ Else:          3&#xD;
+&#xD;
+ Set up 8 turns.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76649</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Reset flying distance traveled, so that we know what offset to&#xD;
+ apply to the children.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76660</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> 2 animation frames a screen frame</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76665</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Loop over the object slots of the 8 children.&#xD;
+ If any are found, then go check for collision with Link only.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76681</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If there are no children, then Link can harm Patra.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76083</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Start at location ($80, $70) and facing up.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76693</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Else there are child patras left.&#xD;
+ Link cannot harm Patra, but it can harm Link.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76696</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If timer = 0 and the angle of patra child in slot 3 = 0, then&#xD;
+ flip the maneuver index.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76712</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO:&#xD;
+ for this to make sense, Y must be 0 or 1. But where is is set?&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76095</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set flying speed $1F, and maximum $40.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76105</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO: set [0601] to $40&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76108</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set object timer to $FF. When it runs out, the maneuver will be switched.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76112</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Patra type $47 goes with Patra Child type $25.&#xD;
+ Patra type $48 goes with Patra Child type $26.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76123</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Loop over object slots 2 to 9, making patra children.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76125</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> [00] holds the patra child type.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76132</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Patra children are also only weak to the sword.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76670</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Patra Child 1 object type</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76674</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Patra Child 2 object type</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76766</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> State = 0.&#xD;
+&#xD;
+ If the current object slot is 2, then go initialize the patra child.&#xD;
+ This is the only patra child shown in the first fame.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76770</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The patra child in slot 2 is the last one to be updated.&#xD;
+ So all other patra children will see slot 2's state = 0, and return.&#xD;
+&#xD;
+ This means that in the first frame, slot 2 is the only one to be&#xD;
+ shown.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76774</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> In subsequent frames, patra children in slots &gt;= 3 will reach&#xD;
+ here to wait to be shown at the top position (N) one at a time.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76787</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Once the patra child in the last slot 9 reaches here, advance&#xD;
+ the patra parent's state.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76913</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_DrawPatraChild</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76916</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> 2 was returned from the routine above in A.&#xD;
+ Pass it as the animation counter value to the routine below.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76775</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Subtract 3 from the object slot to get the angle where the&#xD;
+ patra child in object slot 2 should be for the current one to appear.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76779</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the patra child in slot 2 has not reached the required angle,&#xD;
+ then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76751</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>PatraChildStartAngles</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>7</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76793</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Go to state 1 to orbit.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76795</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO: ?&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76799</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set angle $18 (N).&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76804</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> This location is right above Patra.&#xD;
+ Set X coordinate to Patra's.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76808</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If patra child type = $25, then the radius of its orbit is $2C.&#xD;
+ Else use radius $18. Store the chosen value in [00].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76821</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> This location is right above Patra.&#xD;
+ Set Y coordinate to (Patra's Y - [00]).&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76829</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Add Patra's distance traveled since the last frame to this child's coordinates.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76845</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Reset [0B]. The high byte of the amount to subtract is 0.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76849</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the monster is type $25 Patra Child1, then decrease the&#xD;
+ monster's angle by $70, else by $60 to go slower.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76261</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_SetDeadDummyObjType</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76904</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the monster died, then change to the dead dummy object.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76897</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If Patra's state still = 0, then the last patra child has not&#xD;
+ shown up yet. In this case don't check collisions yet, only return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76863</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Load Patra's maneuver index.&#xD;
+ It determines which counts of bits are looked up below.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76866</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the monster is Patra Child 1 ($25), then look up two separate&#xD;
+ counts of bits to use for Y and X increment calculations in rotation.&#xD;
+ This leads to a large circle (6,6) and a wobbling ring (5,6).&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76885</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Else it's Patra Child 2 ($26). Look up one value that will be used&#xD;
+ for both Y and X increment calculations in rotation. This leads to&#xD;
+ a small circle (5) and a large circle (6).&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78937</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_DecreaseObjectAngle</Label>
+      <Comment> Params:&#xD;
+ A: low amount byte&#xD;
+ X: object index&#xD;
+ [0B]: high amount byte&#xD;
+&#xD;
+ Subtract the low amount byte from low angle byte.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78948</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Subtract the high amount byte from high angle byte with borrow.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78953</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Cap the high byte at $1F.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78781</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_RotateObjectLocation</Label>
+      <Comment> Params:&#xD;
+ A: whole bits of cosine to use in calculating Y increment&#xD;
+ Y: whole bits of sine to use in calculating X increment&#xD;
+&#xD;
+ Returns:&#xD;
+ A: new Y coordinate of object&#xD;
+&#xD;
+ [06] holds the number of high bits of cosine to use</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78783</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> [05] holds the number of high bits of sine to use</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78785</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> First, rotate the X coordinate.&#xD;
+&#xD;
+ Look up the sine for the current angle, and store it in [00].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78906</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ShiftMultiply</Label>
+      <Comment> Params:&#xD;
+ A: multiplicand&#xD;
+ Y: number of high bits of [00] to use&#xD;
+ [00]: multiplier (high Y bits are used)&#xD;
+&#xD;
+ Returns:&#xD;
+ [02:03]: product&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78796</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Mutliply q-speed by [00].&#xD;
+&#xD;
+ Q-speed has the default value $20 set when entering the room.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78807</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO: Why AND with $18?</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78804</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The absolute X increment for the current angle is now in [02:03].&#xD;
+&#xD;
+ If angle &gt;= $10, then the monster is in the top half of circle going left.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78866</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The absolute Y increment for the current angle is now in [02:03].&#xD;
+&#xD;
+ If (angle - 8) &gt;= $10, then the monster is in the right half of circle going up.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78829</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Else angle &lt; $10. So, the monster is in the bottom half of circle going right.&#xD;
+ Add the product's fraction to the X coordinate fraction.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78813</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Subtract the product's fraction from the X coordinate fraction.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78822</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> And subtract the product's whole part from the X coordinate with carry.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78838</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> And add the product's whole part to the X coordinate with carry.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78844</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Now rotate the Y coordinate.&#xD;
+&#xD;
+ Look up the cosine for the current angle, and store it in [00].&#xD;
+ The cosine corresponds to the sine offset by a quarter circle (8).&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78887</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> And subtract the product's whole part from the Y coordinate.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78892</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Else (angle - 8) &lt; $10. So, the monster is in the left half of circle going down.&#xD;
+ Add the product's fraction to the Y coordinate fraction.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78901</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> And add the product's whole part to the Y coordinate with carry.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78765</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_PatraSines</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>16</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78858</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Multiply q-speed by [00].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78878</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Subtract the product's fraction from the Y coordinate fraction.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76758</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>PatraChild1RotationCosineBits</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76760</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>PatraChild1RotationSineBits</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>2</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76759</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>PatraChild2RotationBits</Label>
+      <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
