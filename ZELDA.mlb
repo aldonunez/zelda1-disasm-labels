@@ -139,8 +139,8 @@ R:04D9-04DA:GleeokPrimarySegmentLimits
 R:04DB-04DC:GleeokSecondarySegmentLimits
 R:04DD-04DE:GleeokTertiarySegmentLimits
 R:04E5:StatusBarMapTrigger
-R:04E6:GleeokAnimationTimer
-R:04E7:GleeokBodyAnimationFrame
+R:04E6:_GleeokAnimationTimer
+R:04E7:_GleeokBodyAnimationFrame
 R:04F0-04FC:ObjInvincibilityTimer
 R:0504:LeftAlignHalfWidthObj
 R:0505:ItemTypeToLift
@@ -148,6 +148,7 @@ R:0506:ItemLiftTimer
 R:0507:ChildDigdoggerCount
 R:0508:_SummonedWhirlwind
 R:0509:TriforceFanfareActive
+R:050F:LamnolaViableDirMask
 R:0510:_ActiveRedLeeverCount
 R:0511:GleeokDeadNeckMask
 R:0512:LinkParalyzed: Put the monster at the same location as Link.\n
@@ -2348,7 +2349,13 @@ P:12880:: Increment the index for fetching tiles.\n
 P:12884:: Bottom of the column loop.\n Increment the column until it = 3.\n
 P:1288C:: Bottom of the row loop.\n Increment the row until it = 2.\n
 P:128CA:InitZelda
-P:128E4:InitLamnola
+P:128E4:InitLamnola: Make $A segments.\n
+P:128E6:: Starting location is ($40, $8D) and direction is 0.\n
+P:128F5:: Each segment is flagged initialized and ready to update.\n
+P:128FB:: This Lamnola that's making additional segments is in slot 1.\n Copy its object attributes, HP, and type to the others.\n
+P:12910:: TODO:\n Only the heads in slots 5 and $A have a direction and [0380][X] set.\n
+P:1291C:: Remember the object type, and set speed to (object type - $39):\n 1 or 2.\n
+P:12928:: TODO:\n Do the heads not count?\n
 P:1292E:InitPatra: Invincible to everything but sword.\n
 P:12933:: Start at location ($80, $70) and facing up.\n
 P:1293F:: Set flying speed $1F, and maximum $40.\n
@@ -2365,7 +2372,64 @@ P:1297A:: TODO: ?\n
 P:12987:UpdateZelda
 P:129D8:UpdateGuardFire
 P:129E5:_SetDeadDummyObjType
-P:129EB:UpdateLamnola
+P:129EB:UpdateLamnola: If the direction of this segment is not set, then it has not started\n moving yet. So, return.\n
+P:129EF:: If we have the magic clock, then go draw and check collisions.\n
+P:129F7:: If the current segment is a head, then update the direction it's facing.\n
+P:12A04:: Save the X coordinate.
+P:12A05:: Each segment is a full 16x16 object. But, it's drawn as a narrow,\n half-width object. So, center it by temporarily adding 4 to X.\n
+P:12A0A:: The speed is 1 or 2. By swapping them, you get sprite attributes\n to store in [03].\n
+P:12A11:: If the segment is a head, then use tile $9E, else $A0.\n
+P:12A20:: Restore the X coordinate.
+P:12A23:: Save the facing direction.
+P:12A29:: Restore the facing direction.
+P:12A2C:: If still alive, then return.\n
+P:12A31:: Otherwise, the segment is dead.\n
+P:12A34:: Set the current segment's HP to the initial value in anticipation\n of bringing this segment back to life.\n
+P:12A39:: Find the tail of the lamnola that the current segment belongs to.\n\n From the lowest slot, look for one that has the original lamnola\n object type.\n\n The goal is to swap the current dead segment with the tail segment.\n
+P:12A4A:: Set the timer for the dead dummy object that will replace the tail.\n
+P:12A4F:: Copy the current dead segment's invincibility timer, X, and Y\n to the tail segment.\n
+P:12A5F:: If the tail segment found is a head, then the whole lamnola died.\n So, return and leave it dead.\n
+P:12A67:: Change the tail segment to the dead dummy object, and\n bring the current segment back to life.\n
+P:12A70:Lamnola_UpdateHead: If X coordinate is not a multiple of 8, then return.\n
+P:12A76:: If (Y + 3) is not a multiple of 8, then return.\n We had to account for the usual offset of 3.\n
+P:12A7F:: Will loop 4 times, propagating directions down the chain,\n by pulling from the bottom.\n
+P:12A83:: Choose the tail index of the lamnola that the current segment belongs to.\n
+P:12A8B:: Loop over every segment under the head, starting from the tail.\n Copy the next segment's direction to the current one in this loop.\n
+P:12A96:: If this head segment is not aligned with a square, then return.\n
+P:12A9C:: If (Y + 3) is not a multiple of $10, then return.\n We had to account for the usual offset of 3.\n
+P:12AA5:: Store the opposite of the facing direction in [00].\n
+P:12AB3:: Make a mask of the inverted bits of the opposite direction.\n
+P:12AB8:: There's a 50% chance of going to try to turn toward Link.\n
+P:12ABE:: Otherwise, we randomly choose a perpendicular direction.\n Load the monster's facing direction.\n
+P:12AC0:: Load the next random number into Y register.\n
+P:12AC2:: Based on it, there's a 50% chance of skipping the loop,\n to keep moving straight.\n
+P:12AC6:: Loop to rotate the direction bit over the mask.\n The goal is to calculate a direction perpendicular to the monster's\n facing direction.\n\n Shift right the copy of the direction.\n If the direction bit rolled off the low end, then roll it onto the high end.\n
+P:12ACB:: If the current direction bit is masked off, then we've reached\n the opposite direction. Loop again.\n
+P:12AD0:: If Y register >= $40, then break out of the loop.\n So, 75% of the time, if horizontal, then turn up, else left.\n
+P:12AD4:: Set Y register to $40 in order to break out of the loop next time;\n and loop again now.\n So, 25% of the time, if horizontal, then turn down, else right.\n
+P:12AD8:: Change the facing direction to the direction found.\n
+P:12ADA:: Set moving direction [0F] for boundary and tile checks.\n
+P:12ADF:: If not blocked by the room boundary, then go check tile collision.\n
+P:12AE3:: Else it was blocked. So, load the facing direction in preparation\n for looking for any non-opposite direction that is not blocked.\n
+P:12AE5:: Shift right the copy of the direction.\n If the direction bit rolled off the low end, then roll it onto the high end.\n
+P:12AEA:: If the current direction bit is not masked off, then go check the\n room boundary in this direction.\n Else we've reached the opposite direction. Loop again.\n
+P:12AF1:: We found a direction that was not blocked by the room boundary.\n Check tile collision. If blocked by a tile, then go look for another direction.\n
+P:12AF9:: TODO: confirm this\n\n If there were a room that had lamnolas, and they could get\n surrounded on 3 sides, then the loop above would get stuck in\n an infinite loop.\n\n But, the only room with that configuration has those blocks\n blocked off with a push block, which can only be pushed after\n all monsters are killed.\n
+P:12AFA:: Find the horizontal direction toward Link and store it in [02].\n
+P:12B07:: Find the vertical direction toward Link and store it in [03].\n
+P:12B14:: If the horizontal direction toward Link is not allowed, then\n go check the vertical direction.\n
+P:12B1B:: If the horizontal direction toward Link is the same direction\n that Link is facing, then go test it for tile and room boundary collision.\n
+P:12B1F:: Load the vertical direction toward Link in order to test it for\n room boundary and tile collision.\n
+P:12B21:: Go test this direction for collisions with tiles or the room boundary.\n
+P:12B24:Lamnola_Move: This code is similar to 04:96EB Digdogger_Move.\n\n Change coordinates by the appropriate speed according to the direction.\n\n Start with a mask of $A1 in [02]:\n - low nibble represents the right direction\n - high nibble is used to set or clear carry as we go along\n
+P:12B28:: If direction has a right component (1), then add offset to X coordinate.\n
+P:12B36:: If direction has a left component (2), then subtract offset from X coordinate.\n
+P:12B38:: Bit 7 of mask $A1 sets Carry now.
+P:12B45:: If direction has a down component (4), then add offset to Y coordinate.\n
+P:12B47:: Bit 6 of mask $A1 clears Carry now.
+P:12B54:: If direction has an up component (8), then subtract offset from Y coordinate.\n
+P:12B56:: Bit 5 of mask $A1 sets Carry now.
+P:12B64:PatraManeuverTime: TODO:\n Was this intended to be an array of two elements?\n
 P:12B66:UpdatePatra
 P:12B69:: Reset flying distance traveled, so that we know what offset to\n apply to the children.\n
 P:12B74:: 2 animation frames a screen frame
@@ -5595,7 +5659,7 @@ S:198D:Anim_WriteLevelPaletteSprite: Params:\n A: tile number\n X: object index\
 S:1991:Anim_WriteSprite: Params:\n A: tile number\n X: object index\n [03]: sprite attributes\n
 S:19A5:Anim_WriteSpecificSprite: Params:\n A: tile number\n X: object index\n Y: sprite record offset\n [03]: sprite attributes\n
 S:19AF:_Anim_EndWriteSprite: Params:\n A: Y coordinate\n Y: sprite record offset\n [03]: sprite attributes\n
-S:19D0:CheckMonsterCollisions: Params:\n X: object index\n
+S:19D0:CheckMonsterCollisions: Params:\n X: object index\n\n Note:\n This routine might modify the facing direction.\n
 S:19D3:: If the object is invincible, skip checking collisions with Link's weapons.\n But go check for a collision with Link.\n
 S:19D6:: Invincible
 S:19DA:: If temporarily invincible, return.\n

@@ -1553,7 +1553,9 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>76267</Address>
       <AddressType>PrgRom</AddressType>
       <Label>UpdateLamnola</Label>
-      <Comment />
+      <Comment> If the direction of this segment is not set, then it has not started&#xD;
+ moving yet. So, return.&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -37555,6 +37557,9 @@ For example:&#xD;
       <Label>CheckMonsterCollisions</Label>
       <Comment> Params:&#xD;
  X: object index&#xD;
+&#xD;
+ Note:&#xD;
+ This routine might modify the facing direction.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -49285,7 +49290,8 @@ For example:&#xD;
       <Address>76004</Address>
       <AddressType>PrgRom</AddressType>
       <Label>InitLamnola</Label>
-      <Comment />
+      <Comment> Make $A segments.&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -50594,7 +50600,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>1254</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>GleeokAnimationTimer</Label>
+      <Label>_GleeokAnimationTimer</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -50602,7 +50608,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>1255</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>GleeokBodyAnimationFrame</Label>
+      <Label>_GleeokBodyAnimationFrame</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -53770,6 +53776,627 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label>PatraChild2RotationBits</Label>
       <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76006</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Starting location is ($40, $8D) and direction is 0.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76021</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Each segment is flagged initialized and ready to update.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76027</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> This Lamnola that's making additional segments is in slot 1.&#xD;
+ Copy its object attributes, HP, and type to the others.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76048</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO:&#xD;
+ Only the heads in slots 5 and $A have a direction and [0380][X] set.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76072</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO:&#xD;
+ Do the heads not count?&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76060</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Remember the object type, and set speed to (object type - $39):&#xD;
+ 1 or 2.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76644</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>PatraManeuverTime</Label>
+      <Comment> TODO:&#xD;
+ Was this intended to be an array of two elements?&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76400</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Lamnola_UpdateHead</Label>
+      <Comment> If X coordinate is not a multiple of 8, then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76323</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Save the facing direction.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76329</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Restore the facing direction.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76332</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If still alive, then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76340</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set the current segment's HP to the initial value in anticipation&#xD;
+ of bringing this segment back to life.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76345</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Find the tail of the lamnola that the current segment belongs to.&#xD;
+&#xD;
+ From the lowest slot, look for one that has the original lamnola&#xD;
+ object type.&#xD;
+&#xD;
+ The goal is to swap the current dead segment with the tail segment.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76362</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set the timer for the dead dummy object that will replace the tail.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76367</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Copy the current dead segment's invincibility timer, X, and Y&#xD;
+ to the tail segment.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76383</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the tail segment found is a head, then the whole lamnola died.&#xD;
+ So, return and leave it dead.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76391</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Change the tail segment to the dead dummy object, and&#xD;
+ bring the current segment back to life.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76293</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Each segment is a full 16x16 object. But, it's drawn as a narrow,&#xD;
+ half-width object. So, center it by temporarily adding 4 to X.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76292</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Save the X coordinate.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76320</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Restore the X coordinate.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76298</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The speed is 1 or 2. By swapping them, you get sprite attributes&#xD;
+ to store in [03].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76305</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the segment is a head, then use tile $9E, else $A0.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76337</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Otherwise, the segment is dead.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76271</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If we have the magic clock, then go draw and check collisions.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1295</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>LamnolaViableDirMask</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76279</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the current segment is a head, then update the direction it's facing.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76580</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Lamnola_Move</Label>
+      <Comment> This code is similar to 04:96EB Digdogger_Move.&#xD;
+&#xD;
+ Change coordinates by the appropriate speed according to the direction.&#xD;
+&#xD;
+ Start with a mask of $A1 in [02]:&#xD;
+ - low nibble represents the right direction&#xD;
+ - high nibble is used to set or clear carry as we go along&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76584</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If direction has a right component (1), then add offset to X coordinate.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76598</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If direction has a left component (2), then subtract offset from X coordinate.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76600</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Bit 7 of mask $A1 sets Carry now.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76613</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If direction has a down component (4), then add offset to Y coordinate.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76615</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Bit 6 of mask $A1 clears Carry now.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76628</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If direction has an up component (8), then subtract offset from Y coordinate.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76630</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Bit 5 of mask $A1 sets Carry now.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76406</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If (Y + 3) is not a multiple of 8, then return.&#xD;
+ We had to account for the usual offset of 3.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76415</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Will loop 4 times, propagating directions down the chain,&#xD;
+ by pulling from the bottom.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76419</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Choose the tail index of the lamnola that the current segment belongs to.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76427</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Loop over every segment under the head, starting from the tail.&#xD;
+ Copy the next segment's direction to the current one in this loop.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76438</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If this head segment is not aligned with a square, then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76444</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If (Y + 3) is not a multiple of $10, then return.&#xD;
+ We had to account for the usual offset of 3.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76453</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Store the opposite of the facing direction in [00].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76467</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Make a mask of the inverted bits of the opposite direction.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76472</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> There's a 50% chance of going to try to turn toward Link.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76504</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Change the facing direction to the direction found.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76480</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Load the next random number into Y register.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76486</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Loop to rotate the direction bit over the mask.&#xD;
+ The goal is to calculate a direction perpendicular to the monster's&#xD;
+ facing direction.&#xD;
+&#xD;
+ Shift right the copy of the direction.&#xD;
+ If the direction bit rolled off the low end, then roll it onto the high end.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76478</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Otherwise, we randomly choose a perpendicular direction.&#xD;
+ Load the monster's facing direction.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76491</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the current direction bit is masked off, then we've reached&#xD;
+ the opposite direction. Loop again.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76496</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If Y register &gt;= $40, then break out of the loop.&#xD;
+ So, 75% of the time, if horizontal, then turn up, else left.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76482</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Based on it, there's a 50% chance of skipping the loop,&#xD;
+ to keep moving straight.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76500</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set Y register to $40 in order to break out of the loop next time;&#xD;
+ and loop again now.&#xD;
+ So, 25% of the time, if horizontal, then turn down, else right.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76506</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set moving direction [0F] for boundary and tile checks.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76511</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If not blocked by the room boundary, then go check tile collision.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76515</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Else it was blocked. So, load the facing direction in preparation&#xD;
+ for looking for any non-opposite direction that is not blocked.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76517</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Shift right the copy of the direction.&#xD;
+ If the direction bit rolled off the low end, then roll it onto the high end.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76522</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the current direction bit is not masked off, then go check the&#xD;
+ room boundary in this direction.&#xD;
+ Else we've reached the opposite direction. Loop again.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76529</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> We found a direction that was not blocked by the room boundary.&#xD;
+ Check tile collision. If blocked by a tile, then go look for another direction.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76537</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO: confirm this&#xD;
+&#xD;
+ If there were a room that had lamnolas, and they could get&#xD;
+ surrounded on 3 sides, then the loop above would get stuck in&#xD;
+ an infinite loop.&#xD;
+&#xD;
+ But, the only room with that configuration has those blocks&#xD;
+ blocked off with a push block, which can only be pushed after&#xD;
+ all monsters are killed.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76577</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Go test this direction for collisions with tiles or the room boundary.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76538</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Find the horizontal direction toward Link and store it in [02].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76551</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Find the vertical direction toward Link and store it in [03].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76564</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the horizontal direction toward Link is not allowed, then&#xD;
+ go check the vertical direction.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76571</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the horizontal direction toward Link is the same direction&#xD;
+ that Link is facing, then go test it for tile and room boundary collision.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76575</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Load the vertical direction toward Link in order to test it for&#xD;
+ room boundary and tile collision.&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
