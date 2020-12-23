@@ -1572,7 +1572,75 @@ P:11074:: If >= $20, go to state 3.
 P:11076:: Else go to state 4.
 P:1107B:: Set 6 turns for the next state.
 P:11081:_PlaySecretFoundTune
+P:110A0-110AF:WallmasterDirsAndAttrsLeft
+P:110B0-110BF:WallmasterDirsAndAttrsRight
+P:110C0-110CF:WallmasterDirsAndAttrsTop
+P:110D0-110DF:WallmasterDirsAndAttrsBottom
+P:110E0-110E1:WallmasterInitialXs
+P:110E2-110E3:WallmasterInitialYs
 P:110E4:UpdateWallmaster
+P:110EB:: State 0.\n\n If Link's object timer is active, then return.\n
+P:110EF:: If Link is halted, then return.\n
+P:110F6:: State 0. Idle/Waiting inside wall\n\n If  (Link's X < $29 or >= $C8)\n and (Link's Y < $6D or >= $B5),\n then return.\n
+P:1110A:: Check whether Wallmaster should come out of the left or right wall.\n\n If Link's X <> $20 nor $D0, then go check the top and bottom walls.\n
+P:11114:: Store Link's X as the major coordinate in [01],\n and Link's Y as the minor coordinate [00].\n
+P:1111C:: Pass "up" as decreasing direction along wall in [02].\n
+P:11120:: Link's minimum major coordinate (X at left wall)
+P:11122:: Offset 0 for first horizontal wall element in instruction block
+P:11127:: Set Y coordinate to initial minor value returned.\n
+P:1112B:: Look up and set X coordinate according to the index returned.\n
+P:11131:: Check whether Wallmaster should come out of the top or bottom wall.\n\n If Link's Y <> $5D nor $BD, then return.\n
+P:1113B:: Store Link's Y as the major coordinate in [01],\n and Link's X as the minor coordinate [00].\n
+P:11143:: Pass "left" as decreasing direction along wall in [02].\n
+P:11147:: Link's minimum major coordinate (Y at top wall)
+P:11149:: Offset $20 for first vertical wall element in instruction block
+P:1114E:: Look up and set Y coordinate according to the index returned.\n
+P:11153:: Set X coordinate to initial minor value returned.\n
+P:11157:: Look up and set the facing direction for the first step.\n
+P:11161:: TODO: why object 1 timer?\n\n Set object slot 1's timer to $60, this monster's QSpeed to $18,\n and animation counter to 8.\n
+P:1116F:: Reset grid offset, tiles crossed, and movement frame.\n
+P:1117A:: Start Wallmaster state 1.\n
+P:1117D:L_Wallmaster_State1: If the monster has been shoved, then shove it and go draw.\n
+P:11187:: If we have the magic clock or the monster is stunned, then\n go draw and check collisions.\n
+P:11190:: [0F] moving direction
+P:11195:: If grid offset <> $10 nor $F0 (so not square aligned), then\n go draw and check collisions.\n
+P:111A0:: Truncate grid offset.\n
+P:111A5:: Advance the step.\n
+P:111A8:: Set facing direction to the one for this new step.\n
+P:111B2:: Increase the count of tiles crossed.\n
+P:111B5:: If the monster has crossed less than 7 tiles, then\n go draw and check collisions.\n
+P:111BC:: It has reached the end of a trip.\n\n If Wallmaster did not capture Link, then go set state to 0 and return.\n
+P:111C1:: At the end of a trip where Link was captured:\n 1. hide the special sprites used by Wallmaster\n 2. go to mode 3 "unfurl" to go the level's entrance\n 3. reset Link's state, so he's idle\n
+P:111D3:L_Wallmaster_DrawAndCheckCollisions: If Link was captured, then go draw Link and Wallmaster specially.\n
+P:111DB:: If after checking object collisions, Link was captured, then\n halt Link and keep him from being shoved.\n
+P:111E8:: Remember the index of the first sprite that will be used to draw,\n because the drawing routine will cycle the sprites.\n
+P:111EB:: Save the sprite index
+P:111F5:: Restore the sprite index
+P:111F6:: Store the offset of the left sprite record in [00],\n and the right one in [01].\n
+P:11204:: The default image is the hand open.\n If animation frame = 0, then return.\n
+P:1120C:: Animation frame 1 uses Wallmaster frame image 1, which\n uses tiles $9C/$9D on the left and $9E/$9F on the right.\n The right side is correctly the right side of a closed hand.\n But the left side is Keese. So, we have to patch the left\n side to use the common left side of the hand -- $AC/$AD.\n\n Keep in mind that left and right sprites might be flipped.\n
+P:1121D:: Draw Wallmaster with captured Link.\n\n First, put Link right where the monster is.\n
+P:11231:: Force animation frame 1: hand closed.\n
+P:11239:: Store the offsets of the sprites to show over Link\n ($10 and $11) in [00] and [01] for use in patching the right sprite.\n
+P:1123F:: Go patch up the sprites.\n
+P:11242:Wallmaster_PrepareToDraw: 8 screen frames an animation frame
+P:11247:: For the current step, look up the sprite flipping attributes.\n
+P:1124F:: Combine them with palette row 5 (blue)
+P:11254:: If the sprite attributes for this step have horizontal flipping ($40),\n then mask it off, and turn on horizontal flipping with [0F].\n
+P:11262:Wallmaster_CalcStartPosition: Params:\n A: offset of first instruction for left wall (0)\n    or top wall ($20)\n Y: Link's minimum major coordinate\n [00]: Link's coordinate along minor axis\n [01]: Link's coordinate along major axis\n [02]: a decreasing direction along the wall (left or up)\n\n Returns:\n Y: index of initial major coordinate of Wallmaster\n [04]: initial minor coordinate of Wallmaster\n\n Store the initial offset for this axis.\n
+P:11265:: [03] holds the Link's minimum major coordinate.
+P:11267:: If Link is still (input dir = 0), then use distance $24, else $32.\n
+P:11270:: If Link is facing in the direction passed in (which decreases), then:\n 1. negate the distance\n 2. add 8 to the instruction offset to access\n    the opposite direction for the same wall\n
+P:11272:: [02] reference decreasing direction
+P:11286:: Add the distance and Link's minor coordinate to calculate\n Wallmaster's initial minor coordinate to store in [04].\n In general, the monster will be put in front of Link.\n
+P:11287:: [00] Link's minor coordinate
+P:11289:: [04] Wallmaster's initial minor coordinate
+P:1128B:: By default, will return index 0 to choose the minimum value\n for Wallmaster's initial major coordinate. This will be returned,\n if Link is at the wall with a smaller major coordinate.\n
+P:1128D:: If Link's major coordinate <> the minimum major coordinate, then\n he's on the farther wall. Add $10 to the instruction offset \n to access the block for the other direction along the same axis,\n and increment the index for the Wallmaster's initial major coordinate.\n
+P:1128F:: [03] Link's minimum major coordinate
+P:1129E:Wallmaster_PutSpritesBehindBgIfNeeded
+P:112A5:Wallmaster_PutSpriteBehindBgIfNeeded: Loop twice, from 1 to 0, in order to check the left and right\n extents of the sprite (X and X+8).\n
+P:112A7:: If sprite X + extent >= $E9 or < $18, then\n add priority attribute to show this sprite behind the background.\n
 P:112C2:InitRope: Rope has $10 HP in quest 1, $40 HP in quest 2.\n
 P:112D6:UpdateRope: Set the input direction to the facing direction.\n
 P:112DB:: Save the original facing direction
@@ -5304,6 +5372,7 @@ S:0ED1:: and use a half heart tile.
 S:0ED5:: Use an empty heart tile.
 S:0ED9:: Emit chosen tile to buf.
 S:0EE9:_Unknown_MusicRoutine1
+S:0EF9-0EFA:SpriteRelativeExtents
 S:0EFB:ShowLinkSpritesBehindHorizontalDoors
 S:0F23:: TODO: Is this ever run?
 S:0F29:_BoundDirectionHorizontally: Params:\n X: object index\n [0F]: direction\n\n Returns:\n Y: direction of boundary that was crossed\n [0F]: original direction, or 0 if boundary was crossed\n\n\n Checking left direction.

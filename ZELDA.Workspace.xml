@@ -54400,6 +54400,666 @@ For example:&#xD;
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
+    <CodeLabel>
+      <Address>70013</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>L_Wallmaster_State1</Label>
+      <Comment> If the monster has been shoved, then shove it and go draw.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69867</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> State 0.&#xD;
+&#xD;
+ If Link's object timer is active, then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69871</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If Link is halted, then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69878</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> State 0. Idle/Waiting inside wall&#xD;
+&#xD;
+ If  (Link's X &lt; $29 or &gt;= $C8)&#xD;
+ and (Link's Y &lt; $6D or &gt;= $B5),&#xD;
+ then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69898</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Check whether Wallmaster should come out of the left or right wall.&#xD;
+&#xD;
+ If Link's X &lt;&gt; $20 nor $D0, then go check the top and bottom walls.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69937</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Check whether Wallmaster should come out of the top or bottom wall.&#xD;
+&#xD;
+ If Link's Y &lt;&gt; $5D nor $BD, then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69947</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Store Link's Y as the major coordinate in [01],&#xD;
+ and Link's X as the minor coordinate [00].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69908</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Store Link's X as the major coordinate in [01],&#xD;
+ and Link's Y as the minor coordinate [00].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69916</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Pass "up" as decreasing direction along wall in [02].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69955</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Pass "left" as decreasing direction along wall in [02].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70242</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Wallmaster_CalcStartPosition</Label>
+      <Comment> Params:&#xD;
+ A: offset of first instruction for left wall (0)&#xD;
+    or top wall ($20)&#xD;
+ Y: Link's minimum major coordinate&#xD;
+ [00]: Link's coordinate along minor axis&#xD;
+ [01]: Link's coordinate along major axis&#xD;
+ [02]: a decreasing direction along the wall (left or up)&#xD;
+&#xD;
+ Returns:&#xD;
+ Y: index of initial major coordinate of Wallmaster&#xD;
+ [04]: initial minor coordinate of Wallmaster&#xD;
+&#xD;
+ Store the initial offset for this axis.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70245</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> [03] holds the Link's minimum major coordinate.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70247</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If Link is still (input dir = 0), then use distance $24, else $32.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70278</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Add the distance and Link's minor coordinate to calculate&#xD;
+ Wallmaster's initial minor coordinate to store in [04].&#xD;
+ In general, the monster will be put in front of Link.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70256</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If Link is facing in the direction passed in (which decreases), then:&#xD;
+ 1. negate the distance&#xD;
+ 2. add 8 to the instruction offset to access&#xD;
+    the opposite direction for the same wall&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70285</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If Link's major coordinate &lt;&gt; the minimum major coordinate, then&#xD;
+ he's on the farther wall. Add $10 to the instruction offset &#xD;
+ to access the block for the other direction along the same axis,&#xD;
+ and increment the index for the Wallmaster's initial major coordinate.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70283</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> By default, will return index 0 to choose the minimum value&#xD;
+ for Wallmaster's initial major coordinate. This will be returned,&#xD;
+ if Link is at the wall with a smaller major coordinate.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70287</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> [03] Link's minimum major coordinate</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70281</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> [04] Wallmaster's initial minor coordinate</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70279</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> [00] Link's minor coordinate</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70258</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> [02] reference decreasing direction</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69920</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Link's minimum major coordinate (X at left wall)</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69959</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Link's minimum major coordinate (Y at top wall)</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69922</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Offset 0 for first horizontal wall element in instruction block</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69961</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Offset $20 for first vertical wall element in instruction block</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69927</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set Y coordinate to initial minor value returned.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69971</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set X coordinate to initial minor value returned.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69966</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Look up and set Y coordinate according to the index returned.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69931</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Look up and set X coordinate according to the index returned.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69856</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>WallmasterInitialXs</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>2</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69858</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>WallmasterInitialYs</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>2</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69792</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>WallmasterDirsAndAttrsLeft</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>16</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69975</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Look up and set the facing direction for the first step.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69985</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO: why object 1 timer?&#xD;
+&#xD;
+ Set object slot 1's timer to $60, this monster's QSpeed to $18,&#xD;
+ and animation counter to 8.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69999</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Reset grid offset, tiles crossed, and movement frame.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70010</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Start Wallmaster state 1.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70099</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>L_Wallmaster_DrawAndCheckCollisions</Label>
+      <Comment> If Link was captured, then go draw Link and Wallmaster specially.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70023</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If we have the magic clock or the monster is stunned, then&#xD;
+ go draw and check collisions.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70032</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> [0F] moving direction</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70037</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If grid offset &lt;&gt; $10 nor $F0 (so not square aligned), then&#xD;
+ go draw and check collisions.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70048</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Truncate grid offset.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70053</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Advance the step.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70056</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set facing direction to the one for this new step.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70066</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Increase the count of tiles crossed.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70069</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the monster has crossed less than 7 tiles, then&#xD;
+ go draw and check collisions.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70076</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> It has reached the end of a trip.&#xD;
+&#xD;
+ If Wallmaster did not capture Link, then go set state to 0 and return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70081</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> At the end of a trip where Link was captured:&#xD;
+ 1. hide the special sprites used by Wallmaster&#xD;
+ 2. go to mode 3 "unfurl" to go the level's entrance&#xD;
+ 3. reset Link's state, so he's idle&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70107</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If after checking object collisions, Link was captured, then&#xD;
+ halt Link and keep him from being shoved.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70210</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Wallmaster_PrepareToDraw</Label>
+      <Comment> 8 screen frames an animation frame</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70120</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Remember the index of the first sprite that will be used to draw,&#xD;
+ because the drawing routine will cycle the sprites.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70123</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Save the sprite index</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70133</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Restore the sprite index</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70134</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Store the offset of the left sprite record in [00],&#xD;
+ and the right one in [01].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70173</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Draw Wallmaster with captured Link.&#xD;
+&#xD;
+ First, put Link right where the monster is.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70148</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The default image is the hand open.&#xD;
+ If animation frame = 0, then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70156</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Animation frame 1 uses Wallmaster frame image 1, which&#xD;
+ uses tiles $9C/$9D on the left and $9E/$9F on the right.&#xD;
+ The right side is correctly the right side of a closed hand.&#xD;
+ But the left side is Keese. So, we have to patch the left&#xD;
+ side to use the common left side of the hand -- $AC/$AD.&#xD;
+&#xD;
+ Keep in mind that left and right sprites might be flipped.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70215</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> For the current step, look up the sprite flipping attributes.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70223</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Combine them with palette row 5 (blue)</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70228</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the sprite attributes for this step have horizontal flipping ($40),&#xD;
+ then mask it off, and turn on horizontal flipping with [0F].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70309</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Wallmaster_PutSpriteBehindBgIfNeeded</Label>
+      <Comment> Loop twice, from 1 to 0, in order to check the left and right&#xD;
+ extents of the sprite (X and X+8).&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70302</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Wallmaster_PutSpritesBehindBgIfNeeded</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>3833</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>SpriteRelativeExtents</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>2</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70311</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If sprite X + extent &gt;= $E9 or &lt; $18, then&#xD;
+ add priority attribute to show this sprite behind the background.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70193</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Force animation frame 1: hand closed.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70201</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Store the offsets of the sprites to show over Link&#xD;
+ ($10 and $11) in [00] and [01] for use in patching the right sprite.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70207</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Go patch up the sprites.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69808</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>WallmasterDirsAndAttrsRight</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>16</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69824</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>WallmasterDirsAndAttrsTop</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>16</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69840</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>WallmasterDirsAndAttrsBottom</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>16</Length>
+    </CodeLabel>
   </Labels>
   <TblMappings />
 </DebugWorkspace>
