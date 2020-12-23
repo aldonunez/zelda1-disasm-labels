@@ -31987,7 +31987,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>896</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>ObjMovingLimit</Label>
+      <Label>_ObjMovingLimit</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -55059,6 +55059,341 @@ For example:&#xD;
       <Comment />
       <Flags>None</Flags>
       <Length>16</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25370</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitTrap_Full</Label>
+      <Comment> Copy this parent/generator object's attributes to [01].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25418</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UpdateTrap_Full</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25375</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Assume we're initializing trap object type $49 that makes 6 traps.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25377</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The individual trap objects to make will be of type $49.&#xD;
+ Store it in [00].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25381</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the object type we're initializing is not $49 (as in it's $4A),&#xD;
+ then we'll make 4 traps.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25388</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Loop over each trap to make, from the last index (5 or 3) to 0.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25390</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Add the loop index to the current object slot, and switch the X register to it.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25358</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>TrapXs</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>6</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25364</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>TrapYs</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>6</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25394</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Look up and set the location for this iteration's individual trap.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25342</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitOneTrap</Label>
+      <Comment> Params:&#xD;
+ [00]: object type&#xD;
+ [01]: object attributes&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25422</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> State 0. Sensing.&#xD;
+&#xD;
+ If the absolute vertical distance between Link and the trap &gt;= $E,&#xD;
+ then go see if the horizontal distance is shorter.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>6586</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>Person_DrawAndCheckCollisions</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>6589</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label />
+      <Comment> If the person is flagged dead, then&#xD;
+ enable fireballs from the two flames, and reset the metastate.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>6602</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label />
+      <Comment> Either way, draw the object.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25579</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>L_Trap_DrawAndCheckCollisions</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25469</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the horizontal distance between Link and the trap &gt;= $E,&#xD;
+ then this trap definitely wasn't triggered.&#xD;
+ Go draw and check collisions.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25446</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Remember the original X coordinate.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25434</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Determine the horizontal direction toward Link;&#xD;
+ and if Link and the trap are at the same X, then we can't move&#xD;
+ along this axis. Go see about moving vertically.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25451</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set facing direction to the horizontal one that we determined.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25412</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>TrapAllowedDirs</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>6</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25454</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the direction we determined is not allowed for this trap, then&#xD;
+ go draw and check collisions.&#xD;
+&#xD;
+ MULTI: A344-1</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25459</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Advance to state 1 with q-speed $70 (1.75 pixels a frame) (fast).&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25481</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Determine the vertical direction toward Link;&#xD;
+ and if Link and the trap are at the same Y, then we can't move&#xD;
+ along this axis. Go draw and check object collisions.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25497</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> State 1 and 2.&#xD;
+&#xD;
+ Move in the direction it's facing.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25493</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> We'll advance to state 1. Go remember the original Y coordinate,&#xD;
+ set the vertical direction we determined, and other preparations.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25504</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Truncate the grid offset to square length ($10).&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25514</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The trap cannot be harmed. So, only check for collision with Link.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25517</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If moving horizontally, then set target coordinate in [00] to $78&#xD;
+ and current coordinate to the trap's X.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25529</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Else moving vertically. Set target coordinate in [00] to $90&#xD;
+ and current coordinate to the trap's Y.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25569</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Finish handling state 2.&#xD;
+&#xD;
+ If the current coordinate = original coordinate, then go to state 0.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25535</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If in state 2, then go finish handling it.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25541</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Finish handling state 1.&#xD;
+&#xD;
+ Get the distance between the current coordinate and the target.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25548</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If distance &gt;= 5, go draw.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25552</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Else reverse direction, and advace to state 2&#xD;
+ with q-speed $20 (0.5 pixels a frame) (slow).&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
     </CodeLabel>
   </Labels>
   <TblMappings />

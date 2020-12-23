@@ -89,7 +89,7 @@ R:034D:_RoomAllDead
 R:034E:RoomObjCount
 R:034F-035E:ObjType
 R:035F:_RoomObjTemplateType: TODO: Or RoomObjTemplate, or RoomMonsterTemplate,\n or RoomTemplateObjType\n
-R:0380:ObjMovingLimit
+R:0380:_ObjMovingLimit
 R:0394-03A7:ObjGridOffset: Used in movement like walking.\n When grid offset = 0, an object is at an intersection point in the tile grid.\n Otherwise, the object is between points along a line.\n
 R:03A8-03BB:_ObjPosFrac
 R:03BC-03CF:_ObjQSpeedFrac
@@ -340,6 +340,38 @@ P:62BF:: Flying Ghini
 P:62C4:: TODO: ?\n
 P:62C7:: Fade in for $3F frames.
 P:62CB:: Restore player index in X.
+P:62FE:InitOneTrap: Params:\n [00]: object type\n [01]: object attributes\n
+P:630E-6313:TrapXs
+P:6314-6319:TrapYs
+P:631A:InitTrap_Full: Copy this parent/generator object's attributes to [01].\n
+P:631F:: Assume we're initializing trap object type $49 that makes 6 traps.\n
+P:6321:: The individual trap objects to make will be of type $49.\n Store it in [00].\n
+P:6325:: If the object type we're initializing is not $49 (as in it's $4A),\n then we'll make 4 traps.\n
+P:632C:: Loop over each trap to make, from the last index (5 or 3) to 0.\n
+P:632E:: Add the loop index to the current object slot, and switch the X register to it.\n
+P:6332:: Look up and set the location for this iteration's individual trap.\n
+P:6344-6349:TrapAllowedDirs
+P:634A:UpdateTrap_Full
+P:634E:: State 0. Sensing.\n\n If the absolute vertical distance between Link and the trap >= $E,\n then go see if the horizontal distance is shorter.\n
+P:635A:: Determine the horizontal direction toward Link;\n and if Link and the trap are at the same X, then we can't move\n along this axis. Go see about moving vertically.\n
+P:6366:: Remember the original X coordinate.\n
+P:636B:: Set facing direction to the horizontal one that we determined.\n
+P:636E:: If the direction we determined is not allowed for this trap, then\n go draw and check collisions.\n\n MULTI: A344-1
+P:6373:: Advance to state 1 with q-speed $70 (1.75 pixels a frame) (fast).\n
+P:637D:: If the horizontal distance between Link and the trap >= $E,\n then this trap definitely wasn't triggered.\n Go draw and check collisions.\n
+P:6389:: Determine the vertical direction toward Link;\n and if Link and the trap are at the same Y, then we can't move\n along this axis. Go draw and check object collisions.\n
+P:6395:: We'll advance to state 1. Go remember the original Y coordinate,\n set the vertical direction we determined, and other preparations.\n
+P:6399:: State 1 and 2.\n\n Move in the direction it's facing.\n
+P:63A0:: Truncate the grid offset to square length ($10).\n
+P:63AA:: The trap cannot be harmed. So, only check for collision with Link.\n
+P:63AD:: If moving horizontally, then set target coordinate in [00] to $78\n and current coordinate to the trap's X.\n
+P:63B9:: Else moving vertically. Set target coordinate in [00] to $90\n and current coordinate to the trap's Y.\n
+P:63BF:: If in state 2, then go finish handling it.\n
+P:63C5:: Finish handling state 1.\n\n Get the distance between the current coordinate and the target.\n
+P:63CC:: If distance >= 5, go draw.\n
+P:63D0:: Else reverse direction, and advace to state 2\n with q-speed $20 (0.5 pixels a frame) (slow).\n
+P:63E1:: Finish handling state 2.\n\n If the current coordinate = original coordinate, then go to state 0.\n
+P:63EB:L_Trap_DrawAndCheckCollisions
 P:7FAC:SwitchBank_Local1
 P:8012:TransferCommonPatterns
 P:8015:: Clear address latch and scroll.
@@ -5728,6 +5760,9 @@ S:198D:Anim_WriteLevelPaletteSprite: Params:\n A: tile number\n X: object index\
 S:1991:Anim_WriteSprite: Params:\n A: tile number\n X: object index\n [03]: sprite attributes\n
 S:19A5:Anim_WriteSpecificSprite: Params:\n A: tile number\n X: object index\n Y: sprite record offset\n [03]: sprite attributes\n
 S:19AF:_Anim_EndWriteSprite: Params:\n A: Y coordinate\n Y: sprite record offset\n [03]: sprite attributes\n
+S:19BA:Person_DrawAndCheckCollisions
+S:19BD:: If the person is flagged dead, then\n enable fireballs from the two flames, and reset the metastate.\n
+S:19CA:: Either way, draw the object.\n
 S:19D0:CheckMonsterCollisions: Params:\n X: object index\n\n Note:\n This routine might modify the facing direction.\n
 S:19D3:: If the object is invincible, skip checking collisions with Link's weapons.\n But go check for a collision with Link.\n
 S:19D6:: Invincible
