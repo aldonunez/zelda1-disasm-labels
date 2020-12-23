@@ -257,7 +257,7 @@ P:6072:: Set teleporting state 1.\n
 P:6075:: If whirlwind's X < $F0, go draw.\n
 P:607B:: The whirlwind has reached the right edge of the screen.\n\n Destroy the object.\n
 P:607E:: If teleporting state <> 0, we picked up Link.\n So, go to the next mode.\n\n Either way, draw one last time.\n
-P:608D:_DestroyWhirlwind
+P:608D:DestroyWhirlwind
 P:60A8:SummonWhirlwind: If not in mode 5, return.\n
 P:60AE:: Advance the teleporting index, and store the mask for its level in [00].\n
 P:60B4:: Truncate to wrap the index around.
@@ -340,7 +340,15 @@ P:62BF:: Flying Ghini
 P:62C4:: TODO: ?\n
 P:62C7:: Fade in for $3F frames.
 P:62CB:: Restore player index in X.
-P:62FE:InitOneTrap: Params:\n [00]: object type\n [01]: object attributes\n
+P:62CE-62D7:_RupeeStashXs
+P:62D8-62E1:_RupeeStashYs
+P:62E2:InitRupeeStash_Full: When initializing, this object makes other objects that\n each have the same object attributes and type as this one.\n
+P:62E5:: [01] holds object attributes
+P:62E9:: [01] holds object type $35 (rupee stash)
+P:62EB:: Loop over $A rupee stash objects to make\n -- each one now representing an individual rupee\n
+P:62F0:: Look up and set the coordinates for one rupee stash/rupee.\n\n MULTI: A2CE-1\n
+P:62F5:: MULTI: A2D8-1\n
+P:62FE:InitOneSimpleObject: Params:\n [00]: object type\n [01]: object attributes\n
 P:630E-6313:TrapXs
 P:6314-6319:TrapYs
 P:631A:InitTrap_Full: Copy this parent/generator object's attributes to [01].\n
@@ -372,6 +380,14 @@ P:63CC:: If distance >= 5, go draw.\n
 P:63D0:: Else reverse direction, and advace to state 2\n with q-speed $20 (0.5 pixels a frame) (slow).\n
 P:63E1:: Finish handling state 2.\n\n If the current coordinate = original coordinate, then go to state 0.\n
 P:63EB:L_Trap_DrawAndCheckCollisions
+P:63EE:UpdateRupeeStash_Full: Save the current object slot.
+P:63F0:: If Link is not close enough (< 9 pixels in both axes), then\n go draw.\n
+P:6408:: Else Link is close enough. Add 1 rupee, and destroy this object.\n
+P:640E:: Once you've taken one, it counts as taking them all\n once you leave the room.\n
+P:6416:: Draw a rupee.\n
+P:6419:: Rupee item slot
+P:641B:: Rupee item slot
+P:6420:: Restore the current object slot.
 P:7FAC:SwitchBank_Local1
 P:8012:TransferCommonPatterns
 P:8015:: Clear address latch and scroll.
@@ -1153,7 +1169,7 @@ P:102EE:: If the flying rock hit a tile or room boundary, then go destroy it.\n
 P:102F6:: No shots can cross the room boundary.\n
 P:102FB:: Move the object, and check for a collision with Link.\n Go destroy the shot object, if there was a harmful collision.\n
 P:10301:: Not zero, if collided.
-P:10305:: If object type = arrow ($5B), then draw an arrow, and return.\n
+P:10305:_L_DrawShot: If object type = arrow ($5B), then draw an arrow, and return.\n
 P:1030F:: If object type = sword shot or magic shot, then go draw, and return.\n
 P:1031A:: Prepare to draw other shot types.\n
 P:1031D:: [0D] holds frame image 0
@@ -1168,7 +1184,24 @@ P:10362:: Add 2 to the bounce distance.\n The absolute value of one of the displ
 P:1036B:: Go destroy the shot, if the bounce counter has reached the limit.\n Otherwise, go draw.\n
 P:10371:_CheckShotLinkCollision: Params:\n X: monster object index\n\n Returns:\n [00]: 0 for Link slot\n [06]: 1 if objects collide\n [09]: 0 for Link damage type (none)\n [0C]: 1 if objects collide\n [034B]: ShotCollidesWithLink\n\n TODO: Name: ObjGridOffset\n Reset bounce distance.\n
 P:1037E:: If the shot hits Link, then start to bounce off of Link's shield.\n Set the bounce direction to Link's facing direction.\n Set state $30 to bounce.\n\n TODO: Name: ObjMovingLimit\n
-P:10399:_UpdateFireball
+P:10388-1038F:FireballQSpeedsX
+P:10390-10398:FireballQSpeedsY
+P:10399:UpdateFireball
+P:1039D:: State 0.\n\n Reset horizontal and vertical position fractions.\n
+P:103A3:: Link is the target. So, register A has 0 -- his object slot.\n
+P:103A6:: Remember the horizontal and vertical directions toward target.\n
+P:103B0:: Set the facing direction to the combination of the two.\n
+P:103B9:: Look up and set the horizontal and vertical q-speeds.\n
+P:103C5:: Set state to $10: monster shot active.\n Set object timer to $10, so it's seen but delays a little before moving.\n
+P:103CC:: State 1.\n\n Fireballs are delayed and visible for a few frames before moving.\n If timer <> 0, go draw.\n
+P:103D0:: If the room boundary blocks the fireball, then destroy it.\n
+P:103DA:: A movement routine is used that works along one axis.\n So, load its parameters, and call it for each axis individually.\n\n First, load the horizontal direction into [0F].\n
+P:103DF:: Load the horizontal q-speed and position fraction,\n move, then save the position fraction.\n
+P:103EB:: Second, load the vertical direction into [0F].\n
+P:103F0:: Load the vertical q-speed and position fraction,\n move, then save the position fraction.\n
+P:103FC:: Check for collision with Link. If hit, then go destroy the fireball.\n
+P:10407:Fireball_MoveOneAxis: Params:\n A: q-speed\n Y: position fraction\n [0F]: movement direction\n\n Returns:\n A: position fraction\n\n Load the q-speed and position fraction from the parameters.\n
+P:10411:: Return the updated position fraction.\n
 P:10415:InitBubble: QSpeed $40 (1 pixel a frame)
 P:1041D:InitBlueKeese: Choose one of eight random directions.\n
 P:10435:InitRedOrBlackKeese
@@ -1297,6 +1330,8 @@ P:1075E:: Octorock spawn clouds last longer than other monsters.\n Set object ti
 P:1076A:: Reset movement frame.
 P:10775:InitPeahat: Peahats do not use a spawn cloud. Also, go up at first.\n
 P:1077C:EndInitFlyer
+P:1078A:InitPondFairy: Play "item taken" sound effect.\n
+P:1078F:: The fairy goes at location ($78, $7D).\n
 P:10798:UpdateZora: If we have the magic clock, then return.\n
 P:107A0:: If zora died in the call above, then it happened while in\n states 2, 3, or 4. In the code below, the state won't be 0.\n So, it won't flag the zora inactive. This is why the zora does\n not come back after killing it.\n\n If state <> 3 or timer <> $FD,\n then go see if the object needs to be destroyed.\n
 P:107AC:: Shoot a fireball; and set the timer so that it expires faster.\n
@@ -1329,7 +1364,15 @@ P:10829:: Replace the speed that was pushed with 0.
 P:1082D:: Set the speed to whatever was determined: 0 or the value passed in [01].\n
 P:10832:_ShootIfWanted2: Params:\n A: shot object type\n X: shooter object index\n\n Returns:\n C: 1 if succeeded\n Y: shot slot\n
 P:10835:: TODO:\n If succeeded, then set object timer to $80, and decrement [0437][X].\n\n TODO:\n What are object timer and [0437] used for?\n
-P:1083F:UpdateMonsterArrow
+P:1083F:UpdateMonsterArrow: Set q-speed $80 (2 pixels a frame).\n
+P:10844:: If the timer has not expired, then go draw,\n and see if the shooter's still alive.\n
+P:10848:: If the arrow is sparking, then go update the base arrow.\n
+P:10851:: If the arrow is not flying, then\n go handle it bouncing off of Link's shield.\n
+P:10855:: TODO: But is this necessary?\n Set the moving direction in [0F].\n Then go update the base arrow.\n
+P:1085C:: If the shooter is gone, then reset the arrow's object timer;\n so that it flies right away.\n
+P:1086C:: If the arrow is no longer flying, then\n go handle it sparking or bouncing.\n
+P:10878:: If [06] = 0, then there was no collision with Link that harmed him\n Either there was no collision at all, or it bounced off of the shield.\n So, return.\n
+P:1087C:: Else there was a collision with Link that harmed him.\n So, destroy the arrow.\n
 P:10886:UpdateBoulderSet: If the object timer has not expired, then return.\n
 P:1088A:: If the maximum number (3) of boulders are active, then\n go set the timer to wait a random amount of time.\n
 P:10891:: If no empty monster slot is found, then return.\n
@@ -1513,6 +1556,36 @@ P:10D7B:: If the armos is still fading in, then go for check collision with Link
 P:10D7F:: Else check for all collisions.\n
 P:10D82:: TODO: Why?\n If the armos has died, then set object type to $5D.\n
 P:10D90:UpdatePondFairy
+P:10D93:: If not in state 0, then go handle states 1 to 3.\n
+P:10D97:: State 0.\n\n If Link is not at the edge of the pond (Y=$AD), then return.\n
+P:10D9D:: If Link's X < $70 or >= $81, then return.\n
+P:10DA7:: Link is at the edge of the pond. Advance to state 1,\n halt Link, and start filling hearts.\n
+P:10DB4:: State 1. Flying and filling hearts.\n\n If still filling hearts, then go draw Link and hearts.\n
+P:10DB8:: If not filling hearts anymore, then go to state 2,\n and set Link's object timer to $50, to keep showing hearts\n a little while after we finish filling hearts.\n
+P:10DBE:: If state <> 2 (so, it's 3), then return.\n\n Note that the first time here is when we fall thru from 8DBC.\n In this case, A has $50 -- the value that Link's object timer\n was set to, and we'll return.\n
+P:10DC2:: State = 2.\n\n If Link's timer <> 0, then go draw Link and hearts.\n
+P:10DC6:: Else go to state 3, and unhalt Link.\n
+P:10DCC:: TODO: but why, since Link is halted?\n\n Reset the input direction, so that Link doesn't animate\n when drawing him.
+P:10DD1:: Save and reset Link's state.\n\n TODO: but why, since Link is halted?\n
+P:10DD9:: Restore Link's state.\n
+P:10DDF:: Restore the object slot.\n
+P:10DE3-10DE9:PondHeartStartAngles
+P:10DEA:PondFairy_MoveHearts: Loop over each heart from object slot 2 to 9.\n\n Even though they are not standalone objects, their info\n is stored in those object slots.\n
+P:10DEC:: If the current heart's state <> 0, then go move it.\n Else we have to wait for it come out at the right time.\n
+P:10DF0:: The current heart's state = 0.\n\n If object slot = 2, then go make it appear. This is the first\n heart to show up.\n
+P:10DF4:: Object slot <> 2. If the state of the heart in slot 2 = 0, then\n go start over.\n\n TODO:\n Is it possible to jump here? This looks like an infinite loop.\n
+P:10DF8:: Look up the starting angle of this heart with the index\n (object slot - 3). If the first heart has not reached this angle,\n then loop again.\n
+P:10E05:: Set up this heart. Set its state to 1.\n
+P:10E07:: TODO: ?\n
+P:10E0B:: Starting angle $18 (N).\n
+P:10E10:: This heart is right above the fairy. Set its X the same as the fairy's.\n
+P:10E14:: This heart is right above the fairy. Set its Y $1C pixels above the fairy.\n
+P:10E1B:: Decrease the angle by $00.60.\n
+P:10E24:: Rotate the heart's location by the change in angle.\n Use 6 for the number of bits of sine/cosine to use\n for a large ring.\n
+P:10E2C:: Save the loop index.
+P:10E34:: The variable for the currently updating object slot has to be\n set to the heart's object slot for this drawing routine to work.\n
+P:10E3A:: Restore the loop index.
+P:10E3C:: Bottom of the loop.\n Increase the object slot.\n
 P:10E42-10E43:RockPushDirections: Also used for the gravestone.
 P:10E44:UpdateRockOrGravestone
 P:10E48:: State 0.\n\n If this is not a gravestone (but it's a rock), and there is no\n bracelet, then return.\n
@@ -2470,7 +2543,7 @@ P:12974:: Halt Link.\n
 P:12978:: Set Link's timer to $40 for scene phase 0.\n
 P:1297A:: TODO: ?\n
 P:12987:UpdateZelda
-P:129D8:UpdateGuardFire
+P:129D8:UpdateGuardFire: Animation counter 6
 P:129E5:_SetDeadDummyObjType
 P:129EB:UpdateLamnola: If the direction of this segment is not set, then it has not started\n moving yet. So, return.\n
 P:129EF:: If we have the magic clock, then go draw and check collisions.\n
@@ -2762,6 +2835,7 @@ P:13205:: Set maximum speed fraction to $A0.\n
 P:1320B:ResetFlyerState
 P:1320D:: TODO: Names\n
 P:1321D:UpdateFairyObject: Params:\n X: object index\n
+P:13223:_DrawFairy
 P:13229:: Every 4 frames, switch between the two sprite frames.\n
 P:13235:ControlFairyFlight
 P:13243:Flyer_FairyDecideState: Set up 6 turns, and go to state 3.\n
@@ -2824,7 +2898,7 @@ P:1339C:: Go set object direction for 8-way index.
 P:1339F:GetObjDir8Index: Returns:\n Y: index of 8-way direction of flyer object\n
 P:133AB:: If not found, then use index 0.
 P:133AD-133BC:_PatraSines
-P:133BD:_RotateObjectLocation: Params:\n A: whole bits of cosine to use in calculating Y increment\n Y: whole bits of sine to use in calculating X increment\n\n Returns:\n A: new Y coordinate of object\n\n [06] holds the number of high bits of cosine to use
+P:133BD:_RotateObjectLocation: Params:\n A: high bits of cosine to use in calculating Y increment\n Y: high bits of sine to use in calculating X increment\n\n Returns:\n A: new Y coordinate of object\n\n [06] holds the number of high bits of cosine to use
 P:133BF:: [05] holds the number of high bits of sine to use
 P:133C1:: First, rotate the X coordinate.\n\n Look up the sine for the current angle, and store it in [00].\n
 P:133CC:: Mutliply q-speed by [00].\n\n Q-speed has the default value $20 set when entering the room.\n
@@ -5048,7 +5122,7 @@ P:1F665:: Make to set Link's animation counter to 1, so that he picks\n up the n
 P:1F66A:: Deactivate the boomerang.\n
 P:1F672:: A monster caught the boomerang that it threw.\n\n Set a timer for the thrower based on a random value:\n < $30: $30\n < $70: $50\n Else:  $70\n
 P:1F689:: Reset the thrower's state to make it idle or restart its state machine.\n Destroy the monster's boomerang.\n
-P:1F691:: Move towards the thrower.\n\n\n Middle speed index 4 goes equally fast in X and Y axes.\n
+P:1F691:: Move towards the thrower.\n\n Middle speed index 4 goes equally fast in X and Y axes.\n
 P:1F696:: Move vertically towards the thrower.\n
 P:1F69C:: [0A] vertical direction
 P:1F6A2:: Save speed index.
@@ -5267,7 +5341,8 @@ P:1FE90:UpdateGrumble
 P:1FE98:DecrementInvincibilityTimer: Params:\n X: object index\n
 P:1FE9B:: If the timer is already zero, then return.
 P:1FE9D:: Every two frames, decrease the timer.
-P:1FEA6:_UpdateDeadDummy: TODO:\n Maybe call it SetDyingMetastate? Or something else?\n
+P:1FEA6:UpdateDeadDummy: Monster died sound effect
+P:1FEAB:: First metastate of death spark
 P:1FEB1:DestroyMonster: Params:\n X: object index\n
 P:1FEB3:SetTypeAndClearObject: Params:\n A: object type\n X: object index\n
 P:1FEBB:FindEmptyMonsterSlot: Look for an empty object slot for a monster from $B to 1.\n\n Returns:\n A: 0 if found an empty slot\n Y: an empty slot, if found\n Z: 0 if found an empty slot\n [59]: an empty slot, if found\n

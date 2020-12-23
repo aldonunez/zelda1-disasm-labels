@@ -1588,7 +1588,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>76248</Address>
       <AddressType>PrgRom</AddressType>
       <Label>UpdateGuardFire</Label>
-      <Comment />
+      <Comment> Animation counter 6</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -1669,7 +1669,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>66457</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_UpdateFireball</Label>
+      <Label>UpdateFireball</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -1678,7 +1678,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>67647</Address>
       <AddressType>PrgRom</AddressType>
       <Label>UpdateMonsterArrow</Label>
-      <Comment />
+      <Comment> Set q-speed $80 (2 pixels a frame).&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -1694,10 +1695,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>130726</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_UpdateDeadDummy</Label>
-      <Comment> TODO:&#xD;
- Maybe call it SetDyingMetastate? Or something else?&#xD;
-</Comment>
+      <Label>UpdateDeadDummy</Label>
+      <Comment> Monster died sound effect</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -32301,7 +32300,6 @@ For example:&#xD;
       <Label />
       <Comment> Move towards the thrower.&#xD;
 &#xD;
-&#xD;
  Middle speed index 4 goes equally fast in X and Y axes.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -33167,7 +33165,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>24717</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_DestroyWhirlwind</Label>
+      <Label>DestroyWhirlwind</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -41934,7 +41932,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>66309</Address>
       <AddressType>PrgRom</AddressType>
-      <Label />
+      <Label>_L_DrawShot</Label>
       <Comment> If object type = arrow ($5B), then draw an arrow, and return.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -53567,8 +53565,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label>_RotateObjectLocation</Label>
       <Comment> Params:&#xD;
- A: whole bits of cosine to use in calculating Y increment&#xD;
- Y: whole bits of sine to use in calculating X increment&#xD;
+ A: high bits of cosine to use in calculating Y increment&#xD;
+ Y: high bits of sine to use in calculating X increment&#xD;
 &#xD;
  Returns:&#xD;
  A: new Y coordinate of object&#xD;
@@ -55152,7 +55150,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>25342</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>InitOneTrap</Label>
+      <Label>InitOneSimpleObject</Label>
       <Comment> Params:&#xD;
  [00]: object type&#xD;
  [01]: object attributes&#xD;
@@ -55391,6 +55389,734 @@ For example:&#xD;
       <Label />
       <Comment> Else reverse direction, and advace to state 2&#xD;
  with q-speed $20 (0.5 pixels a frame) (slow).&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66461</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> State 0.&#xD;
+&#xD;
+ Reset horizontal and vertical position fractions.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66508</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> State 1.&#xD;
+&#xD;
+ Fireballs are delayed and visible for a few frames before moving.&#xD;
+ If timer &lt;&gt; 0, go draw.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66467</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Link is the target. So, register A has 0 -- his object slot.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66470</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Remember the horizontal and vertical directions toward target.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66480</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set the facing direction to the combination of the two.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66567</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Fireball_MoveOneAxis</Label>
+      <Comment> Params:&#xD;
+ A: q-speed&#xD;
+ Y: position fraction&#xD;
+ [0F]: movement direction&#xD;
+&#xD;
+ Returns:&#xD;
+ A: position fraction&#xD;
+&#xD;
+ Load the q-speed and position fraction from the parameters.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66522</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> A movement routine is used that works along one axis.&#xD;
+ So, load its parameters, and call it for each axis individually.&#xD;
+&#xD;
+ First, load the horizontal direction into [0F].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66539</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Second, load the vertical direction into [0F].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66512</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the room boundary blocks the fireball, then destroy it.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66527</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Load the horizontal q-speed and position fraction,&#xD;
+ move, then save the position fraction.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66544</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Load the vertical q-speed and position fraction,&#xD;
+ move, then save the position fraction.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66556</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Check for collision with Link. If hit, then go destroy the fireball.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66577</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Return the updated position fraction.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66501</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set state to $10: monster shot active.&#xD;
+ Set object timer to $10, so it's seen but delays a little before moving.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66440</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>FireballQSpeedsX</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>8</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66448</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>FireballQSpeedsY</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>9</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66489</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Look up and set the horizontal and vertical q-speeds.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>67652</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the timer has not expired, then go draw,&#xD;
+ and see if the shooter's still alive.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>67656</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the arrow is sparking, then go update the base arrow.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>67665</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the arrow is not flying, then&#xD;
+ go handle it bouncing off of Link's shield.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>67669</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO: But is this necessary?&#xD;
+ Set the moving direction in [0F].&#xD;
+ Then go update the base arrow.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>67676</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the shooter is gone, then reset the arrow's object timer;&#xD;
+ so that it flies right away.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>67692</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the arrow is no longer flying, then&#xD;
+ go handle it sparking or bouncing.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>67704</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If [06] = 0, then there was no collision with Link that harmed him&#xD;
+ Either there was no collision at all, or it bounced off of the shield.&#xD;
+ So, return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>67708</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Else there was a collision with Link that harmed him.&#xD;
+ So, destroy the arrow.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>130731</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> First metastate of death spark</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25314</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitRupeeStash_Full</Label>
+      <Comment> When initializing, this object makes other objects that&#xD;
+ each have the same object attributes and type as this one.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25317</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> [01] holds object attributes</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25321</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> [01] holds object type $35 (rupee stash)</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25323</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Loop over $A rupee stash objects to make&#xD;
+ -- each one now representing an individual rupee&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25294</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_RupeeStashXs</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>10</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25304</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_RupeeStashYs</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>10</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25328</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Look up and set the coordinates for one rupee stash/rupee.&#xD;
+&#xD;
+ MULTI: A2CE-1&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25333</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> MULTI: A2D8-1&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25582</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UpdateRupeeStash_Full</Label>
+      <Comment> Save the current object slot.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25632</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Restore the current object slot.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25625</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Rupee item slot</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25627</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Rupee item slot</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25622</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Draw a rupee.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25584</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If Link is not close enough (&lt; 9 pixels in both axes), then&#xD;
+ go draw.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25608</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Else Link is close enough. Add 1 rupee, and destroy this object.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25614</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Once you've taken one, it counts as taking them all&#xD;
+ once you leave the room.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>67466</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitPondFairy</Label>
+      <Comment> Play "item taken" sound effect.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>67471</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The fairy goes at location ($78, $7D).&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78371</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_DrawFairy</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69015</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> State 0.&#xD;
+&#xD;
+ If Link is not at the edge of the pond (Y=$AD), then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69021</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If Link's X &lt; $70 or &gt;= $81, then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69031</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Link is at the edge of the pond. Advance to state 1,&#xD;
+ halt Link, and start filling hearts.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69073</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Save and reset Link's state.&#xD;
+&#xD;
+ TODO: but why, since Link is halted?&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69044</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> State 1. Flying and filling hearts.&#xD;
+&#xD;
+ If still filling hearts, then go draw Link and hearts.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69054</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If state &lt;&gt; 2 (so, it's 3), then return.&#xD;
+&#xD;
+ Note that the first time here is when we fall thru from 8DBC.&#xD;
+ In this case, A has $50 -- the value that Link's object timer&#xD;
+ was set to, and we'll return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69048</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If not filling hearts anymore, then go to state 2,&#xD;
+ and set Link's object timer to $50, to keep showing hearts&#xD;
+ a little while after we finish filling hearts.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69068</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO: but why, since Link is halted?&#xD;
+&#xD;
+ Reset the input direction, so that Link doesn't animate&#xD;
+ when drawing him.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69058</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> State = 2.&#xD;
+&#xD;
+ If Link's timer &lt;&gt; 0, then go draw Link and hearts.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69062</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Else go to state 3, and unhalt Link.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69011</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If not in state 0, then go handle states 1 to 3.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69081</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Restore Link's state.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69087</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Restore the object slot.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69091</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>PondHeartStartAngles</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>7</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69098</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>PondFairy_MoveHearts</Label>
+      <Comment> Loop over each heart from object slot 2 to 9.&#xD;
+&#xD;
+ Even though they are not standalone objects, their info&#xD;
+ is stored in those object slots.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69100</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the current heart's state &lt;&gt; 0, then go move it.&#xD;
+ Else we have to wait for it come out at the right time.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69104</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The current heart's state = 0.&#xD;
+&#xD;
+ If object slot = 2, then go make it appear. This is the first&#xD;
+ heart to show up.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69108</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Object slot &lt;&gt; 2. If the state of the heart in slot 2 = 0, then&#xD;
+ go start over.&#xD;
+&#xD;
+ TODO:&#xD;
+ Is it possible to jump here? This looks like an infinite loop.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69112</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Look up the starting angle of this heart with the index&#xD;
+ (object slot - 3). If the first heart has not reached this angle,&#xD;
+ then loop again.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69125</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set up this heart. Set its state to 1.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69127</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO: ?&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69131</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Starting angle $18 (N).&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69136</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> This heart is right above the fairy. Set its X the same as the fairy's.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69140</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> This heart is right above the fairy. Set its Y $1C pixels above the fairy.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69147</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Decrease the angle by $00.60.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69156</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Rotate the heart's location by the change in angle.&#xD;
+ Use 6 for the number of bits of sine/cosine to use&#xD;
+ for a large ring.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69164</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Save the loop index.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69178</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Restore the loop index.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69180</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Bottom of the loop.&#xD;
+ Increase the object slot.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69172</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The variable for the currently updating object slot has to be&#xD;
+ set to the heart's object slot for this drawing routine to work.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
