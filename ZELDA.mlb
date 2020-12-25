@@ -199,6 +199,7 @@ R:0657:Items
 R:0658:InvBombs
 R:0659:InvArrow
 R:065A:Bow
+R:065D:InvFood
 R:065E:Potion
 R:0660:InvRaft
 R:0661:InvBook
@@ -225,13 +226,120 @@ R:067D:RupeesToAdd
 R:067E:RupeesToSubtract
 R:067F-07FE:WorldFlags
 P:1825:DriveAudio
+P:4000-404B:PersonTextAddrs
+P:404C-45A1:PersonText
 P:45D0:InitCave
 P:45D7:: If the cave/person is not a simple one for taking an item,\n then go set up the text.\n
 P:45EA:: Else the cave/person simply does:\n - item taken: no person, no text\n - not taken:  show a person and text\n\n So, if the item was not taken, then go set up the text.\n
 P:45EF:: Otherwise destroy the person object, and let Link continue.\n
+P:45F4:UnhaltLink
 P:46A3:SetUpCommonCaveObjects: Params:\n A: X coordinate\n Y: Y coordinate\n\n Set the person's coordinates, HP, and attributes.\n
 P:46B1:: Halt Link.\n
 P:46B5:: Set up the two bonfires.\n
+P:47F2:CueTransferRecordAndAdvanceState: Params:\n A: selector\n
+P:480D-4811:TextboxCharTransferRecTemplate
+P:4812-4814:TextboxLineAddrsLo
+P:4815:_UpdatePersonState_Textbox
+P:4818:: If the person's timer has not expired, then return.\n
+P:481C:: Set the timer to wait 6 frames after the next character about\n to be shown.\n
+P:4820:: Copy the 5 bytes of the textbox character transfer record template\n to the dynamic transfer buf.\n
+P:482B:: Replace the low byte of the VRAM address with the one\n where the next character should be written.\n
+P:4831:: Increment the low VRAM address for the next character.\n
+P:4834:: Use the person text selector to look up the address of the\n text for the textbox. Store the address in [00:01].\n
+P:4842:: Load the person text current character index.\n
+P:4845:: Increment the index variable to point to the next character\n for next time.\n
+P:4848:: Get the current character.\n
+P:484A:: If the character is $25, then it's a special space. It will still\n take up space, but will not take time to show -- meaning that\n we'll go look up the next character to transfer.\n
+P:4850:: We have a non-space character. Put it in the transfer record.\n
+P:4853:: Play the "heart taken/character" sound effect.\n
+P:4858:: If the high 2 bits of character element = 0, then return.\n
+P:485E:: Determine an index based on the high 2 bits of the character element:\n   $80: 0\n   $40: 1\n   $C0: 2\n
+P:486A:: The index chooses the low VRAM address of the start\n of another line:\n   0: $C4: front of the second line\n   1: $E4: front of the third line\n   2: $A4: front of the first line\n\n Look up the low VRAM address and store it.\n
+P:4870:: If index = 2, then we've reached the end of the text,\n and low VRAM address is moved to the front of the first line.\n So, advance the state of the person object, and unhalt Link.\n
+P:49F7:CueTransferBlankPersonWaresAndAdvanceState: Also blanks the third line of text.
+P:49FC:InitUnderworldPerson_Full: Point to the front of the first line in VRAM.
+P:4A1B-4A22:UnderworldPersonTextSelectorsA
+P:4A23:InitUnderworldPersonA: The person goes at location ($78, $80).\n
+P:4A2A:: Subtract $4B from the object type to get the old man's index.\n
+P:4A31:: Look up and store the text selector.\n
+P:4A37:: If this is the man that offers more bomb capacity, then\n go see if the offer was flagged as already taken.\n
+P:4A40:InitUnderworldPersonLifeOrMoney_Full: The person goes at location ($78, $80).\n
+P:4A47:: Set text selector for "life or money".\n
+P:4A4C:: Point to the front of the first line in VRAM.\n
+P:4A52:: Destroy this object if the secret/item was already taken.\n
+P:4A61-4A68:UnderworldPersonTextSelectorsB
+P:4A69:InitUnderworldPersonB: The person goes at location ($78, $80).\n
+P:4A70:: Subtract $4B from the object type to get the old man's index.\n
+P:4A77:: Look up and store the text selector.\n
+P:4A80-4A83:UnderworldPersonTextSelectorsC
+P:4A84:InitUnderworldPersonC: The person goes at location ($78, $80).\n
+P:4A91:: Save the object type.
+P:4A92:: Subtract $4B from the object type to get the old man's index.\n
+P:4A96:: Look up and store the text selector.\n
+P:4A9C:: Restore the object type.
+P:4A9D:: Return, if this is not the man at the entrance of Level 9,\n or Link has not gotten all the triforce pieces.\n
+P:4AA8:: Otherwise, open the shutters, and destroy this object.\n
+P:4AB4:InitGrumble_Full: Grumble Goriya goes at location ($78, $80).\n
+P:4ABB:: Store text selector $24.\n
+P:4AC0:: Set the low VRAM address of the first character to transfer\n to the front of the first line in NT0. It's at index 2.\n
+P:4AC6:: If Grumble already got the food, then\n reset his type and state to get rid of him.\n
+P:4AD3:PlayCharacterSfx: "item taken/character" sound effect
+P:4AD9:UpdateUnderworldPerson_Full: If level is not one of {3, 4, 6, 8, 9}, then\n go handle people that do more than talk.\n
+P:4AEA:: Else simply draw, check collisions, and show the text.\n
+P:4AF8:_UpdatePersonState_ResetCharOffset
+P:4AFF:_UpdatePersonState_DoNothing
+P:4B00:Person_CheckCollisions
+P:4B03:: If the person died, then Link hit him. So, start shooting\n fireballs, then reset the metastate, so that he's not dead.\n
+P:4B11:UpdateUnderworldComplexPerson: In state 4, the person is shown every other frame.\n
+P:4B20:: If this is the "more bombs" man, then show a rupee\n at ($78, $98) using room item object slot $13.\n
+P:4B45:UpdateUnderworldComplexPersonState_Begin: If this is the "more bombs" man, then show the price of the offer.\n
+P:4B4C:: "-100"
+P:4B50:: Set a timer of $A frames before showing characters,\n and go to state 1.\n
+P:4B57:UpdateUnderworldComplexPersonState_SenseLink: If this is not the "more bombs" man, then return.\n
+P:4B5E:: If Link's X <> $78, then return.\n
+P:4B64:: If the distance between Link's Y and the rupee's ($98) < 6,\n then go see if Link can pay for it.\n Else return.\n
+P:4B71:: If rupee count < 100, then return.\n
+P:4B7A:: Post 100 rupees more to subtract.\n
+P:4B81:: Play the "key taken" sound effect.\n
+P:4B86:: Increase max bombs by 4, set the amount on hand to the max.\n
+P:4B92:: Go mark this offer taken.\n
+P:4B95:UpdateUnderworldComplexPersonState_DelayAndQuit: If the object timer has expired, then destroy this object.\n
+P:4B9D:Person_DrawAndCheckCollisions
+P:4BA6:UpdateUnderworldPersonLifeOrMoney_Full: In state 4, this person and the items are drawn every other frame.\n
+P:4BC7-4BC8:LifeOrMoneyItemXs
+P:4BC9-4BCA:LifeOrMoneyItemTypes
+P:4BCB:_DrawLifeOrMoneyItems: Loop over each item to draw, from 1 to 0.\n
+P:4BCD:: Save loop index.
+P:4BCF:: Look up and set the X coordinate of the item.\n
+P:4BD4:: Set Y=$98, and look up the item type.\n
+P:4BDB:: Switch to the room item object slot.\n
+P:4BE0:: Restore loop index.
+P:4BE6:UpdateUnderworldPersonLifeOrMoneyState_0: Delay in the next state $A frames before showing the first character.\n
+P:4BEA:: "-1   -50" text selector
+P:4BEF:UpdateUnderworldPersonLifeOrMoneyState_2: Loop over each item to check, from 1 to 0.\n
+P:4BF1:: If Link's X doesn't match the item's, then go loop again.\n
+P:4BF8:: If the vertical distance between the item and Link < 6, then\n go handle paying appropriately.\n
+P:4C08:: If the player chose the heart container, go handle it.\n
+P:4C0C:: The player chose the money.\n But if he doesn't have enough, then return.\n
+P:4C15:: Post 50 rupees more to subtract, and go flag this offer taken.\n
+P:4C1F:: The player chose the heart container.\n\n If the number of heart containers < 4, then\n - leave the number of heart containers alone\n - set HeartPartial to 0, so Link will die with one more hit\n\n Then go flag this offer taken.\n
+P:4C33:: Store (HeartValues - 1 heart container) in [00].\n
+P:4C3E:: Get (HeartValues - 1 heart)\n
+P:4C44:: If the result is negative, then make the full hearts 0.\n
+P:4C48:: Combine the heart containers and full hearts, and store it.\n
+P:4C4D:: "key taken" sound effect
+P:4C5A:UpdateGrumble_Full: If state <> 3, then go check collisions and draw every frame.\n
+P:4C60:: In state 3, the person is translucent by drawing\n (and checking object collisions) every other frame.\n
+P:4C7C:UpdateGrumble1: If there's no food in object slot $F, then return.\n
+P:4C84:: Else halt Link and play the "secret found" tune.\n
+P:4C8D:_L_Person_FlagItemTakenAndAdvanceState: Flag the secret/item of this room taken.\n
+P:4C90:: Set object timer $40 for when we get to state 3.\n
+P:4C94:: Cue transfer record of the blank textbox lines,\n and go to the next state, where a transfer record is cued\n to clear cave/person wares.\n
+P:4C99:UpdateGrumble3
+P:4C9C:: If the timer has not expired, then return.\n
+P:4CA0:: Deactivate the food object in slot $F.\n
+P:4CA5:: Get rid of the food from the inventory.\n
+P:4CA8:: Make Link idle again, and reset this object's type.\n
 P:4D00:CopyCommonCodeToRam: Source address $A500.
 P:4D08:: Destination address $6C90.
 P:4D12:: Copy 1 byte.
@@ -2521,7 +2629,13 @@ P:12876:: Set sprite's X to ($74 + column * 8).\n
 P:12880:: Increment the index for fetching tiles.\n
 P:12884:: Bottom of the column loop.\n Increment the column until it = 3.\n
 P:1288C:: Bottom of the row loop.\n Increment the row until it = 2.\n
-P:128CA:InitZelda
+P:128C0-128C4:GuardFireXs
+P:128C5-128C9:GuardFireYs
+P:128CA:InitZelda: Make Zelda and 4 flames that guard her, in object slots 5 to 1.\n
+P:128CC:: Look up and set the location of each object.\n\n MULTI: A8C0-1\n
+P:128D1:: MULTI: A8C5-1\n
+P:128D6:: Guard fire object type
+P:128DE:: Replace the type of the object in slot 1 with $37: Zelda.\n
 P:128E4:InitLamnola: Make $A segments.\n
 P:128E6:: Starting location is ($40, $8D) and direction is 0.\n
 P:128F5:: Each segment is flagged initialized and ready to update.\n
@@ -2543,7 +2657,17 @@ P:12974:: Halt Link.\n
 P:12978:: Set Link's timer to $40 for scene phase 0.\n
 P:1297A:: TODO: ?\n
 P:12987:UpdateZelda
+P:1298E:: State 0.\n\n If Link's X < $70 or >= $81, or Link's Y <> $95, then return.\n
+P:1299E:: Else Link is near enough to Zelda.\n Go to state 1, and halt Link.\n
+P:129A4:: Put Link at location ($88, $88) and facing left.\n
+P:129AE:: TODO: ?\n
+P:129B3:: Set a delay of $80 frames at the beginning of the next state.\n
+P:129B8:: State 1.\n\n Draw Link, then return if the object timer <> 0.\n
+P:129BF:: Go to mode $13.\n
+P:129C9:: Mode $13 will start with a curtain furling effect.\n Set up the decreasing column ($20), and the increasing column (1).\n Prepare the background by filling the tile map with blank tile $24.\n
+P:129D3:: [0A] tile to fill with
 P:129D8:UpdateGuardFire: Animation counter 6
+P:129E0:: If the object has not been killed, then return.\n Else change the object type to dead dummy.\n
 P:129E5:_SetDeadDummyObjType
 P:129EB:UpdateLamnola: If the direction of this segment is not set, then it has not started\n moving yet. So, return.\n
 P:129EF:: If we have the magic clock, then go draw and check collisions.\n
@@ -4453,6 +4577,8 @@ P:1A0FD:: End when we read a negative VRAM address.
 P:1A100-1A180:Mode1TileTransferBuf
 P:1A183-1A201:ModeFCharsTransferBuf
 P:1A202-1A209:GanonPaletteRow7TransferBuf
+P:1A21D-1A225:BlankTextBoxLines
+P:1A226-1A22E:BlankPersonWares
 P:1A22F-1A234:SubmenuTriforceApexTransferBuf
 P:1A235-1A244:SubmenuTriforceBottomTransferBuf
 P:1A245-1A24C:GhostPaletteRow7TransferBuf
@@ -4463,6 +4589,8 @@ P:1A27E-1A285:RedArmosPaletteRow7TransferBuf
 P:1A286-1A28D:GleeokPaletteRow7TransferBuf
 P:1A28E-1A295:AquamentusPaletteRow7TransferBuf
 P:1A296-1A29D:OrangeBossPaletteRow7TransferBuf
+P:1A29E-1A2A5:BombCapacityPriceTextTransferBuf
+P:1A2A6-1A2B3:LifeOrMoneyCostTextTransferBuf
 P:1A2B4-1A2D2:Mode8TextTileBuffer
 P:1A2D3-1A315:StatusBarStaticsTransferBuf
 P:1A316-1A322:InventoryTextTransferBuf
@@ -4966,6 +5094,10 @@ P:1F205-1F208:LinkHeadTiles
 P:1F209-1F20C:LinkHeadMagicShieldTiles
 P:1F20D-1F212:LadderRoomsOW
 P:1F213:Link_EndMoveAndAnimate_Bank4
+P:1F21B:_Link_EndMoveAndDraw_Bank1
+P:1F223:Link_EndMoveAndAnimate_Bank1
+P:1F229:_Link_EndMoveAndDraw_Bank4
+P:1F231:_Link_EndMoveAndDraw
 P:1F238:Link_EndMoveAndAnimateBetweenRooms
 P:1F23A:: If in UW, then return.
 P:1F23C:Link_EndMoveAndAnimate: Switches bank:\n 5\n\n If teleporting by whirlwind, then return.\n
@@ -5335,8 +5467,11 @@ P:1FE48:InitRupeeStash
 P:1FE50:UpdateRupeeStash
 P:1FE58:InitTrap
 P:1FE60:UpdateTrap
-P:1FE80:UpdatePerson
-P:1FE88:UpdatePerson7
+P:1FE68:InitUnderworldPerson
+P:1FE70:InitUnderworldPersonLifeOrMoney
+P:1FE78:InitGrumble
+P:1FE80:UpdateUnderworldPerson
+P:1FE88:UpdateUnderworldPersonLifeOrMoney
 P:1FE90:UpdateGrumble
 P:1FE98:DecrementInvincibilityTimer: Params:\n X: object index\n
 P:1FE9B:: If the timer is already zero, then return.
@@ -5835,9 +5970,9 @@ S:198D:Anim_WriteLevelPaletteSprite: Params:\n A: tile number\n X: object index\
 S:1991:Anim_WriteSprite: Params:\n A: tile number\n X: object index\n [03]: sprite attributes\n
 S:19A5:Anim_WriteSpecificSprite: Params:\n A: tile number\n X: object index\n Y: sprite record offset\n [03]: sprite attributes\n
 S:19AF:_Anim_EndWriteSprite: Params:\n A: Y coordinate\n Y: sprite record offset\n [03]: sprite attributes\n
-S:19BA:Person_DrawAndCheckCollisions
+S:19BA:Person_DrawAndCheckCollisions_Common
 S:19BD:: If the person is flagged dead, then\n enable fireballs from the two flames, and reset the metastate.\n
-S:19CA:: Either way, draw the object.\n
+S:19CA:Person_Draw: Either way, draw the object.\n
 S:19D0:CheckMonsterCollisions: Params:\n X: object index\n\n Note:\n This routine might modify the facing direction.\n
 S:19D3:: If the object is invincible, skip checking collisions with Link's weapons.\n But go check for a collision with Link.\n
 S:19D6:: Invincible

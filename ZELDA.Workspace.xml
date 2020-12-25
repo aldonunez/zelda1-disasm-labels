@@ -1644,7 +1644,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>130688</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>UpdatePerson</Label>
+      <Label>UpdateUnderworldPerson</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -1652,7 +1652,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>130696</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>UpdatePerson7</Label>
+      <Label>UpdateUnderworldPersonLifeOrMoney</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -49297,7 +49297,8 @@ For example:&#xD;
       <Address>75978</Address>
       <AddressType>PrgRom</AddressType>
       <Label>InitZelda</Label>
-      <Comment />
+      <Comment> Make Zelda and 4 flames that guard her, in object slots 5 to 1.&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -55173,7 +55174,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>6586</Address>
       <AddressType>SaveRam</AddressType>
-      <Label>Person_DrawAndCheckCollisions</Label>
+      <Label>Person_DrawAndCheckCollisions_Common</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -55191,7 +55192,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>6602</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>Person_Draw</Label>
       <Comment> Either way, draw the object.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -56117,6 +56118,1229 @@ For example:&#xD;
       <Label />
       <Comment> The variable for the currently updating object slot has to be&#xD;
  set to the heart's object slot for this drawing routine to work.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>130680</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitGrumble</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19124</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitGrumble_Full</Label>
+      <Comment> Grumble Goriya goes at location ($78, $80).&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19131</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Store text selector $24.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19136</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set the low VRAM address of the first character to transfer&#xD;
+ to the front of the first line in NT0. It's at index 2.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19142</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If Grumble already got the food, then&#xD;
+ reset his type and state to get rid of him.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19155</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>PlayCharacterSfx</Label>
+      <Comment> "item taken/character" sound effect</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19546</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UpdateGrumble_Full</Label>
+      <Comment> If state &lt;&gt; 3, then go check collisions and draw every frame.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19609</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UpdateGrumble3</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19580</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UpdateGrumble1</Label>
+      <Comment> If there's no food in object slot $F, then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19200</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Person_CheckCollisions</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19203</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the person died, then Link hit him. So, start shooting&#xD;
+ fireballs, then reset the metastate, so that he's not dead.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19552</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> In state 3, the person is translucent by drawing&#xD;
+ (and checking object collisions) every other frame.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19588</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Else halt Link and play the "secret found" tune.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19597</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_L_Person_FlagItemTakenAndAdvanceState</Label>
+      <Comment> Flag the secret/item of this room taken.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18418</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>CueTransferRecordAndAdvanceState</Label>
+      <Comment> Params:&#xD;
+ A: selector&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19604</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Cue transfer record of the blank textbox lines,&#xD;
+ and go to the next state, where a transfer record is cued&#xD;
+ to clear cave/person wares.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19600</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set object timer $40 for when we get to state 3.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>127523</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Link_EndMoveAndAnimate_Bank1</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19612</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the timer has not expired, then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19616</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Deactivate the food object in slot $F.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1629</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>InvFood</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19621</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Get rid of the food from the inventory.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19624</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Make Link idle again, and reset this object's type.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>107037</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>BlankTextBoxLines</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>9</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>107046</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>BlankPersonWares</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>9</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18935</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>CueTransferBlankPersonWaresAndAdvanceState</Label>
+      <Comment> Also blanks the third line of text.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>127537</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_Link_EndMoveAndDraw</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>127515</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_Link_EndMoveAndDraw_Bank1</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>127529</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_Link_EndMoveAndDraw_Bank4</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18456</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the person's timer has not expired, then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18460</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set the timer to wait 6 frames after the next character about&#xD;
+ to be shown.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18445</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>TextboxCharTransferRecTemplate</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>5</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18464</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Copy the 5 bytes of the textbox character transfer record template&#xD;
+ to the dynamic transfer buf.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18475</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Replace the low byte of the VRAM address with the one&#xD;
+ where the next character should be written.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18481</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Increment the low VRAM address for the next character.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>16384</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>PersonTextAddrs</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>76</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18484</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Use the person text selector to look up the address of the&#xD;
+ text for the textbox. Store the address in [00:01].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18498</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Load the person text current character index.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18501</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Increment the index variable to point to the next character&#xD;
+ for next time.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18504</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Get the current character.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18506</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the character is $25, then it's a special space. It will still&#xD;
+ take up space, but will not take time to show -- meaning that&#xD;
+ we'll go look up the next character to transfer.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18512</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> We have a non-space character. Put it in the transfer record.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18515</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Play the "heart taken/character" sound effect.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18520</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the high 2 bits of character element = 0, then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>17908</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UnhaltLink</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18526</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Determine an index based on the high 2 bits of the character element:&#xD;
+   $80: 0&#xD;
+   $40: 1&#xD;
+   $C0: 2&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18538</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The index chooses the low VRAM address of the start&#xD;
+ of another line:&#xD;
+   0: $C4: front of the second line&#xD;
+   1: $E4: front of the third line&#xD;
+   2: $A4: front of the first line&#xD;
+&#xD;
+ Look up the low VRAM address and store it.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18450</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>TextboxLineAddrsLo</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>3</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18544</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If index = 2, then we've reached the end of the text,&#xD;
+ and low VRAM address is moved to the front of the first line.&#xD;
+ So, advance the state of the person object, and unhalt Link.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18453</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_UpdatePersonState_Textbox</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>130664</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitUnderworldPerson</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18940</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitUnderworldPerson_Full</Label>
+      <Comment> Point to the front of the first line in VRAM.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18979</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitUnderworldPersonA</Label>
+      <Comment> The person goes at location ($78, $80).&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19049</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitUnderworldPersonB</Label>
+      <Comment> The person goes at location ($78, $80).&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19076</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitUnderworldPersonC</Label>
+      <Comment> The person goes at location ($78, $80).&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18986</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Subtract $4B from the object type to get the old man's index.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18971</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UnderworldPersonTextSelectorsA</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>8</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18993</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Look up and store the text selector.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18999</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If this is the man that offers more bomb capacity, then&#xD;
+ go see if the offer was flagged as already taken.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19026</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Destroy this object if the secret/item was already taken.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19041</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UnderworldPersonTextSelectorsB</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>8</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19056</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Subtract $4B from the object type to get the old man's index.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19063</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Look up and store the text selector.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19089</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Save the object type.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19100</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Restore the object type.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19090</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Subtract $4B from the object type to get the old man's index.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19094</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Look up and store the text selector.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19072</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UnderworldPersonTextSelectorsC</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>4</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19101</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Return, if this is not the man at the entrance of Level 9,&#xD;
+ or Link has not gotten all the triforce pieces.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19112</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Otherwise, open the shutters, and destroy this object.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>130672</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitUnderworldPersonLifeOrMoney</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19008</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitUnderworldPersonLifeOrMoney_Full</Label>
+      <Comment> The person goes at location ($78, $80).&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19020</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Point to the front of the first line in VRAM.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19015</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set text selector for "life or money".&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19366</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UpdateUnderworldPersonLifeOrMoney_Full</Label>
+      <Comment> In state 4, this person and the items are drawn every other frame.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19161</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UpdateUnderworldPerson_Full</Label>
+      <Comment> If level is not one of {3, 4, 6, 8, 9}, then&#xD;
+ go handle people that do more than talk.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19357</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Person_DrawAndCheckCollisions</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19178</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Else simply draw, check collisions, and show the text.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19192</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_UpdatePersonState_ResetCharOffset</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19199</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_UpdatePersonState_DoNothing</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19217</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UpdateUnderworldComplexPerson</Label>
+      <Comment> In state 4, the person is shown every other frame.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19232</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If this is the "more bombs" man, then show a rupee&#xD;
+ at ($78, $98) using room item object slot $13.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19269</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UpdateUnderworldComplexPersonState_Begin</Label>
+      <Comment> If this is the "more bombs" man, then show the price of the offer.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19276</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> "-100"</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19280</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set a timer of $A frames before showing characters,&#xD;
+ and go to state 1.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19287</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UpdateUnderworldComplexPersonState_SenseLink</Label>
+      <Comment> If this is not the "more bombs" man, then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19349</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UpdateUnderworldComplexPersonState_DelayAndQuit</Label>
+      <Comment> If the object timer has expired, then destroy this object.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>107166</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>BombCapacityPriceTextTransferBuf</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>8</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19294</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If Link's X &lt;&gt; $78, then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19300</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the distance between Link's Y and the rupee's ($98) &lt; 6,&#xD;
+ then go see if Link can pay for it.&#xD;
+ Else return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19313</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If rupee count &lt; 100, then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19322</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Post 100 rupees more to subtract.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19334</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Increase max bombs by 4, set the amount on hand to the max.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19346</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Go mark this offer taken.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19329</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Play the "key taken" sound effect.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19403</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_DrawLifeOrMoneyItems</Label>
+      <Comment> Loop over each item to draw, from 1 to 0.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19401</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>LifeOrMoneyItemTypes</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>2</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19399</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>LifeOrMoneyItemXs</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>2</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19419</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Switch to the room item object slot.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19424</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Restore loop index.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19405</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Save loop index.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19407</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Look up and set the X coordinate of the item.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19412</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set Y=$98, and look up the item type.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19430</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UpdateUnderworldPersonLifeOrMoneyState_0</Label>
+      <Comment> Delay in the next state $A frames before showing the first character.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19439</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UpdateUnderworldPersonLifeOrMoneyState_2</Label>
+      <Comment> Loop over each item to check, from 1 to 0.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19434</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> "-1   -50" text selector</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>107174</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>LifeOrMoneyCostTextTransferBuf</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>14</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19441</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If Link's X doesn't match the item's, then go loop again.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19448</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the vertical distance between the item and Link &lt; 6, then&#xD;
+ go handle paying appropriately.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19487</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The player chose the heart container.&#xD;
+&#xD;
+ If the number of heart containers &lt; 4, then&#xD;
+ - leave the number of heart containers alone&#xD;
+ - set HeartPartial to 0, so Link will die with one more hit&#xD;
+&#xD;
+ Then go flag this offer taken.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19464</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the player chose the heart container, go handle it.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19468</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The player chose the money.&#xD;
+ But if he doesn't have enough, then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19477</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Post 50 rupees more to subtract, and go flag this offer taken.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19507</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Store (HeartValues - 1 heart container) in [00].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19518</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Get (HeartValues - 1 heart)&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19524</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the result is negative, then make the full hearts 0.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19528</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Combine the heart containers and full hearts, and store it.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19533</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> "key taken" sound effect</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>16460</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>PersonText</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1366</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75968</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>GuardFireXs</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>5</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75973</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>GuardFireYs</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>5</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75980</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Look up and set the location of each object.&#xD;
+&#xD;
+ MULTI: A8C0-1&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75985</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> MULTI: A8C5-1&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75990</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Guard fire object type</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75998</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Replace the type of the object in slot 1 with $37: Zelda.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76216</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> State 1.&#xD;
+&#xD;
+ Draw Link, then return if the object timer &lt;&gt; 0.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76174</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> State 0.&#xD;
+&#xD;
+ If Link's X &lt; $70 or &gt;= $81, or Link's Y &lt;&gt; $95, then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76190</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Else Link is near enough to Zelda.&#xD;
+ Go to state 1, and halt Link.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76196</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Put Link at location ($88, $88) and facing left.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76206</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO: ?&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76211</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set a delay of $80 frames at the beginning of the next state.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76223</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Go to mode $13.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76233</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Mode $13 will start with a curtain furling effect.&#xD;
+ Set up the decreasing column ($20), and the increasing column (1).&#xD;
+ Prepare the background by filling the tile map with blank tile $24.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76243</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> [0A] tile to fill with</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76256</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the object has not been killed, then return.&#xD;
+ Else change the object type to dead dummy.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
