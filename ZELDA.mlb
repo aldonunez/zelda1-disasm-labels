@@ -4263,7 +4263,8 @@ P:16B2D:: Go write tile+3 to (col+1, row+1).
 P:16B30:PatchColumnDirectoryForCellar: In OW, set first address of directory to start of OW column heap, as expected.\n
 P:16B3A:: In UW, set the first address of column directory to start of UW cellar column heap.\n
 P:16B45-16B4C:SubroomColumnDirectoryAddrs
-P:16B4D:LayoutCaveAndAvanceSubmode
+P:16B4D:LayoutCaveAndAvanceSubmode: Usual cave
+P:16B5E:LayoutShortcutAndAdvanceSubmode: Offset of address of column directory of shortcut cave
 P:16B73:CheckShortcut
 P:16B77:: If the player found the secret, then return.
 P:16B7D:: If the shortcut wasn't seen in this room, then return.
@@ -4353,7 +4354,7 @@ P:17166:InitModeA_Sub6_FillTileAttrsAndTransferTopHalf
 P:1716B:InitModeB_Sub5_FillTileAttrsAndTransferTopHalf: An OW room that has the same NT attributes as a cave.
 P:17173:InitModeAOrB_TransferBottomHalfAttrs
 P:1717B:_L_DisableSprite0Check
-P:17180:: If reached the end of the walk, then go start updating.\n
+P:17180:InitMode_WalkCave: If reached the end of the walk, then go start updating.\n
 P:17185:: Move and draw facing up.\n
 P:171CD:InitMode9_Sub9: Set Link's input direction to the facing direction, and\n update the player object; so that it walks down the stairs\n of the cellar. Stop when it reaches Y coordinate $5D.\n
 P:171DB:: Reset player state.

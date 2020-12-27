@@ -57378,7 +57378,7 @@ For example:&#xD;
       <Address>93005</Address>
       <AddressType>PrgRom</AddressType>
       <Label>LayoutCaveAndAvanceSubmode</Label>
-      <Comment />
+      <Comment> Usual cave</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -57455,7 +57455,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>94592</Address>
       <AddressType>PrgRom</AddressType>
-      <Label />
+      <Label>InitMode_WalkCave</Label>
       <Comment> If reached the end of the walk, then go start updating.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -58716,6 +58716,14 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label>_L_DisableSprite0Check</Label>
       <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>93022</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>LayoutShortcutAndAdvanceSubmode</Label>
+      <Comment> Offset of address of column directory of shortcut cave</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
