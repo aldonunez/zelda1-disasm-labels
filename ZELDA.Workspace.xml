@@ -21501,7 +21501,7 @@ def</Comment>
     <CodeLabel>
       <Address>126692</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_ResetShoveInfo</Label>
+      <Label>ResetShoveInfo</Label>
       <Comment> Returns:&#xD;
  A: 0&#xD;
 </Comment>
@@ -26767,7 +26767,7 @@ For example:&#xD;
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>126977</Address>
+      <Address>126979</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Mask off everything but directions.&#xD;
@@ -26947,9 +26947,6 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Check whether a person blocks the player.&#xD;
-&#xD;
- TODO:&#xD;
- Is the first object grumble moblin or one of 8 people?&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -27604,7 +27601,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Not the player.&#xD;
- If object attribute has $10, go to the unused code.&#xD;
+ If object attribute has $10, go to the unused code above&#xD;
+ to reverse direction.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -27873,11 +27871,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>126694</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_SetShoveInfo</Label>
-      <Comment> TODO:&#xD;
-&#xD;
- Params:&#xD;
- A: &#xD;
+      <Label>SetShoveInfoPass0</Label>
+      <Comment> Params:&#xD;
+ A: 0&#xD;
 &#xD;
  Returns:&#xD;
  A: 0&#xD;
@@ -31065,8 +31061,8 @@ For example:&#xD;
       <Label />
       <Comment> Link was shoved by a monster.&#xD;
 &#xD;
- TODO:&#xD;
- If the monster's object attribute $80 is set, then return.&#xD;
+ If the monster's object attribute "reverse after hit Link" is set,&#xD;
+ then return.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -31106,7 +31102,7 @@ For example:&#xD;
       <AddressType>SaveRam</AddressType>
       <Label />
       <Comment> TODO:&#xD;
- If the monster's attribute $80 is set, the combine the&#xD;
+ If the monster's attribute "reverse after hit Link" is set, the combine the&#xD;
  shove direction with $40.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -31125,10 +31121,7 @@ For example:&#xD;
       <Address>7861</Address>
       <AddressType>SaveRam</AddressType>
       <Label />
-      <Comment> TODO: ?&#xD;
- If monster type = $33 or $34 (Gohma) then&#xD;
-   If [0F] = 3 or 4&#xD;
-     if [046B][X] &lt;&gt; 3; then return&#xD;
+      <Comment> If the monster is not a Gohma, then go store the shove direction.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -31226,7 +31219,7 @@ For example:&#xD;
       <Address>126675</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> If it's Link, then shove in the opposite direction that he's facing.&#xD;
+      <Comment> Since it's Link, shove in the opposite direction that he's facing.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -37612,7 +37605,7 @@ For example:&#xD;
       <Address>126202</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Self checks collisions and draws</Comment>
+      <Comment> Self checks collisions and draws</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -58847,6 +58840,25 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Link goes at Y=$41, and facing down.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>7872</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label />
+      <Comment> This a Gohma, but if the current part [0F] is not an eye part (3 or 4),&#xD;
+ then return, so that the hit doesn't register.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>7882</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label />
+      <Comment> If Gohma's eye state/frame image &lt;&gt; 3, then return.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>

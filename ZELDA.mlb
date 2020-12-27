@@ -5062,7 +5062,7 @@ P:1ECC6:: Switch the flag indicating whether Link is the target.\n If the value 
 P:1ECCE:: If Link's X has not changed since the last frame\n (when Link was the target), then XOR the chase target\n coordinates (which were Link's coordinates last frame).\n\n This ends up reflecting Link's coordinates across the room;\n so that monsters chase away from him.\n\n But if Link's X has changed since the last frame, then\n leave the chase target coordinates with his old coordinates.\n
 P:1ECDE:: Update objects from $B to 1.\n
 P:1ECEF:: TODO:\n If the object is autonomous and not checking collisions itself,\n then see about checking collisions and drawing on its behalf.\n\n Else go loop again.\n
-P:1ECFA:: TODO: Self checks collisions and draws
+P:1ECFA:: Self checks collisions and draws
 P:1ECFE:: TODO:\n If attribute = 0, then it indicates not to skip drawing. So, animate and draw.\n
 P:1ED01:: TODO: Skip drawing or self-draw?
 P:1ED08:: Either way, we'll check collisions.\n
@@ -5136,11 +5136,11 @@ P:1EEC0:: If the object faces horizontally, go check which axis shove\n directio
 P:1EEC6:: The object faces vertically.\n\n If the shove direction is vertical, return. We're OK to shove.\n
 P:1EECA:: Allow a perpendicular shove, if grid offset = 0.\n
 P:1EECF:: Else change the shove direction.\n\n If the object is not Link, then reset it.\n
-P:1EED3:: If it's Link, then shove in the opposite direction that he's facing.\n
+P:1EED3:: Since it's Link, shove in the opposite direction that he's facing.\n
 P:1EEDB:: If shove direction is horizontal, return. We're OK to shove.\n Else go check the object's grid offset.\n
 P:1EEE0:: If shove distance hasn't gone down to 0, go move some more.\n Else reset shove info.\n
-P:1EEE4:_ResetShoveInfo: Returns:\n A: 0\n
-P:1EEE6:_SetShoveInfo: TODO:\n\n Params:\n A: \n\n Returns:\n A: 0\n
+P:1EEE4:ResetShoveInfo: Returns:\n A: 0\n
+P:1EEE6:SetShoveInfoPass0: Params:\n A: 0\n\n Returns:\n A: 0\n
 P:1EEEB:: Try to move 4 pixels. [03] is the counter.\n
 P:1EEEF:: If the object's grid offset = 0, make sure it's aligned to the grid.\n Then, stop shoving if the object hits a tile.\n
 P:1EF05:: Regardless of the grid offset, if the object runs into the\n bounds of the room, then stop shoving.\n
@@ -5171,14 +5171,14 @@ P:1EFC7:: Flag that we used the flute.\n
 P:1EFD0:Walker_Move: If the object is being shoved, then go shove it.\n
 P:1EFD7:: Summary: Choose object direction or input direction for movement as appropriate.\n\n Player: If there's input, then use input direction when grid offset = 0,\n         or object direction when <> 0.\n\n Other objects: Move in input direction, unless stunned or magic clock is active.\n\n if slot = 0 and grid offset <> 0 then\n   if input dir = 0 then\n     use 0\n   else\n     use object direction\n else\n   if slot <> 0 and (has clock or stunned) then\n     return\n   else\n     if input dir = 0\n       use 0\n     else\n       use input direction\n
 P:1EFF9:: Use this to take only one input direction, in case there are 2 (diagonal).
-P:1F001:: Mask off everything but directions.\n (I don't think there's anything else)\n
+P:1F003:: Mask off everything but directions.\n (I don't think there's anything else)\n
 P:1F005:: [0F] holds the movement direction.
 P:1F007:: [0E]: $FF, if blocked by a door\n       else will hold the reverse index of the direction of a doorway if found\n 
 P:1F00B:: If object is Link and using or catching an item then\n reset movement direction.\n
 P:1F01B:: [0F] movement direction
 P:1F01D:: If object is not Link, then skip the code below.\n
 P:1F021:: Check if tile objects block the player.\n
-P:1F029:: Check whether a person blocks the player.\n\n TODO:\n Is the first object grumble moblin or one of 8 people?\n
+P:1F029:: Check whether a person blocks the player.\n
 P:1F02C:: Grumble moblin
 P:1F030:: Person1
 P:1F034:: Person8
@@ -5214,7 +5214,7 @@ P:1F104:: TODO: Unknown object attribute
 P:1F110:: TODO:\n This seems to be unused code triggered by object attribute $10.\n But $10 is not used in the object attribute array at 07:FAEF.\n
 P:1F116:: The code below applies to Link and other objects.\n\n Test the moving direction's walkability.\n\n For the player, this is enough. For other objects, this \n becomes a loop looking for an unblocked direction to move in.\n\n If the colliding tile is walkable, go handle a walkable direction.\n
 P:1F11E:: The colliding tile is unwalkable.\n\n If object is the player, then go check passive tile objects and\n the screen edge, or stop moving.\n
-P:1F122:: Not the player.\n If object attribute has $10, go to the unused code.\n
+P:1F122:: Not the player.\n If object attribute has $10, go to the unused code above\n to reverse direction.\n
 P:1F129:: Get the next direction to check, and set moving direction to it.\n If not at the end of the loop, go test the new direction's walkability.\n
 P:1F12C:: Set new moving direction, or 0 at the end of the loop.
 P:1F133:: Tile is not walkable. Object is player.\n\n Check passive tile objects and the screen edge, and stop moving.\n\n First, if in OW, check passive tile objects (armos and regular gravestone).\n
@@ -6280,13 +6280,15 @@ S:1E70:: Link is the defender.\n\n If Link is invincible, return without shoving
 S:1E75:: Store the shove direction we determined.\n\n Turn on the high bit to indicate that the next time we try to\n move by shoving, it will be the first time for this shove action.\n
 S:1E7B:: Mark Link invincible $18 frames, and should move $20 pixels.\n
 S:1E84:: If Link was shoved by one of his own weapons, then\n nothing else to do. Return.\n
-S:1E88:: Link was shoved by a monster.\n\n TODO:\n If the monster's object attribute $80 is set, then return.\n
+S:1E88:: Link was shoved by a monster.\n\n If the monster's object attribute "reverse after hit Link" is set,\n then return.\n
 S:1E8F:: If the attacker is a vire, then return.\n
 S:1E96:: Turn the attacker in the opposite direction.\n
 S:1E9E:: A monster is the defender. A weapon is the attacker.\n\n Set the shove direction to the weapon's direction,\n instead of the direction passed in [0B].\n
-S:1EA3:: TODO:\n If the monster's attribute $80 is set, the combine the\n shove direction with $40.\n
+S:1EA3:: TODO:\n If the monster's attribute "reverse after hit Link" is set, the combine the\n shove direction with $40.\n
 S:1EB0:: If the monster is invincible, then return without shoving.\n
-S:1EB5:: TODO: ?\n If monster type = $33 or $34 (Gohma) then\n   If [0F] = 3 or 4\n     if [046B][X] <> 3; then return\n
+S:1EB5:: If the monster is not a Gohma, then go store the shove direction.\n
+S:1EC0:: This a Gohma, but if the current part [0F] is not an eye part (3 or 4),\n then return, so that the hit doesn't register.\n
+S:1ECA:: If Gohma's eye state/frame image <> 3, then return.\n
 S:1ED1:: Store the shove direction for the monster.\n\n Turn on the high bit to indicate that the next time we try to\n move by shoving, it will be the first time for this shove action.\n
 S:1ED7:: Mark the monster invincible $10 frames, and should move $40 pixels.\n
 S:1FFF:SaveRamEnd
