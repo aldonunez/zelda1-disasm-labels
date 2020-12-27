@@ -3435,6 +3435,7 @@ P:147AA:: If previous room was light, then go to submode 0.
 P:147AC:: The previous room was dark.\n
 P:147AF:: But if it was lit up, then nothing else to do. Go to submode 0.
 P:147B1:: Start a fade-to-light cycle (reverse of cycle $40).
+P:147B3:SetFadeCycleAndAdvanceSubmode: Params:\n A: start index of cycle\n
 P:147B9:InitMode4_Sub3: Submode 3.\n
 P:147BC:: If not done animating, then return.
 P:147C6:InitMode_EnterRoom: TODO: Is also called for modes 9, $B, $C.\n
@@ -4340,16 +4341,18 @@ P:170E1:CopyPlayAreaAttrsHalfToDynTransferBuf: Params:\n X: high PPU address\n A
 P:170FC:InitModeA
 P:17117:_InitModeAOrB_Sub0
 P:17127:_DrawDynamicElementsBetweenRoomsAndAdvanceSubmode
-P:17130:_InitModeB_AdvanceSubmode
+P:17130:_InitModeAOrB_AdvanceSubmode
 P:1713C:InitModeA_Sub3And9
-P:17147:InitModeA_Sub2
-P:1714B:InitModeA_Sub8
+P:17147:InitModeA_Sub2: TODO: ?
+P:1714B:InitModeA_Sub8: TODO: ?
 P:1714F:_InitModeB_Sub1: Transfer the cave BG palette rows.\n
 P:17153:InitModeA_Sub1
+P:17157:: Transfer the OW palette again, because it was changed\n for a cave.\n
 P:1715A:InitModeA_SubA
 P:17166:InitModeA_Sub6_FillTileAttrsAndTransferTopHalf
 P:1716B:InitModeB_Sub5_FillTileAttrsAndTransferTopHalf: An OW room that has the same NT attributes as a cave.
 P:17173:InitModeAOrB_TransferBottomHalfAttrs
+P:1717B:_L_DisableSprite0Check
 P:17180:: If reached the end of the walk, then go start updating.\n
 P:17185:: Move and draw facing up.\n
 P:171CD:InitMode9_Sub9: Set Link's input direction to the facing direction, and\n update the player object; so that it walks down the stairs\n of the cellar. Stop when it reaches Y coordinate $5D.\n
@@ -4948,7 +4951,7 @@ P:1EA13:: If in UW, then go set room ID to StartRoomId.
 P:1EA1A:: If it's set to a valid room ID, then start there.
 P:1EA24:: If CaveEnteredRoomId was valid,
 P:1EA26:: then keep CaveEnteredRoomId invalid by default.
-P:1EA2B:PatchAndCueLevelPalettesTransfer
+P:1EA2B:PatchAndCueLevelPalettesTransferAndAdvanceSubmode
 P:1EA30:: Get the color at byte 1 of row 4, 5, or 6 of menu palettes,\n according to save slot. This holds Link's color in that\n save slot.
 P:1EA33:: Put the value in byte 1 of row 4 of level palettes that will\n be transferred.
 P:1EA36:: Cue transfer of level palettes.

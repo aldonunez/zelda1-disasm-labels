@@ -8327,7 +8327,7 @@ def</Comment>
     <CodeLabel>
       <Address>125483</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>PatchAndCueLevelPalettesTransfer</Label>
+      <Label>PatchAndCueLevelPalettesTransferAndAdvanceSubmode</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -23003,7 +23003,7 @@ def</Comment>
       <Address>94535</Address>
       <AddressType>PrgRom</AddressType>
       <Label>InitModeA_Sub2</Label>
-      <Comment />
+      <Comment> TODO: ?</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -23043,7 +23043,7 @@ def</Comment>
       <Address>94539</Address>
       <AddressType>PrgRom</AddressType>
       <Label>InitModeA_Sub8</Label>
-      <Comment />
+      <Comment> TODO: ?</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -57369,7 +57369,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>94512</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_InitModeB_AdvanceSubmode</Label>
+      <Label>_InitModeAOrB_AdvanceSubmode</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -58687,6 +58687,34 @@ For example:&#xD;
       <Address>18902</Address>
       <AddressType>PrgRom</AddressType>
       <Label>PostCredit</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>94551</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Transfer the OW palette again, because it was changed&#xD;
+ for a cave.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>83891</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>SetFadeCycleAndAdvanceSubmode</Label>
+      <Comment> Params:&#xD;
+ A: start index of cycle&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>94587</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_L_DisableSprite0Check</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
