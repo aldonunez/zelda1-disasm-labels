@@ -4496,7 +4496,7 @@ def</Comment>
     <CodeLabel>
       <Address>1056</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>TitleWaveYs</Label>
+      <Label>_TitleWaveYs</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>3</Length>
@@ -4879,8 +4879,13 @@ def</Comment>
     <CodeLabel>
       <Address>1043</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>TriforceGlowCycle</Label>
-      <Comment />
+      <Label>_TriforceGlowCycle</Label>
+      <Comment> TODO:&#xD;
+ 0: TriforceGlowCycle&#xD;
+ B: CaveFlags&#xD;
+&#xD;
+ TODO: describe the cave flags&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -5033,7 +5038,7 @@ def</Comment>
     <CodeLabel>
       <Address>1080</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>DemoPhase0Subphase1Timer</Label>
+      <Label>_DemoPhase0Subphase1Timer</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -5312,7 +5317,7 @@ def</Comment>
     <CodeLabel>
       <Address>1045</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>ScrolledScreenCount</Label>
+      <Label>_ScrolledScreenCount</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -5769,7 +5774,7 @@ def</Comment>
     <CodeLabel>
       <Address>1070</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>DemoLineTextIndex</Label>
+      <Label>_DemoLineTextIndex</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -5833,7 +5838,7 @@ def</Comment>
     <CodeLabel>
       <Address>1071</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>DemoItemRow</Label>
+      <Label>_DemoItemRow</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -7554,7 +7559,7 @@ def</Comment>
       <Address>83463</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Reset [$5A].</Comment>
+      <Comment> Reset.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -12701,10 +12706,11 @@ def</Comment>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>83472</Address>
+      <Address>94543</Address>
       <AddressType>PrgRom</AddressType>
-      <Label />
-      <Comment> TODO: ?</Comment>
+      <Label>_InitModeB_Sub1</Label>
+      <Comment> Transfer the cave BG palette rows.&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -14206,7 +14212,7 @@ def</Comment>
     <CodeLabel>
       <Address>94217</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>InitMode3_Sub3</Label>
+      <Label>InitMode3_Sub3_TransferTopHalfAttrs</Label>
       <Comment> Low byte of destination PPU address for NT attributes.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -14214,7 +14220,7 @@ def</Comment>
     <CodeLabel>
       <Address>94224</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>InitMode3_Sub4</Label>
+      <Label>InitMode3_Sub4_TransferBottomHalfAttrs</Label>
       <Comment> Low byte of destination PPU address for NT attributes.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -16367,7 +16373,8 @@ def</Comment>
       <Address>92660</Address>
       <AddressType>PrgRom</AddressType>
       <Label>LayoutRoomOW</Label>
-      <Comment> Load the address of room column directory in [$02:03].</Comment>
+      <Comment> Load the address of room column directory in [$02:03].&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -16399,7 +16406,8 @@ def</Comment>
       <Address>92679</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Add ((unique room ID) * $10) to address in [$02:03]. Each unique room has $10 columns.</Comment>
+      <Comment> Add ((unique room ID) * $10) to address in [$02:03]. Each unique room has $10 columns.&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -16414,8 +16422,12 @@ def</Comment>
     <CodeLabel>
       <Address>92699</Address>
       <AddressType>PrgRom</AddressType>
-      <Label />
-      <Comment> Load the address of world flags in [$08:09].</Comment>
+      <Label>LayoutRoomOrCaveOW</Label>
+      <Comment> Params:&#xD;
+ [02:03]: address of room column directory&#xD;
+&#xD;
+ Load the address of world flags in [$08:09].&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -16472,7 +16484,8 @@ def</Comment>
       <Address>92728</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Load the column table address for this descriptor in [$04:05].</Comment>
+      <Comment> Load the column table address for this descriptor in [$04:05].&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -17220,7 +17233,8 @@ def</Comment>
       <Address>92976</Address>
       <AddressType>PrgRom</AddressType>
       <Label>PatchColumnDirectoryForCellar</Label>
-      <Comment> In OW, set first address of directory to start of OW column heap, as expected.</Comment>
+      <Comment> In OW, set first address of directory to start of OW column heap, as expected.&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -17228,7 +17242,8 @@ def</Comment>
       <Address>92986</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> In UW, set the first address of column directory to start of UW cellar column heap.</Comment>
+      <Comment> In UW, set the first address of column directory to start of UW cellar column heap.&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -19458,10 +19473,10 @@ def</Comment>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>84904</Address>
+      <Address>94503</Address>
       <AddressType>PrgRom</AddressType>
-      <Label />
-      <Comment> TODO: draw Link?</Comment>
+      <Label>_DrawDynamicElementsBetweenRoomsAndAdvanceSubmode</Label>
+      <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -20509,7 +20524,7 @@ def</Comment>
     <CodeLabel>
       <Address>94487</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>InitModeA_Sub0</Label>
+      <Label>_InitModeAOrB_Sub0</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -23011,7 +23026,7 @@ def</Comment>
     <CodeLabel>
       <Address>94566</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>InitModeA_Sub6</Label>
+      <Label>InitModeA_Sub6_FillTileAttrsAndTransferTopHalf</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -23019,7 +23034,7 @@ def</Comment>
     <CodeLabel>
       <Address>94579</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>InitModeA_Sub7</Label>
+      <Label>InitModeAOrB_TransferBottomHalfAttrs</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -23728,8 +23743,11 @@ def</Comment>
     <CodeLabel>
       <Address>4976</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
-      <Comment> By default, we'll play the "item taken" tune.&#xD;
+      <Label>TakeItem</Label>
+      <Comment> Params:&#xD;
+ A: item ID&#xD;
+&#xD;
+ By default, we'll play the "item taken" tune.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -23916,7 +23934,7 @@ def</Comment>
       <Address>4961</Address>
       <AddressType>SaveRam</AddressType>
       <Label />
-      <Comment> Deactivate the room item object.&#xD;
+      <Comment> In case this is the room item, set state to $FF to deactivate it.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -28828,7 +28846,8 @@ For example:&#xD;
       <Address>95320</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: [3C]?</Comment>
+      <Comment> Reset the flute timer.&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -38179,7 +38198,8 @@ For example:&#xD;
       <Address>17872</Address>
       <AddressType>PrgRom</AddressType>
       <Label>InitCave</Label>
-      <Comment />
+      <Comment> The person goes at location ($78, $80).&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -39433,8 +39453,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Else the cave/person simply does:&#xD;
- - item taken: no person, no text&#xD;
- - not taken:  show a person and text&#xD;
+ - taken:     no person, no text&#xD;
+ - not taken: show a person and text&#xD;
 &#xD;
  So, if the item was not taken, then go set up the text.&#xD;
 </Comment>
@@ -39454,8 +39474,8 @@ For example:&#xD;
       <Address>17879</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> If the cave/person is not a simple one for taking an item,&#xD;
- then go set up the text.&#xD;
+      <Comment> If the cave/person does not remember state (give item, door charge),&#xD;
+ then go handle other kinds.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -56251,7 +56271,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>18418</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>CueTransferRecordAndAdvanceState</Label>
+      <Label>CueTransferBufAndAdvanceState</Label>
       <Comment> Params:&#xD;
  A: selector&#xD;
 </Comment>
@@ -56349,7 +56369,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>18935</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>CueTransferBlankPersonWaresAndAdvanceState</Label>
+      <Label>_UpdatePersonState_CueTransferBlankPersonWares</Label>
       <Comment> Also blanks the third line of text.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -56592,7 +56612,8 @@ For example:&#xD;
       <Address>18940</Address>
       <AddressType>PrgRom</AddressType>
       <Label>InitUnderworldPerson_Full</Label>
-      <Comment> Point to the front of the first line in VRAM.</Comment>
+      <Comment> Point to the front of the first line in VRAM.&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -57342,6 +57363,1331 @@ For example:&#xD;
       <Comment> If the object has not been killed, then return.&#xD;
  Else change the object type to dead dummy.&#xD;
 </Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>94512</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_InitModeB_AdvanceSubmode</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>93005</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>LayoutCaveAndAvanceSubmode</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>92997</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>SubroomColumnDirectoryAddrs</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>8</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>94571</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitModeB_Sub5_FillTileAttrsAndTransferTopHalf</Label>
+      <Comment> An OW room that has the same NT attributes as a cave.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>3474</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label />
+      <Comment> Put Link at the cave entrance ($70, $DD), and facing up.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>3465</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>InitModeB_EnterCave_Bank5</Label>
+      <Comment> Save the submode.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>3492</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label />
+      <Comment> Restore the submode.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>3495</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label />
+      <Comment> Still initializing. A routine called here changed it.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>3506</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label />
+      <Comment> When coming out of the cave eventually, this has to be set.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>3501</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label />
+      <Comment> Get Link ready to move automatically this number of pixels.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>94592</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If reached the end of the walk, then go start updating.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>94597</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Move and draw facing up.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>17913</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Get this cave's index (object type - $6A).&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>17920</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Get the person text selector by looking up the text selector byte&#xD;
+ for this index, and masking it with $3F.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>17826</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>OverworldPersonTextSelectors</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>20</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>17923</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Save the text selector byte before masking.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>17929</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Pop and mask the text selector byte with $C0 to get the&#xD;
+ "pay" and "pick up" cave flags and store them in [03].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>17934</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> At this point, the Y register still has the cave index.&#xD;
+ Multiply it by 3 to get the offset of the first item in a set of 3.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>17943</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Loop over the wares from 0 to 2.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18076</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Point to the front of the first textbox line.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>17967</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Get the top 2 bits of text selector byte in [03],&#xD;
+ shift them to the bottom, and combine them with [00].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>17945</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Copy 3 item ID bytes from the Cave level block info.&#xD;
+ Item ID's are in the low 6 bits, cave flags are in the high 2 bits.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>17955</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Copy 3 prices from the Cave level block info.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>17951</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Copy the cave flags (high 2 bits) of the three items to [00] to [02].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>17961</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Bottom of the wares copying loop.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>17976</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Get the top 2 bits of item descriptor 2, shift them right 4 times,&#xD;
+ and combine them with [00].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>17986</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO:&#xD;
+ Get the top 2 bits of item descriptor 1, shift them right twice,&#xD;
+ and combine them with [00] into [0413].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18071</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Reset the current character index.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>17995</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The end result is a byte with 8 cave flags.&#xD;
+&#xD;
+ If cave flag "money game" is missing, then go finish up,&#xD;
+ instead of choosing random amounts for the money game.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18139</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UpdateCavePerson</Label>
+      <Comment> If in state 4, then every other frame skip drawing the person&#xD;
+ and items; and go straight to the state code for each kind of cave.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18230</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>DrawCavePerson</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18233</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the cave/person type &gt;= $7B, then the visual is a moblin.&#xD;
+ So, go draw not mirrored.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18240</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Else the old man, old woman, and shopkeeper are all mirrored.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1638</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>InvLetter</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18154</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the cave type is not $74 medicine shop,&#xD;
+ or it is but the letter has not been used, then&#xD;
+ go draw items and run the state code.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18168</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the letter is selected, and B is pressed, then go use the letter.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18181</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If Link is halted, then unhalt him.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18191</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The letter has been used.&#xD;
+&#xD;
+ Play the "secret found" tune.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18196</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set the letter state to used (2).&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18199</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Change the selected item slot to the potion's.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18295</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Cave flag: Show prices</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18246</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>CaveWareXs</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18256</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Loop over the wares to draw, from 2 to 0.&#xD;
+&#xD;
+ MULTI: [0421]&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18264</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Look up and set the X coordinate for the current item.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18269</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set Y coordinate $98 for the item.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18273</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the item is nothing ($3F), then loop gain.&#xD;
+&#xD;
+ MULTI: [0422][X]&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18282</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Switch to the room item object slot, and draw it.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18287</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Bottom of the item drawing loop. Decrement this index until &lt; 0.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18252</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Cave flag: Show items</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18249</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>DrawCaveItems</Label>
+      <Comment> If the cave flags do not call for showing items, then&#xD;
+ go see about showing prices.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18292</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the cave flags do not call for showing prices, then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18299</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Show a rupee at ($30, $AB).&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18315</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UpdateCavePersonState_TransferPrices</Label>
+      <Comment> If the cave flags do not call for showing prices, then&#xD;
+ advance the state and return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18122</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>PriceListTemplateTransferBuf</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>17</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18433</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>CopyPriceListTemplate</Label>
+      <Comment> Copy $11 bytes of the price list template text to the dynamic transfer buf.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18318</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Cave flag: Show prices</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18325</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> "X"</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18330</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Reset the index of current price being formatted&#xD;
+ and offset of price string.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18338</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Get the price of the current item.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18341</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If it's 0, then store a space character in the text field [01], [02], [03].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18357</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the cave flags call for negative amounts, then&#xD;
+ store a dash in prefix byte [04]. Else store a space ($24).&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18365</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> "-"</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18416</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Go to the next state and return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18369</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Move the dash closer to the number.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18423</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>SwapSpaceAndSign</Label>
+      <Comment> Params:&#xD;
+ A: a character of the price string&#xD;
+ [04]: prefix character&#xD;
+&#xD;
+ Returns:&#xD;
+   If original A is not a space:&#xD;
+     A:    original character&#xD;
+     [04]: original prefix character&#xD;
+   Else:&#xD;
+     A:    original prefix character&#xD;
+     [04]: original character&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18393</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Add 4 to the base offset for the next string.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18402</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Bottom of the price loop. Increment the index of the item until = 3.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18412</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Delay $A frames at the beginning of the next state.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18554</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_UpdateCavePersonState_TalkOrShopOrDoorCharge</Label>
+      <Comment> If the cave flags call for choosing an item, then&#xD;
+ go handle those kinds of caves.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18557</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Cave flag: Choose/Pick up (1)</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18560</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Advance to the end state, where the person is still shown.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18564</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If this is not the "door charge" old man, then return.&#xD;
+ The person only talks.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18571</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Post 20 rupees to subtract.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18580</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Mark this secret taken.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18739</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_UpdatePersonState_DelayThenHide</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18934</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UpdateCavePersonState_DoNothing</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18584</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> This is a cave where the player chooses or touches an item:&#xD;
+ - give item&#xD;
+ - shop&#xD;
+ - hint&#xD;
+ - money game&#xD;
+&#xD;
+ If rupees are decreasing, then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18589</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Loop over each item from 2 to 0.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18594</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Mask off the cave flags.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18591</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If this item is nothing, then loop again.&#xD;
+&#xD;
+ MULTI: [0422][X]&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18596</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> No item</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18600</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If Link's X &lt;&gt; item's X, then loop again.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18607</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the vertical distance between Link and the item &lt; 6, then&#xD;
+ go try to take it.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18619</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Bottom of the item touch loop.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18623</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Store the index of the item chosen.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18626</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If hint and money game cave flags are missing, then&#xD;
+ go take an item given away, or buy it.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18629</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Cave flags: Hint and Money game</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18633</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If have cave flag "money game", then go to state 5 and return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18637</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Else have "hint" cave flag.&#xD;
+&#xD;
+ If rupees &lt; price, then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18651</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Go to state 5. It runs the hint cave and money game.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18645</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Pass the price to pay for the hint.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18910</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>PostDebit</Label>
+      <Comment> Params:&#xD;
+ A: amount&#xD;
+&#xD;
+ Add the amount paid to the rupees to subtract.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18663</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If rupees &lt; price, then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18671</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Pass the price to pay for the item.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18656</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> This is a shop, or something is being given away.&#xD;
+&#xD;
+ If "pay" cave flag is missing, then go try to take the item.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18677</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If "heart requirement" cave flag is missing, then&#xD;
+ go to take the item without further ado.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18684</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Check heart container requirements.&#xD;
+&#xD;
+ 5 is the minimum for cave type $6C (white sword)&#xD;
+ $C is the minimum otherwise&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18698</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the minimum of heart containers is met, then&#xD;
+ go take the item without further ado.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18711</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Push the item ID</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18717</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Pop the item ID</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18712</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Flag the item taken by setting its ID to $FF.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18721</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Blank textbox lines</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18726</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set timer to $40 for when we delay in state 4.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18730</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ClearPricesCaveFlag</Label>
+      <Comment> Remove the "show prices" cave flag to get rid of the generic rupee.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18753</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_UpdateCavePersonState_HintOrMoneyGame</Label>
+      <Comment> If "hint" cave flag is missing, then go handle the money game.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18760</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If cave type = $75, then use 0 for base offset of&#xD;
+ the first set of text selectors, else 3 for the second.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18772</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Add the base offset and the index of the item chosen&#xD;
+ to get the index of a text selector.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18776</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Look up text selector by the index calculated above.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18782</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Point to the front of the first line of the textbox.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18788</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Reset the character index.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18834</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Money game&#xD;
+&#xD;
+ If rupees &lt; $A, then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18796</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Blank textbox lines</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18327</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>WritePricesToDynamicTransferBuf</Label>
+      <Comment> Params:&#xD;
+ A: price character&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18801</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If cave type &lt; $7B, then go handle the money game.&#xD;
+&#xD;
+ This is a moblin giving away money.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18811</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Write a price list into the dynamic transfer buf,&#xD;
+ but with a space instead of "X".&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18816</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> "key taken" sound effect</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18824</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Go to state 8 to do nothing but show the person.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18828</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Post the middle amount in [0431] to add.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18841</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> "key taken" sound effect</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18846</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO:&#xD;
+ Copy amounts in [0448][Y] for money game to [0430][Y].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18322</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>WritePricesTransferBuf</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18860</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Go to state 8 to do nothing but show the person.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18918</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>PrependSignToPrice</Label>
+      <Comment> Params:&#xD;
+ A: price&#xD;
+ Y: offset from first character after "X"&#xD;
+&#xD;
+ If the amount is $14 or $32, then use "+", else "-".&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18864</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Prepend the sign to each money game amount.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18007</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the test fails, then subtract $2B from the reference number.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>17999</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Determine an index randomly with increasing probability,&#xD;
+ from 6 to 1. Start with the following test:&#xD;
+&#xD;
+   If $FF &lt; Random, then go use index 6.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18888</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the amount chosen = 20 or 50, then add it;&#xD;
+ else subtract it.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18930</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Copy the character to the first element after the "X",&#xD;
+ offset by the parameter.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18013</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The index chooses the last offset of a permutation of three indexes.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18016</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Copy the permutation of 3 indexes to [046C] to [046E].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18028</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> With the first bit of another random number, choose 10 or 40&#xD;
+ to put in [046F]. This is a random amount to lose.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18039</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Put 10 in [0470]. This is a fixed amount to lose.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18044</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> With a different bit of the second random number,&#xD;
+ choose 20 or 50 to put in [0471]. This is an amount to win.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>17848</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>MoneyGamePermutations</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>18</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>17846</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>MoneyGameLossAmounts</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>2</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>17866</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>MoneyGamePermutationEndIndexes</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>6</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18057</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO:&#xD;
+ The 3 amounts are now in [046F] to [0471].&#xD;
+ Reference these amounts using the permutation of indexes&#xD;
+ in [046C] to [046E]; and copy them to [0448] to [044A].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18706</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> MULTI: [0422][X]&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18709</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Mask off the cave flags.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18747</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>HintCaveTextSelectors0</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>3</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18750</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>HintCaveTextSelectors1</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>3</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18902</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>PostCredit</Label>
+      <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>

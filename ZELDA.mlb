@@ -98,8 +98,8 @@ R:03E4-03F7:_ObjMovementFrame
 R:03F8-0404:ObjInputDir: At the beginning of a frame, this will be set to 0 to 2 directions.\n
 R:0405-0411:_ObjMetaState
 R:0412:_Multi_0412: TODO:\n Mode 0: TriforceGlowTimer\n Mode 5: ObjFlyingPosFrac\n Mode 5: Push timer for blocks, rocks, and gravestones (slot $B)\n Mode 5: "wants to shoot" for walkers\n Mode 5: vertical speed high byte for jumpers\n Mode 10: TargetY\n
-R:0413:TriforceGlowCycle
-R:0415:ScrolledScreenCount
+R:0413:_TriforceGlowCycle: TODO:\n 0: TriforceGlowCycle\n B: CaveFlags\n\n TODO: describe the cave flags\n
+R:0415:_ScrolledScreenCount
 R:0417:DemoLineAttrVramAddrLo
 R:0418:DemoLineAttrVramAddrHi
 R:0419:DemoLineIndex
@@ -108,7 +108,7 @@ R:041B:ScrolledLineCount
 R:041C:DemoLineTileVramAddrLo
 R:041D:DemoLineTileVramAddrHi
 R:041F:_Multi_041F: TODO:\n Mode 0: InitializedWaterfallAnimation\n Mode 5: ObjFlyingSpeedFrac\n Mode 5: Wanderer: turn rate\n Mode 5: vertical speed low byte for jumpers\n Mode E: CharBoardIndex\n
-R:0420-0422:TitleWaveYs
+R:0420-0422:_TitleWaveYs
 R:0423:: The VRAM address now points outside name field.\n So, wrap around to the beginning of name field.
 R:0426:StillHoldingButton
 R:0427:HeldButton
@@ -117,10 +117,10 @@ R:0429:ButtonRepeatTimer
 R:042A:ModeE_WrappedAroundBoardY
 R:042C:_Multi_042C: TODO:\n Mode 0: DemoPhase\n Mode 5: ObjFlyingTurns\n Mode 5: Thrower\n Mode 5: Goriya's boomerang\n Mode 5: Dodongo: bloated substate\n
 R:042D:DemoSubphase
-R:042E:DemoLineTextIndex
-R:042F:DemoItemRow
+R:042E:_DemoLineTextIndex
+R:042F:_DemoItemRow
 R:0437:_Multi_0437: TODO:\n Mode 0: DemoPhase0Subphase1Cycle\n Mode 5: ObjFlyingDistTraveled\n
-R:0438:DemoPhase0Subphase1Timer
+R:0438:_DemoPhase0Subphase1Timer
 R:0444:_Multi_0444: TODO:\n Mode 0: (Demo) ItemTypes\n Mode 5: ObjFlyingState\n Mode 5: jump target Y\n
 R:0451-045D:_ObjShootTimer: ObjShootTimer\n While this variable <> 0, a walking monster will not walk.\n When it reaches $10, it will shoot.\n
 R:0485-0491:ObjHP
@@ -207,6 +207,7 @@ R:0662:InvRing
 R:0663:InvLadder
 R:0664:InvMagicKey
 R:0665:InvBracelet
+R:0666:InvLetter
 R:0667:InvCompass
 R:0668:InvMap
 R:0669:InvCompass9
@@ -228,15 +229,83 @@ R:067F-07FE:WorldFlags
 P:1825:DriveAudio
 P:4000-404B:PersonTextAddrs
 P:404C-45A1:PersonText
-P:45D0:InitCave
-P:45D7:: If the cave/person is not a simple one for taking an item,\n then go set up the text.\n
-P:45EA:: Else the cave/person simply does:\n - item taken: no person, no text\n - not taken:  show a person and text\n\n So, if the item was not taken, then go set up the text.\n
+P:45A2-45B5:OverworldPersonTextSelectors
+P:45B6-45B7:MoneyGameLossAmounts
+P:45B8-45C9:MoneyGamePermutations
+P:45CA-45CF:MoneyGamePermutationEndIndexes
+P:45D0:InitCave: The person goes at location ($78, $80).\n
+P:45D7:: If the cave/person does not remember state (give item, door charge),\n then go handle other kinds.\n
+P:45EA:: Else the cave/person simply does:\n - taken:     no person, no text\n - not taken: show a person and text\n\n So, if the item was not taken, then go set up the text.\n
 P:45EF:: Otherwise destroy the person object, and let Link continue.\n
 P:45F4:UnhaltLink
+P:45F9:: Get this cave's index (object type - $6A).\n
+P:4600:: Get the person text selector by looking up the text selector byte\n for this index, and masking it with $3F.\n
+P:4603:: Save the text selector byte before masking.
+P:4609:: Pop and mask the text selector byte with $C0 to get the\n "pay" and "pick up" cave flags and store them in [03].\n
+P:460E:: At this point, the Y register still has the cave index.\n Multiply it by 3 to get the offset of the first item in a set of 3.\n
+P:4617:: Loop over the wares from 0 to 2.\n
+P:4619:: Copy 3 item ID bytes from the Cave level block info.\n Item ID's are in the low 6 bits, cave flags are in the high 2 bits.\n
+P:461F:: Copy the cave flags (high 2 bits) of the three items to [00] to [02].\n
+P:4623:: Copy 3 prices from the Cave level block info.\n
+P:4629:: Bottom of the wares copying loop.\n
+P:462F:: Get the top 2 bits of text selector byte in [03],\n shift them to the bottom, and combine them with [00].\n
+P:4638:: Get the top 2 bits of item descriptor 2, shift them right 4 times,\n and combine them with [00].\n
+P:4642:: TODO:\n Get the top 2 bits of item descriptor 1, shift them right twice,\n and combine them with [00] into [0413].\n
+P:464B:: The end result is a byte with 8 cave flags.\n\n If cave flag "money game" is missing, then go finish up,\n instead of choosing random amounts for the money game.\n
+P:464F:: Determine an index randomly with increasing probability,\n from 6 to 1. Start with the following test:\n\n   If $FF < Random, then go use index 6.\n
+P:4657:: If the test fails, then subtract $2B from the reference number.\n
+P:465D:: The index chooses the last offset of a permutation of three indexes.\n
+P:4660:: Copy the permutation of 3 indexes to [046C] to [046E].\n
+P:466C:: With the first bit of another random number, choose 10 or 40\n to put in [046F]. This is a random amount to lose.\n
+P:4677:: Put 10 in [0470]. This is a fixed amount to lose.\n
+P:467C:: With a different bit of the second random number,\n choose 20 or 50 to put in [0471]. This is an amount to win.\n
+P:4689:: TODO:\n The 3 amounts are now in [046F] to [0471].\n Reference these amounts using the permutation of indexes\n in [046C] to [046E]; and copy them to [0448] to [044A].\n
+P:4697:: Reset the current character index.\n
+P:469C:: Point to the front of the first textbox line.\n
 P:46A3:SetUpCommonCaveObjects: Params:\n A: X coordinate\n Y: Y coordinate\n\n Set the person's coordinates, HP, and attributes.\n
 P:46B1:: Halt Link.\n
 P:46B5:: Set up the two bonfires.\n
-P:47F2:CueTransferRecordAndAdvanceState: Params:\n A: selector\n
+P:46CA-46DA:PriceListTemplateTransferBuf
+P:46DB:UpdateCavePerson: If in state 4, then every other frame skip drawing the person\n and items; and go straight to the state code for each kind of cave.\n
+P:46EA:: If the cave type is not $74 medicine shop,\n or it is but the letter has not been used, then\n go draw items and run the state code.\n
+P:46F8:: If the letter is selected, and B is pressed, then go use the letter.\n
+P:4705:: If Link is halted, then unhalt him.\n
+P:470F:: The letter has been used.\n\n Play the "secret found" tune.\n
+P:4714:: Set the letter state to used (2).\n
+P:4717:: Change the selected item slot to the potion's.\n
+P:4736:DrawCavePerson
+P:4739:: If the cave/person type >= $7B, then the visual is a moblin.\n So, go draw not mirrored.\n
+P:4740:: Else the old man, old woman, and shopkeeper are all mirrored.\n
+P:4746:CaveWareXs
+P:4749:DrawCaveItems: If the cave flags do not call for showing items, then\n go see about showing prices.\n
+P:474C:: Cave flag: Show items
+P:4750:: Loop over the wares to draw, from 2 to 0.\n\n MULTI: [0421]\n
+P:4758:: Look up and set the X coordinate for the current item.\n
+P:475D:: Set Y coordinate $98 for the item.\n
+P:4761:: If the item is nothing ($3F), then loop gain.\n\n MULTI: [0422][X]\n
+P:476A:: Switch to the room item object slot, and draw it.\n
+P:476F:: Bottom of the item drawing loop. Decrement this index until < 0.\n
+P:4774:: If the cave flags do not call for showing prices, then return.\n
+P:4777:: Cave flag: Show prices
+P:477B:: Show a rupee at ($30, $AB).\n
+P:478B:UpdateCavePersonState_TransferPrices: If the cave flags do not call for showing prices, then\n advance the state and return.\n
+P:478E:: Cave flag: Show prices
+P:4792:WritePricesTransferBuf
+P:4795:: "X"
+P:4797:WritePricesToDynamicTransferBuf: Params:\n A: price character\n
+P:479A:: Reset the index of current price being formatted\n and offset of price string.\n
+P:47A2:: Get the price of the current item.\n
+P:47A5:: If it's 0, then store a space character in the text field [01], [02], [03].\n
+P:47B5:: If the cave flags call for negative amounts, then\n store a dash in prefix byte [04]. Else store a space ($24).\n
+P:47BD:: "-"
+P:47C1:: Move the dash closer to the number.\n
+P:47D9:: Add 4 to the base offset for the next string.\n
+P:47E2:: Bottom of the price loop. Increment the index of the item until = 3.\n
+P:47EC:: Delay $A frames at the beginning of the next state.\n
+P:47F0:: Go to the next state and return.\n
+P:47F2:CueTransferBufAndAdvanceState: Params:\n A: selector\n
+P:47F7:SwapSpaceAndSign: Params:\n A: a character of the price string\n [04]: prefix character\n\n Returns:\n   If original A is not a space:\n     A:    original character\n     [04]: original prefix character\n   Else:\n     A:    original prefix character\n     [04]: original character\n
+P:4801:CopyPriceListTemplate: Copy $11 bytes of the price list template text to the dynamic transfer buf.\n
 P:480D-4811:TextboxCharTransferRecTemplate
 P:4812-4814:TextboxLineAddrsLo
 P:4815:_UpdatePersonState_Textbox
@@ -256,8 +325,69 @@ P:4858:: If the high 2 bits of character element = 0, then return.\n
 P:485E:: Determine an index based on the high 2 bits of the character element:\n   $80: 0\n   $40: 1\n   $C0: 2\n
 P:486A:: The index chooses the low VRAM address of the start\n of another line:\n   0: $C4: front of the second line\n   1: $E4: front of the third line\n   2: $A4: front of the first line\n\n Look up the low VRAM address and store it.\n
 P:4870:: If index = 2, then we've reached the end of the text,\n and low VRAM address is moved to the front of the first line.\n So, advance the state of the person object, and unhalt Link.\n
-P:49F7:CueTransferBlankPersonWaresAndAdvanceState: Also blanks the third line of text.
-P:49FC:InitUnderworldPerson_Full: Point to the front of the first line in VRAM.
+P:487A:_UpdateCavePersonState_TalkOrShopOrDoorCharge: If the cave flags call for choosing an item, then\n go handle those kinds of caves.\n
+P:487D:: Cave flag: Choose/Pick up (1)
+P:4880:: Advance to the end state, where the person is still shown.\n
+P:4884:: If this is not the "door charge" old man, then return.\n The person only talks.\n
+P:488B:: Post 20 rupees to subtract.\n
+P:4894:: Mark this secret taken.\n
+P:4898:: This is a cave where the player chooses or touches an item:\n - give item\n - shop\n - hint\n - money game\n\n If rupees are decreasing, then return.\n
+P:489D:: Loop over each item from 2 to 0.\n
+P:489F:: If this item is nothing, then loop again.\n\n MULTI: [0422][X]\n
+P:48A2:: Mask off the cave flags.
+P:48A4:: No item
+P:48A8:: If Link's X <> item's X, then loop again.\n
+P:48AF:: If the vertical distance between Link and the item < 6, then\n go try to take it.\n
+P:48BB:: Bottom of the item touch loop.\n
+P:48BF:: Store the index of the item chosen.\n
+P:48C2:: If hint and money game cave flags are missing, then\n go take an item given away, or buy it.\n
+P:48C5:: Cave flags: Hint and Money game
+P:48C9:: If have cave flag "money game", then go to state 5 and return.\n
+P:48CD:: Else have "hint" cave flag.\n\n If rupees < price, then return.\n
+P:48D5:: Pass the price to pay for the hint.\n
+P:48DB:: Go to state 5. It runs the hint cave and money game.\n
+P:48E0:: This is a shop, or something is being given away.\n\n If "pay" cave flag is missing, then go try to take the item.\n
+P:48E7:: If rupees < price, then return.\n
+P:48EF:: Pass the price to pay for the item.\n
+P:48F5:: If "heart requirement" cave flag is missing, then\n go to take the item without further ado.\n
+P:48FC:: Check heart container requirements.\n\n 5 is the minimum for cave type $6C (white sword)\n $C is the minimum otherwise\n
+P:490A:: If the minimum of heart containers is met, then\n go take the item without further ado.\n
+P:4912:: MULTI: [0422][X]\n
+P:4915:: Mask off the cave flags.
+P:4917:: Push the item ID
+P:4918:: Flag the item taken by setting its ID to $FF.\n
+P:491D:: Pop the item ID
+P:4921:: Blank textbox lines
+P:4926:: Set timer to $40 for when we delay in state 4.\n
+P:492A:ClearPricesCaveFlag: Remove the "show prices" cave flag to get rid of the generic rupee.\n
+P:4933:_UpdatePersonState_DelayThenHide
+P:493B-493D:HintCaveTextSelectors0
+P:493E-4940:HintCaveTextSelectors1
+P:4941:_UpdateCavePersonState_HintOrMoneyGame: If "hint" cave flag is missing, then go handle the money game.\n
+P:4948:: If cave type = $75, then use 0 for base offset of\n the first set of text selectors, else 3 for the second.\n
+P:4954:: Add the base offset and the index of the item chosen\n to get the index of a text selector.\n
+P:4958:: Look up text selector by the index calculated above.\n
+P:495E:: Point to the front of the first line of the textbox.\n
+P:4964:: Reset the character index.\n
+P:496C:: Blank textbox lines
+P:4971:: If cave type < $7B, then go handle the money game.\n\n This is a moblin giving away money.\n
+P:497B:: Write a price list into the dynamic transfer buf,\n but with a space instead of "X".\n
+P:4980:: "key taken" sound effect
+P:4988:: Go to state 8 to do nothing but show the person.\n
+P:498C:: Post the middle amount in [0431] to add.\n
+P:4992:: Money game\n\n If rupees < $A, then return.\n
+P:4999:: "key taken" sound effect
+P:499E:: TODO:\n Copy amounts in [0448][Y] for money game to [0430][Y].\n
+P:49AC:: Go to state 8 to do nothing but show the person.\n
+P:49B0:: Prepend the sign to each money game amount.\n
+P:49C8:: If the amount chosen = 20 or 50, then add it;\n else subtract it.\n
+P:49D6:PostCredit
+P:49DE:PostDebit: Params:\n A: amount\n\n Add the amount paid to the rupees to subtract.\n
+P:49E6:PrependSignToPrice: Params:\n A: price\n Y: offset from first character after "X"\n\n If the amount is $14 or $32, then use "+", else "-".\n
+P:49F2:: Copy the character to the first element after the "X",\n offset by the parameter.\n
+P:49F6:UpdateCavePersonState_DoNothing
+P:49F7:_UpdatePersonState_CueTransferBlankPersonWares: Also blanks the third line of text.
+P:49FC:InitUnderworldPerson_Full: Point to the front of the first line in VRAM.\n
 P:4A1B-4A22:UnderworldPersonTextSelectorsA
 P:4A23:InitUnderworldPersonA: The person goes at location ($78, $80).\n
 P:4A2A:: Subtract $4B from the object type to get the old man's index.\n
@@ -3275,8 +3405,7 @@ P:1458E:: If GameMode < $11,
 P:14590:: then turn off video and return.
 P:14593:: else change base nametable (0 -> 1 or 2 -> 3).
 P:14600:InitMode8
-P:14607:: TODO: Reset [$5A].
-P:14610:: TODO: ?
+P:14607:: Reset.
 P:14613:: Cue the transfer of text and attributes for mode 8.
 P:1461A:InitModeD
 P:14620:: If initialized save RAM, then it wasn't previously\n initialized or something went wrong.\n So, go reset the game.
@@ -3465,7 +3594,6 @@ P:14B98:: Move Link down 1 pixel.
 P:14B9C:: TODO: Here it's the target Y.
 P:14B9F:: If Link hasn't reached the end of the walk, go draw.
 P:14BA1:: Else go to the target mode.
-P:14BA8:: TODO: draw Link?
 P:14BAB:PutLinkBehindBackground: Change priority of Link sprites $12 and $13 to show them behind the background.
 P:14BBC:CheckUnderworldSecrets
 P:14BBF:: If there's no secret in this room, return.\n
@@ -4064,17 +4192,17 @@ P:16970-16975:TileObjectTypes
 P:16976-1697B:TileObjectPrimarySquaresOW
 P:1697C-169B3:PrimarySquaresOW
 P:169B4-169F3:SecondarySquaresOW
-P:169F4:LayoutRoomOW: Load the address of room column directory in [$02:03].
+P:169F4:LayoutRoomOW: Load the address of room column directory in [$02:03].\n
 P:169FE:: Reset [06] for use in multiplication below.
 P:16A02:: Get unique room ID (OW).
 P:16A04:: The low 6 bits have the unique room ID.
-P:16A07:: Add ((unique room ID) * $10) to address in [$02:03]. Each unique room has $10 columns.
-P:16A1B:: Load the address of world flags in [$08:09].
+P:16A07:: Add ((unique room ID) * $10) to address in [$02:03]. Each unique room has $10 columns.\n
+P:16A1B:LayoutRoomOrCaveOW: Params:\n [02:03]: address of room column directory\n\n Load the address of world flags in [$08:09].\n
 P:16A28:: For each column in room, indexed by [06]:\n
 P:16A2A:: Reset [$0C] used for tracking repeat state.
 P:16A30:: Get a column descriptor.
 P:16A32:: Put column table number * 2 in X.
-P:16A38:: Load the column table address for this descriptor in [$04:05].
+P:16A38:: Load the column table address for this descriptor in [$04:05].\n
 P:16A42:: Get the column descriptor.
 P:16A44:: Put column index in X.
 P:16A49:: Look for the beginning of a column.\n
@@ -4131,8 +4259,10 @@ P:16B15:: Write tile+0 to (col, row).
 P:16B1C:: Write tile+1 to (col, row+1).
 P:16B27:: Write tile+2 to (col+1, row).
 P:16B2D:: Go write tile+3 to (col+1, row+1).
-P:16B30:PatchColumnDirectoryForCellar: In OW, set first address of directory to start of OW column heap, as expected.
-P:16B3A:: In UW, set the first address of column directory to start of UW cellar column heap.
+P:16B30:PatchColumnDirectoryForCellar: In OW, set first address of directory to start of OW column heap, as expected.\n
+P:16B3A:: In UW, set the first address of column directory to start of UW cellar column heap.\n
+P:16B45-16B4C:SubroomColumnDirectoryAddrs
+P:16B4D:LayoutCaveAndAvanceSubmode
 P:16B73:CheckShortcut
 P:16B77:: If the player found the secret, then return.
 P:16B7D:: If the shortcut wasn't seen in this room, then return.
@@ -4168,9 +4298,9 @@ P:16C16:CopyNextRowToTransferBuf: Returns:\n C: 1 if copied the last row\n
 P:16C20:LayoutRoom_SubmodeTask
 P:17000:InitMode3_Sub2
 P:17007:: Go cue a transfer of palettes, and go to next submode.
-P:17009:InitMode3_Sub3: Low byte of destination PPU address for NT attributes.
+P:17009:InitMode3_Sub3_TransferTopHalfAttrs: Low byte of destination PPU address for NT attributes.
 P:1700B:: Offset of the end of first half of play area NT attributes.
-P:17010:InitMode3_Sub4: Low byte of destination PPU address for NT attributes.
+P:17010:InitMode3_Sub4_TransferBottomHalfAttrs: Low byte of destination PPU address for NT attributes.
 P:17012:: Offset of the end of second half of play area NT attributes.
 P:17016:InitMode3_Sub5: Cue transfer of static elements of status bar.
 P:1701D:InitMode3_Sub6
@@ -4208,14 +4338,20 @@ P:170C3:_GetDoorPassingThruAttr: Returns door attr in direction Link's facing (m
 P:170CE:: If in mode 6, use Link's direction to get a door attribute.\n Else use the opposite direction.
 P:170E1:CopyPlayAreaAttrsHalfToDynTransferBuf: Params:\n X: high PPU address\n A: low PPU address\n Y: end offset in PlayAreaAttrs to copy from\n
 P:170FC:InitModeA
-P:17117:InitModeA_Sub0
+P:17117:_InitModeAOrB_Sub0
+P:17127:_DrawDynamicElementsBetweenRoomsAndAdvanceSubmode
+P:17130:_InitModeB_AdvanceSubmode
 P:1713C:InitModeA_Sub3And9
 P:17147:InitModeA_Sub2
 P:1714B:InitModeA_Sub8
+P:1714F:_InitModeB_Sub1: Transfer the cave BG palette rows.\n
 P:17153:InitModeA_Sub1
 P:1715A:InitModeA_SubA
-P:17166:InitModeA_Sub6
-P:17173:InitModeA_Sub7
+P:17166:InitModeA_Sub6_FillTileAttrsAndTransferTopHalf
+P:1716B:InitModeB_Sub5_FillTileAttrsAndTransferTopHalf: An OW room that has the same NT attributes as a cave.
+P:17173:InitModeAOrB_TransferBottomHalfAttrs
+P:17180:: If reached the end of the walk, then go start updating.\n
+P:17185:: Move and draw facing up.\n
 P:171CD:InitMode9_Sub9: Set Link's input direction to the facing direction, and\n update the player object; so that it walks down the stairs\n of the cellar. Stop when it reaches Y coordinate $5D.\n
 P:171DB:: Reset player state.
 P:171DF:: Remember that this is a cellar.
@@ -4315,7 +4451,7 @@ P:17432:: Remember what room we were in.
 P:17435:: Look for a room in cellar array that has the current room as\n destination room A or B.\n
 P:17448:: Make the cellar found the current room, and the target mode 9.\n
 P:1744E:: TODO:\n If the target mode is not 9, restart the OW song?\n
-P:17458:: TODO: [3C]?
+P:17458:: Reset the flute timer.\n
 P:1745A:: Go to mode $10.\n
 P:17464:SaveKillCount
 P:1746F:HandleWarpOW: Save the tile that Link is standing on; so that we know how\n to go underground.\n
@@ -5574,7 +5710,13 @@ S:0D64:FormatDecimalCountByte: Formats a byte:\n 123 -> "123"\n  23 -> "X23"\n  
 S:0D75:FormatCharDoublet: Params:\n A: character\n\n Returns:\n [$02]: character\n [$03]: space\n
 S:0D7C:_BitOr0601WithA
 S:0D80:_BitOr0603WithA
+S:0D89:InitModeB_EnterCave_Bank5: Save the submode.\n
+S:0D92:: Put Link at the cave entrance ($70, $DD), and facing up.\n
 S:0D9C:FileBChecksums
+S:0DA4:: Restore the submode.\n
+S:0DA7:: Still initializing. A routine called here changed it.\n
+S:0DAD:: Get Link ready to move automatically this number of pixels.\n
+S:0DB2:: When coming out of the cave eventually, this has to be set.\n
 S:0DB7:ResetRoomTileObjInfo: Returns:\n A: 0\n
 S:0DC3-0DC6:ReverseDirections
 S:0DC7-0DF0:SaveFileAAddressSets
@@ -5775,10 +5917,10 @@ S:133D:: [04] holds the item type.
 S:133F:TryTakeItem: Params:\n X: object index\n [04]: item type\n\n\n If the lifetime timer of the item >= $F0, then return;\n so that the player can't pick it up right away.\n\n MULTI: ObjPosFrac [03A8][X] is used to count down the life of the item.
 S:1346:: If Y distance between Link and the item >= 9, return.\n
 S:1355:: If X distance between Link and the item >= 9, return.\n
-S:1361:: Deactivate the room item object.\n
+S:1361:: In case this is the room item, set state to $FF to deactivate it.\n
 S:1367:: If it is the room item that is taken, then\n mark it taken in room flags.\n
 S:136E:: Get the item type.
-S:1370:: By default, we'll play the "item taken" tune.\n
+S:1370:TakeItem: Params:\n A: item ID\n\n By default, we'll play the "item taken" tune.\n
 S:1375:: Unless it's the Triforce of Power; in which case\n play the "item appears" tune.\n
 S:137E:: If we're in a cave or cellar, then\n prepare to lift the item.\n
 S:1384:: Lift for $80 frames.
