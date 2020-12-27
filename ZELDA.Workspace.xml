@@ -12043,7 +12043,7 @@ def</Comment>
     <CodeLabel>
       <Address>85243</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>UpdateMode11Death_Sub8</Label>
+      <Label>UpdateMode11Death_Sub8_AnimateFade</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -17348,6 +17348,12 @@ def</Comment>
       <AddressType>PrgRom</AddressType>
       <Label>InitMode_EnterRoom</Label>
       <Comment> TODO: Is also called for modes 9, $B, $C.&#xD;
+&#xD;
+ Description:&#xD;
+ Clears intraroom data.&#xD;
+ Set up Link to walk into a room.&#xD;
+ Decodes and lays out objects.&#xD;
+ Switches from initializing the game mode to updating it.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -20524,7 +20530,7 @@ def</Comment>
     <CodeLabel>
       <Address>94487</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_InitModeAOrB_Sub0</Label>
+      <Label>_InitModeSubroom_Sub0</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -22737,7 +22743,7 @@ def</Comment>
     <CodeLabel>
       <Address>94669</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>InitMode9_Sub9</Label>
+      <Label>InitMode9_WalkCellar</Label>
       <Comment> Set Link's input direction to the facing direction, and&#xD;
  update the player object; so that it walks down the stairs&#xD;
  of the cellar. Stop when it reaches Y coordinate $5D.&#xD;
@@ -23003,14 +23009,14 @@ def</Comment>
       <Address>94535</Address>
       <AddressType>PrgRom</AddressType>
       <Label>InitModeA_Sub2</Label>
-      <Comment> TODO: ?</Comment>
+      <Comment> Light cellar -&gt; dark cellar cycle</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>94524</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>InitModeA_Sub3And9</Label>
+      <Label>InitModeSubroom_AnimateFade</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -23043,14 +23049,14 @@ def</Comment>
       <Address>94539</Address>
       <AddressType>PrgRom</AddressType>
       <Label>InitModeA_Sub8</Label>
-      <Comment> TODO: ?</Comment>
+      <Comment> Dark cellar -&gt; light level cycle</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>94554</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>InitModeA_SubA</Label>
+      <Label>InitModeA_SubA_GoToMode4</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -57369,7 +57375,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>94512</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_InitModeAOrB_AdvanceSubmode</Label>
+      <Label>_InitMode_AdvanceSubmode</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -58724,6 +58730,124 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label>LayoutShortcutAndAdvanceSubmode</Label>
       <Comment> Offset of address of column directory of shortcut cave</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>94515</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitMode9_FadeToDark</Label>
+      <Comment> Light level -&gt; dark cellar cycle</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>93026</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>LayoutCellarAndAdvanceSubmode</Label>
+      <Comment> Reset CurRow for when we start transferring rows&#xD;
+ after laying out the room.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>93030</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Get the offset of column directory address for the kind of cellar:&#xD;
+ - tunnel $3E:   offset 4&#xD;
+ - treasure $3F: offset 6&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>107113</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>CellarAttrsTransferBuf</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>9</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>107101</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>CaveBgPaletteRowsTransferBuf</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>12</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>94508</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitMode9_TransferAttrs</Label>
+      <Comment> Cellar NT attributes</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>94531</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitMode9_FadeToLight</Label>
+      <Comment> Dark cellar -&gt; light cellar cycle</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>94617</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitMode9_EnterCellar</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>94655</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set a grid offset appropriate for the distance to be traveled:&#xD;
+   ($5D - $41) = $1C = ($100 - $E4)&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>94619</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Save the submode.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>94626</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Restore the submode.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>94629</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Each cellar can have two destination rooms: A and B.&#xD;
+ Tunnels use both. Treasure rooms only use room A.&#xD;
+&#xD;
+ If the room that Link came from is the room A of this cellar,&#xD;
+ then use the look up the X coordinate on the left at index 0.&#xD;
+ Else use index 1 to get the X coordinate on the right.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>94647</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Link goes at Y=$41, and facing down.&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>

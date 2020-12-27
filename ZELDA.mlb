@@ -3438,7 +3438,7 @@ P:147B1:: Start a fade-to-light cycle (reverse of cycle $40).
 P:147B3:SetFadeCycleAndAdvanceSubmode: Params:\n A: start index of cycle\n
 P:147B9:InitMode4_Sub3: Submode 3.\n
 P:147BC:: If not done animating, then return.
-P:147C6:InitMode_EnterRoom: TODO: Is also called for modes 9, $B, $C.\n
+P:147C6:InitMode_EnterRoom: TODO: Is also called for modes 9, $B, $C.\n\n Description:\n Clears intraroom data.\n Set up Link to walk into a room.\n Decodes and lays out objects.\n Switches from initializing the game mode to updating it.\n
 P:147CC:: Reset [0300] to [051F].\n
 P:147D3:: Reset door trigger info.\n
 P:147D9:: Store level block attribute byte F for convenience.\n
@@ -3654,7 +3654,7 @@ P:14CF2:: Go redraw Link.
 P:14CF5:: If not right, then vertical. %A was shifted to become\n horizontal direction counter-clockwise from original\n vertical direction. Got set it and redraw.
 P:14CF7:: Facing right.\n\n Face the next direction (up).
 P:14CF9:: Go set the direction and redraw.
-P:14CFB:UpdateMode11Death_Sub8
+P:14CFB:UpdateMode11Death_Sub8_AnimateFade
 P:14CFE:: If done, then go to the next submode.
 P:14D01:UpdateMode11Death_Sub9: Cue the transfer of the dead Link (grey) palette row.
 P:14D07:: TODO: Here [$E5] means more like spark timer.
@@ -4265,6 +4265,8 @@ P:16B3A:: In UW, set the first address of column directory to start of UW cellar
 P:16B45-16B4C:SubroomColumnDirectoryAddrs
 P:16B4D:LayoutCaveAndAvanceSubmode: Usual cave
 P:16B5E:LayoutShortcutAndAdvanceSubmode: Offset of address of column directory of shortcut cave
+P:16B62:LayoutCellarAndAdvanceSubmode: Reset CurRow for when we start transferring rows\n after laying out the room.\n
+P:16B66:: Get the offset of column directory address for the kind of cellar:\n - tunnel $3E:   offset 4\n - treasure $3F: offset 6\n
 P:16B73:CheckShortcut
 P:16B77:: If the player found the secret, then return.
 P:16B7D:: If the shortcut wasn't seen in this room, then return.
@@ -4340,23 +4342,32 @@ P:170C3:_GetDoorPassingThruAttr: Returns door attr in direction Link's facing (m
 P:170CE:: If in mode 6, use Link's direction to get a door attribute.\n Else use the opposite direction.
 P:170E1:CopyPlayAreaAttrsHalfToDynTransferBuf: Params:\n X: high PPU address\n A: low PPU address\n Y: end offset in PlayAreaAttrs to copy from\n
 P:170FC:InitModeA
-P:17117:_InitModeAOrB_Sub0
+P:17117:_InitModeSubroom_Sub0
 P:17127:_DrawDynamicElementsBetweenRoomsAndAdvanceSubmode
-P:17130:_InitModeAOrB_AdvanceSubmode
-P:1713C:InitModeA_Sub3And9
-P:17147:InitModeA_Sub2: TODO: ?
-P:1714B:InitModeA_Sub8: TODO: ?
+P:1712C:InitMode9_TransferAttrs: Cellar NT attributes
+P:17130:_InitMode_AdvanceSubmode
+P:17133:InitMode9_FadeToDark: Light level -> dark cellar cycle
+P:1713C:InitModeSubroom_AnimateFade
+P:17143:InitMode9_FadeToLight: Dark cellar -> light cellar cycle
+P:17147:InitModeA_Sub2: Light cellar -> dark cellar cycle
+P:1714B:InitModeA_Sub8: Dark cellar -> light level cycle
 P:1714F:_InitModeB_Sub1: Transfer the cave BG palette rows.\n
 P:17153:InitModeA_Sub1
 P:17157:: Transfer the OW palette again, because it was changed\n for a cave.\n
-P:1715A:InitModeA_SubA
+P:1715A:InitModeA_SubA_GoToMode4
 P:17166:InitModeA_Sub6_FillTileAttrsAndTransferTopHalf
 P:1716B:InitModeB_Sub5_FillTileAttrsAndTransferTopHalf: An OW room that has the same NT attributes as a cave.
 P:17173:InitModeAOrB_TransferBottomHalfAttrs
 P:1717B:_L_DisableSprite0Check
 P:17180:InitMode_WalkCave: If reached the end of the walk, then go start updating.\n
 P:17185:: Move and draw facing up.\n
-P:171CD:InitMode9_Sub9: Set Link's input direction to the facing direction, and\n update the player object; so that it walks down the stairs\n of the cellar. Stop when it reaches Y coordinate $5D.\n
+P:17199:InitMode9_EnterCellar
+P:1719B:: Save the submode.
+P:171A2:: Restore the submode.
+P:171A5:: Each cellar can have two destination rooms: A and B.\n Tunnels use both. Treasure rooms only use room A.\n\n If the room that Link came from is the room A of this cellar,\n then use the look up the X coordinate on the left at index 0.\n Else use index 1 to get the X coordinate on the right.\n
+P:171B7:: Link goes at Y=$41, and facing down.\n
+P:171BF:: Set a grid offset appropriate for the distance to be traveled:\n   ($5D - $41) = $1C = ($100 - $E4)\n
+P:171CD:InitMode9_WalkCellar: Set Link's input direction to the facing direction, and\n update the player object; so that it walks down the stairs\n of the cellar. Stop when it reaches Y coordinate $5D.\n
 P:171DB:: Reset player state.
 P:171DF:: Remember that this is a cellar.
 P:171E3:: Start updating the mode.
@@ -4724,6 +4735,8 @@ P:1A235-1A244:SubmenuTriforceBottomTransferBuf
 P:1A245-1A24C:GhostPaletteRow7TransferBuf
 P:1A24D-1A254:GreenBgPaletteRow7TransferBuf
 P:1A255-1A25C:BrownBgPaletteRow7TransferBuf
+P:1A25D-1A268:CaveBgPaletteRowsTransferBuf
+P:1A269-1A271:CellarAttrsTransferBuf
 P:1A272-1A27D:WhitePaletteBottomHalfTransferBuf
 P:1A27E-1A285:RedArmosPaletteRow7TransferBuf
 P:1A286-1A28D:GleeokPaletteRow7TransferBuf
