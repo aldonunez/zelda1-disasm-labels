@@ -66903,6 +66903,14 @@ For example:&#xD;
       <Flags>None</Flags>
       <Length>31</Length>
     </CodeLabel>
+    <CodeLabel>
+      <Address>114688</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>PcmSamples</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>9216</Length>
+    </CodeLabel>
   </Labels>
   <TblMappings />
 </DebugWorkspace>
