@@ -5712,7 +5712,7 @@ P:1E6A1:L1E6A1: TODO: Set [E7] to a door bit/direction bit.
 P:1E6A3:: A holds the door attribute.
 P:1E6B8:L1E6B8: Use player's direction bit.
 P:1E6BA:: Use "open" door attribute.
-P:1E6BD-1E6C5:LevelMasks
+P:1E6BE-1E6C5:LevelMasks
 P:1E6C6:MarkRoomVisited
 P:1E6C9:: Visit state (UW)
 P:1E6CD:L1E6CD
@@ -7046,6 +7046,7 @@ S:156A:: Play secret tune, and let the player leave the maze.\n
 S:1570:_MapScreenPosToPpuAddr: Params:\n [02]: Y\n [03]: X\n\n Returns:\n [00]: high byte of PPU address\n [01]: low byte of PPU address\n\n\n Turn the 16-bit value 08YY into the PPU address\n ($2000 + (YY * 4)) by multiplying it by 4.\n\n Each row of tiles is 32 tiles (and bytes) long, and 8 pixels tall.\n This is why the Y coordinate is multiplied by 4 (= 32 / 8).\n
 S:1580:: Now divide X coordinate by 8, because each tile is 8 pixels wide.\n
 S:1585:: Combine the low address of the row with the column to get\n the final low byte of PPU address.\n
+S:158A-1593:Unknown_758A
 S:1594-1612:ObjAnimations
 S:1613-16DE:ObjAnimFrameHeap
 S:16DF-17AA:ObjAnimAttrHeap
@@ -7231,11 +7232,11 @@ S:1D01:: The weapon's midpoint/hotspot is at (X + 8, Y + 8).\n Pass it in [04] a
 S:1D11:: Pass collision threshold in A.
 S:1D13:: If the objects do not collide, then return.\n
 S:1D1B:: If the monster is weak to the damage type, then shove it.\n
-S:1D25-1D28:_SwordDamagePoints: TODO:\n Overlaps the last byte of routine above.\n When this address is used as an RTS, it should have one label.\n But when it's used as an array of damage points, it should have a different name.\n
+S:1D26-1D28:SwordDamagePoints
 S:1D29:CheckMonsterSwordCollision: Params:\n X: monster slot\n Y: weapon slot\n [02]: monster mid X\n [03]: monster mid Y\n\n Returns:\n [00]: weapon slot\n [06]: 1 if objects collide\n\n [00] holds the weapon slot
 S:1D2B::Set sword damage type (1) in [09].\n
 S:1D2F:: If the sword is not fully extended, then return.\n
-S:1D36:: Look up and set the damage points for the sword type.\n
+S:1D36:: Look up and set the damage points for the sword type.\n\n MULTI: SwordDamagePoints-1\n
 S:1D3C:_CheckMonsterStabbingCollision: Params:\n A: damage points\n X: monster slot\n Y: weapon slot\n [02]: monster mid X\n [03]: monster mid Y\n [09]: damage type\n\n Returns:\n [06]: 1 if objects collide\n\n [07] damage points
 S:1D3E:: If Link's direction is vertical, then set collision thresholds accordingly:\n [0D] := $C\n [0E] := $10\n
 S:1D4D:: Else switch it:\n [0D] := $10\n [0E] := $C\n
@@ -7293,6 +7294,7 @@ S:1EC0:: This a Gohma, but if the current part [0F] is not an eye part (3 or 4),
 S:1ECA:: If Gohma's eye state/frame image <> 3, then return.\n
 S:1ED1:: Store the shove direction for the monster.\n\n Turn on the high bit to indicate that the next time we try to\n move by shoving, it will be the first time for this shove action.\n
 S:1ED7:: Mark the monster invincible $10 frames, and should move $40 pixels.\n
+S:1EE1-1EFF:Unknown_7EE1
 S:1FFF:SaveRamEnd
 G:2000:PpuControl_2000:7  bit  0\n---- ----\nVPHB SINN\n|||| ||||\n|||| ||++- Base nametable address\n|||| ||    (0 = $2000; 1 = $2400; 2 = $2800; 3 = $2C00)\n|||| |+--- VRAM address increment per CPU read/write of PPUDATA\n|||| |     (0: add 1, going across; 1: add 32, going down)\n|||| +---- Sprite pattern table address for 8x8 sprites\n||||       (0: $0000; 1: $1000; ignored in 8x16 mode)\n|||+------ Background pattern table address (0: $0000; 1: $1000)\n||+------- Sprite size (0: 8x8; 1: 8x16)\n|+-------- PPU master/slave select\n|          (0: read backdrop from EXT pins; 1: output color on EXT pins)\n+--------- Generate an NMI at the start of the\n           vertical blanking interval (0: off; 1: on)
 G:2001:PpuMask_2001:7  bit  0\n---- ----\nBGRs bMmG\n|||| ||||\n|||| |||+- Display type: (0: color, 1: grayscale)\n|||| ||+-- 1: Show background in leftmost 8 pixels of screen, 0: Hide\n|||| |+--- 1: Show sprites in leftmost 8 pixels of screen, 0: Hide\n|||| +---- 1: Show background\n|||+------ 1: Show sprites\n||+------- Emphasize red\n|+-------- Emphasize green\n+--------- Emphasize blue

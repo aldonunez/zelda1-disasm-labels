@@ -3838,12 +3838,12 @@ def</Comment>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>124605</Address>
+      <Address>124606</Address>
       <AddressType>PrgRom</AddressType>
       <Label>LevelMasks</Label>
       <Comment />
       <Flags>None</Flags>
-      <Length>9</Length>
+      <Length>8</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>4653</Address>
@@ -41052,22 +41052,20 @@ For example:&#xD;
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>7461</Address>
+      <Address>7462</Address>
       <AddressType>SaveRam</AddressType>
-      <Label>_SwordDamagePoints</Label>
-      <Comment> TODO:&#xD;
- Overlaps the last byte of routine above.&#xD;
- When this address is used as an RTS, it should have one label.&#xD;
- But when it's used as an array of damage points, it should have a different name.&#xD;
-</Comment>
+      <Label>SwordDamagePoints</Label>
+      <Comment />
       <Flags>None</Flags>
-      <Length>4</Length>
+      <Length>3</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>7478</Address>
       <AddressType>SaveRam</AddressType>
       <Label />
       <Comment> Look up and set the damage points for the sword type.&#xD;
+&#xD;
+ MULTI: SwordDamagePoints-1&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -66888,6 +66886,22 @@ For example:&#xD;
       <Comment />
       <Flags>AutoJumpLabel</Flags>
       <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>5514</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>Unknown_758A</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>10</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>7905</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>Unknown_7EE1</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>31</Length>
     </CodeLabel>
   </Labels>
   <TblMappings />
