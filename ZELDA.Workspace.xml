@@ -66911,6 +66911,14 @@ For example:&#xD;
       <Flags>None</Flags>
       <Length>9216</Length>
     </CodeLabel>
+    <CodeLabel>
+      <Address>129972</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UpdateObject_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>212</Length>
+    </CodeLabel>
   </Labels>
   <TblMappings />
 </DebugWorkspace>

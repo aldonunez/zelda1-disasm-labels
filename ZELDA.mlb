@@ -6568,6 +6568,7 @@ P:1FB95:L1FB95: Flag the object initialized, and go initialize it.\n
 P:1FB9D:L1FB9D: The object was already initialized.\n\n If meta-state <> 0, go update the meta-object\n (spawning cloud or dying sparkle).\n
 P:1FBA5:L1FBA5: This is a normal update.\n\n If object type >= $6A, then switch to bank 1,\n and go update a cave.\n
 P:1FBB1:L1FBB1: Else call the object update routine.\n
+P:1FBB4-1FC87:UpdateObject_JumpTable
 P:1FC88:_UpdateMetaObject
 P:1FC8B:: Go handle end metastates (4 and $14) specially.\n
 P:1FC94:DoNothing
