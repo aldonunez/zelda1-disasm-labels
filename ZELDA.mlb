@@ -5704,6 +5704,7 @@ P:1A3E8-1A3F3:Mode11BackgroundPaletteBottomHalfTransferBuf
 P:1A3F4-1A3F8:Mode11PlayAreaAttrsTopHalfTransferBuf
 P:1A3F9-1A3FD:Mode11PlayAreaAttrsBottomHalfTransferBuf
 P:1A3FE-1A868:StoryTileAttrTransferBuf
+P:1A869-1ACC9:TitleTransferBuf
 P:1C000-1E3FF:PcmSamples
 P:1E400-1E43F:PlayAreaColumnAddrs
 P:1E440:RunGame
