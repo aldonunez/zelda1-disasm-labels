@@ -395,6 +395,7 @@ P:4714:: Set the letter state to used (2).\n
 P:4717:: Change the selected item slot to the potion's.\n
 P:471C:L471C
 P:471F:L471F
+P:4724-4735:UpdateCavePerson_JumpTable
 P:4736:DrawCavePerson
 P:4739:: If the cave/person type >= $7B, then the visual is a moblin.\n So, go draw not mirrored.\n
 P:4740:: Else the old man, old woman, and shopkeeper are all mirrored.\n
@@ -527,6 +528,7 @@ P:49F2:L49F2: Copy the character to the first element after the "X",\n offset by
 P:49F6:UpdateCavePersonState_DoNothing
 P:49F7:_UpdatePersonState_CueTransferBlankPersonWares: Also blanks the third line of text.
 P:49FC:InitUnderworldPerson_Full: Point to the front of the first line in VRAM.\n
+P:4A07-4A1A:InitUnderworldPerson_Full_JumpTable
 P:4A1B-4A22:UnderworldPersonTextSelectorsA
 P:4A23:InitUnderworldPersonA: The person goes at location ($78, $80).\n
 P:4A2A:: Subtract $4B from the object type to get the old man's index.\n
@@ -558,6 +560,7 @@ P:4AD3:PlayCharacterSfx: "item taken/character" sound effect
 P:4AD9:UpdateUnderworldPerson_Full: If level is not one of {3, 4, 6, 8, 9}, then\n go handle people that do more than talk.\n
 P:4AE7:L4AE7
 P:4AEA:L4AEA: Else simply draw, check collisions, and show the text.\n
+P:4AF2-4AF7:UpdateUnderworldPerson_Full_JumpTable
 P:4AF8:_UpdatePersonState_ResetCharOffset
 P:4AFF:_UpdatePersonState_DoNothing
 P:4B00:Person_CheckCollisions
@@ -567,6 +570,7 @@ P:4B11:UpdateUnderworldComplexPerson: In state 4, the person is shown every othe
 P:4B1D:L4B1D
 P:4B20:: If this is the "more bombs" man, then show a rupee\n at ($78, $98) using room item object slot $13.\n
 P:4B36:L4B36
+P:4B3B-4B44:UpdateUnderworldComplexPerson_JumpTable
 P:4B45:UpdateUnderworldComplexPersonState_Begin: If this is the "more bombs" man, then show the price of the offer.\n
 P:4B4C:: "-100"
 P:4B50:L4B50: Set a timer of $A frames before showing characters,\n and go to state 1.\n
@@ -585,6 +589,7 @@ P:4B9D:Person_DrawAndCheckCollisions
 P:4BA6:UpdateUnderworldPersonLifeOrMoney_Full: In state 4, this person and the items are drawn every other frame.\n
 P:4BB2:L4BB2
 P:4BB8:L4BB8
+P:4BBD-4BC6:UpdateUnderworldPersonLifeOrMoney_Full_JumpTable
 P:4BC7-4BC8:LifeOrMoneyItemXs
 P:4BC9-4BCA:LifeOrMoneyItemTypes
 P:4BCB:_DrawLifeOrMoneyItems: Loop over each item to draw, from 1 to 0.\n
@@ -613,6 +618,7 @@ P:4C5A:UpdateGrumble_Full: If state <> 3, then go check collisions and draw ever
 P:4C60:: In state 3, the person is translucent by drawing\n (and checking object collisions) every other frame.\n
 P:4C66:L4C66
 P:4C6F:L4C6F
+P:4C74-4C7B:UpdateGrumble_Full_JumpTable
 P:4C7C:UpdateGrumble1: If there's no food in object slot $F, then return.\n
 P:4C84:: Else halt Link and play the "secret found" tune.\n
 P:4C8D:_L_Person_FlagItemTakenAndAdvanceState: Flag the secret/item of this room taken.\n
@@ -630,11 +636,22 @@ P:4D12:L4D12: Copy 1 byte.
 P:4D16:: Increment source address.\n
 P:4D23:: Increment destination address.\n
 P:4D30:: Once you reach $7F00, you're done.
+P:4D3B-4D3E:DemoPatternBlockAddrs
+P:4D3F-4D42:DemoPatternBlockSizes
+P:4D43-4D46:DemoPatternVramAddrs
 P:4D47:TransferDemoPatterns
 P:4D4A:: Clear address latch.
-P:4D4D:L4D4D
-P:4D84:F4D84
-P:4D89:L4D89
+P:4D4D:L4D4D: Loop over each block.\n
+P:4D52:: Put block address in [00:01] and size in [03:02].\n Load destination VRAM address and set it.\n The size and VRAM address have the high byte first.\n
+P:4D73:: Loop until pattern block index = 2.\n
+P:4D84:TransferPatternBlock_Bank1: Params:\n [00:01]: source address\n [03:02]: size\n A: low byte of desination VRAM address\n
+P:4D89:L4D89: Load and transfer one byte to VRAM.\n
+P:4D8E:: Increment the 16-bit address at [00:01].\n
+P:4D9B:: Decrement the 16-bit amount at [03:02].\n
+P:4DA8:: Loop again if the amount left <> 0.\n
+P:4DB0:: This block is done. Increment the block index.\n
+P:4DB4-56B3:DemoSpritePatterns
+P:56B4-5ED3:DemoBackgroundPatterns
 P:6000:InitWhirlwind: Params:\n A: Y coordinate\n X: object index\n
 P:6002:_SetUpWhirlwind: Params:\n X: object index\n\n\n Set the whirlwind's Y to Link's, X to 0, and type $2E.\n
 P:6018:UpdateWhirlwind_Full: Get Link's halted state.\n
@@ -806,20 +823,35 @@ P:6419:: Rupee item slot
 P:641B:: Rupee item slot
 P:6420:L6420: Restore the current object slot.
 P:7FAC:SwitchBank_Local1
+P:8000-8005:CommonPatternBlockAddrs
+P:8006-800B:CommonPatternBlockSizes
+P:800C-8011:CommonPatternVramAddrs
 P:8012:TransferCommonPatterns
 P:8015:: Clear address latch and scroll.
 P:8018:L8018
+P:801D:: Put block address in [00:01] and size in [03:02].\n Load destination VRAM address and set it.\n The size and VRAM address have the high byte first.\n
+P:803E:: Loop until pattern block index = 3.\n
 P:8045:: Mark this block copied.
 P:8049:: Reset pattern block index.
-P:804F:TransferPatternBlock_Bank2
-P:8054:L8054
+P:804F:TransferPatternBlock_Bank2: Params:\n [00:01]: source address\n [03:02]: size\n A: low byte of desination VRAM address\n
+P:8054:L8054: Load and transfer 1 byte to VRAM.\n
+P:8059:: Increment the 16-bit source address at [00:01].\n
+P:8066:: Decrement the 16-bit amount remaining in [03:02].\n
+P:8073:: Loop until the amount remaining = 0.\n
+P:807B:: The block is done. Increment the block index.\n
+P:807F-877E:CommonSpritePatterns
+P:877F-8E7E:CommonBackgroundPatterns
+P:8E7F-8F5E:CommonMiscPatterns
 P:9000:InitDemo_RunTasks
+P:900E-9013:InitDemo_RunTasks_Phase0_JumpTable
 P:9014:L9014
+P:901A-901F:InitDemo_RunTasks_Phase1_JumpTable
 P:9020:UpdateMode0Demo
 P:9022:: Only animate if submode = 0 and SkippedDemo = 0
 P:902C:: If no longer updating,
 P:902E:: then return.
 P:9030:L9030
+P:9035-903A:UpdateMode0Demo_JumpTable
 P:903B:UpdateMode0Demo_Sub0: If Start is not pressed,
 P:903F:: then return.
 P:9041::TODO: Else, store $10 in TransferredDemoPatterns. Why?
@@ -855,7 +887,9 @@ P:90BE:L90BE
 P:90C6:: Go to the next game mode (Menu).
 P:90C8:: We're set to initialize the mode.
 P:90CF:AnimateDemo
+P:90DA-90DD:AnimateDemo_Phase0_JumpTable
 P:90DE:L90DE
+P:90E4-90ED:AnimateDemo_Phase1_JumpTable
 P:90EE-915D:InitialTitleSprites
 P:915E:DemoLineAttrs: TODO: How long?
 P:9240:DemoLeftItemIds
@@ -1319,6 +1353,7 @@ P:A254-A273:Mode1SlotLineTransferBuf
 P:A274-A286:Mode1DeathCountsTransferBuf
 P:A287-A289:LinkColors
 P:A28A:InitMode1_Full
+P:A292-A29F:InitMode1_Full_JumpTable
 P:A2A0:UpdateMode0Demo_Sub1: For each save slot:\n   If file B is uncommitted and valid, then\n     Copy file B to file A (also marks file B committed)\n   If file A's static markers or wrong or file is invalid, then\n     Format file A\n\n TODO: This is also mode 1 submode 0 init.\n
 P:A2A3:: Reset CurSaveSlot.
 P:A2A5:: For every save file B (3):
@@ -1444,6 +1479,7 @@ P:A586:: Start updating.
 P:A589-A58B:Mode1CursorSpriteTriplet
 P:A58C-A590:Mode1CursorSpriteYs
 P:A591:UpdateMode1Menu
+P:A596-A599:UpdateMode1Menu_JumpTable
 P:A59A:UpdateMode1Menu_Sub0
 P:A59E:: If Start was pressed, the go to the next submode.
 P:A5A4:: If Select was pressed,
@@ -1503,6 +1539,7 @@ P:A6A4-A6A6:SaveSlotHeartsValueAddrsHi
 P:A6A7-A6A9:ProfileNameAddrsLo
 P:A6AA-A6AC:ProfileNameAddrsHi
 P:A6AD:UpdateModeDSave
+P:A6B2-A6B7:UpdateModeDSave_JumpTable
 P:A6B8:UpdateModeDSave_Sub0: Initialize file B, and copy profile to it.\n Calculate and store file B checksum.\n Mark file B uncommitted.\n
 P:A6C1:: TODO: I think this is called only for $067F put in [$0E:0F].
 P:A6C4:: Copy Items block ($28 bytes) from profile to file B.
@@ -1573,6 +1610,7 @@ P:A9F4:LA9F4
 P:A9F5:LA9F5
 P:A9FF:LA9FF
 P:AA10:UpdateMode13WinGame
+P:AA15-AA1E:UpdateMode13WinGame_JumpTable
 P:AA23:UpdateMode13WinGame_Sub0
 P:AA33:LAA33
 P:AA3C:LAA3C
@@ -1740,6 +1778,7 @@ P:101EC:: Have the monster wait a random amount of time, up to $3F frames.\n
 P:101F2:L101F2
 P:101F3-101F6:BlockPushDirections
 P:101F7:UpdateBlock
+P:101FE-10203:UpdateBlock_JumpTable
 P:10204:UpdateBlock0Idle: If there are monsters in the room, go reset the push timer and return.\n
 P:10209:: If Link's X is aligned with the block's, then get the difference\n between Link's (Y + 3) and the block's Y.\n Then go test the difference.\n
 P:1021C:L1021C: If Link's (Y + 3) is not aligned with the block's Y, then\n go reset the push timer.\n
@@ -1848,6 +1887,7 @@ P:10481:UpdateKeese: If the magic clock is missing and Link is not lifting an it
 P:1048F:L1048F
 P:10492:: Like peahats, keeses animate as fast as they move.\n But keese beat their wings at half the rate.\n
 P:104A1:ControlKeeseFlight
+P:104A7-104B2:ControlKeeseFlight_JumpTable
 P:104B3:Flyer_KeeseDecideState: Go to the next state randomly:\n Random >= $A0: 2\n Random >= $20: 3\n Else:          4\n\n Set up 6 turns.\n
 P:104B9:: If >= $A0, go to state 2.
 P:104BE:: If >= $20, go to state 3.
@@ -1858,6 +1898,7 @@ P:104CB:UpdateZol
 P:104D4:: Every 8 screen frames, switch between frame image 0 and 1.\n
 P:104DD:L104DD
 P:104E1:_UpdateZolState
+P:104E6-104EB:_UpdateZolState_JumpTable
 P:104EC:_UpdateZolState0_Wander: QSpeed $18 (0.375 pixels a second)
 P:104F1:_UpdateZolState1_Shove: Move straight and fast until blocked. Then go to state 2.\n
 P:104F8:L104F8
@@ -2357,6 +2398,7 @@ P:10FEF:UpdateFlyingGhini: If we have the magic clock, then don't move.\n
 P:10FFA:L10FFA
 P:10FFD:: Get the low bit of the flying distance traveled.\n But this doesn't seem to be used.\n The following call clobbers the A register.\n
 P:11005:ControlFlyingGhiniFlight
+P:1100B-11016:ControlFlyingGhiniFlight_JumpTable
 P:11017:Flyer_GhiniDecideState: Go to the next state randomly:\n Random >= $A0: 2\n Random >= $08: 3\n Else:          4\n\n Set up 6 turns.\n
 P:1101D:: If >= $A0, go to state 2.
 P:11022:: If >= 8, go to state 3.
@@ -2371,6 +2413,7 @@ P:11042:: Take low bit of the flying distance traveled as the frame image.\n So,
 P:1104A:: In flying state 5, check for all collisions (so it can get hurt).\n In all other states, only check for collisions with Link.\n
 P:11054:L11054
 P:11057:ControlPeahatFlight
+P:1105D-11068:ControlPeahatFlight_JumpTable
 P:11069:Flyer_PeahatDecideState: Go to the next state randomly:\n Random >= $B0: 2\n Random >= $20: 3\n Else:          4\n\n Set up 6 turns.\n
 P:1106F:: If >= $B0, go to state 2.
 P:11074:: If >= $20, go to state 3.
@@ -2555,6 +2598,7 @@ P:114F9:: Else finish swapping the segments.\n Set the tail segment's type to th
 P:114FE:: Reset the metastate of the current segment, so that it comes\n back to life.\n
 P:11501:L11501
 P:11502:ControlMoldormFlight
+P:11508-1150F:ControlMoldormFlight_JumpTable
 P:11510:Moldorm_Chase: If the segment is not a head (slot 5 or $A), then return.\n Only the head controls the movement direction.\n
 P:11518:L11518: Chase while flying, as usual.\n
 P:1151B:: If timer has not expired, then\n go see if it's time to propagate direction changes down the chain.\n
@@ -2617,6 +2661,7 @@ P:11672:: Change object type to $18 (Little Digdogger),\n and child flag to 1, i
 P:1167F:: Restore the child flag and object type.\n
 P:11687:: Restore the original coordinates.\n
 P:1168E:Digdogger_ChangeSpeed
+P:11694-11697:Digdogger_ChangeSpeed_JumpTable
 P:11698:Digdogger_SpeedUp: Add 1 to 16-bit speed.\n
 P:116A0:L116A0: If the 16-bit speed has not reached the 16-bit target speed, then return.\n
 P:116B0:: Set speed flag to 1 meaning decelerate.\n
@@ -2702,6 +2747,7 @@ P:1189B:: Restore the tile
 P:118A9:UpdateDodongo
 P:118BA-118BC:DodongoBloatedWaitTimes
 P:118BD:_UpdateDodongoState
+P:118C2-118C7:_UpdateDodongoState_JumpTable
 P:118C8:_UpdateDodongoState0_Move: If facing left, then push X offset 0 on the stack.\n Else push X offset -$10, and add $10 to X coordinate.\n\n We would like to use one set of coordinates only.\n But movement would break down, if we did; because\n Dodongo is so long.\n\n So, when not facing left, we temporarily shift the\n X coordinate to be closer to the other side of the monster.\n
 P:118D9:L118D9
 P:118DB:: Turn rate $20
@@ -2711,6 +2757,7 @@ P:118F1:L118F1
 P:118F2:_UpdateDodongoState2_Stunned: Take action depending on the value of stun timer:\n 0:     set stun timer to $20 \n 1:     go back to state 0\n other: return\n
 P:118FF:L118FF
 P:11900:_UpdateDodongoState1_Bloated
+P:11906-1190F:_UpdateDodongoState1_Bloated_JumpTable
 P:11910:_UpdateDodongoState1_Bloated_Sub_Wait: Bloated timer =>\n 0:     fall thru to set a new timer and check bomb hits\n 1:     go advance the substate\n other: go decrement Bloated timer\n
 P:11918:: Set the bloated timer according to the substate.\n
 P:11921:: If substate <> 0, go decrement bloated timer.\n
@@ -2892,6 +2939,7 @@ P:11D6E:L11D6E: Save loop counter.
 P:11D75:: Red Keese object type
 P:11D7C:L11D7C: Restore loop counter.
 P:11D82:UpdateVireState
+P:11D87-11D8A:UpdateVireState_JumpTable
 P:11D8B-11D9A:VireJumpOffsets
 P:11D9B:UpdateVireState0: Turn rate $80
 P:11DA0:: If we have the clock, or monster is stunned; then return.\n
@@ -2985,6 +3033,7 @@ P:11FA1:: Else play the magic sound, shoot, and return.\n
 P:11FA9:UpdateRedWizzrobe: If we have the magic clock, then go check collisions and draw.\n
 P:11FB1:L11FB1: Else increase animation counter and decrease state every frame.\n
 P:11FB6:: Shift the state right 6 times to get the index (0 to 3) of a state routine.\n
+P:11FC1-11FC8:UpdateRedWizzrobe_JumpTable
 P:11FC9-11FD8:RedWizzrobeOffsetsX
 P:11FD9-11FE8:RedWizzrobeOffsetsY
 P:11FE9-11FEC:RedWizzrobeDirections
@@ -3178,6 +3227,7 @@ P:1247D:: If the low bit of the distance traveled is clear,\n and Random < $20,\
 P:12494:L12494: Switch animation frames every screen frame.
 P:124A2:: Reset object state, shove info, and invincibility timer,\n because this monster can't get hurt nor die.\n
 P:124AC:ControlGleeokHeadFlight
+P:124B2-124B9:ControlGleeokHeadFlight_JumpTable
 P:124BA:_Flyer_GleeokHeadDecideState: Go to the next flying state randomly:\n Random < $D0: 2\n Else:         3\n\n Set up 6 turns.\n
 P:124C3:L124C3
 P:124C6-124C9:GleeokNeckXAddrsLo
@@ -3244,6 +3294,7 @@ P:12653:L12653: If the absolute H-distance >= secondary reference segment distan
 P:12659:L12659: If the absolute V-distance >= primary reference segment distance,\n then add 3 to the routine index.\n
 P:12669:L12669: If the absolute V-distance >= secondary reference segment distance,\n then add 3 to the routine index.\n
 P:12671:L12671
+P:12675-12686:Gleeok_StretchNeck_JumpTable
 P:12687:Gleeok_ExpandSegment: Randomly, 50% of the time, go move away from the next segment horizontally.\n
 P:1268B:: Else move away vertically.\n
 P:12696:L12696
@@ -3447,6 +3498,7 @@ P:12B98:L12B98: If timer = 0 and the angle of patra child in slot 3 = 0, then\n 
 P:12BA8:: TODO:\n for this to make sense, Y must be 0 or 1. But where is is set?\n
 P:12BAD:L12BAD
 P:12BAE:ControlPatraFlight
+P:12BB4-12BBB:ControlPatraFlight_JumpTable
 P:12BBC:Flyer_PatraDecideState: Go to the next state randomly:\n Random >= $40: 2\n Else:          3\n\n Set up 8 turns.\n
 P:12BC5:L12BC5
 P:12BCF-12BD5:PatraChildStartAngles
@@ -3482,6 +3534,7 @@ P:12C70:L12C70
 P:12C71:_DrawPatraChild
 P:12C74:: 2 was returned from the routine above in A.\n Pass it as the animation counter value to the routine below.\n
 P:12C7D:UpdateGanon
+P:12C83-12C88:UpdateGanon_JumpTable
 P:12C89:Ganon_ScenePhase0: Description:\n Lift up the Triforce of Courage while the room is dark.\n\n Lift the Triforce of Courage -- represented with a triforce piece.\n
 P:12C8E:: If Link's timer has not expired, then go do nothing until the last frame.\n
 P:12C92:: Once the timer expires, it's time to brighten the room.\n\n Save the current object slot.
@@ -3681,6 +3734,7 @@ P:131AB:: Set the shot's direction and coordinates the same as the thrower's.\n
 P:131BA:: Return C=1.\n
 P:131BC:L131BC: Return C=0.\n
 P:131BE:UpdateCandle
+P:131C4-131C9:UpdateCandle_JumpTable
 P:131CA:UpdateCandle_Begin
 P:131CF:: If it's not a dark room, return.
 P:131D1:: Start a fade-to-light cycle (reverse of $40).
@@ -3701,6 +3755,7 @@ P:1321D:UpdateFairyObject: Params:\n X: object index\n
 P:13223:_DrawFairy
 P:13229:: Every 4 frames, switch between the two sprite frames.\n
 P:13235:ControlFairyFlight
+P:1323B-13242:ControlFairyFlight_JumpTable
 P:13243:Flyer_FairyDecideState: Set up 6 turns, and go to state 3.\n
 P:1324D:Flyer_DoNothing
 P:1324E-13255:Directions8
@@ -3806,7 +3861,9 @@ P:13469:: Cap the high byte at $1F.\n
 P:14000:UpdateMenuAndMeters
 P:14006:UpdateMenu
 P:1400C:: Update menu in UW.\n
+P:1400F-14020:UpdateMenuUW_JumpTable
 P:14021:L14021: Update menu in OW.\n
+P:14024-14037:UpdateMenuOW_JumpTable
 P:14038:UpdateMenuCommon1
 P:14041:: Move position markers and hardware vertical scroll position\n down 1 pixel.\n\n Because we'll be above the top of NT 0, switch to NT 2 to\n be at the bottom of NT 2.\n
 P:14047:: 1 pixel
@@ -3915,6 +3972,7 @@ P:142A0:: If scroll position hasn't reached 0, then return.
 P:142A2:: Because CurHScroll is now 0 and base nametable is 0;\n we would be showing the new room at the end of the scroll\n but with old attributes.\n\n So, now use NT 1, until after we copy the attributes.
 P:142A5:: Go to the next submode.
 P:142A8:InitMode7Submodes
+P:142AD-142BA:InitMode7Submodes_JumpTable
 P:142BB:InitMode7_Sub1
 P:142C1:: Assign the current opened doors to the previous one.
 P:142C6:: If this doorway Link is entering from is not a true door,\n then LayOutDoors called from LayOutRoom will clear it.\n
@@ -3998,6 +4056,7 @@ P:1441B:: Go advance the offset and check if we're done.
 P:1441E:UpdateMode7SubmodeAndDrawLink
 P:14421:: TODO: Draw Link?
 P:14424:UpdateMode7ScrollSubmode
+P:14429-14438:UpdateMode7ScrollSubmode_JumpTable
 P:14439:UpdateMode7Scroll_Sub0
 P:1443B:: Reset low byte of VScroll address for vertical scrolling.
 P:1443D:: Reset horizontal scroll offset for horizontal scrolling.
@@ -4308,6 +4367,7 @@ P:14BD4:: If the room item was already activated, or the item was\n already take
 P:14BDD:: Else activate the room item, and play the "item appears" tune.\n
 P:14BE6:CheckSecretTriggerNone
 P:14BE7:CheckSecretTrigger: Returns:\n C: 1 if the condition for the secret was met\n
+P:14BEA-14BF9:CheckSecretTrigger_JumpTable
 P:14BFA:_CheckHasLivingMonsters: Look for monsters in slots $C to 1 that are not bubbles.\n If one is found, return.\n\n Else flag Link not paralyzed (to cancel the effects of a like-like),\n and set the all-dead-in-room flag.\n
 P:14BFD:L14BFD
 P:14C0E:L14C0E
@@ -4336,6 +4396,7 @@ P:14C74:: Else return C=0.\n
 P:14C76:CheckSecretTriggerMoneyOrLife: If the money-or-life man is gone, then\n go trigger shutters to open, and return C=1.\n
 P:14C7B:: Else return C=0.\n
 P:14C7D:UpdateMode11Death_Full
+P:14C82-14C9B:UpdateMode11Death_Full_JumpTable
 P:14C9C:UpdateMode11Death_Sub1: Submode 1 prepares bottom half of play area attributes.\n\n Play death tune.
 P:14CA1:UpdateMode11Death_Sub0: Submode 0 prepares top half of play area attributes.\n
 P:14CA4:CueTransferPlayAreaAttrsHalfAndAdvanceSubmodeNT2: Params:\n A: low PPU address\n Y: end offset in PlayAreaAttrs to copy from\n\n\n Use nametable 2.
@@ -4436,6 +4497,7 @@ P:14E10:: The initial state is 1.\n
 P:14E15:: TODO: ?\n
 P:14E1A-14E1B:BoomerangLimits
 P:14E1C:WieldItem: If the letter slot is selected, return.\n
+P:14E26-14E37:WieldItem_JumpTable
 P:14E38:WieldBoomerang: If missing wooden boomerang and magic boomerang, return.\n
 P:14E40:: Switch to the boomerang slot.\n
 P:14E42:: If state in object slot <> 0 and high bit is clear, return.\n
@@ -4531,7 +4593,9 @@ P:1506D:: If the tile < $84, then it's walkable. So, go use it.\n $84 is a sand 
 P:15073:: Bottom of the loop.\n If you reach the original cell, then stop.\n
 P:1507A:L1507A: Set the spawn cell to the one we found.\n
 P:15080:InitModeB
+P:15085-15096:InitModeB_JumpTable
 P:15097:InitModeC
+P:1509C-150AD:InitModeC_JumpTable
 P:150AE:ModifyObjCountByHistoryOW:Look for the room in the history.\n
 P:150B2:L150B2
 P:150B5:: If found, go check kill count in depth.
@@ -4555,6 +4619,7 @@ P:15101:: If the total > 7,
 P:15103:L15103: then limit it to 7.
 P:15105:L15105: Combine this new total and the room's flags.
 P:1510A:InitMode9
+P:1510F-15122:InitMode9_JumpTable
 P:1513F:Link_ModifyDirInDoorway: In a doorway (UW), you can only move in the direction\n that you entered it or the opposite.\n\n\n If not in a doorway nor moving, then return.\n
 P:15148:: If the facing direction is part of the input direction, then\n keep moving in the facing direction.\n
 P:1514F:: If the opposite of the facing direction is part of the input direction, then\n face the opposite direction.\n
@@ -4597,6 +4662,7 @@ P:1520C:L1520C
 P:1520F:_GetPlayerCoordsForDirection: Params:\n A: direction\n\n Returns:\n [00]: coordinate on perpendicular axis\n [01]: coordinate on direction's axis\n\n [00]: Y if facing left or right, else X\n [01]: X if facing left or right, else Y\n
 P:1521B:L1521B
 P:15220:TouchDoor: Params:\n [0C]: door direction\n [0E]: reverse index of direction\n\n Returns:\n [0E]: untouched, or $FF if blocked\n
+P:15225-15234:TouchDoor_JumpTable
 P:15235:TouchDoorWall
 P:15239:TouchDoorOpen
 P:1523A:TouchDoorFalse: At first, Link's timer = 0. So set it to $18 frames, and block movement.\n Subsequently, block movement until timer = 1.\n
@@ -4908,6 +4974,7 @@ P:16840:: Set to delay $2F ($30-1) frames when updating mode.
 P:16844:: Fill tile map with blanks.
 P:16850:: Triforce item type.
 P:16858:UpdateMode12EndLevel_Full
+P:16863-1686C:UpdateMode12EndLevel_Full_JumpTable
 P:1686D:UpdateMode12EndLevel_Sub0
 P:1686F:: Delay (return) until timer expires.
 P:16871:: Set to run next submode for $2F ($30-1) frames.
@@ -5136,6 +5203,7 @@ P:170D9:L170D9
 P:170E1:CopyPlayAreaAttrsHalfToDynTransferBuf: Params:\n X: high PPU address\n A: low PPU address\n Y: end offset in PlayAreaAttrs to copy from\n
 P:170F1:L170F1
 P:170FC:InitModeA
+P:17101-17116:InitModeA_JumpTable
 P:17117:_InitModeSubroom_Sub0
 P:17127:_DrawDynamicElementsBetweenRoomsAndAdvanceSubmode
 P:1712C:InitMode9_TransferAttrs: Cellar NT attributes
@@ -5521,6 +5589,7 @@ P:18014-18027:LevelInfoAddrs
 P:18028:CommonDataBlockAddr_Bank6
 P:1802A-1803D:LevelBlockAddrsQ2
 P:1803E:InitMode2_Submodes
+P:18043-18046:InitMode2_Submodes_JumpTable
 P:18047:InitMode2_Sub0: Copy level block for level.\n
 P:18052:: First quest.\n
 P:1805E:L1805E: Second quest.\n
@@ -5711,6 +5780,7 @@ P:1E693:: Look up door attribute for player's direction.\n
 P:1E69F:: The same as [02].
 P:1E6A1:L1E6A1: TODO: Set [E7] to a door bit/direction bit.
 P:1E6A3:: A holds the door attribute.
+P:1E6A6-1E6B7:CalculateNextRoom_JumpTable
 P:1E6B8:L1E6B8: Use player's direction bit.
 P:1E6BA:: Use "open" door attribute.
 P:1E6BE-1E6C5:LevelMasks
@@ -5832,6 +5902,7 @@ P:1E8E2:L1E8E2
 P:1E8F8:InitializeGameOrMode
 P:1E90C:: Mark Save RAM initialized, so we can check after reset.
 P:1E919:InitMode
+P:1E923-1E94A:InitMode_JumpTable
 P:1E94B:InitMode0
 P:1E959:L1E959
 P:1E967:L1E967
@@ -5852,6 +5923,7 @@ P:1E9C2:L1E9C2
 P:1E9C3:InitModeEandF
 P:1E9CB:InitMode13
 P:1E9D8:InitMode3
+P:1E9E5-1E9F6:InitMode3_JumpTable
 P:1E9F7:InitMode3_Sub0
 P:1E9F9:: TODO: [17] ?
 P:1EA00:_ClearRoomHistory: Returns:\n A: 0\n\n TODO: Also resets [0529].\n
@@ -5909,6 +5981,7 @@ P:1EB13:: Run cross-room tasks that apply only to mode 5.\n
 P:1EB1F:L1EB1F
 P:1EB22:L1EB22
 P:1EB30:UpdateMode
+P:1EB3A-1EB61:UpdateMode_JumpTable
 P:1EB62:UpdateMode7Scroll
 P:1EB6C:: If still checking sprite 0, return.
 P:1EB6E:: TODO: Reset [$F3].
@@ -6173,6 +6246,7 @@ P:1F182:GoToNextModeFromPlay: Returns:\n X: 0 (Link's object slot)\n
 P:1F195:L1F195
 P:1F198:L1F198: If object crossed a boundary, then go check object\n attribute $10 and another direction.\n Else set object direction to moving direction [0F] and return.\n
 P:1F1A0:Walker_GetNextAltDir: Description:\n Calculates the next alternate direction to move in while\n searching for an unblocked direction.\n\n Params:\n [0E]: the current step\n\n Returns:\n A: a direction for the current step, or 0 at the end of the loop\n [0E]: the next step, or 0 to end the loop\n ObjDir: might be modified\n
+P:1F1A7-1F1AE:Walker_GetNextAltDir_JumpTable
 P:1F1AF:Walker_AltDir_GetRandomObjPerpendicularDir
 P:1F1B7:L1F1B7
 P:1F1BF:L1F1BF
@@ -6614,6 +6688,7 @@ P:1FD6C:: Cave 1
 P:1FD75:: Init cave
 P:1FD78:L1FD78: If object is a cave or tile object (type >= $5F),\n go assign object attribute $81, and get\n it ready to behave autonomously and updating.\n
 P:1FD7F:L1FD7F: Else run the object initialization routine.\n
+P:1FD82-1FE3F:_L_InitObject_JumpTable
 P:1FE40:UpdateWhirlwind
 P:1FE48:InitRupeeStash
 P:1FE50:UpdateRupeeStash

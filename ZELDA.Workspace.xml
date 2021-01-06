@@ -3677,7 +3677,11 @@ def</Comment>
       <Address>32847</Address>
       <AddressType>PrgRom</AddressType>
       <Label>TransferPatternBlock_Bank2</Label>
-      <Comment />
+      <Comment> Params:&#xD;
+ [00:01]: source address&#xD;
+ [03:02]: size&#xD;
+ A: low byte of desination VRAM address&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -60107,24 +60111,30 @@ For example:&#xD;
       <Address>19789</Address>
       <AddressType>PrgRom</AddressType>
       <Label>L4D4D</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Comment> Loop over each block.&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>19844</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>F4D84</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Label>TransferPatternBlock_Bank1</Label>
+      <Comment> Params:&#xD;
+ [00:01]: source address&#xD;
+ [03:02]: size&#xD;
+ A: low byte of desination VRAM address&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>19849</Address>
       <AddressType>PrgRom</AddressType>
       <Label>L4D89</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Comment> Load and transfer one byte to VRAM.&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -60315,8 +60325,9 @@ For example:&#xD;
       <Address>32852</Address>
       <AddressType>PrgRom</AddressType>
       <Label>L8054</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Comment> Load and transfer 1 byte to VRAM.&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -66918,6 +66929,622 @@ For example:&#xD;
       <Comment />
       <Flags>None</Flags>
       <Length>212</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>124582</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>CalculateNextRoom_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>18</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>125219</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitMode_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>40</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>125413</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitMode3_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>18</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>127399</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Walker_GetNextAltDir_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>8</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>130434</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_L_InitObject_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>190</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>125754</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UpdateMode_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>40</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>98371</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitMode2_Submodes_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>4</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>81935</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UpdateMenuUW_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>18</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>81956</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UpdateMenuOW_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>20</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>82605</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitMode7Submodes_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>14</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>82985</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UpdateMode7ScrollSubmode_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>16</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>84970</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>CheckSecretTrigger_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>16</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>85122</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UpdateMode11Death_Full_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>26</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>85542</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>WieldItem_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>18</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>86149</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitModeB_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>18</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>86172</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitModeC_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>18</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>86287</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitMode9_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>20</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>86565</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>TouchDoor_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>16</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>92259</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UpdateMode12EndLevel_Full_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>10</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>94465</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitModeA_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>22</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66046</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UpdateBlock_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>6</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66727</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ControlKeeseFlight_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>12</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66790</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_UpdateZolState_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>6</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69643</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ControlFlyingGhiniFlight_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>12</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69725</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ControlPeahatFlight_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>12</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70920</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ControlMoldormFlight_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>8</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71316</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Digdogger_ChangeSpeed_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>4</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71874</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_UpdateDodongoState_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>6</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71942</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>_UpdateDodongoState1_Bloated_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>10</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73095</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UpdateVireState_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>4</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73665</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UpdateRedWizzrobe_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>8</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74930</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ControlGleeokHeadFlight_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>8</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75381</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Gleeok_StretchNeck_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>18</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76724</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ControlPatraFlight_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>8</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76931</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UpdateGanon_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>6</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78276</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UpdateCandle_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>6</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78395</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ControlFairyFlight_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>8</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>36878</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitDemo_RunTasks_Phase0_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>6</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>36890</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitDemo_RunTasks_Phase1_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>6</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>36917</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UpdateMode0Demo_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>6</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>37082</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>AnimateDemo_Phase0_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>4</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>37092</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>AnimateDemo_Phase1_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>10</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>41618</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitMode1_Full_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>14</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>42390</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UpdateMode1Menu_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>4</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>42674</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UpdateModeDSave_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>6</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43541</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UpdateMode13WinGame_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>10</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18212</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UpdateCavePerson_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>18</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18951</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitUnderworldPerson_Full_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>20</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19186</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UpdateUnderworldPerson_Full_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>6</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19259</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UpdateUnderworldComplexPerson_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>10</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19389</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UpdateUnderworldPersonLifeOrMoney_Full_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>10</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19572</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UpdateGrumble_Full_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>8</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>22196</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>DemoBackgroundPatterns</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>2080</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19892</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>DemoSpritePatterns</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>2304</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19771</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>DemoPatternBlockAddrs</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>4</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19775</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>DemoPatternBlockSizes</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>4</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19779</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>DemoPatternVramAddrs</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>4</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19794</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Put block address in [00:01] and size in [03:02].&#xD;
+ Load destination VRAM address and set it.&#xD;
+ The size and VRAM address have the high byte first.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19827</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Loop until pattern block index = 2.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19854</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Increment the 16-bit address at [00:01].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19867</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Decrement the 16-bit amount at [03:02].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19880</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Loop again if the amount left &lt;&gt; 0.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19888</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> This block is done. Increment the block index.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>32780</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>CommonPatternVramAddrs</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>6</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>32774</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>CommonPatternBlockSizes</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>6</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>32768</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>CommonPatternBlockAddrs</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>6</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>36479</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>CommonMiscPatterns</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>224</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>34687</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>CommonBackgroundPatterns</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1792</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>32895</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>CommonSpritePatterns</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1792</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>32857</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Increment the 16-bit source address at [00:01].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>32870</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Decrement the 16-bit amount remaining in [03:02].&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>32883</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Loop until the amount remaining = 0.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>32891</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The block is done. Increment the block index.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>32797</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Put block address in [00:01] and size in [03:02].&#xD;
+ Load destination VRAM address and set it.&#xD;
+ The size and VRAM address have the high byte first.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>32830</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Loop until pattern block index = 3.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
     </CodeLabel>
   </Labels>
   <TblMappings />
