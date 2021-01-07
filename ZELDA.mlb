@@ -6430,8 +6430,8 @@ P:1F4D8:L1F4D8: Draw the food.\n
 P:1F4DB:: Red sprite palette
 P:1F4DD:: Food item slot
 P:1F4E2:L1F4E2
-P:1F4E5-1F4EC:BoomerangFrameCycle
-P:1F4EE-1F4F5:BoomerangBaseSpriteAttrCycle
+P:1F4E5-1F4ED:BoomerangFrameCycle
+P:1F4EE-1F4F6:BoomerangBaseSpriteAttrCycle
 P:1F4F7-1F4FF:BoomerangQSpeedFracsY
 P:1F500-1F508:BoomerangQSpeedFracsX
 P:1F509-1F50C:RDirectionToWeaponFrame

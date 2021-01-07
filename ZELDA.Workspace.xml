@@ -32153,7 +32153,7 @@ For example:&#xD;
       <Label>BoomerangFrameCycle</Label>
       <Comment />
       <Flags>None</Flags>
-      <Length>8</Length>
+      <Length>9</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>128762</Address>
@@ -32170,7 +32170,7 @@ For example:&#xD;
       <Label>BoomerangBaseSpriteAttrCycle</Label>
       <Comment />
       <Flags>None</Flags>
-      <Length>8</Length>
+      <Length>9</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>128768</Address>
