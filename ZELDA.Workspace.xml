@@ -67597,7 +67597,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>83574</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>OjbLists</Label>
+      <Label>ObjLists</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>201</Length>

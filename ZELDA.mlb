@@ -4155,7 +4155,7 @@ P:14657-1465F:SpawnPosList1
 P:14660-14668:SpawnPosList2
 P:14669-14671:SpawnPosList3
 P:14672-14675:EnteringRoomRelativePositions
-P:14676-1473E:OjbLists
+P:14676-1473E:ObjLists
 P:1473F-1475C:ObjListAddrs
 P:1477B:InitMode4
 P:1477D:: If in submode 0, go perform common tasks to enter a room.
