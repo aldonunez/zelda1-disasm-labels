@@ -155,6 +155,20 @@
       <Condition />
       <MemoryType>PrgRom</MemoryType>
     </Breakpoint>
+    <Breakpoint>
+      <BreakOnRead>true</BreakOnRead>
+      <BreakOnWrite>false</BreakOnWrite>
+      <BreakOnExec>true</BreakOnExec>
+      <Enabled>true</Enabled>
+      <MarkEvent>false</MarkEvent>
+      <ProcessDummyReadWrites>false</ProcessDummyReadWrites>
+      <Address>103420</Address>
+      <StartAddress>103420</StartAddress>
+      <EndAddress>103420</EndAddress>
+      <AddressType>SingleAddress</AddressType>
+      <Condition />
+      <MemoryType>PrgRom</MemoryType>
+    </Breakpoint>
   </Breakpoints>
   <WatchValues>
     <string>[$0397]</string>
@@ -13913,7 +13927,7 @@ def</Comment>
     <CodeLabel>
       <Address>100096</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LevelBLockUW1Q1</Label>
+      <Label>LevelBlockUW1Q1</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>768</Length>
@@ -13921,7 +13935,7 @@ def</Comment>
     <CodeLabel>
       <Address>100864</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LevelBLockUW2Q1</Label>
+      <Label>LevelBlockUW2Q1</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>768</Length>
@@ -13929,7 +13943,7 @@ def</Comment>
     <CodeLabel>
       <Address>101632</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LevelBLockUW1Q2</Label>
+      <Label>LevelBlockUW1Q2</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>768</Length>
@@ -13937,7 +13951,7 @@ def</Comment>
     <CodeLabel>
       <Address>102400</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LevelBLockUW2Q2</Label>
+      <Label>LevelBlockUW2Q2</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>768</Length>
@@ -15991,7 +16005,7 @@ def</Comment>
     <CodeLabel>
       <Address>90334</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>RoomColumnDirectoryUW</Label>
+      <Label>RoomLayoutsUW</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>504</Length>
@@ -15999,18 +16013,18 @@ def</Comment>
     <CodeLabel>
       <Address>90838</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>ColumnHeapUW</Label>
+      <Label>ColumnHeapUW0</Label>
       <Comment />
       <Flags>None</Flags>
-      <Length>222</Length>
+      <Length>16</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>91060</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>RoomColumnDirectoryUWCellar</Label>
+      <Label>RoomLayoutUWCellar0</Label>
       <Comment />
       <Flags>None</Flags>
-      <Length>32</Length>
+      <Length>16</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>91092</Address>
@@ -16398,7 +16412,7 @@ def</Comment>
     <CodeLabel>
       <Address>90012</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>RoomColumnDirectoryOWAddr</Label>
+      <Label>RoomLayoutsOWAddr</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>2</Length>
@@ -16525,18 +16539,18 @@ def</Comment>
     <CodeLabel>
       <Address>89048</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>ColumnHeapOW</Label>
+      <Label>ColumnHeapOW0</Label>
       <Comment />
       <Flags>None</Flags>
-      <Length>964</Length>
+      <Length>53</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>87064</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>RoomColumnDirectoryOW</Label>
+      <Label>RoomLayoutsOW</Label>
       <Comment />
       <Flags>None</Flags>
-      <Length>1984</Length>
+      <Length>1936</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>92745</Address>
@@ -21955,7 +21969,7 @@ def</Comment>
     <CodeLabel>
       <Address>83775</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>ObjLists</Label>
+      <Label>ObjListAddrs</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>30</Length>
@@ -33808,10 +33822,10 @@ For example:&#xD;
     <CodeLabel>
       <Address>129309</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>BombTimes</Label>
+      <Label>L1F91D</Label>
       <Comment />
-      <Flags>None</Flags>
-      <Length>5</Length>
+      <Flags>AutoJumpLabel</Flags>
+      <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>129339</Address>
@@ -57391,7 +57405,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>92997</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>SubroomColumnDirectoryAddrs</Label>
+      <Label>SubroomLayoutAddrs</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>8</Length>
@@ -67549,10 +67563,298 @@ For example:&#xD;
     <CodeLabel>
       <Address>108649</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>TitleTransferBuf</Label>
+      <Label>GameTitleTransferBuf</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1121</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>24592</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>WhirlwindPrevRoomIdList</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>8</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>83534</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>SpawnPosList0</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>9</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>83543</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>SpawnPosList1</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>9</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>83552</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>SpawnPosList2</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>9</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>83561</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>SpawnPosList3</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>9</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>83574</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>OjbLists</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>201</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>89000</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>RoomLayoutOWCave0</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>16</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>89016</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>RoomLayoutOWCave1</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>16</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>89032</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>RoomLayoutOWCave2</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>16</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>91076</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>RoomLayoutUWCellar1</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>16</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>90854</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ColumnHeapUW1</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>30</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>90884</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ColumnHeapUW2</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>17</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>90901</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ColumnHeapUW3</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>17</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>90918</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ColumnHeapUW4</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>23</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>90941</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ColumnHeapUW5</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>23</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>90964</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ColumnHeapUW6</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>17</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>90981</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ColumnHeapUW7</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>18</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>90999</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ColumnHeapUW8</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>26</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>91025</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ColumnHeapUW9</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>35</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>89101</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ColumnHeapOW1</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>49</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>89150</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ColumnHeapOW2</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>66</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>89216</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ColumnHeapOW3</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>68</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>89284</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ColumnHeapOW4</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>50</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>89334</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ColumnHeapOW5</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>60</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>89394</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ColumnHeapOW6</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>59</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>89453</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ColumnHeapOW7</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>59</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>89512</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ColumnHeapOW8</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>62</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>89574</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ColumnHeapOW9</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>65</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>89639</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ColumnHeapOWA</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>69</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>89708</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ColumnHeapOWB</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>61</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>89769</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ColumnHeapOWC</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>54</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>89823</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ColumnHeapOWD</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>66</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>89889</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ColumnHeapOWE</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>52</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>89941</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ColumnHeapOWF</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>71</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>129344</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: BombTimes-1</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>129310</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>BombTimes</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>4</Length>
     </CodeLabel>
   </Labels>
   <TblMappings />

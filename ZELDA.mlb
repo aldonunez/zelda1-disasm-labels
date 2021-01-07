@@ -654,6 +654,7 @@ P:4DB4-56B3:DemoSpritePatterns
 P:56B4-5ED3:DemoBackgroundPatterns
 P:6000:InitWhirlwind: Params:\n A: Y coordinate\n X: object index\n
 P:6002:_SetUpWhirlwind: Params:\n X: object index\n\n\n Set the whirlwind's Y to Link's, X to 0, and type $2E.\n
+P:6010-6017:WhirlwindPrevRoomIdList
 P:6018:UpdateWhirlwind_Full: Get Link's halted state.\n
 P:601D:: Add 2 to whirlwind X.\n
 P:6024:: If Link is not halted or teleporting state = 0, then\n go check for collision with Link.\n
@@ -4148,8 +4149,13 @@ P:14640:: TODO: TargetY
 P:14643:L14643
 P:14646-14649:SpawnPosListAddrsLo
 P:1464A-1464D:SpawnPosListAddrsHi
+P:1464E-14656:SpawnPosList0
+P:14657-1465F:SpawnPosList1
+P:14660-14668:SpawnPosList2
+P:14669-14671:SpawnPosList3
 P:14672-14675:EnteringRoomRelativePositions
-P:1473F-1475C:ObjLists
+P:14676-1473E:OjbLists
+P:1473F-1475C:ObjListAddrs
 P:1477B:InitMode4
 P:1477D:: If in submode 0, go perform common tasks to enter a room.
 P:14782:: Submode 1.\n Copies the whole play area to NT 0, one row each frame.\n\n TODO:\n If mode 7 scrolls to a dark room, then it sets\n CurRow to zero. Otherwise it would be $FF.\n A positive value triggers this submode 1 to transfer\n the whole play area.\n\n But why? As far as I can tell, the NT 0 is already in\n a good state reflecting the new room. The only thing\n needed is possibly to brighten the room by way of\n changing the palette.\n\n So why does mode 7 trigger this?\n Is there another mode that truly needs this behavior?\n
@@ -4724,18 +4730,46 @@ P:15406:: Current index of a tile, abstractly (0 to 3)
 P:15409:: With that index, look up the index to use with the door face\n list of tiles at [02:03].\n
 P:1540D:: Now we can read one of four tiles inside a door face tile map,\n and copy it to the dynamic transfer buf.\n
 P:15412:: Prepare for the next call:\n - increment dynamic transfer buf pointer\n - increment index of tile to copy [07]\n - decrement count of tiles remaining\n
-P:15418-15BD7:RoomColumnDirectoryOW
-P:15BD8-15F9B:ColumnHeapOW
-P:15F9C-15F9D:RoomColumnDirectoryOWAddr
+P:15418-15BA7:RoomLayoutsOW
+P:15BA8-15BB7:RoomLayoutOWCave0
+P:15BB8-15BC7:RoomLayoutOWCave1
+P:15BC8-15BD7:RoomLayoutOWCave2
+P:15BD8-15C0C:ColumnHeapOW0
+P:15C0D-15C3D:ColumnHeapOW1
+P:15C3E-15C7F:ColumnHeapOW2
+P:15C80-15CC3:ColumnHeapOW3
+P:15CC4-15CF5:ColumnHeapOW4
+P:15CF6-15D31:ColumnHeapOW5
+P:15D32-15D6C:ColumnHeapOW6
+P:15D6D-15DA7:ColumnHeapOW7
+P:15DA8-15DE5:ColumnHeapOW8
+P:15DE6-15E26:ColumnHeapOW9
+P:15E27-15E6B:ColumnHeapOWA
+P:15E6C-15EA8:ColumnHeapOWB
+P:15EA9-15EDE:ColumnHeapOWC
+P:15EDF-15F20:ColumnHeapOWD
+P:15F21-15F54:ColumnHeapOWE
+P:15F55-15F9B:ColumnHeapOWF
+P:15F9C-15F9D:RoomLayoutsOWAddr
 P:15F9E-15F9F:ColumnHeapOWAddr
 P:15FA0:WallTileList
 P:15FEE-16029:DoorFaceTilesE: 5 sets of 12 bytes laying out door faces facing E.
 P:1602A-16065:DoorFaceTilesW: 5 sets of 12 bytes laying out door faces facing W.
 P:16066-160A1:DoorFaceTilesS: 5 sets of 12 bytes laying out door faces facing S.
 P:160A2-160DD:DoorFaceTilesN: 5 sets of 12 bytes laying out door faces facing N.
-P:160DE-162D5:RoomColumnDirectoryUW
-P:162D6-163B3:ColumnHeapUW
-P:163B4-163D3:RoomColumnDirectoryUWCellar
+P:160DE-162D5:RoomLayoutsUW
+P:162D6-162E5:ColumnHeapUW0
+P:162E6-16303:ColumnHeapUW1
+P:16304-16314:ColumnHeapUW2
+P:16315-16325:ColumnHeapUW3
+P:16326-1633C:ColumnHeapUW4
+P:1633D-16353:ColumnHeapUW5
+P:16354-16364:ColumnHeapUW6
+P:16365-16376:ColumnHeapUW7
+P:16377-16390:ColumnHeapUW8
+P:16391-163B3:ColumnHeapUW9
+P:163B4-163C3:RoomLayoutUWCellar0
+P:163C4-163D3:RoomLayoutUWCellar1
 P:163D4-163F5:ColumnHeapUWCellar
 P:163F6:FindDoorAttrByDoorBit: Params:\n [02]: bitmask for target door.\n\n Returns:\n A: door attribute for desired direction in current room.\n [01]: same as [02] if found; $10 otherwise\n [03]: reverse direction index\n\n Door bits:\n 1: E\n 2: W\n 4: S\n 8: N\n\n\n Start with single-bit mask 1.
 P:163FA:: Test 4 directions.
@@ -5104,7 +5138,7 @@ P:16B2D:: Go write tile+3 to (col+1, row+1).
 P:16B30:PatchColumnDirectoryForCellar: In OW, set first address of directory to start of OW column heap, as expected.\n
 P:16B3A:: In UW, set the first address of column directory to start of UW cellar column heap.\n
 P:16B3E:L16B3E
-P:16B45-16B4C:SubroomColumnDirectoryAddrs
+P:16B45-16B4C:SubroomLayoutAddrs
 P:16B4D:LayoutCaveAndAvanceSubmode: Usual cave
 P:16B4F:L16B4F
 P:16B5E:LayoutShortcutAndAdvanceSubmode: Offset of address of column directory of shortcut cave
@@ -5626,10 +5660,10 @@ P:18317-18359:LevelInfoUWQ2Replacements8
 P:1835A-183A3:LevelInfoUWQ2Replacements9
 P:183B5-183BE:LevelInfoUWQ2ReplacementSizesMinusOne
 P:18400-186FF:LevelBlockOW
-P:18700-189FF:LevelBLockUW1Q1
-P:18A00-18CFF:LevelBLockUW2Q1
-P:18D00-18FFF:LevelBLockUW1Q2
-P:19000-192FF:LevelBLockUW2Q2
+P:18700-189FF:LevelBlockUW1Q1
+P:18A00-18CFF:LevelBlockUW2Q1
+P:18D00-18FFF:LevelBlockUW1Q2
+P:19000-192FF:LevelBlockUW2Q2
 P:19300-193FB:LevelInfoOW
 P:193FC-194F7:LevelInfoUW1
 P:194F8-195F3:LevelInfoUW2
@@ -5704,7 +5738,7 @@ P:1A3E8-1A3F3:Mode11BackgroundPaletteBottomHalfTransferBuf
 P:1A3F4-1A3F8:Mode11PlayAreaAttrsTopHalfTransferBuf
 P:1A3F9-1A3FD:Mode11PlayAreaAttrsBottomHalfTransferBuf
 P:1A3FE-1A868:StoryTileAttrTransferBuf
-P:1A869-1ACC9:TitleTransferBuf
+P:1A869-1ACC9:GameTitleTransferBuf
 P:1C000-1E3FF:PcmSamples
 P:1E400-1E43F:PlayAreaColumnAddrs
 P:1E440:RunGame
@@ -6547,13 +6581,15 @@ P:1F8EE:: If the objects don't collide (< $E pixels in X and Y), then return.\n
 P:1F8F9:: The player and the fire collide.\n\n Make the fire shove the player.\n
 P:1F902:: Harm the player $80 points.\n
 P:1F90D:GetWideObjectMiddle: Params:\n X: object index\n Y: offset from [02] and [03] to store center X and Y\n\n Returns:\n [02 + Y]: center X\n [03 + Y]: center Y\n
-P:1F91D-1F921:BombTimes
+P:1F91D:L1F91D
+P:1F91E-1F921:BombTimes
 P:1F922-1F925:BombableWallHotspotsX
 P:1F926-1F929:BombableWallHotspotsY
 P:1F92A:UpdateBombOrFire: If the object's not active, return.\n
 P:1F92E:: Bomb major state = $10. Fire major state = $20.\n
 P:1F937:L1F937: This is a bomb.\n\n If the timer has not expired, then go draw.\n
 P:1F93B:: The timer has expired. Set another based on the minor state.\n Advance the state.\n
+P:1F940:: DASM.EXPR: BombTimes-1
 P:1F947:: TODO:\n If the minor state = 3, play the sound effect?\n
 P:1F955:L1F955
 P:1F956:: If minor state = 5, then deactivate the bomb, and return.\n
