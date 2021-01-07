@@ -823,6 +823,7 @@ P:6416:L6416: Draw a rupee.\n
 P:6419:: Rupee item slot
 P:641B:: Rupee item slot
 P:6420:L6420: Restore the current object slot.
+P:6500:CommonCodeBlock_Bank1
 P:7FAC:SwitchBank_Local1
 P:8000-8005:CommonPatternBlockAddrs
 P:8006-800B:CommonPatternBlockSizes
