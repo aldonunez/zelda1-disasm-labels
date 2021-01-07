@@ -155,20 +155,6 @@
       <Condition />
       <MemoryType>PrgRom</MemoryType>
     </Breakpoint>
-    <Breakpoint>
-      <BreakOnRead>true</BreakOnRead>
-      <BreakOnWrite>false</BreakOnWrite>
-      <BreakOnExec>true</BreakOnExec>
-      <Enabled>true</Enabled>
-      <MarkEvent>false</MarkEvent>
-      <ProcessDummyReadWrites>false</ProcessDummyReadWrites>
-      <Address>105688</Address>
-      <StartAddress>16384</StartAddress>
-      <EndAddress>32767</EndAddress>
-      <AddressType>AddressRange</AddressType>
-      <Condition />
-      <MemoryType>PrgRom</MemoryType>
-    </Breakpoint>
   </Breakpoints>
   <WatchValues>
     <string>[$0397]</string>
@@ -17292,7 +17278,7 @@ def</Comment>
       <Label>CommonDataBlockAddr_Bank6</Label>
       <Comment />
       <Flags>None</Flags>
-      <Length>1</Length>
+      <Length>2</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>105688</Address>

@@ -5621,7 +5621,7 @@ P:17F98:SetMMC1Control_Local5
 P:17FAC:SwitchBank_Local5
 P:18000-18013:LevelBlockAddrsQ1
 P:18014-18027:LevelInfoAddrs
-P:18028:CommonDataBlockAddr_Bank6
+P:18028-18029:CommonDataBlockAddr_Bank6
 P:1802A-1803D:LevelBlockAddrsQ2
 P:1803E:InitMode2_Submodes
 P:18043-18046:InitMode2_Submodes_JumpTable
