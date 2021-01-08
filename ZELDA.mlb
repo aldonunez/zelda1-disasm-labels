@@ -5642,8 +5642,9 @@ P:180EC:L180EC
 P:18109:UpdateMode2Load_Full: Make replacements for the second quest.\n
 P:1810E:: If not second quest, then return.
 P:18112:: If OW, then go patch rooms.
-P:18117:: TODO:\n Get an address for the current level that points\n to an array of replacement bytes for Q2 UW level info.\n\n This address array doesn't access the OW element (0).\n So, it overlaps the last two bytes of LevelInfoUWQ2Replacements9.
-P:18121:: TODO:\n Get the number of replacement bytes for Q2 UW level info.\n\n This address array doesn't access the OW element (0).\n So, it overlaps the last byte of the address array at [$83A2].
+P:18117:: Get an address for the current level that points\n to an array of replacement bytes for Q2 UW level info.\n\n This address array doesn't access the OW element (0).\n So, it overlaps the last two bytes of LevelInfoUWQ2Replacements9.\n\n DASM.EXPR: LevelInfoUWQ2ReplacementAddrs-2\n
+P:1811C:: DASM.EXPR: LevelInfoUWQ2ReplacementAddrs-1\n
+P:18121:: Get the number of replacement bytes for Q2 UW level info.\n This address array doesn't access the OW element (0).\n\n DASM.EXPR: LevelInfoUWQ2ReplacementSizes-1\n
 P:18124:L18124: Copy bytes from Q2 replacement array to level info\n starting at offset $29 (shortcut position array).
 P:1812C:L1812C
 P:1812D:L1812D: Replace attributes of several rooms in OW in second quest.\n
@@ -5659,7 +5660,8 @@ P:18298-182D7:LevelInfoUWQ2Replacements6
 P:182D8-18316:LevelInfoUWQ2Replacements7
 P:18317-18359:LevelInfoUWQ2Replacements8
 P:1835A-183A3:LevelInfoUWQ2Replacements9
-P:183B5-183BE:LevelInfoUWQ2ReplacementSizesMinusOne
+P:183A4-183B5:LevelInfoUWQ2ReplacementAddrs
+P:183B6-183BE:LevelInfoUWQ2ReplacementSizes
 P:18400-186FF:LevelBlockOW
 P:18700-189FF:LevelBlockUW1Q1
 P:18A00-18CFF:LevelBlockUW2Q1

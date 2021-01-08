@@ -14098,32 +14098,34 @@ def</Comment>
       <Address>98583</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO:&#xD;
- Get an address for the current level that points&#xD;
+      <Comment> Get an address for the current level that points&#xD;
  to an array of replacement bytes for Q2 UW level info.&#xD;
 &#xD;
  This address array doesn't access the OW element (0).&#xD;
- So, it overlaps the last two bytes of LevelInfoUWQ2Replacements9.</Comment>
+ So, it overlaps the last two bytes of LevelInfoUWQ2Replacements9.&#xD;
+&#xD;
+ DASM.EXPR: LevelInfoUWQ2ReplacementAddrs-2&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>99253</Address>
+      <Address>99254</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LevelInfoUWQ2ReplacementSizesMinusOne</Label>
+      <Label>LevelInfoUWQ2ReplacementSizes</Label>
       <Comment />
       <Flags>None</Flags>
-      <Length>10</Length>
+      <Length>9</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>98593</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO:&#xD;
- Get the number of replacement bytes for Q2 UW level info.&#xD;
-&#xD;
+      <Comment> Get the number of replacement bytes for Q2 UW level info.&#xD;
  This address array doesn't access the OW element (0).&#xD;
- So, it overlaps the last byte of the address array at [$83A2].</Comment>
+&#xD;
+ DASM.EXPR: LevelInfoUWQ2ReplacementSizes-1&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -67849,6 +67851,23 @@ For example:&#xD;
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>98588</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: LevelInfoUWQ2ReplacementAddrs-1&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>99236</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>LevelInfoUWQ2ReplacementAddrs</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>18</Length>
     </CodeLabel>
   </Labels>
   <TblMappings />
