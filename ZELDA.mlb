@@ -1536,8 +1536,8 @@ P:A687:: Put the sword $C pixels to the right of Link.
 P:A68F:LA68F: Move Y down for the next slot.
 P:A696:: Look at the next slot, and use the next palette.
 P:A69E:: If we're not done, then look at the next slot.
-P:A6A1-A6A3:SaveSlotHeartValuesAddrsLo
-P:A6A4-A6A6:SaveSlotHeartsValueAddrsHi
+P:A6A1-A6A3:SaveSlotHeartsAddrsLo
+P:A6A4-A6A6:SaveSlotHeartsAddrsHi
 P:A6A7-A6A9:ProfileNameAddrsLo
 P:A6AA-A6AC:ProfileNameAddrsHi
 P:A6AD:UpdateModeDSave
@@ -2372,7 +2372,7 @@ P:10F65:: Look up a quest number (0 or 1) indexed by quest secret (0 or 1).\n
 P:10F69:: If the save slot's quest number matches the room's\n secret quest number, then return C=0.\n
 P:10F70:: Else return C=1. There is a mismatch in quest numbers.\n
 P:10F72:L10F72
-P:10F73-10F75:RaftStateToDirection
+P:10F74-10F75:RaftDirections
 P:10F76:UpdateDock: If missing the raft, then return.\n
 P:10F7F:: State 0\n\n Choose an X coordinate for the dock:\n $80 in room $55\n $60 in the other room ($3F)\n
 P:10F89:L10F89: If the player is not aligned with the dock, return.\n
@@ -2382,7 +2382,7 @@ P:10F97:: But if Y = $7D, then he's at the dock. Use state 2.\n Otherwise, retur
 P:10F9C:L10F9C
 P:10F9E:: Show the raft beneath Link: 6 pixels down.\n
 P:10FA3:: Play the "secret found" tune, and halt Link.\n
-P:10FAA:: Set Link's direction based on the raft's state.\n
+P:10FAA:: Set Link's direction based on the raft's state.\n\n DASM.EXPR: RaftDirections-1
 P:10FAF:L10FAF
 P:10FB0:L10FB0: Is state = 1?\n
 P:10FB5:: State 2. Up\n
@@ -2786,6 +2786,8 @@ P:11992:: If state <> 2 (stunned), then return.\n
 P:11998:: Take out the bit for the sword in the invincibility mask.\n Check for collision with Link's sword.\n
 P:119A5-119A9:DodongoMouthNegativeLimits0
 P:119AA-119AE:DodongoMouthPositiveLimits0
+P:119AF-119B3:DodongoMouthNegativeLimits1
+P:119B4-119B8:DodongoMouthPositiveLimits1
 P:119B9:_CheckBombHit: If state <> 0 (not moving), then return.\n
 P:119BD:: If facing vertically, then store (X + 8) in [00].\n Else store (X + $10).\n
 P:119CA:L119CA
@@ -4156,7 +4158,7 @@ P:14660-14668:SpawnPosList2
 P:14669-14671:SpawnPosList3
 P:14672-14675:EnteringRoomRelativePositions
 P:14676-1473E:ObjLists
-P:1473F-1475C:ObjListAddrs
+P:1473F-1477A:ObjListAddrs
 P:1477B:InitMode4
 P:1477D:: If in submode 0, go perform common tasks to enter a room.
 P:14782:: Submode 1.\n Copies the whole play area to NT 0, one row each frame.\n\n TODO:\n If mode 7 scrolls to a dark room, then it sets\n CurRow to zero. Otherwise it would be $FF.\n A positive value triggers this submode 1 to transfer\n the whole play area.\n\n But why? As far as I can tell, the NT 0 is already in\n a good state reflecting the new room. The only thing\n needed is possibly to brighten the room by way of\n changing the palette.\n\n So why does mode 7 trigger this?\n Is there another mode that truly needs this behavior?\n
@@ -5262,10 +5264,11 @@ P:1717B:_L_DisableSprite0Check
 P:17180:InitMode_WalkCave: If reached the end of the walk, then go start updating.\n
 P:17185:: Move and draw facing up.\n
 P:17194:L17194
+P:17197-17198:CellarLadderXs
 P:17199:InitMode9_EnterCellar
 P:1719B:: Save the submode.
 P:171A2:: Restore the submode.
-P:171A5:: Each cellar can have two destination rooms: A and B.\n Tunnels use both. Treasure rooms only use room A.\n\n If the room that Link came from is the room A of this cellar,\n then use the look up the X coordinate on the left at index 0.\n Else use index 1 to get the X coordinate on the right.\n
+P:171A5:: Each cellar can have two destination rooms: A and B.\n Tunnels use both. Treasure rooms only use room A.\n\n If the room that Link came from is the room A of this cellar,\n then look up the X coordinate of the ladder on the left at index 0.\n Else use index 1 to get the X coordinate on the right.\n
 P:171B2:L171B2
 P:171B7:: Link goes at Y=$41, and facing down.\n
 P:171BF:: Set a grid offset appropriate for the distance to be traveled:\n   ($5D - $41) = $1C = ($100 - $E4)\n
@@ -5702,9 +5705,10 @@ P:1A0EA:L1A0EA: Advance the source address to one after the last byte read.\n
 P:1A0F6:TransferTileBuf
 P:1A0FB:: Read high byte of VRAM address.
 P:1A0FD:: End when we read a negative VRAM address.
-P:1A100-1A180:Mode1TileTransferBuf
+P:1A100-1A182:Mode1TileTransferBuf
 P:1A183-1A201:ModeFCharsTransferBuf
 P:1A202-1A209:GanonPaletteRow7TransferBuf
+P:1A20A-1A21C:EndingPaletteTransferBuf
 P:1A21D-1A225:BlankTextBoxLines
 P:1A226-1A22E:BlankPersonWares
 P:1A22F-1A234:SubmenuTriforceApexTransferBuf
@@ -6780,6 +6784,7 @@ P:1FF76:: Set our normal mirroring and PRG ROM bank mode.
 P:1FF7B:: Use CHR RAM bank 0 for PPU address $00000.
 P:1FF98:SetMMC1Control
 P:1FFAC:SwitchBank
+P:1FFFA-1FFFF:IsrVector
 S:0001:SaveRamBegin
 S:051E-0520:SaveFileOpenMarkers
 S:0521-0523:SaveFileCloseMarkers

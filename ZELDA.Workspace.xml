@@ -8376,7 +8376,7 @@ def</Comment>
     <CodeLabel>
       <Address>42657</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>SaveSlotHeartValuesAddrsLo</Label>
+      <Label>SaveSlotHeartsAddrsLo</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>3</Length>
@@ -8384,7 +8384,7 @@ def</Comment>
     <CodeLabel>
       <Address>42660</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>SaveSlotHeartsValueAddrsHi</Label>
+      <Label>SaveSlotHeartsAddrsHi</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>3</Length>
@@ -8569,7 +8569,7 @@ def</Comment>
       <Label>Mode1TileTransferBuf</Label>
       <Comment />
       <Flags>None</Flags>
-      <Length>129</Length>
+      <Length>131</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>42270</Address>
@@ -21960,7 +21960,7 @@ def</Comment>
       <Label>ObjListAddrs</Label>
       <Comment />
       <Flags>None</Flags>
-      <Length>30</Length>
+      <Length>60</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>84215</Address>
@@ -39756,19 +39756,20 @@ For example:&#xD;
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>69491</Address>
+      <Address>69492</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>RaftStateToDirection</Label>
+      <Label>RaftDirections</Label>
       <Comment />
       <Flags>None</Flags>
-      <Length>3</Length>
+      <Length>2</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>69546</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Set Link's direction based on the raft's state.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: RaftDirections-1</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -58838,7 +58839,7 @@ For example:&#xD;
  Tunnels use both. Treasure rooms only use room A.&#xD;
 &#xD;
  If the room that Link came from is the room A of this cellar,&#xD;
- then use the look up the X coordinate on the left at index 0.&#xD;
+ then look up the X coordinate of the ladder on the left at index 0.&#xD;
  Else use index 1 to get the X coordinate on the right.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -67868,6 +67869,46 @@ For example:&#xD;
       <Comment />
       <Flags>None</Flags>
       <Length>18</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>94615</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>CellarLadderXs</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>2</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>72111</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>DodongoMouthNegativeLimits1</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>5</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>72116</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>DodongoMouthPositiveLimits1</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>5</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>107018</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>EndingPaletteTransferBuf</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>19</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>131066</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>IsrVector</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>6</Length>
     </CodeLabel>
   </Labels>
   <TblMappings />
