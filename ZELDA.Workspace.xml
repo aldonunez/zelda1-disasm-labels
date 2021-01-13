@@ -1946,7 +1946,7 @@ def</Comment>
     <CodeLabel>
       <Address>1540</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>EventMusic1Request</Label>
+      <Label>Tune0Request</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -1954,7 +1954,7 @@ def</Comment>
     <CodeLabel>
       <Address>1538</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>EventMusic2Request</Label>
+      <Label>Tune1Request</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -1970,7 +1970,7 @@ def</Comment>
     <CodeLabel>
       <Address>1542</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>SoundEffect</Label>
+      <Label>Effect</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -1986,7 +1986,7 @@ def</Comment>
     <CodeLabel>
       <Address>1543</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>EventMusic2</Label>
+      <Label>Tune1</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -1994,7 +1994,7 @@ def</Comment>
     <CodeLabel>
       <Address>1541</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>EventMusic1</Label>
+      <Label>Tune0</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -3667,8 +3667,7 @@ def</Comment>
       <Comment> If the game is paused, then silence all channels&#xD;
  by first disabling them, then enabling them.&#xD;
 &#xD;
- TODO:&#xD;
- Then go drive tune channel 1?&#xD;
+ Then go drive tune channel 0 only.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -9905,7 +9904,7 @@ def</Comment>
       <Label>L9EFF</Label>
       <Comment> Pressed Start over "End" option.&#xD;
 &#xD;
- Silence tune channel 2.</Comment>
+ Silence tune channel 1.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -58876,7 +58875,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>6197</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1835</Label>
+      <Label>L1835_Play</Label>
       <Comment> Else the game is not paused.&#xD;
 &#xD;
  Synchronize the APU frame counter once a video frame.&#xD;
@@ -58895,7 +58894,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>6869</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>DriveTuneChannel2</Label>
+      <Label>DriveTune1</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -58903,7 +58902,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>6348</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>DriveTuneChannel1</Label>
+      <Label>DriveTune0</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -58937,97 +58936,98 @@ For example:&#xD;
     <CodeLabel>
       <Address>6214</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1846</Label>
+      <Label>L1846_Paused</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>6345</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L18C9</Label>
+      <Label>L18C9_SilenceSong</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>6364</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L18DC</Label>
+      <Label>L18DC_CheckCurrentTune</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>6370</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L18E2</Label>
+      <Label>L18E2_ChangeTune</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>6375</Address>
       <AddressType>PrgRom</AddressType>
       <Label>L18E7</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Comment> Get the index for the song bit: 1 to 8.&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>6385</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L18F1</Label>
+      <Label>L18F1_KeepPlaying</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>6417</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1911</Label>
+      <Label>L1911_PrepNote</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>6429</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L191D</Label>
+      <Label>L191D_PlayNote</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>6438</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1926</Label>
+      <Label>L1926_SilenceSample</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>6458</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L193A</Label>
+      <Label>L193A_PlayArrowSfx</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>6475</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L194B</Label>
+      <Label>L194B_ContinueArrowSfx</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>6482</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1952</Label>
+      <Label>L1952_PlayStairsSfx</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -59041,41 +59041,41 @@ For example:&#xD;
     <CodeLabel>
       <Address>6493</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L195D</Label>
+      <Label>L195D_ContinueStairsSfx</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>6507</Address>
       <AddressType>PrgRom</AddressType>
       <Label>L196B</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Comment> DASM.EXPR: StairsSfxNotes-1</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>6510</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L196E</Label>
+      <Label>L196E_PlaySfxNote</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>6523</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L197B</Label>
+      <Label>L197B_SetSfxVolumeLength</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>6533</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1985</Label>
+      <Label>L1985_SilenceSfxIfEnded</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -59089,81 +59089,83 @@ For example:&#xD;
     <CodeLabel>
       <Address>6546</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1992</Label>
+      <Label>L1992_PlaySwordSfx</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>6553</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1999</Label>
+      <Label>L1999_ContinueSwordSfx</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>6560</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>F19A0</Label>
+      <Label>DriveEffect</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>6617</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L19D9</Label>
+      <Label>L19D9_PlayBombSfx</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>6624</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L19E0</Label>
+      <Label>L19E0_ContinueBombSfx</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>6631</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L19E7</Label>
+      <Label>L19E7_PlayFlameSfx</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>6638</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L19EE</Label>
+      <Label>L19EE_ContinueFlameSfx</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>6653</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L19FD</Label>
+      <Label>L19FD_PlaySeaSfx</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>6665</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1A09</Label>
+      <Label>L1A09_ContinueSeaSfx</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>6676</Address>
       <AddressType>PrgRom</AddressType>
       <Label>L1A14</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Comment> SFX counter &lt; $BF. Decrease volume slowly down to $10 --&#xD;
+ when (counter MOD 8) = 7.&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -59177,57 +59179,59 @@ For example:&#xD;
     <CodeLabel>
       <Address>6882</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1AE2</Label>
+      <Label>L1AE2_SilenceThenPlay</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>6887</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1AE7</Label>
+      <Label>L1AE7_ChangeTune</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>6892</Address>
       <AddressType>PrgRom</AddressType>
       <Label>L1AEC</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Comment> Get the index for the song bit: 1 to 8.&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>6906</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1AFA</Label>
+      <Label>L1AFA_KeepPlaying</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>6949</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1B25</Label>
+      <Label>L1B25_PrepNote</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>6962</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1B32</Label>
+      <Label>L1B32_PlayNote</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>6983</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1B47</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Label>L1B47_CheckVibrate</Label>
+      <Comment> If the tune is not one of "flute" or "Link dying", then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -59249,41 +59253,41 @@ For example:&#xD;
     <CodeLabel>
       <Address>7045</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>F1B85</Label>
+      <Label>DriveSample</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>7081</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1BA9</Label>
+      <Label>L1BA9_CheckBgSample</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>7086</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1BAE</Label>
+      <Label>L1BAE_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>7087</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1BAF</Label>
+      <Label>L1BAF_ChangeSampleLow</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>7091</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1BB3</Label>
+      <Label>L1BB3_ChangeSampleMid</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -59313,65 +59317,90 @@ For example:&#xD;
     <CodeLabel>
       <Address>7171</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>F1C03</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Label>SetSq0DutyAndSweep</Label>
+      <Comment> Params:&#xD;
+ X: duty byte&#xD;
+ Y: sweep byte&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>7181</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>F1C0D</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Label>EmitSquareNote0</Label>
+      <Comment> Params:&#xD;
+ A: offset of a note in period table&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>7200</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1C20</Label>
+      <Label>L1C20_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>7201</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>F1C21</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Label>SetSq1DutyAndSweep</Label>
+      <Comment> Params:&#xD;
+ X: duty byte&#xD;
+ Y: sweep byte&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>7211</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>F1C2B</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Label>EmitSquareNote1</Label>
+      <Comment> Params:&#xD;
+ A: note ID (offset of note in period table)&#xD;
+&#xD;
+ Returns:&#xD;
+ Y: note ID&#xD;
+ A: 0 if the note is a a rest&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>7231</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>F1C3F</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Label>EmitTriangleNote</Label>
+      <Comment> Params:&#xD;
+ A: offset of a note in period table&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>7252</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>F1C54</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Label>VibratePitch</Label>
+      <Comment> Params:&#xD;
+ A: note counter&#xD;
+ X: period value&#xD;
+&#xD;
+ Returns:&#xD;
+ X: (period - 1) to (period + 1)&#xD;
+&#xD;
+ If note counter &lt; $10, then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>7266</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1C62</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Label>L1C62_GoDown</Label>
+      <Comment> If set, then subtract 1 from X.&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -59385,25 +59414,25 @@ For example:&#xD;
     <CodeLabel>
       <Address>7271</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1C67</Label>
+      <Label>L1C67_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>7272</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1C68</Label>
+      <Label>L1C68_KeepPlaying</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>7286</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1C76</Label>
+      <Label>L1C76_ChangeSong</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -59417,73 +59446,74 @@ For example:&#xD;
     <CodeLabel>
       <Address>7315</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1C93</Label>
+      <Label>L1C93_PlayFirstDemoPhrase</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>7319</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1C97</Label>
+      <Label>L1C97_PlayFirstUnderworldPhrase</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>7323</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1C9B</Label>
+      <Label>L1C9B_PlayFirstOverworldPhrase</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>7325</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1C9D</Label>
+      <Label>L1C9D_SetPrevPhraseIndex</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>7327</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1C9F</Label>
+      <Label>L1C9F_PlayNextPhrase</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>7354</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1CBA</Label>
+      <Label>L1CBA_PlayNextUnderworldPhrase</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>7366</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1CC6</Label>
+      <Label>L1CC6_PlayNextOverworldPhrase</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>7378</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1CD2</Label>
+      <Label>L1CD2_PlayNextDemoPhrase</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>7390</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1CDE</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Label>L1CDE_PlaySinglePhraseSong</Label>
+      <Comment> Get the index for the song bit: 2 to 6.&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -59497,49 +59527,52 @@ For example:&#xD;
     <CodeLabel>
       <Address>7397</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1CE5</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Label>L1CE5_PrepPhrase</Label>
+      <Comment> DASM.EXPR: SongHeaders-1</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>7468</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1D2C</Label>
+      <Label>KeepPlayingSong</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>7487</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1D3F</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Label>L1D3F_SongEnded</Label>
+      <Comment> If this is a song that repeats, then go play again.&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>7508</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1D54</Label>
+      <Label>L1D54_PlayAgain</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>7511</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1D57</Label>
+      <Label>L1D57_PrepNote</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>7525</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1D65</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Label>L1D65_PlayNote</Label>
+      <Comment> If something is playing in tune channel 1, then&#xD;
+ don't play a square note here.&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -59561,9 +59594,11 @@ For example:&#xD;
     <CodeLabel>
       <Address>7555</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1D83</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Label>L1D83_ApplySq1Effects</Label>
+      <Comment> If something is playing in tune channel 1, then&#xD;
+ skip effects for square channel 1.&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -59577,17 +59612,17 @@ For example:&#xD;
     <CodeLabel>
       <Address>7598</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1DAE</Label>
+      <Label>L1DAE_HandleSq0</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>7632</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1DD0</Label>
+      <Label>L1DD0_PlaySq0</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -59609,9 +59644,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>7662</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1DEE</Label>
+      <Label>L1DEE_ApplySq0Effects</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -59633,9 +59668,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>7705</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1E19</Label>
+      <Label>L1E19_HandleTrg</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -59649,17 +59684,17 @@ For example:&#xD;
     <CodeLabel>
       <Address>7718</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1E26</Label>
+      <Label>L1E26_PrepNoteOrPassage</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>7751</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1E47</Label>
+      <Label>L1E47_EndOfPassage</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -59673,25 +59708,25 @@ For example:&#xD;
     <CodeLabel>
       <Address>7765</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1E55</Label>
+      <Label>L1E55_PrepNote</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>7786</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1E6A</Label>
+      <Label>L1E6A_PlayNoteTrg</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>7800</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1E78</Label>
+      <Label>L1E78_ApplyTrgEffects</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -59705,9 +59740,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>7826</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1E92</Label>
+      <Label>L1E92_SetTrgLinear</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -59729,41 +59764,60 @@ For example:&#xD;
     <CodeLabel>
       <Address>7891</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1ED3</Label>
+      <Label>L1ED3_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>7904</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>F1EE0</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Label>GetSongNoiseNoteLength</Label>
+      <Comment> Params:&#xD;
+ A: control note&#xD;
+&#xD;
+ Returns:&#xD;
+ A: note length&#xD;
+ X: original control note&#xD;
+&#xD;
+ Rotate so that bits 0, 7, 6 move to bits 2, 1, 0.&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>7910</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>F1EE6</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Label>GetSongNoteLength</Label>
+      <Comment> Params:&#xD;
+ A: control note&#xD;
+&#xD;
+ Returns:&#xD;
+ A: note length&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>8050</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>F1F72</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Label>PrepareCustomSongEnvelope</Label>
+      <Comment> Returns:&#xD;
+ A: starting custom envelope offset&#xD;
+ X: duty byte $82&#xD;
+ Y: sweep byte $7F&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>8060</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>F1F7C</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Label>ShapeSongVolume</Label>
+      <Comment> Params:&#xD;
+ Y: envelope offset&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -67909,6 +67963,886 @@ For example:&#xD;
       <Comment />
       <Flags>None</Flags>
       <Length>6</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>7256</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Is bit 2 set?&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>7261</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If not set, then add 1 to X.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>7936</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>NotePeriodTable</Label>
+      <Comment> Big-endian 16-bit period values.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>114</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>7013</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>CustomEnvelopeTune1</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>32</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>107</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>CurNoteLowPeriodSq1</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>106</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>CurNoteLowPeriodSq0</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1520</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>CurNoteLowPeriodTrg</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>6741</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>TuneScripts1</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>128</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>6923</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> We've reached the end of the tune.&#xD;
+&#xD;
+ If tune is "Game Over", then go play it again.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1560</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>TunePtr1</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>110</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>NoteLengthTune1</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>111</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>NoteCounterTune1</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>6896</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: TuneScripts2-1</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>109</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>CustomEnvelopeOffsetTune1</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>6235</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>TuneScripts0</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>110</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>6379</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: TuneScripts0-1</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>6355</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the requested tune is not "heart warning", then go play it.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>6359</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Else only play "heart warning" if nothing else is playing.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>6351</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Tune $80 is only a signal to silence the song.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1550</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>TunePtr0</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>6398</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> We've reached the end of the tune.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>3424</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>SongTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>36</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>3677</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>SongScriptItemTaken0</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>4516</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>SongScriptEndLevel0</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>3696</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>SongScriptOverworld0</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>4317</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>SongScriptUnderworld0</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>4605</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>SongScriptLastLevel0</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>4812</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>SongScriptGanon0</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>4855</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>SongScriptEnding0</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>6084</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>SongScriptZelda0</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>5259</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>SongScriptDemo0</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>3460</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>SongHeaderDemo0</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>3669</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>SongHeaderZelda</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>3613</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>SongHeaderEnding0</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>3581</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>SongHeaderUnderworld0</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>3541</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>SongHeaderOverworld0</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>3597</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>SongHeaderLastLevel0</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>3527</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>SongHeaderItemTaken0</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>3534</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>SongHeaderEndLevel0</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>3605</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>SongHeaderGanon0</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1546</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>NoteOffsetSongSq1</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>102</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>SongScriptPtrLo</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>103</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>SongScriptPtrHi</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1553</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>NoteCounterSongSq1</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1552</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>NoteLengthSongSq1</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1547</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>NoteOffsetSongSq0</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1548</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>NoteOffsetSongTrg</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1549</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>NoteOffsetSongNoise</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>7587</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The demo/title song ($80) vibrates the pitch.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1555</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>NoteCounterSongSq0</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1558</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>NoteCounterSongTrg</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1559</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>NoteCounterSongNoise</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1551</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>NoteLengthSongSq0</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8145</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>NoteLengthTable0</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>8</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8153</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>NoteLengthTable1</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>8</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8161</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>NoteLengthTable2</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>8</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8169</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>NoteLengthTable3</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>8</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8177</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>NoteLengthTable4</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>8</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1524</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>NoteLengthTableBase</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>7689</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The demo/title song ($80) vibrates the pitch.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>7829</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>L1E95_HandleNoise</Label>
+      <Comment> If the song is not demo nor ending, then return.&#xD;
+ They don't use noise.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1557</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>NoteLengthSongTrg</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1525</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>FirstNoteIndexSongNoise</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>7900</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>NoiseLengths</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>4</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>7896</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>NoisePeriods</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>4</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>7892</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>NoiseVolumes</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>4</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>7865</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> From the original control note, extract an index 0-3&#xD;
+ to look up noise parameters.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>7851</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> We've reached the end of the track. Noise always repeats.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8082</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>CustomEnvelopeSong</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>32</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1554</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>CustomEnvelopeOffsetSongSq1</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1561</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>SongEnvelopeSelector</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1563</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>SongVibrationCounterSq1</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1564</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>SongVibrationCounterSq0</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1556</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>CustomEnvelopeOffsetSongSq0</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1565</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>SongVibrationCounterTrg</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1566</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>SongRepetitionsTrg</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1567</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>SongRepeatStartOffset</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>7736</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Control note &gt;= $F1. The low nibble defines the number of&#xD;
+ repetititions of the passage starting at the next offset.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>7815</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO: [05F1] ?&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>108</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>SongPhraseIndex</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>7342</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Play the next phrase of the ending song.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>7447</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO: [05F1]</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1523</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>SeaSfxCounter</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1539</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>EffectRequest</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1537</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>SampleRequest</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1544</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>Sample</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>6672</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> SFX counter &gt;= $BF. Increase volume fast.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8114</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>SwordSfxNotes</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>10</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>6465</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If "heart taken" is requested in tune channel 0, then cancel it.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>7929</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>StairsSfxNotes</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>6</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>6717</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>BombSfxNotes</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>24</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>6626</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: BombSfxNotes-1</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8129</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>FlameSfxNotes</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>16</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8124</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ArrowSfxNotes</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>5</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>6477</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: ArrowSfxNotes-1</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>6555</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: SwordSfxNotes-1</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>6647</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: FlameSfxNotes-1</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>105</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>EffectCounter</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>7164</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>SampleRates</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>7</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>7116</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: SampleRates-1</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>7157</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>SampleLengths</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>7</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>7128</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: SampleLengths-1</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>7150</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>SampleAddrs</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>7</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>7122</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: SampleAddrs-1</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1526</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>BackgroundSample</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1522</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>SampleCounter</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>6563</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> $80 is a signal to silence samples and tune 1.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
     </CodeLabel>
   </Labels>
   <TblMappings />

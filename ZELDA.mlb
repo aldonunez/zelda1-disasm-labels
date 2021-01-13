@@ -36,6 +36,15 @@ R:0062:ChaseTargetY
 R:0063:World_IsFillingHearts
 R:0064:LadderSlot: The object slot that holds the ladder. 0 if unused.
 R:0065:_UndergroundEntranceTile
+R:0066:SongScriptPtrLo
+R:0067:SongScriptPtrHi
+R:0069:EffectCounter
+R:006A:CurNoteLowPeriodSq0
+R:006B:CurNoteLowPeriodSq1
+R:006C:SongPhraseIndex
+R:006D:CustomEnvelopeOffsetTune1
+R:006E:NoteLengthTune1
+R:006F:NoteCounterTune1
 R:0070-0083:ObjX
 R:0084-0097:ObjY
 R:0098-00AA:ObjDir
@@ -177,13 +186,43 @@ R:052E:SwordBlocked
 R:052F:MazeStep
 R:0530-055F:PlayAreaAttrs
 R:0560-05DF:_LevelKillCounts
+R:05F0:CurNoteLowPeriodTrg
+R:05F2:SampleCounter
+R:05F3:SeaSfxCounter
+R:05F4:NoteLengthTableBase
+R:05F5:FirstNoteIndexSongNoise
+R:05F6:BackgroundSample
 R:0600:SongRequest
-R:0602:EventMusic2Request
-R:0604:EventMusic1Request
-R:0605:EventMusic1
-R:0606:SoundEffect
-R:0607:EventMusic2
+R:0601:SampleRequest
+R:0602:Tune1Request
+R:0603:EffectRequest
+R:0604:Tune0Request
+R:0605:Tune0
+R:0606:Effect
+R:0607:Tune1
+R:0608:Sample
 R:0609:Song
+R:060A:NoteOffsetSongSq1
+R:060B:NoteOffsetSongSq0
+R:060C:NoteOffsetSongTrg
+R:060D:NoteOffsetSongNoise
+R:060E:TunePtr0
+R:060F:NoteLengthSongSq0
+R:0610:NoteLengthSongSq1
+R:0611:NoteCounterSongSq1
+R:0612:CustomEnvelopeOffsetSongSq1
+R:0613:NoteCounterSongSq0
+R:0614:CustomEnvelopeOffsetSongSq0
+R:0615:NoteLengthSongTrg
+R:0616:NoteCounterSongTrg
+R:0617:NoteCounterSongNoise
+R:0618:TunePtr1
+R:0619:SongEnvelopeSelector
+R:061B:SongVibrationCounterSq1
+R:061C:SongVibrationCounterSq0
+R:061D:SongVibrationCounterTrg
+R:061E:SongRepetitionsTrg
+R:061F:SongRepeatStartOffset
 R:0620:CurRoomHistoryIndex
 R:0621-0626:RoomHistory
 R:0627:WorldKillCount
@@ -226,120 +265,188 @@ R:067C:MaxBombs
 R:067D:RupeesToAdd
 R:067E:RupeesToSubtract
 R:067F-07FE:WorldFlags
-P:1825:DriveAudio: If the game is paused, then silence all channels\n by first disabling them, then enabling them.\n\n TODO:\n Then go drive tune channel 1?\n
-P:1835:L1835: Else the game is not paused.\n\n Synchronize the APU frame counter once a video frame.\n
+P:0D60-0D83:SongTable
+P:0D84:SongHeaderDemo0
+P:0DC7:SongHeaderItemTaken0
+P:0DCE:SongHeaderEndLevel0
+P:0DD5:SongHeaderOverworld0
+P:0DFD:SongHeaderUnderworld0
+P:0E0D:SongHeaderLastLevel0
+P:0E15:SongHeaderGanon0
+P:0E1D:SongHeaderEnding0
+P:0E55:SongHeaderZelda
+P:0E5D:SongScriptItemTaken0
+P:0E70:SongScriptOverworld0
+P:10DD:SongScriptUnderworld0
+P:11A4:SongScriptEndLevel0
+P:11FD:SongScriptLastLevel0
+P:12CC:SongScriptGanon0
+P:12F7:SongScriptEnding0
+P:148B:SongScriptDemo0
+P:17C4:SongScriptZelda0
+P:1825:DriveAudio: If the game is paused, then silence all channels\n by first disabling them, then enabling them.\n\n Then go drive tune channel 0 only.\n
+P:1835:L1835_Play: Else the game is not paused.\n\n Synchronize the APU frame counter once a video frame.\n
 P:183A:: Drive each game sound channel.\n
-P:1846:L1846
+P:1846:L1846_Paused
 P:1849:: Reset all requests for sound.\n
-P:18C9:L18C9
-P:18CC:DriveTuneChannel1
-P:18DC:L18DC
-P:18E2:L18E2
-P:18E7:L18E7
-P:18F1:L18F1
-P:1911:L1911
-P:191D:L191D
-P:1926:L1926
-P:193A:L193A
-P:194B:L194B
-P:1952:L1952
+P:185B-18C8:TuneScripts0
+P:18C9:L18C9_SilenceSong
+P:18CC:DriveTune0
+P:18CF:: Tune $80 is only a signal to silence the song.\n
+P:18D3:: If the requested tune is not "heart warning", then go play it.\n
+P:18D7:: Else only play "heart warning" if nothing else is playing.\n
+P:18DC:L18DC_CheckCurrentTune
+P:18E2:L18E2_ChangeTune
+P:18E7:L18E7: Get the index for the song bit: 1 to 8.\n
+P:18EB:: DASM.EXPR: TuneScripts0-1
+P:18F1:L18F1_KeepPlaying
+P:18FE:: We've reached the end of the tune.\n
+P:1911:L1911_PrepNote
+P:191D:L191D_PlayNote
+P:1926:L1926_SilenceSample
+P:193A:L193A_PlayArrowSfx
+P:1941:: If "heart taken" is requested in tune channel 0, then cancel it.\n
+P:194B:L194B_ContinueArrowSfx
+P:194D:: DASM.EXPR: ArrowSfxNotes-1
+P:1952:L1952_PlayStairsSfx
 P:1959:L1959
-P:195D:L195D
-P:196B:L196B
-P:196E:L196E
-P:197B:L197B
-P:1985:L1985
+P:195D:L195D_ContinueStairsSfx
+P:196B:L196B: DASM.EXPR: StairsSfxNotes-1
+P:196E:L196E_PlaySfxNote
+P:197B:L197B_SetSfxVolumeLength
+P:1985:L1985_SilenceSfxIfEnded
 P:1991:L1991
-P:1992:L1992
-P:1999:L1999
-P:19A0:F19A0
-P:19D9:L19D9
-P:19E0:L19E0
-P:19E7:L19E7
-P:19EE:L19EE
-P:19FD:L19FD
-P:1A09:L1A09
-P:1A14:L1A14
+P:1992:L1992_PlaySwordSfx
+P:1999:L1999_ContinueSwordSfx
+P:199B:: DASM.EXPR: SwordSfxNotes-1
+P:19A0:DriveEffect
+P:19A3:: $80 is a signal to silence samples and tune 1.\n
+P:19D9:L19D9_PlayBombSfx
+P:19E0:L19E0_ContinueBombSfx
+P:19E2:: DASM.EXPR: BombSfxNotes-1
+P:19E7:L19E7_PlayFlameSfx
+P:19EE:L19EE_ContinueFlameSfx
+P:19F7:: DASM.EXPR: FlameSfxNotes-1
+P:19FD:L19FD_PlaySeaSfx
+P:1A09:L1A09_ContinueSeaSfx
+P:1A10:: SFX counter >= $BF. Increase volume fast.\n
+P:1A14:L1A14: SFX counter < $BF. Decrease volume slowly down to $10 --\n when (counter MOD 8) = 7.\n
 P:1A28:L1A28
-P:1AD5:DriveTuneChannel2
-P:1AE2:L1AE2
-P:1AE7:L1AE7
-P:1AEC:L1AEC
-P:1AFA:L1AFA
-P:1B25:L1B25
-P:1B32:L1B32
-P:1B47:L1B47
+P:1A3D-1A54:BombSfxNotes
+P:1A55-1AD4:TuneScripts1
+P:1AD5:DriveTune1
+P:1AE2:L1AE2_SilenceThenPlay
+P:1AE7:L1AE7_ChangeTune
+P:1AEC:L1AEC: Get the index for the song bit: 1 to 8.\n
+P:1AF0:: DASM.EXPR: TuneScripts2-1
+P:1AFA:L1AFA_KeepPlaying
+P:1B0B:: We've reached the end of the tune.\n\n If tune is "Game Over", then go play it again.\n
+P:1B25:L1B25_PrepNote
+P:1B32:L1B32_PlayNote
+P:1B47:L1B47_CheckVibrate: If the tune is not one of "flute" or "Link dying", then return.\n
 P:1B54:L1B54
 P:1B64:L1B64
-P:1B85:F1B85
-P:1BA9:L1BA9
-P:1BAE:L1BAE
-P:1BAF:L1BAF
-P:1BB3:L1BB3
+P:1B65-1B84:CustomEnvelopeTune1
+P:1B85:DriveSample
+P:1BA9:L1BA9_CheckBgSample
+P:1BAE:L1BAE_Exit
+P:1BAF:L1BAF_ChangeSampleLow
+P:1BB3:L1BB3_ChangeSampleMid
 P:1BB7:L1BB7
 P:1BC5:L1BC5
 P:1BC8:L1BC8
-P:1C03:F1C03
-P:1C0D:F1C0D
-P:1C20:L1C20
-P:1C21:F1C21
-P:1C2B:F1C2B
-P:1C3F:F1C3F
-P:1C54:F1C54
-P:1C62:L1C62
+P:1BCC:: DASM.EXPR: SampleRates-1
+P:1BD2:: DASM.EXPR: SampleAddrs-1
+P:1BD8:: DASM.EXPR: SampleLengths-1
+P:1BEE-1BF4:SampleAddrs
+P:1BF5-1BFB:SampleLengths
+P:1BFC-1C02:SampleRates
+P:1C03:SetSq0DutyAndSweep: Params:\n X: duty byte\n Y: sweep byte\n
+P:1C0D:EmitSquareNote0: Params:\n A: offset of a note in period table\n
+P:1C20:L1C20_Exit
+P:1C21:SetSq1DutyAndSweep: Params:\n X: duty byte\n Y: sweep byte\n
+P:1C2B:EmitSquareNote1: Params:\n A: note ID (offset of note in period table)\n\n Returns:\n Y: note ID\n A: 0 if the note is a a rest\n
+P:1C3F:EmitTriangleNote: Params:\n A: offset of a note in period table\n
+P:1C54:VibratePitch: Params:\n A: note counter\n X: period value\n\n Returns:\n X: (period - 1) to (period + 1)\n\n If note counter < $10, then return.\n
+P:1C58:: Is bit 2 set?\n
+P:1C5D:: If not set, then add 1 to X.\n
+P:1C62:L1C62_GoDown: If set, then subtract 1 from X.\n
 P:1C66:L1C66
-P:1C67:L1C67
-P:1C68:L1C68
+P:1C67:L1C67_Exit
+P:1C68:L1C68_KeepPlaying
 P:1C6B:DriveSong
-P:1C76:L1C76
+P:1C76:L1C76_ChangeSong
 P:1C83:L1C83
-P:1C93:L1C93
-P:1C97:L1C97
-P:1C9B:L1C9B
-P:1C9D:L1C9D
-P:1C9F:L1C9F
-P:1CBA:L1CBA
-P:1CC6:L1CC6
-P:1CD2:L1CD2
-P:1CDE:L1CDE
+P:1C93:L1C93_PlayFirstDemoPhrase
+P:1C97:L1C97_PlayFirstUnderworldPhrase
+P:1C9B:L1C9B_PlayFirstOverworldPhrase
+P:1C9D:L1C9D_SetPrevPhraseIndex
+P:1C9F:L1C9F_PlayNextPhrase
+P:1CAE:: Play the next phrase of the ending song.\n
+P:1CBA:L1CBA_PlayNextUnderworldPhrase
+P:1CC6:L1CC6_PlayNextOverworldPhrase
+P:1CD2:L1CD2_PlayNextDemoPhrase
+P:1CDE:L1CDE_PlaySinglePhraseSong: Get the index for the song bit: 2 to 6.\n
 P:1CE1:L1CE1
-P:1CE5:L1CE5
-P:1D2C:L1D2C
-P:1D3F:L1D3F
+P:1CE5:L1CE5_PrepPhrase: DASM.EXPR: SongHeaders-1
+P:1D17:: TODO: [05F1]
+P:1D2C:KeepPlayingSong
+P:1D3F:L1D3F_SongEnded: If this is a song that repeats, then go play again.\n
 P:1D46:SilenceSong
-P:1D54:L1D54
-P:1D57:L1D57
-P:1D65:L1D65
+P:1D54:L1D54_PlayAgain
+P:1D57:L1D57_PrepNote
+P:1D65:L1D65_PlayNote: If something is playing in tune channel 1, then\n don't play a square note here.\n
 P:1D72:L1D72
 P:1D7D:L1D7D
-P:1D83:L1D83
+P:1D83:L1D83_ApplySq1Effects: If something is playing in tune channel 1, then\n skip effects for square channel 1.\n
 P:1D93:L1D93
-P:1DAE:L1DAE
-P:1DD0:L1DD0
+P:1DA3:: The demo/title song ($80) vibrates the pitch.\n
+P:1DAE:L1DAE_HandleSq0
+P:1DD0:L1DD0_PlaySq0
 P:1DDD:L1DDD
 P:1DE8:L1DE8
-P:1DEE:L1DEE
+P:1DEE:L1DEE_ApplySq0Effects
 P:1DFE:L1DFE
+P:1E09:: The demo/title song ($80) vibrates the pitch.\n
 P:1E14:L1E14
-P:1E19:L1E19
+P:1E19:L1E19_HandleTrg
 P:1E21:L1E21
-P:1E26:L1E26
-P:1E47:L1E47
+P:1E26:L1E26_PrepNoteOrPassage
+P:1E38:: Control note >= $F1. The low nibble defines the number of\n repetititions of the passage starting at the next offset.\n
+P:1E47:L1E47_EndOfPassage
 P:1E52:L1E52
-P:1E55:L1E55
-P:1E6A:L1E6A
-P:1E78:L1E78
+P:1E55:L1E55_PrepNote
+P:1E6A:L1E6A_PlayNoteTrg
+P:1E78:L1E78_ApplyTrgEffects
+P:1E87:: TODO: [05F1] ?\n
 P:1E90:L1E90
-P:1E92:L1E92
+P:1E92:L1E92_SetTrgLinear
+P:1E95:L1E95_HandleNoise: If the song is not demo nor ending, then return.\n They don't use noise.\n
 P:1EA1:L1EA1
+P:1EAB:: We've reached the end of the track. Noise always repeats.\n
 P:1EB3:L1EB3
-P:1ED3:L1ED3
-P:1EE0:F1EE0
-P:1EE6:F1EE6
-P:1F72:F1F72
-P:1F7C:F1F7C
+P:1EB9:: From the original control note, extract an index 0-3\n to look up noise parameters.\n
+P:1ED3:L1ED3_Exit
+P:1ED4-1ED7:NoiseVolumes
+P:1ED8-1EDB:NoisePeriods
+P:1EDC-1EDF:NoiseLengths
+P:1EE0:GetSongNoiseNoteLength: Params:\n A: control note\n\n Returns:\n A: note length\n X: original control note\n\n Rotate so that bits 0, 7, 6 move to bits 2, 1, 0.\n
+P:1EE6:GetSongNoteLength: Params:\n A: control note\n\n Returns:\n A: note length\n
+P:1EF9-1EFE:StairsSfxNotes
+P:1F00-1F71:NotePeriodTable: Big-endian 16-bit period values.\n
+P:1F72:PrepareCustomSongEnvelope: Returns:\n A: starting custom envelope offset\n X: duty byte $82\n Y: sweep byte $7F\n
+P:1F7C:ShapeSongVolume: Params:\n Y: envelope offset\n
 P:1F88:L1F88
 P:1F8F:L1F8F
+P:1F92-1FB1:CustomEnvelopeSong
+P:1FB2-1FBB:SwordSfxNotes
+P:1FBC-1FC0:ArrowSfxNotes
+P:1FC1-1FD0:FlameSfxNotes
+P:1FD1-1FD8:NoteLengthTable0
+P:1FD9-1FE0:NoteLengthTable1
+P:1FE1-1FE8:NoteLengthTable2
+P:1FE9-1FF0:NoteLengthTable3
+P:1FF1-1FF8:NoteLengthTable4
 P:4000-404B:PersonTextAddrs
 P:404C-45A1:PersonText
 P:45A2-45B5:OverworldPersonTextSelectors
@@ -1153,7 +1260,7 @@ P:9EEB-9EEF:ZeldaString
 P:9EF0:UpdateModeERegister: If didn't press Start,
 P:9EF6:: or didn't select "End" option,
 P:9EFC:L9EFC: then go handle idle time.
-P:9EFF:L9EFF: Pressed Start over "End" option.\n\n Silence tune channel 2.
+P:9EFF:L9EFF: Pressed Start over "End" option.\n\n Silence tune channel 1.
 P:9F04:: TODO: Reset [$0425].
 P:9F07:: TODO: Reset [$0423].
 P:9F0A:: Reset CurSaveSlot.
