@@ -18145,7 +18145,7 @@ def</Comment>
     <CodeLabel>
       <Address>82563</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>F14283</Label>
+      <Label>SwitchToNT1</Label>
       <Comment> When we begin scrolling left, CurHScroll = 0 and base&#xD;
  nametable is 0. This shows the current room completely.&#xD;
 &#xD;
@@ -64694,9 +64694,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>85670</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14EA6</Label>
+      <Label>WieldNothing</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>

@@ -4071,7 +4071,7 @@ P:14276:L14276: Update nametable X scroll by speed in [00].
 P:1427D:: Stop when you've scrolled to the end (CurHScroll=0).
 P:1427F:: Does scroll position match reference scroll position [01]?
 P:14281:: If not, then return.
-P:14283:F14283: When we begin scrolling left, CurHScroll = 0 and base\n nametable is 0. This shows the current room completely.\n\n The first time in ScrollWorld, the speed [00] will be\n subtracted from CurHScroll to show most of NT 0, and\n a little of NT 1 to its left. In other words, the\n scroll position now refers to a position in NT 1.\n\n [01] is this first position shown in NT 1. So, once\n CurHScroll matches it (in the first call to this routine),\n turn on this flag that makes NT 1 the base nametable.
+P:14283:SwitchToNT1: When we begin scrolling left, CurHScroll = 0 and base\n nametable is 0. This shows the current room completely.\n\n The first time in ScrollWorld, the speed [00] will be\n subtracted from CurHScroll to show most of NT 0, and\n a little of NT 1 to its left. In other words, the\n scroll position now refers to a position in NT 1.\n\n [01] is this first position shown in NT 1. So, once\n CurHScroll matches it (in the first call to this routine),\n turn on this flag that makes NT 1 the base nametable.
 P:14285:: Start basing the horizontal scroll position on NT 1.
 P:14287:L14287
 P:14288:ScrollWorldRight
@@ -4634,7 +4634,7 @@ P:14E8D:: Arrows start in state $10.\n
 P:14E8F:WieldWeapon: Params:\n A: initial state\n
 P:14E91:: Set q-speed $C0 (3 pixels a second).\n
 P:14E99:: If the direction is vertical, move the object right 3 pixels.\n
-P:14EA6:L14EA6
+P:14EA6:WieldNothing
 P:14EA7:WieldFood: Switch to the food slot.\n
 P:14EA9:: If there's an item already active in the slot (state <> 0), return.\n
 P:14EAD:: The first state of food lasts $FF frames.\n
