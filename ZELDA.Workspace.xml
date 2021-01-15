@@ -59528,7 +59528,7 @@ For example:&#xD;
       <Address>7397</Address>
       <AddressType>PrgRom</AddressType>
       <Label>L1CE5_PrepPhrase</Label>
-      <Comment> DASM.EXPR: SongHeaders-1</Comment>
+      <Comment> DASM.EXPR: SongTable-1</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -68070,7 +68070,7 @@ For example:&#xD;
       <Address>6896</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> DASM.EXPR: TuneScripts2-1</Comment>
+      <Comment> DASM.EXPR: TuneScripts1-1</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>

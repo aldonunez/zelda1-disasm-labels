@@ -338,7 +338,7 @@ P:1AD5:DriveTune1
 P:1AE2:L1AE2_SilenceThenPlay
 P:1AE7:L1AE7_ChangeTune
 P:1AEC:L1AEC: Get the index for the song bit: 1 to 8.\n
-P:1AF0:: DASM.EXPR: TuneScripts2-1
+P:1AF0:: DASM.EXPR: TuneScripts1-1
 P:1AFA:L1AFA_KeepPlaying
 P:1B0B:: We've reached the end of the tune.\n\n If tune is "Game Over", then go play it again.\n
 P:1B25:L1B25_PrepNote
@@ -388,7 +388,7 @@ P:1CC6:L1CC6_PlayNextOverworldPhrase
 P:1CD2:L1CD2_PlayNextDemoPhrase
 P:1CDE:L1CDE_PlaySinglePhraseSong: Get the index for the song bit: 2 to 6.\n
 P:1CE1:L1CE1
-P:1CE5:L1CE5_PrepPhrase: DASM.EXPR: SongHeaders-1
+P:1CE5:L1CE5_PrepPhrase: DASM.EXPR: SongTable-1
 P:1D17:: TODO: [05F1]
 P:1D2C:KeepPlayingSong
 P:1D3F:L1D3F_SongEnded: If this is a song that repeats, then go play again.\n
