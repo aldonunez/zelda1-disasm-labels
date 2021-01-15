@@ -5205,7 +5205,7 @@ def</Comment>
       <Label>SaveFileAAddressSets</Label>
       <Comment />
       <Flags>None</Flags>
-      <Length>42</Length>
+      <Length>14</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>38223</Address>
@@ -7274,7 +7274,7 @@ def</Comment>
       <Label>SaveFileBAddressSets</Label>
       <Comment />
       <Flags>None</Flags>
-      <Length>1</Length>
+      <Length>14</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>40245</Address>
@@ -68841,6 +68841,182 @@ For example:&#xD;
       <Label />
       <Comment> $80 is a signal to silence samples and tune 1.&#xD;
 </Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>40220</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>SaveFileBAddressSet2</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>14</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>40206</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>SaveFileBAddressSet1</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>14</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>3541</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>SaveFileAAddressSet1</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>14</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>3555</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>SaveFileAAddressSet2</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>14</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>SaveFileAName2</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>8</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>10</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>SaveFileAName1</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>8</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>2</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>SaveFileAName0</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>8</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>106</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>SaveFileAItems2</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>40</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>SaveFileAItems1</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>40</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>26</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>SaveFileAItems0</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>40</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>914</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>SaveFileAWorldFlags2</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>384</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>530</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>SaveFileAWorldFlags1</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>384</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>146</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>SaveFileAWorldFlags0</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>384</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1298</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>SaveFileASlotActive0</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1299</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>SaveFileASlotActive1</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1300</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>SaveFileASlotActive2</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1301</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>SaveFileADeathCount0</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1302</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>SaveFileADeathCount1</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1303</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>SaveFileADeathCount2</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1307</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>SaveFileAQuestNumber0</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1308</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>SaveFileAQuestNumber1</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1309</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>SaveFileAQuestNumber2</Label>
+      <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>

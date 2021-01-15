@@ -1197,7 +1197,9 @@ P:9BC6:: Advance to the next demo phase.
 P:9BC9:: Reset the demo subphase.
 P:9BCE:: We have to initialize the new demo phase.
 P:9BD0:L9BD0
-P:9D00:SaveFileBAddressSets
+P:9D00-9D0D:SaveFileBAddressSets
+P:9D0E-9D1B:SaveFileBAddressSet1
+P:9D1C-9D29:SaveFileBAddressSet2
 P:9D2A:FetchFileBAddressSet: Calculate the end of the address set for current file.
 P:9D2E:L9D2E
 P:9D35:: Copy the file address set (14 bytes) for the current\n save file to [$C0] to make it easier to work with.
@@ -6893,6 +6895,24 @@ P:1FF98:SetMMC1Control
 P:1FFAC:SwitchBank
 P:1FFFA-1FFFF:IsrVector
 S:0001:SaveRamBegin
+S:0002-0009:SaveFileAName0
+S:000A-0011:SaveFileAName1
+S:0012-0019:SaveFileAName2
+S:001A-0041:SaveFileAItems0
+S:0042-0069:SaveFileAItems1
+S:006A-0091:SaveFileAItems2
+S:0092-0211:SaveFileAWorldFlags0
+S:0212-0391:SaveFileAWorldFlags1
+S:0392-0511:SaveFileAWorldFlags2
+S:0512:SaveFileASlotActive0
+S:0513:SaveFileASlotActive1
+S:0514:SaveFileASlotActive2
+S:0515:SaveFileADeathCount0
+S:0516:SaveFileADeathCount1
+S:0517:SaveFileADeathCount2
+S:051B:SaveFileAQuestNumber0
+S:051C:SaveFileAQuestNumber1
+S:051D:SaveFileAQuestNumber2
 S:051E-0520:SaveFileOpenMarkers
 S:0521-0523:SaveFileCloseMarkers
 S:0524-0526:FileAChecksums
@@ -6967,7 +6987,9 @@ S:0DAD:: Get Link ready to move automatically this number of pixels.\n
 S:0DB2:: When coming out of the cave eventually, this has to be set.\n
 S:0DB7:ResetRoomTileObjInfo: Returns:\n A: 0\n
 S:0DC3-0DC6:ReverseDirections
-S:0DC7-0DF0:SaveFileAAddressSets
+S:0DC7-0DD4:SaveFileAAddressSets
+S:0DD5-0DE2:SaveFileAAddressSet1
+S:0DE3-0DF0:SaveFileAAddressSet2
 S:0DF1:FetchFileAAddressSet: Calculate the end of the address set for current file.
 S:0DFC:: Copy the save file address set (14 bytes) for the current\n save file to [$00] to make it easier to work with.
 S:0E07:: Put the address of the profile's whole\n WorldFlags block in [$0E:0F].
