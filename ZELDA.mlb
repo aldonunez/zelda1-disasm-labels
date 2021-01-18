@@ -13,7 +13,7 @@ R:003C:_FluteTimer
 R:003D-004A:ObjStunTimer
 R:004B:MonstersFromEdgesLongTimer
 R:004C:SwordBlockedLongTimer
-R:004D:RedLeeverLongTimer
+R:004D:_RedLeeverLongTimer
 R:0050:HelpDropCount: When [50] HelpDropCount >= $A, specific items are dropped.\n See [51] HelpDropValue.\n
 R:0051:HelpDropValue: Determines which item to drop when [50] HelpDropCount >= $A.\n 0:     5 rupees\n other: bomb\n
 R:0052:ProcessedNarrowObj: Indicates whether object drawing routines wrote 1 sprite for\n a narrow / half-width object instead of 2 sprites for a\n wide / full-width one.
@@ -157,6 +157,11 @@ R:0506:ItemLiftTimer
 R:0507:ChildDigdoggerCount
 R:0508:_SummonedWhirlwind
 R:0509:TriforceFanfareActive
+R:050A:CreditsRow
+R:050B:CreditsTileOffset
+R:050C:CreditsVramPage
+R:050D:CreditsVramLine
+R:050E:CreditsLineIndex
 R:050F:LamnolaViableDirMask
 R:0510:_ActiveRedLeeverCount
 R:0511:GleeokDeadNeckMask
@@ -1704,72 +1709,182 @@ P:A80C:FetchProfileNameAddress
 P:A819:StoreSaveSlotHearts
 P:A825:: TODO: Copy HeartsValue and HeartsPartial to set B.
 P:A827:LA827
-P:A900:LA900
-P:A90F:LA90F
-P:A921:FA921
-P:A939:LA939
-P:A93F:LA93F
+P:A900:InitMode13_Full
+P:A905-A90E:InitMode13_Full_JumpTable
+P:A90F:InitMode13_Sub0
+P:A91C:: Zelda is in object slot 1.
+P:A921:UpdateEndGameCurtainEffect
+P:A92D:: When the right curtain edge reaches the middle (< $11),\n go to the next submode.\n
+P:A933:: TODO: Why set the timer?\n
+P:A939:LA939_Exit
+P:A93A-A93E:PlayAreaAttr0TransferBuf
+P:A93F:InitMode13_Sub1
 P:A941:LA941
+P:A94A:: Point to the front of the first textbox line,\n and reset the current character index.\n
 P:A958:LA958
-P:A97F:LA97F
+P:A959-A97E:ThanksText
+P:A97F:InitMode13_Sub2
+P:A986:: Set a delay of $50 frames in the next submode.\n
 P:A98C:LA98C
-P:A995:FA995
+P:A98D-A991:ThanksTextboxCharTransferRecTemplate
+P:A992-A994:ThanksTextboxLineAddrsLo
+P:A995:UpdateZeldaTextbox: Returns:\n ObjState[1]: 0 if still updating\n
+P:A998:: If Zelda's timer has not expired, then return.\n
+P:A99C:: Set the timer to wait 6 frames after the next character about\n to be shown.\n
+P:A9A0:: Copy the 5 bytes of the textbox character transfer record template\n to the dynamic transfer buf.\n
 P:A9A2:LA9A2
-P:A9AB:LA9AB
-P:A9E4:LA9E4
-P:A9F4:LA9F4
-P:A9F5:LA9F5
-P:A9FF:LA9FF
+P:A9AB:LA9AB: Replace the low byte of the VRAM address with the one\n where the next character should be written.\n
+P:A9B1:: Increment the low VRAM address for the next character.\n
+P:A9B4:: DASM.EXPR: <ThanksLinkText
+P:A9B8:: DASM.EXPR: >ThanksLinkText
+P:A9BC:: Load the person text current character index.\n
+P:A9BF:: Increment the index variable to point to the next character\n for the next time.\n
+P:A9C2:: Get the current character.\n
+P:A9C4:: If the character is $25, then it's a special space. It will still\n take up space, but will not take time to show -- meaning that\n we'll go look up the next character to transfer.\n
+P:A9CA:: We have a non-space character. Put it in the transfer record.\n
+P:A9CD:: Play the "heart taken/character" tune.\n
+P:A9D2:: If the high 2 bits of character element = 0, then return.\n
+P:A9D8:: Determine an index based on the high 2 bits of the character element:\n   $80: 0\n   $40: 1\n   $C0: 2\n
+P:A9E4:LA9E4: The index chooses the low VRAM address of the start\n of another line:\n   0: $C4: front of the second line\n   1: $E4: front of the third line\n   2: $A4: front of the first line\n
+P:A9EA:: If index = 2, then we've reached the end of the text,\n and low VRAM address is moved to the front of the first line.\n So, advance the state of the person object, and unhalt Link.\n
+P:A9F4:LA9F4_Exit
+P:A9F5:InitMode13_Sub3
+P:A9FF:InitMode13_Sub4
 P:AA10:UpdateMode13WinGame
 P:AA15-AA1E:UpdateMode13WinGame_JumpTable
-P:AA23:UpdateMode13WinGame_Sub0
-P:AA33:LAA33
+P:AA1F-AA22:EndingFlashColors
+P:AA23:UpdateMode13WinGame_Sub0_Flash
+P:AA33:LAA33_ChangePalette
+P:AA36:: Don't flash until $40 frames have passed.\n
+P:AA3A:: Copy the level palette transfer buf.\n
 P:AA3C:LAA3C
-P:AA4F:LAA4F
-P:AA50:LAA50
-P:AA62:FAA62
+P:AA45:: Use (timer MOD 4) as an index to look up a color.\n
+P:AA49:: Change element 0 of palette 4 in buffer to change\n the background color.\n
+P:AA4F:LAA4F_Exit
+P:AA50:LAA50_AdvanceSubmode: Play the ending song.\n
+P:AA55:: Wait $40 frames at the beginning of the next mode\n before showing text.\n
+P:AA59:: Set a long timer of $40 ($280 frames) for the whole duration\n of the next submode.\n
+P:AA62:DrawLinkZeldaTriforces: The triforce over Link goes in the room object slot $13.\n Set its location $10 pixels above Link.\n
+P:AA6D:: Draw Link.\n
+P:AA86:: Draw triforce over Link.\n
+P:AA92:: Draw Zelda.\n
+P:AA96:: The triforce over Zelda goes in slot 2.\n Set its location $10 pixels above her.\n
+P:AAA1:: Draw triforce over Zelda.\n
 P:AAA9:UpdateMode13WinGame_Sub1
-P:AAC6:LAAC6
-P:AAC7:LAAC7
-P:AB3C:FAB3C
+P:AAB0:: Characters stop emitting when the long timer is $10.\n So, keep showing Link and Zelda until it reaches 4.\n Then hide them and wait until it reaches 0.\n
+P:AAB9:: Once in submode 2, only delay, instead of emitting characters.\n
+P:AABF:: There is a delay before showing text.\n
+P:AAC6:LAAC6_Exit
+P:AAC7:LAAC7_AdvanceSubmode: Transfer the ending palette, and go to the next submode.\n
+P:AACE-AAD2:PeaceTextboxCharTransferRecTemplate
+P:AAD3-AB06:PeaceTextboxCharAddrsLo
+P:AB07-AB3B:PeaceText
+P:AB3C:UpdatePeaceTextbox: Only emit a character once every 8 frames --\n when (counter [0412] MOD 8) = 4.\n
+P:AB48:: Copy the 5 bytes of the textbox character transfer record template\n to the dynamic transfer buf.\n
 P:AB4A:LAB4A
-P:AB69:LAB69
-P:AB7B:LAB7B
-P:AB7C:LAB7C
-P:AB7E:LAB7E
+P:AB53:: Load a character from the string and copy it to\n the transfer record until we read character $FF.\n
+P:AB60:: A regular space takes as much time to emit as any character.\n But it makes no sound.\n
+P:AB64:: "Heart taken/character" tune
+P:AB69:LAB69: Point to the next character in the string.\n
+P:AB6C:: Replace the low byte of the VRAM address with the one\n where the next character should be written.\n
+P:AB72:: Once the low VRAM address rolls over,\n increment the high address.\n
+P:AB7B:LAB7B_Exit
+P:AB7C:LAB7C_AdvanceSubmode
+P:AB7E:LAB7E_Exit
 P:AB7F:UpdateMode13WinGame_Sub4
-P:ABB8:FABB8
-P:ABC4:UpdateMode13WinGame_Sub3
-P:ABD6:LABD6
+P:AB82:: Put the triforce in object slot 2 at location ($78, $88).\n
+P:AB8C:: Triforce item ID
+P:AB91:: Reuse object slot 2 for the ash pile.\n
+P:AB93:: Ganon object type
+P:AB9B:: Don't let the player skip ahead for a little while.\n
+P:AB9F:: If Start hasn't been pressed, then return.\n
+P:ABA5:: Start was pressed. We'll transition to mode $D to save.\n
+P:ABB8:DrawAshPile
+P:ABBB:: Ganon-ashes frame image
+P:ABC0-ABC1:CreditsLastScreenList
+P:ABC2-ABC3:CreditsLastVscrollList
+P:ABC4:UpdateMode13WinGame_Sub3: After scrolling 8 pixels, draw another tile row.\n
+P:ABD6:LABD6: Add $80 to the scroll speed fraction.\n
+P:ABDD:: Carry over to the tile offset and current V-scroll.\n
 P:ABE2:LABE2
-P:ABF3:LABF3
-P:AC00:LAC00
-P:AC15:LAC15
-P:AE13:FAE13
+P:ABE8:: If we've reached the bottom of a nametable, then\n roll over current V-scroll to 0, and increase number of\n screens scrolled.\n
+P:ABF3:LABF3: Roll the carry from the comparison above into bit 0.\n So, if reached the bottom of a nametable, switch nametables.\n
+P:ABF6:: Put the quest number in Y register.\n
+P:AC00:LAC00: If we're not showing the last screen, then return.\n
+P:AC08:: If we haven't scrolled the last amount in the last screen,\n then return.\n
+P:AC0F:: But if we have, then go to the next submode, and set a timer\n to wait $40 frames in the next submode.\n
+P:AC15:LAC15_Exit
+P:AC16-AC21:CreditLineVramAddrsHi
+P:AC22-AC2D:CreditsPagesTextMasks
+P:AC2E-AC44:CreditsTextAddrsLo
+P:AC45-AC5B:CreditsTextAddrsHi
+P:AC5C:CreditsTextLines
+P:ADFA-AE01:CreditsAttrs
+P:AE13:DrawCredits: Make a transfer record of a full row of blank tiles.\n
 P:AE17:LAE17
-P:AE2C:LAE2C
+P:AE1D:: No wall tiles go in row 0.\n
+P:AE22:: Rows 1 and $2E get horizontal wall tiles.\n Rows 2 to $2D get side walls.\n
+P:AE2C:LAE2C_WriteHorizontalWalls
+P:AE2E:: Wall bricks tile
 P:AE30:LAE30
-P:AE36:LAE36
-P:AE3E:LAE3E
-P:AE63:LAE63
+P:AE36:LAE36_WriteSideWalls: Wall bricks tile
+P:AE3E:LAE3E_TerminateRecords: Put the buffer's end marker -- whether we transfer tiles and\n attributes or only tiles.\n
+P:AE40:: The end of the first record: tiles
+P:AE43:: The end of the second record: NT attributes
+P:AE46:: Specify that we're transferring $20 bytes/tiles.\n
+P:AE4B:: Write the high byte of the current VRAM page.\n
+P:AE54:: The line number will be used to shift the task mask below.\n
+P:AE58:: Multiply the VRAM line number by $20 to get the low VRAM address.\n
+P:AE60:: Get the mask for the current VRAM page.\n
+P:AE63:LAE63: Shift left as many times as the current VRAM line number,\n to get the bit that indicates whether this line has text.\n
+P:AE69:: The mask inidcates that it should have text.\n But if line index >= $17, then it doesn't.\n
+P:AE70:: In the first quest, don't consider line numbers >= $10.\n
 P:AE7B:LAE7B
+P:AE80:: In the second quest, skip lines $C to $F.\n
 P:AE8A:LAE8A
+P:AE94:: First read the length of the string.\n
+P:AE98:: The length of the string
+P:AE9A:: Second, read the offset where the first character goes\n in the line.\n
+P:AE9E:: Loop over each character in the rest of the credits source record.\n
 P:AE9F:LAE9F
+P:AEA4:: Increment the source pointer.
+P:AEA5:: Increment the destination pointer.
+P:AEA6:: Decrement the count remaining.
+P:AEAA:: If line index <> $11, go increment.\n
+P:AEB5:: Line index = $11, prepare to read the player's name.\n
+P:AEBB:: Copy the player's name at offset 9 in string to transfer.\n
 P:AEBD:LAEBD
+P:AEC9:: Format the death count for the current save slot.\n
+P:AED2:: Copy the decimal death count at offset 19 in string to transfer.\n
 P:AED4:LAED4
-P:AEDF:LAEDF
-P:AEE2:LAEE2
-P:AEF2:LAEF2
+P:AEDF:LAEDF_IncLine
+P:AEE2:LAEE2_IncVramLine
+P:AEE5:: In each VRAM page there are 8 lines, except in ones where\n (page MOD 4) = 3. This means $23xx and $2Bxx.\n These pages have 6 lines.\n
+P:AEF2:LAEF2: If the VRAM line number has not just been incremented to\n the reference line number count, then go write NT attributes.\n
+P:AEF7:: Else roll over the VRAM line to 0.\n
+P:AEFC:: Increment the VRAM page number.\n
+P:AF00:: If it has reached $C, then roll it over to 0.\n
 P:AF05:LAF05
-P:AF08:LAF08
+P:AF08:LAF08_WriteAttributes: Every 4 rows, we have to transfer NT attributes.\n So, when (counter MOD 4) <> 0, skip filling an attribute record.\n
+P:AF11:: Attributes for the left and right blocks are 0.\n
+P:AF19:: The row was already divided by 4. So now it refers to an\n NT attribute block row. Look up the attribute byte to use\n for almost every block in this NT attribute block row.\n
+P:AF1D:: Fill a record with this byte, so the whole NT attribute block\n row is changed.\n
 P:AF1F:LAF1F
+P:AF25:: If tiles are being written to NT 1 (>= $2800), then\n write the high byte of NT 1's attribute space (>= $2BC0).\n Else write the high byte of NT 0's attribute space (>= $23C0).\n
 P:AF30:LAF30
-P:AF43:LAF43
+P:AF33:: Every attribute block row is at an offset (tile row * 2).\n
+P:AF39:: Add the offset to the low byte of attribute space base\n ($23C0 or $2BC0); and write it to the record.\n
+P:AF3E:: 8 bytes in the attribute row record.
+P:AF43:LAF43_IncRow: Add 1 to the row.\n
+P:AF47:: Skip the last two rows in each cycle.\n When (row MOD $20) gets to $1E, add 2.\n\n Again, this is because there are\n 240 pixels vertically instead of 256.\n
 P:AF50:LAF50
-P:AF5A:LAF5A
-P:AF5C:LAF5C
+P:AF54-AF59:WorldFlagBlockAddrs
+P:AF5A:SwitchProfileToSecondQuest: Clear $80 bytes of each block of world flags.\n
+P:AF5C:LAF5C_ClearBlock
 P:AF6A:LAF6A
+P:AF73:: Clear $28 byte block of items.\n
 P:AF75:LAF75
+P:AF7B:: Set 3 full hearts and heart containers.\n
 P:BFAC:SwitchBank_Local2
 P:C000-C013:LevelPatternBlockSrcAddrs
 P:C014-C027:BossPatternBlockSrcAddrs
@@ -3523,7 +3638,7 @@ P:12987:UpdateZelda
 P:1298E:: State 0.\n\n If Link's X < $70 or >= $81, or Link's Y <> $95, then return.\n
 P:1299E:: Else Link is near enough to Zelda.\n Go to state 1, and halt Link.\n
 P:129A4:: Put Link at location ($88, $88) and facing left.\n
-P:129AE:: TODO: ?\n
+P:129AE:: Play the Zelda fanfare.\n
 P:129B3:: Set a delay of $80 frames at the beginning of the next state.\n
 P:129B7:L129B7
 P:129B8:L129B8: State 1.\n\n Draw Link, then return if the object timer <> 0.\n
@@ -6072,7 +6187,7 @@ P:1E9BD:L1E9BD: vertical mirroring
 P:1E9BF:L1E9BF
 P:1E9C2:L1E9C2
 P:1E9C3:InitModeEandF
-P:1E9CB:InitMode13
+P:1E9CB:InitMode13: Make sure horizontal mirroring is on.\n
 P:1E9D8:InitMode3
 P:1E9E5-1E9F6:InitMode3_JumpTable
 P:1E9F7:InitMode3_Sub0
@@ -6949,7 +7064,7 @@ S:0BBD-0BCC:LevelInfo_SubmenuMapMask
 S:0BCD-0BF9:LevelInfo_StatusBarMapTransferBuf
 S:0BFA:LevelInfo_PaletteCycles
 S:0C5A-0C79:LevelInfo_DeathPaletteSeries
-S:0C90:BeginUpdateMode
+S:0C90:BeginUpdateMode: Returns:\n A: 0\n
 S:0C97-0CBF:StatusBarTransferBufTemplate
 S:0CC0:World_ChangeRupees
 S:0CC2:: If a static transfer buf is already chosen, then return.
@@ -7025,7 +7140,7 @@ S:0ECE:: TODO: else, clear [$0529]
 S:0ED1:: and use a half heart tile.
 S:0ED5:: Use an empty heart tile.
 S:0ED9:: Emit chosen tile to buf.
-S:0EE9:_Unknown_MusicRoutine1
+S:0EE9:SilenceAllSound
 S:0EF9-0EFA:SpriteRelativeExtents
 S:0EFB:ShowLinkSpritesBehindHorizontalDoors
 S:0F23:: TODO: Is this ever run?
@@ -7154,7 +7269,8 @@ S:1225:: If you're in level 9, use the "active" palette only.
 S:122D:: If player hasn't gotten the piece,
 S:1235:: then every 16 frames,
 S:1238:: switch between two palettes.
-S:1248:UpdateWorldCurtainEffect: Params:\n [$7C]/ObjX[$C]: column index that will be decreased + 1\n [$7D]/ObjX[$D]: column index that will be increased + 1\n
+S:1240:UpdateWorldCurtainEffect_Bank2
+S:1248:UpdateWorldCurtainEffect: Params:\n [$7C]/ObjX[$C]: column index that will be decreased + 1\n [$7D]/ObjX[$D]: column index that will be increased + 1\n\n Switches to bank 5.\n
 S:124A:: Delay until ObjTimer[0] expires.
 S:124C:: Start with column index in [$7D] ObjX[$D].
 S:1252:: Get current column index.

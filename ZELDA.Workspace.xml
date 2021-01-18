@@ -847,7 +847,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>43555</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>UpdateMode13WinGame_Sub0</Label>
+      <Label>UpdateMode13WinGame_Sub0_Flash</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -864,7 +864,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>43972</Address>
       <AddressType>PrgRom</AddressType>
       <Label>UpdateMode13WinGame_Sub3</Label>
-      <Comment />
+      <Comment> After scrolling 8 pixels, draw another tile row.&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -1016,7 +1017,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>125387</Address>
       <AddressType>PrgRom</AddressType>
       <Label>InitMode13</Label>
-      <Comment />
+      <Comment> Make sure horizontal mirroring is on.&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -5162,7 +5164,7 @@ def</Comment>
     <CodeLabel>
       <Address>3817</Address>
       <AddressType>SaveRam</AddressType>
-      <Label>_Unknown_MusicRoutine1</Label>
+      <Label>SilenceAllSound</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -7612,7 +7614,9 @@ def</Comment>
       <Address>3216</Address>
       <AddressType>SaveRam</AddressType>
       <Label>BeginUpdateMode</Label>
-      <Comment />
+      <Comment> Returns:&#xD;
+ A: 0&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -13231,6 +13235,8 @@ def</Comment>
       <Comment> Params:&#xD;
  [$7C]/ObjX[$C]: column index that will be decreased + 1&#xD;
  [$7D]/ObjX[$D]: column index that will be increased + 1&#xD;
+&#xD;
+ Switches to bank 5.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -42843,7 +42849,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>77</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>RedLeeverLongTimer</Label>
+      <Label>_RedLeeverLongTimer</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -57322,7 +57328,7 @@ For example:&#xD;
       <Address>76206</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: ?&#xD;
+      <Comment> Play the Zelda fanfare.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -61390,41 +61396,41 @@ For example:&#xD;
     <CodeLabel>
       <Address>43264</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA900</Label>
+      <Label>InitMode13_Full</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>43279</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA90F</Label>
+      <Label>InitMode13_Sub0</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>43297</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>FA921</Label>
+      <Label>UpdateEndGameCurtainEffect</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>43321</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA939</Label>
+      <Label>LA939_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>43327</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA93F</Label>
+      <Label>InitMode13_Sub1</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -61446,9 +61452,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>43391</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA97F</Label>
+      <Label>InitMode13_Sub2</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -61462,9 +61468,11 @@ For example:&#xD;
     <CodeLabel>
       <Address>43413</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>FA995</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Label>UpdateZeldaTextbox</Label>
+      <Comment> Returns:&#xD;
+ ObjState[1]: 0 if still updating&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -61479,48 +61487,55 @@ For example:&#xD;
       <Address>43435</Address>
       <AddressType>PrgRom</AddressType>
       <Label>LA9AB</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Comment> Replace the low byte of the VRAM address with the one&#xD;
+ where the next character should be written.&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>43492</Address>
       <AddressType>PrgRom</AddressType>
       <Label>LA9E4</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Comment> The index chooses the low VRAM address of the start&#xD;
+ of another line:&#xD;
+   0: $C4: front of the second line&#xD;
+   1: $E4: front of the third line&#xD;
+   2: $A4: front of the first line&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>43508</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA9F4</Label>
+      <Label>LA9F4_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>43509</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA9F5</Label>
+      <Label>InitMode13_Sub3</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>43519</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA9FF</Label>
+      <Label>InitMode13_Sub4</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>43571</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LAA33</Label>
+      <Label>LAA33_ChangePalette</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -61534,49 +61549,55 @@ For example:&#xD;
     <CodeLabel>
       <Address>43599</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LAA4F</Label>
+      <Label>LAA4F_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>43600</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LAA50</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Label>LAA50_AdvanceSubmode</Label>
+      <Comment> Play the ending song.&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>43618</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>FAA62</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Label>DrawLinkZeldaTriforces</Label>
+      <Comment> The triforce over Link goes in the room object slot $13.&#xD;
+ Set its location $10 pixels above Link.&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>43718</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LAAC6</Label>
+      <Label>LAAC6_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>43719</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LAAC7</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Label>LAAC7_AdvanceSubmode</Label>
+      <Comment> Transfer the ending palette, and go to the next submode.&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>43836</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>FAB3C</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Label>UpdatePeaceTextbox</Label>
+      <Comment> Only emit a character once every 8 frames --&#xD;
+ when (counter [0412] MOD 8) = 4.&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -61591,48 +61612,50 @@ For example:&#xD;
       <Address>43881</Address>
       <AddressType>PrgRom</AddressType>
       <Label>LAB69</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Comment> Point to the next character in the string.&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>43899</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LAB7B</Label>
+      <Label>LAB7B_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>43900</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LAB7C</Label>
+      <Label>LAB7C_AdvanceSubmode</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>43902</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LAB7E</Label>
+      <Label>LAB7E_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>43960</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>FABB8</Label>
+      <Label>DrawAshPile</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>43990</Address>
       <AddressType>PrgRom</AddressType>
       <Label>LABD6</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Comment> Add $80 to the scroll speed fraction.&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -61647,32 +61670,36 @@ For example:&#xD;
       <Address>44019</Address>
       <AddressType>PrgRom</AddressType>
       <Label>LABF3</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Comment> Roll the carry from the comparison above into bit 0.&#xD;
+ So, if reached the bottom of a nametable, switch nametables.&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>44032</Address>
       <AddressType>PrgRom</AddressType>
       <Label>LAC00</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Comment> If we're not showing the last screen, then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>44053</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LAC15</Label>
+      <Label>LAC15_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>44563</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>FAE13</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Label>DrawCredits</Label>
+      <Comment> Make a transfer record of a full row of blank tiles.&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -61686,9 +61713,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>44588</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LAE2C</Label>
+      <Label>LAE2C_WriteHorizontalWalls</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -61702,25 +61729,29 @@ For example:&#xD;
     <CodeLabel>
       <Address>44598</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LAE36</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Label>LAE36_WriteSideWalls</Label>
+      <Comment> Wall bricks tile</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>44606</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LAE3E</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Label>LAE3E_TerminateRecords</Label>
+      <Comment> Put the buffer's end marker -- whether we transfer tiles and&#xD;
+ attributes or only tiles.&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>44643</Address>
       <AddressType>PrgRom</AddressType>
       <Label>LAE63</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Comment> Shift left as many times as the current VRAM line number,&#xD;
+ to get the bit that indicates whether this line has text.&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -61766,25 +61797,27 @@ For example:&#xD;
     <CodeLabel>
       <Address>44767</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LAEDF</Label>
+      <Label>LAEDF_IncLine</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>44770</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LAEE2</Label>
+      <Label>LAEE2_IncVramLine</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>44786</Address>
       <AddressType>PrgRom</AddressType>
       <Label>LAEF2</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Comment> If the VRAM line number has not just been incremented to&#xD;
+ the reference line number count, then go write NT attributes.&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -61798,9 +61831,11 @@ For example:&#xD;
     <CodeLabel>
       <Address>44808</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LAF08</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Label>LAF08_WriteAttributes</Label>
+      <Comment> Every 4 rows, we have to transfer NT attributes.&#xD;
+ So, when (counter MOD 4) &lt;&gt; 0, skip filling an attribute record.&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -61822,9 +61857,10 @@ For example:&#xD;
     <CodeLabel>
       <Address>44867</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LAF43</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Label>LAF43_IncRow</Label>
+      <Comment> Add 1 to the row.&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -61838,17 +61874,18 @@ For example:&#xD;
     <CodeLabel>
       <Address>44890</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LAF5A</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Label>SwitchProfileToSecondQuest</Label>
+      <Comment> Clear $80 bytes of each block of world flags.&#xD;
+</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>44892</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LAF5C</Label>
+      <Label>LAF5C_ClearBlock</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -69017,6 +69054,1053 @@ For example:&#xD;
       <AddressType>SaveRam</AddressType>
       <Label>SaveFileAQuestNumber2</Label>
       <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43269</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>InitMode13_Full_JumpTable</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>10</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43292</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Zelda is in object slot 1.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>4672</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>UpdateWorldCurtainEffect_Bank2</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43309</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> When the right curtain edge reaches the middle (&lt; $11),&#xD;
+ go to the next submode.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43315</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO: Why set the timer?&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43338</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Point to the front of the first textbox line,&#xD;
+ and reset the current character index.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43322</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>PlayAreaAttr0TransferBuf</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>5</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43353</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ThanksText</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>38</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43783</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>PeaceText</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>53</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43551</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>EndingFlashColors</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>4</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43405</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ThanksTextboxCharTransferRecTemplate</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>5</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43424</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Copy the 5 bytes of the textbox character transfer record template&#xD;
+ to the dynamic transfer buf.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43416</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If Zelda's timer has not expired, then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43420</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set the timer to wait 6 frames after the next character about&#xD;
+ to be shown.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43441</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Increment the low VRAM address for the next character.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43480</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Determine an index based on the high 2 bits of the character element:&#xD;
+   $80: 0&#xD;
+   $40: 1&#xD;
+   $C0: 2&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43474</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the high 2 bits of character element = 0, then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43469</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Play the "heart taken/character" tune.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43466</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> We have a non-space character. Put it in the transfer record.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43460</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If the character is $25, then it's a special space. It will still&#xD;
+ take up space, but will not take time to show -- meaning that&#xD;
+ we'll go look up the next character to transfer.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43458</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Get the current character.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43455</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Increment the index variable to point to the next character&#xD;
+ for the next time.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43452</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Load the person text current character index.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43444</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: &lt;ThanksLinkText</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43448</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: &gt;ThanksLinkText</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43410</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ThanksTextboxLineAddrsLo</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>3</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43498</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If index = 2, then we've reached the end of the text,&#xD;
+ and low VRAM address is moved to the front of the first line.&#xD;
+ So, advance the state of the person object, and unhalt Link.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43398</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set a delay of $50 frames in the next submode.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43629</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Draw Link.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43654</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Draw triforce over Link.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43666</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Draw Zelda.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43670</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The triforce over Zelda goes in slot 2.&#xD;
+ Set its location $10 pixels above her.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43681</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Draw triforce over Zelda.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43574</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Don't flash until $40 frames have passed.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43578</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Copy the level palette transfer buf.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43589</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Use (timer MOD 4) as an index to look up a color.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43593</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Change element 0 of palette 4 in buffer to change&#xD;
+ the background color.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43726</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>PeaceTextboxCharTransferRecTemplate</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>5</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43731</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>PeaceTextboxCharAddrsLo</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>52</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43605</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Wait $40 frames at the beginning of the next mode&#xD;
+ before showing text.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43609</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set a long timer of $40 ($280 frames) for the whole duration&#xD;
+ of the next submode.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43711</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> There is a delay before showing text.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43705</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Once in submode 2, only delay, instead of emitting characters.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43848</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Copy the 5 bytes of the textbox character transfer record template&#xD;
+ to the dynamic transfer buf.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43859</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Load a character from the string and copy it to&#xD;
+ the transfer record until we read character $FF.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43872</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> A regular space takes as much time to emit as any character.&#xD;
+ But it makes no sound.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43876</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> "Heart taken/character" tune</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43884</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Replace the low byte of the VRAM address with the one&#xD;
+ where the next character should be written.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43890</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Once the low VRAM address rolls over,&#xD;
+ increment the high address.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43696</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Characters stop emitting when the long timer is $10.&#xD;
+ So, keep showing Link and Zelda until it reaches 4.&#xD;
+ Then hide them and wait until it reaches 0.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44608</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The end of the first record: tiles</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44614</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Specify that we're transferring $20 bytes/tiles.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44054</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>CreditLineVramAddrsHi</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>12</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44066</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>CreditsPagesTextMasks</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>12</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44538</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>CreditsAttrs</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>8</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44871</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Skip the last two rows in each cycle.&#xD;
+ When (row MOD $20) gets to $1E, add 2.&#xD;
+&#xD;
+ Again, this is because there are&#xD;
+ 240 pixels vertically instead of 256.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1290</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>CreditsRow</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44817</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Attributes for the left and right blocks are 0.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44825</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The row was already divided by 4. So now it refers to an&#xD;
+ NT attribute block row. Look up the attribute byte to use&#xD;
+ for almost every block in this NT attribute block row.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44829</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Fill a record with this byte, so the whole NT attribute block&#xD;
+ row is changed.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44837</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If tiles are being written to NT 1 (&gt;= $2800), then&#xD;
+ write the high byte of NT 1's attribute space (&gt;= $2BC0).&#xD;
+ Else write the high byte of NT 0's attribute space (&gt;= $23C0).&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44851</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Every attribute block row is at an offset (tile row * 2).&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44857</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Add the offset to the low byte of attribute space base&#xD;
+ ($23C0 or $2BC0); and write it to the record.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44862</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> 8 bytes in the attribute row record.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44611</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The end of the second record: NT attributes</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44078</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>CreditsTextAddrsLo</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>23</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44101</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>CreditsTextAddrsHi</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>23</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44692</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> First read the length of the string.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44696</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The length of the string</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44698</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Second, read the offset where the first character goes&#xD;
+ in the line.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44702</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Loop over each character in the rest of the credits source record.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44708</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Increment the source pointer.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44709</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Increment the destination pointer.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44710</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Decrement the count remaining.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44124</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>CreditsTextLines</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1294</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>CreditsLineIndex</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44714</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If line index &lt;&gt; $11, go increment.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44725</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Line index = $11, prepare to read the player's name.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44731</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Copy the player's name at offset 9 in string to transfer.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44745</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Format the death count for the current save slot.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44754</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Copy the decimal death count at offset 19 in string to transfer.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44573</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> No wall tiles go in row 0.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44578</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Rows 1 and $2E get horizontal wall tiles.&#xD;
+ Rows 2 to $2D get side walls.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44590</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Wall bricks tile</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1292</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>CreditsVramPage</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44619</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Write the high byte of the current VRAM page.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1293</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>CreditsVramLine</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44628</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The line number will be used to shift the task mask below.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44632</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Multiply the VRAM line number by $20 to get the low VRAM address.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44640</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Get the mask for the current VRAM page.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44649</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The mask inidcates that it should have text.&#xD;
+ But if line index &gt;= $17, then it doesn't.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44656</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> In the first quest, don't consider line numbers &gt;= $10.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44672</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> In the second quest, skip lines $C to $F.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44773</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> In each VRAM page there are 8 lines, except in ones where&#xD;
+ (page MOD 4) = 3. This means $23xx and $2Bxx.&#xD;
+ These pages have 6 lines.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44791</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Else roll over the VRAM line to 0.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44796</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Increment the VRAM page number.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44800</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If it has reached $C, then roll it over to 0.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1291</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>CreditsTileOffset</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43997</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Carry over to the tile offset and current V-scroll.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44008</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If we've reached the bottom of a nametable, then&#xD;
+ roll over current V-scroll to 0, and increase number of&#xD;
+ screens scrolled.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44022</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Put the quest number in Y register.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43968</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>CreditsLastScreenList</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>2</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43970</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>CreditsLastVscrollList</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>2</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44040</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If we haven't scrolled the last amount in the last screen,&#xD;
+ then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44047</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> But if we have, then go to the next submode, and set a timer&#xD;
+ to wait $40 frames in the next submode.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43906</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Put the triforce in object slot 2 at location ($78, $88).&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43916</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Triforce item ID</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43923</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Ganon object type</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43963</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Ganon-ashes frame image</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43921</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Reuse object slot 2 for the ash pile.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43931</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Don't let the player skip ahead for a little while.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43935</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> If Start hasn't been pressed, then return.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43941</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Start was pressed. We'll transition to mode $D to save.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44884</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>WorldFlagBlockAddrs</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>6</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44915</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Clear $28 byte block of items.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>44923</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set 3 full hearts and heart containers.&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
