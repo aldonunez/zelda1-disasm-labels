@@ -420,7 +420,7 @@ P:1E26:L1E26_PrepNoteOrPassage
 P:1E38:: Control note >= $F1. The low nibble defines the number of\n repetititions of the passage starting at the next offset.\n
 P:1E47:L1E47_EndOfPassage
 P:1E52:L1E52
-P:1E55:L1E55_PrepNote
+P:1E55:L1E55_PrepNoteTrg
 P:1E6A:L1E6A_PlayNoteTrg
 P:1E78:L1E78_ApplyTrgEffects
 P:1E87:: TODO: [05F1] ?\n
@@ -741,7 +741,7 @@ P:4C9C:: If the timer has not expired, then return.\n
 P:4CA0:: Deactivate the food object in slot $F.\n
 P:4CA5:: Get rid of the food from the inventory.\n
 P:4CA8:: Make Link idle again, and reset this object's type.\n
-P:4CAD:L4CAD
+P:4CAD:InitUnderworldPerson_DoNothing
 P:4D00:CopyCommonCodeToRam: Source address $A500.
 P:4D08:: Destination address $6C90.
 P:4D12:L4D12: Copy 1 byte.
@@ -1032,7 +1032,7 @@ P:957B:L957B
 P:9584:: Reset variables used in this phase.
 P:9588:L9588
 P:9597:: Go to the next subphase and return.
-P:959A:L959A
+P:959A:InitDemoSubphaseQueueStoryTiles
 P:95A0:: Select transfer buffer 1 (offset 2 in table):\n Story nametables and attributes.
 P:95A2:EndInitDemo
 P:95AC:AnimateDemoPhase0Subphase0: Animate while we wait about 512 frames.\n
@@ -7603,7 +7603,8 @@ S:1D26-1D28:SwordDamagePoints
 S:1D29:CheckMonsterSwordCollision: Params:\n X: monster slot\n Y: weapon slot\n [02]: monster mid X\n [03]: monster mid Y\n\n Returns:\n [00]: weapon slot\n [06]: 1 if objects collide\n\n [00] holds the weapon slot
 S:1D2B::Set sword damage type (1) in [09].\n
 S:1D2F:: If the sword is not fully extended, then return.\n
-S:1D36:: Look up and set the damage points for the sword type.\n\n MULTI: SwordDamagePoints-1\n
+S:1D36:: Look up and set the damage points for the sword type.\n
+S:1D39:: DASM.EXPR: SwordDamagePoints-1
 S:1D3C:_CheckMonsterStabbingCollision: Params:\n A: damage points\n X: monster slot\n Y: weapon slot\n [02]: monster mid X\n [03]: monster mid Y\n [09]: damage type\n\n Returns:\n [06]: 1 if objects collide\n\n [07] damage points
 S:1D3E:: If Link's direction is vertical, then set collision thresholds accordingly:\n [0D] := $C\n [0E] := $10\n
 S:1D4D:: Else switch it:\n [0D] := $10\n [0E] := $C\n
