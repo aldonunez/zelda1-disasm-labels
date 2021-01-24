@@ -11094,8 +11094,8 @@ def</Comment>
     <CodeLabel>
       <Address>84622</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14A8E</Label>
-      <Comment> TODO: ?</Comment>
+      <Label>L14A8E_SilenceSound</Label>
+      <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -12194,7 +12194,7 @@ def</Comment>
       <Address>85184</Address>
       <AddressType>PrgRom</AddressType>
       <Label>L14CC0</Label>
-      <Comment> Go set this TileBufSelector value, and advance submode.</Comment>
+      <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -34903,11 +34903,10 @@ For example:&#xD;
       <Address>82138</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: #3&#xD;
- If buttons Up and A are down on the second controller, then&#xD;
+      <Comment> If buttons Up and A are down on the second controller, then&#xD;
  1. reset submenu state&#xD;
  2. go to mode 8&#xD;
- 3. play sound ?&#xD;
+ 3. silence sound&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -42001,7 +42000,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>66380</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1034C</Label>
+      <Label>L1034C_BounceShot</Label>
       <Comment> Get the reverse direction index for the bounce direction.&#xD;
 &#xD;
  TODO: Name: ObjMovingLimit&#xD;
@@ -62257,9 +62256,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>67646</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1083E</Label>
+      <Label>L1083E_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -65329,9 +65328,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>94510</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1712E</Label>
+      <Label>L1712E_SelectTransferBufAndAdvanceSubmode</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -70107,6 +70106,14 @@ For example:&#xD;
       <AddressType>SaveRam</AddressType>
       <Label />
       <Comment> DASM.EXPR: SwordDamagePoints-1</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>82006</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>UpdateMenu_Return</Label>
+      <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>

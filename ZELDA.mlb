@@ -2068,7 +2068,7 @@ P:10336:: [0D] frame image
 P:1033B:L1033B: Destroy fireballs directly. These are not kept track of.\n
 P:10346:DestroyMonsterShot
 P:10349:L10349
-P:1034C:L1034C: Get the reverse direction index for the bounce direction.\n\n TODO: Name: ObjMovingLimit\n
+P:1034C:L1034C_BounceShot: Get the reverse direction index for the bounce direction.\n\n TODO: Name: ObjMovingLimit\n
 P:10352:: Modify the coordinates according to the displacements for\n the bounce direction.\n
 P:10362:: Add 2 to the bounce distance.\n The absolute value of one of the displacements is 2.\n\n TODO: Name: ObjGridOffset\n
 P:1036B:: Go destroy the shot, if the bounce counter has reached the limit.\n Otherwise, go draw.\n
@@ -2279,7 +2279,7 @@ P:1082D:L1082D: Set the speed to whatever was determined: 0 or the value passed 
 P:10831:L10831
 P:10832:_ShootIfWanted2: Params:\n A: shot object type\n X: shooter object index\n\n Returns:\n C: 1 if succeeded\n Y: shot slot\n
 P:10835:: TODO:\n If succeeded, then set object timer to $80, and decrement [0437][X].\n\n TODO:\n What are object timer and [0437] used for?\n
-P:1083E:L1083E
+P:1083E:L1083E_Exit
 P:1083F:UpdateMonsterArrow: Set q-speed $80 (2 pixels a frame).\n
 P:10844:: If the timer has not expired, then go draw,\n and see if the shooter's still alive.\n
 P:10848:: If the arrow is sparking, then go update the base arrow.\n
@@ -4098,6 +4098,7 @@ P:14047:: 1 pixel
 P:1404C:: Set menu state 2.
 P:1404E:: SubmenuScrollProgress begins at $2B. Each frame it will be\n decremented. It encodes a submenu row index in bits 1 to 7,\n and a flag in bit 0.\n\n When the flag is 1, a full row of black tiles will be transferred\n at the current row. Otherwise, one of various static visual\n elements will be transferred.\n\n For example:\n 1. In the first frame of scrolling, $2B indicates that a full row\n    of black tiles must be transferred to row $15.\n 2. In the second frame ($2A), submenu row will again be\n    $15, but something else will be transferred.\n 3. In the third frame ($29), a full row of black tiles will be\n    transferred to row $14.\n
 P:14052:: In UW, this variable will be used to scan every room in order\n to build the big sheet map in the submenu. It will range\n from $7F to 0.\n
+P:14056:UpdateMenu_Return
 P:14057:UpdateMenuCommon2: Cue the transfer of first set of submenu nametable attributes to NT 2.\n Advance state.\n
 P:14059:L14059
 P:1405B:L1405B
@@ -4118,7 +4119,7 @@ P:140BF:: Mask off the low nibble of room ID to get a multiple of $10.\n Divide 
 P:140C9:: Write tile $3E (dot) and attributes 0 (Link palette row 4).\n
 P:140D3:L140D3
 P:140D4:UpdateMenuActive
-P:140DA:: TODO: #3\n If buttons Up and A are down on the second controller, then\n 1. reset submenu state\n 2. go to mode 8\n 3. play sound ?\n
+P:140DA:: If buttons Up and A are down on the second controller, then\n 1. reset submenu state\n 2. go to mode 8\n 3. silence sound\n
 P:140F3:L140F3: If Start was pressed, then hide all sprites except\n Link and triforce position markers, and go to the next state (scroll up).\n
 P:140F9:: Save Link's position marker's Y.
 P:140FD:: Save triforce's position marker's Y.
@@ -4535,7 +4536,7 @@ P:14A7A:: Set a timer. But no one waits for it?
 P:14A7E:: Reset submode, CurRow, and player's state.
 P:14A86:: There will be 4 turns starting from down direction.
 P:14A8C:: Start updating.
-P:14A8E:L14A8E: TODO: ?
+P:14A8E:L14A8E_SilenceSound
 P:14A96:L14A96
 P:14A97:SetDoorFlag: Params:\n X: door direction index\n\n Returns:\n Y: room ID\n [00:01]: address of level block world flags\n
 P:14AA0:ResetDoorFlag: Params:\n X: door direction index\n\n Returns:\n Y: room ID\n [00:01]: address of level block world flags\n
@@ -4637,7 +4638,7 @@ P:14CA6:CueTransferPlayAreaAttrsHalfAndAdvanceSubmode: Params:\n X: high PPU add
 P:14CAC:UpdateMode11Death_Sub2: Updates all play area tiles.\n
 P:14CB4:L14CB4: Modify the transfer record, so that it changes nametable 2.
 P:14CBE:UpdateMode11Death_Sub3: Cue transfer of top half of play area attributes.
-P:14CC0:L14CC0: Go set this TileBufSelector value, and advance submode.
+P:14CC0:L14CC0
 P:14CC3:UpdateMode11Death_Sub4: Cue transfer of bottom half of play area attributes.
 P:14CC5:: Go set this TileBufSelector value, and advance submode.
 P:14CC8:UpdateMode11Death_Sub5
@@ -5468,7 +5469,7 @@ P:17101-17116:InitModeA_JumpTable
 P:17117:_InitModeSubroom_Sub0
 P:17127:_DrawDynamicElementsBetweenRoomsAndAdvanceSubmode
 P:1712C:InitMode9_TransferAttrs: Cellar NT attributes
-P:1712E:L1712E
+P:1712E:L1712E_SelectTransferBufAndAdvanceSubmode
 P:17130:_InitMode_AdvanceSubmode
 P:17133:InitMode9_FadeToDark: Light level -> dark cellar cycle
 P:17135:L17135
