@@ -280,15 +280,15 @@ P:0E0D:SongHeaderLastLevel0
 P:0E15:SongHeaderGanon0
 P:0E1D:SongHeaderEnding0
 P:0E55:SongHeaderZelda
-P:0E5D:SongScriptItemTaken0
-P:0E70:SongScriptOverworld0
-P:10DD:SongScriptUnderworld0
-P:11A4:SongScriptEndLevel0
-P:11FD:SongScriptLastLevel0
-P:12CC:SongScriptGanon0
-P:12F7:SongScriptEnding0
-P:148B:SongScriptDemo0
-P:17C4:SongScriptZelda0
+P:0E5D-0E6F:SongScriptItemTaken0
+P:0E70-10DC:SongScriptOverworld0
+P:10DD-11A3:SongScriptUnderworld0
+P:11A4-11FC:SongScriptEndLevel0
+P:11FD-12CB:SongScriptLastLevel0
+P:12CC-12F6:SongScriptGanon0
+P:12F7-148A:SongScriptEnding0
+P:148B-17C3:SongScriptDemo0
+P:17C4-1824:SongScriptZelda0
 P:1825:DriveAudio: If the game is paused, then silence all channels\n by first disabling them, then enabling them.\n\n Then go drive tune channel 0 only.\n
 P:1835:L1835_Play: Else the game is not paused.\n\n Synchronize the APU frame counter once a video frame.\n
 P:183A:: Drive each game sound channel.\n

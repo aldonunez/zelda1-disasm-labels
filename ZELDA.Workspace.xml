@@ -41076,8 +41076,6 @@ For example:&#xD;
       <AddressType>SaveRam</AddressType>
       <Label />
       <Comment> Look up and set the damage points for the sword type.&#xD;
-&#xD;
- MULTI: SwordDamagePoints-1&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -59714,7 +59712,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>7765</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1E55_PrepNote</Label>
+      <Label>L1E55_PrepNoteTrg</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -60165,9 +60163,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>19629</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L4CAD</Label>
+      <Label>InitUnderworldPerson_DoNothing</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -60492,9 +60490,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>38298</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L959A</Label>
+      <Label>InitDemoSubphaseQueueStoryTiles</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -68193,7 +68191,7 @@ For example:&#xD;
       <Label>SongScriptItemTaken0</Label>
       <Comment />
       <Flags>None</Flags>
-      <Length>1</Length>
+      <Length>19</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>4516</Address>
@@ -68201,7 +68199,7 @@ For example:&#xD;
       <Label>SongScriptEndLevel0</Label>
       <Comment />
       <Flags>None</Flags>
-      <Length>1</Length>
+      <Length>89</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>3696</Address>
@@ -68209,7 +68207,7 @@ For example:&#xD;
       <Label>SongScriptOverworld0</Label>
       <Comment />
       <Flags>None</Flags>
-      <Length>1</Length>
+      <Length>621</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>4317</Address>
@@ -68217,7 +68215,7 @@ For example:&#xD;
       <Label>SongScriptUnderworld0</Label>
       <Comment />
       <Flags>None</Flags>
-      <Length>1</Length>
+      <Length>199</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>4605</Address>
@@ -68225,7 +68223,7 @@ For example:&#xD;
       <Label>SongScriptLastLevel0</Label>
       <Comment />
       <Flags>None</Flags>
-      <Length>1</Length>
+      <Length>207</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>4812</Address>
@@ -68233,7 +68231,7 @@ For example:&#xD;
       <Label>SongScriptGanon0</Label>
       <Comment />
       <Flags>None</Flags>
-      <Length>1</Length>
+      <Length>43</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>4855</Address>
@@ -68241,7 +68239,7 @@ For example:&#xD;
       <Label>SongScriptEnding0</Label>
       <Comment />
       <Flags>None</Flags>
-      <Length>1</Length>
+      <Length>404</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>6084</Address>
@@ -68249,7 +68247,7 @@ For example:&#xD;
       <Label>SongScriptZelda0</Label>
       <Comment />
       <Flags>None</Flags>
-      <Length>1</Length>
+      <Length>97</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>5259</Address>
@@ -68257,7 +68255,7 @@ For example:&#xD;
       <Label>SongScriptDemo0</Label>
       <Comment />
       <Flags>None</Flags>
-      <Length>1</Length>
+      <Length>825</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>3460</Address>
@@ -70101,6 +70099,14 @@ For example:&#xD;
       <Label />
       <Comment> Set 3 full hearts and heart containers.&#xD;
 </Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>7481</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: SwordDamagePoints-1</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
