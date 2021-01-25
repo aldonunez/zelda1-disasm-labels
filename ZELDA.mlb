@@ -3689,7 +3689,7 @@ P:12AC6:L12AC6: Loop to rotate the direction bit over the mask.\n The goal is to
 P:12ACB:L12ACB: If the current direction bit is masked off, then we've reached\n the opposite direction. Loop again.\n
 P:12AD0:: If Y register >= $40, then break out of the loop.\n So, 75% of the time, if horizontal, then turn up, else left.\n
 P:12AD4:: Set Y register to $40 in order to break out of the loop next time;\n and loop again now.\n So, 25% of the time, if horizontal, then turn down, else right.\n
-P:12AD8:L12AD8: Change the facing direction to the direction found.\n
+P:12AD8:L12AD8_SetDirAndCheckTiles: Change the facing direction to the direction found.\n
 P:12ADA:: Set moving direction [0F] for boundary and tile checks.\n
 P:12ADF:: If not blocked by the room boundary, then go check tile collision.\n
 P:12AE3:L12AE3: Else it was blocked. So, load the facing direction in preparation\n for looking for any non-opposite direction that is not blocked.\n
@@ -3927,7 +3927,7 @@ P:130E4:L130E4: Set ObjItemLifetime to $FF.\n
 P:130E9:: Set ObjItemId.\n
 P:130ED:: If the item is a fairy, we have to finish setting it up.\n
 P:130F4:L130F4
-P:130F5:L130F5
+P:130F5:L130F5_DestroyMonster
 P:130F8-130FB:ItemTakerObjSlots
 P:130FC:UpdateItem: Every other frame, decrement the item lifetime.\n
 P:13101:: MULTI: ObjItemLifetime
@@ -3994,7 +3994,7 @@ P:13266:Flyer_SpeedUp: TODO:\n Increase speed each frame.\n When it reaches a th
 P:13269:L13269
 P:13270:: TODO:\n ([041F][X] & $E0) = 0\n Set a random timer between $40 and $7F.\n
 P:13278:: Go to flying state 5.\n
-P:1327A:L1327A
+P:1327A:L1327A_SetFlyingState
 P:1327D:L1327D
 P:1327E:L1327E
 P:13281:: TODO: If ([041F][X] & $E0) < [04D1], return.
@@ -4028,7 +4028,7 @@ P:13307:L13307
 P:13308:Flyer_Chase: Description:\n Turn towards the player a number of times.\n Then go to state 1. After each turn delay $10 frames.\n\n\n Delay until timer = 0.\n
 P:1330A:: If timer is not expired, then return.
 P:1330C:: Decrease the turn counter.\n Once there are no more turns, go to flying state 1.\n
-P:13311:L13311
+P:13311:L13311_SetFlyingState1
 P:13316:L13316: Set a delay of $10 frames.\n
 P:1331A:TurnTowardsPlayer8: Build a direction in [00] towards the player.\n\n First, calculate a horizontal component:\n\n If   observed player X = object X, [00] := 0 (none)\n elif observed player X > object X, [00] := 1 (right)\n else                               [00] := 2 (left)\n
 P:13328:L13328
@@ -5596,7 +5596,7 @@ P:173A2:: Combined opposite verticals (4 OR 8).
 P:173A4:: If the directions are perpendicular, go handle this case.
 P:173A6:L173A6
 P:173A9:SetObjDirAndInputDir: Params:\n A: direction\n
-P:173AB:L173AB
+P:173AB:L173AB_SetLinkInputDir
 P:173AF:L173AF: The directions are perpendicular.\n\n Keep going in facing direction, if that's what Link's been told to do.\n
 P:173B3:: Link's movement grid cell size is 8. If he's moved half that\n length or more, then return.\n
 P:173BF:: [01] holds the opposite of facing direction.
@@ -6333,7 +6333,7 @@ P:1ED67:: Check zora.
 P:1ED6A:L1ED6A: If there are tiles or palettes in the dynamic transfer buf, then\n do not handle the status bar map trigger.\n
 P:1ED6F:: Transfer the level's status bar map, if we got the signal.\n
 P:1ED79:: Cue the transfer of the level's status bar map.
-P:1ED7D:L1ED7D: These actions are done after Link is updated, regardless\n of whether other objects were updated.\n
+P:1ED7D:L1ED7D_FinishUpdatePlay: These actions are done after Link is updated, regardless\n of whether other objects were updated.\n
 P:1ED89:UpdateHeartsAndRupees
 P:1EDA0:UpdatePlayer
 P:1EDA5:: If Link is halted, then return.\n
@@ -6500,7 +6500,7 @@ P:1F133:L1F133: Tile is not walkable. Object is player.\n\n Check passive tile o
 P:1F13F:L1F13F: Reset moving direction and buttons pressed.\n If in UW, we're done.\n In OW, go check the screen edge.\n
 P:1F148:L1F148
 P:1F149:ResetMovingDir: Returns:\n A: 0\n [0F]: 0\n
-P:1F14E:L1F14E: If object is not Link, then the tile is walkable. Go see if this direction\n makes the object cross a boundary. Then go check another direction if it does,\n or else make this the object direction.\n
+P:1F14E:L1F14E_GoWalkableDir: If object is not Link, then the tile is walkable. Go see if this direction\n makes the object cross a boundary. Then go check another direction if it does,\n or else make this the object direction.\n
 P:1F152:: The object is Link. We end up here regardless of walkability.\n\n If not in mode 5 or ladder is in use, return.\n
 P:1F15C:: If grid offset <> 0, return.\n
 P:1F161:CheckScreenEdge
@@ -6621,10 +6621,10 @@ P:1F3F4:: State $21 means that a moving fire was just made.\n\n If it's any anot
 P:1F3FA:: Make state $22 for a standing fire.\n
 P:1F3FC:: Copy the shot's position and direction to the fire.\n
 P:1F40D:: The fire lasts $4F frames.\n Deactivate the shot.\n
-P:1F411:L1F411
+P:1F411:L1F411_DeactivateLinkShot
 P:1F413:L1F413
 P:1F416:L1F416: MULTI: ObjDir -> ObjSwordShotNegativeOffset\n\n Set the state to spreading out (low bit is set).\n\n Set [98][X] to base negative offset -2. This is how far the left\n corners will be shown relative to the center point at object X, Y.\n The right corners will be shown 2 pixels in the opposite direction\n of the center point.\n
-P:1F41D:L1F41D: MULTI: ObjDir -> ObjSwordShotNegativeOffset\n\n The shot is spreading out.\n\n Copy base negative offset in [98][X] to [02] and [03].\n These will be negated appropriately for each corner.\n
+P:1F41D:L1F41D_SpreadShot: MULTI: ObjDir -> ObjSwordShotNegativeOffset\n\n The shot is spreading out.\n\n Copy base negative offset in [98][X] to [02] and [03].\n These will be negated appropriately for each corner.\n
 P:1F423:: Reset [0F] to not flip horizontally.\n
 P:1F427:: Loop 4 times to draw each corner of the spreading sword shot.\n The corners are: top-left, bottom-left, bottom-right, top-right\n
 P:1F429:L1F429: Save the loop index.
@@ -6688,12 +6688,12 @@ P:1F57B:DrawArrow: This is an arrow. Set up sprite parameters.\n\n If facing lef
 P:1F587:L1F587: Get the reverse direction index that the weapon is facing.
 P:1F58A:: Store the weapon's frame (up or right) in [0C].\n
 P:1F58F:: Store the base sprite attribute in [04].\n
-P:1F592:L1F592
+P:1F592:L1F592_SetAttrAndDrawArrow
 P:1F594:: If this is a monster's arrow, add 2 to sprite attributes in [04].\n This chooses palette row 6.\n\n Otherwise, add the arrow item value less 1. This chooses\n palette row 4 if the arrow is wooden, otherwise 5 for silver.\n
 P:1F5A6:L1F5A6
 P:1F5AD:L1F5AD
 P:1F5AF:: Copy the attribute to [05], and go draw.\n
-P:1F5B6:L1F5B6: If major state <> $20, go check other states.\n
+P:1F5B6:L1F5B6_CheckState20: If major state <> $20, go check other states.\n
 P:1F5BA:: State $2x. Spark.\n\n Change the state to $28, and decrement animation counter.\n If it hasn't reached 0, then go draw and check for collision\n (with Link, if this is a monster's boomerang).\n\n TODO: Why state $28?\n I thought that it was set to $28, so that the animation frame cycle will\n start over again when spinning.\n But when animation counter reaches 0, state will be set to $40.\n If the counter hasn't reached 0, then I don't *think* that\n any drawing code depends on the minor state.\n
 P:1F5C3:: Animation counter = 0.\n\n Set state to $40. It will become $50 below in\n HandleArrowOrBoomerangBlocked.\n
 P:1F5C7:: If this is an arrow (monster's or player's), then deactivate it.\n Else go handle the boomerang being blocked.\n
@@ -6743,7 +6743,7 @@ P:1F6FA:: Store the base sprite attribute for this point in the cycle in [04].\n
 P:1F700:: TODO: ?\n If base sprite attribute in [04] = 8, then leave [04] as it is.\n Else add the item value of the magic boomerang.\n\n But none of the values in the base sprite attributes array is 8.\n\n As far I can tell, the magic boomerang's item value (0 or 1) in\n the inventory will always be added to the base sprite attribute.\n\n So, palette row 4 or 5 will be chosen.\n
 P:1F709:L1F709
 P:1F70F:: Boomerang item slot
-P:1F714:_DrawArrow: Params:\n Y: reverse direction index that the weapon is facing\n\n\n [00] and [01] will hold sprite X and Y.\n Begin with the horizontal and vertical offsets.\n
+P:1F714:L1F714_OffsetAndDrawArrow: Params:\n Y: reverse direction index that the weapon is facing\n\n\n [00] and [01] will hold sprite X and Y.\n Begin with the horizontal and vertical offsets.\n
 P:1F71E:: Arrow item slot
 P:1F720:_DrawArrowOrBoomerang: Add the weapon's true coordinates to offsets in [00] and [01].\n
 P:1F72E:: If state = $2x (spark), use palette row 5 to write sprites.\n Otherwise, use the sprite attributes we already calculated.\n
@@ -7322,6 +7322,7 @@ S:13A7:: Compass item slot
 S:13AB:: Triforce pieces item slot
 S:13AF:: Triforce of Power item slot
 S:13B3:: Finally, this is a simple item. Put the item value in the item slot.\n
+S:13B8:L6C28_Exit
 S:13B9:: For 5 Rupees, perform the action for 1 rupee 5 times.\n
 S:13C2:: A: item class\n X: item type\n Y: item slot\n
 S:13C4:: Go check class 2 items.
@@ -7342,7 +7343,7 @@ S:1409:: If we already have max hearts, return.
 S:140D:: Go set the item value and return.
 S:1413:: Make sure this is an item of a type ordered by grade.\n Then go handle it.\n
 S:1415:: If the class is $30, go set item value to $FF.
-S:1419:: We're taking a class 0 complex item found in UW.\n\n A: item class\n X: item type\n Y: item slot\n
+S:1419:L6C89_TakeClass0Complex: We're taking a class 0 complex item found in UW.\n\n A: item class\n X: item type\n Y: item slot\n
 S:141B:: If in OW, return.
 S:141D:: Triforce of Power item slot
 S:1421:: Map item slot
@@ -7357,7 +7358,7 @@ S:1436:: Combine the mask for this level with the mask in the item slot.\n
 S:143F:: If the item taken was a triforce piece, then go to mode $12.\n
 S:1441:: If it's not a triforce piece, then return.
 S:144B:TakeHearts: Params:\n [0A]: item value/amount\n
-S:144E:: Move item value in [0A] to [01].
+S:144E:L6CBE_TakeHeartsNoSound: Move item value in [0A] to [01].
 S:1450:: [01] holds the number of hearts to add minus 1.
 S:1452:: For that many hearts, add them one by one.\n
 S:1455:: If there's room to add a whole heart, go add it.

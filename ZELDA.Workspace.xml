@@ -23540,7 +23540,7 @@ def</Comment>
     <CodeLabel>
       <Address>126333</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1ED7D</Label>
+      <Label>L1ED7D_FinishUpdatePlay</Label>
       <Comment> These actions are done after Link is updated, regardless&#xD;
  of whether other objects were updated.&#xD;
 </Comment>
@@ -23905,7 +23905,7 @@ def</Comment>
     <CodeLabel>
       <Address>5145</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L6C89_TakeClass0Complex</Label>
       <Comment> We're taking a class 0 complex item found in UW.&#xD;
 &#xD;
  A: item class&#xD;
@@ -24151,7 +24151,7 @@ def</Comment>
     <CodeLabel>
       <Address>5198</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L6CBE_TakeHeartsNoSound</Label>
       <Comment> Move item value in [0A] to [01].</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -27707,7 +27707,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>127310</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1F14E</Label>
+      <Label>L1F14E_GoWalkableDir</Label>
       <Comment> If object is not Link, then the tile is walkable. Go see if this direction&#xD;
  makes the object cross a boundary. Then go check another direction if it does,&#xD;
  or else make this the object direction.&#xD;
@@ -29948,7 +29948,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>128029</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1F41D</Label>
+      <Label>L1F41D_SpreadShot</Label>
       <Comment> MULTI: ObjDir -&gt; ObjSwordShotNegativeOffset&#xD;
 &#xD;
  The shot is spreading out.&#xD;
@@ -31534,7 +31534,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>128438</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1F5B6</Label>
+      <Label>L1F5B6_CheckState20</Label>
       <Comment> If major state &lt;&gt; $20, go check other states.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -31797,7 +31797,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>128788</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_DrawArrow</Label>
+      <Label>L1F714_OffsetAndDrawArrow</Label>
       <Comment> Params:&#xD;
  Y: reverse direction index that the weapon is facing&#xD;
 &#xD;
@@ -54217,7 +54217,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>76504</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L12AD8</Label>
+      <Label>L12AD8_SetDirAndCheckTiles</Label>
       <Comment> Change the facing direction to the direction found.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -63808,9 +63808,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>78069</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L130F5</Label>
+      <Label>L130F5_DestroyMonster</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -63864,9 +63864,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>78458</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1327A</Label>
+      <Label>L1327A_SetFlyingState</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -63920,9 +63920,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>78609</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L13311</Label>
+      <Label>L13311_SetFlyingState1</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -65512,9 +65512,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>95147</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L173AB</Label>
+      <Label>L173AB_SetLinkInputDir</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -66640,9 +66640,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>128017</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1F411</Label>
+      <Label>L1F411_DeactivateLinkShot</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -66720,9 +66720,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>128402</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1F592</Label>
+      <Label>L1F592_SetAttrAndDrawArrow</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -70113,6 +70113,14 @@ For example:&#xD;
       <Address>82006</Address>
       <AddressType>PrgRom</AddressType>
       <Label>UpdateMenu_Return</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>5048</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L6C28_Exit</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
