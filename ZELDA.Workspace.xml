@@ -11377,7 +11377,7 @@ def</Comment>
     <CodeLabel>
       <Address>96242</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L177F2</Label>
+      <Label>L177F2_CheckBoomerangs</Label>
       <Comment> Check the boomerangs.&#xD;
 &#xD;
  Start with the magical boomerang.</Comment>
@@ -14376,7 +14376,7 @@ def</Comment>
     <CodeLabel>
       <Address>82954</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1440A</Label>
+      <Label>L1440A_CombineInnerOuter</Label>
       <Comment> Combine the NT attributes at current offset with the&#xD;
  new ones we're filling; so that new (inner) attributes&#xD;
  affect the top half of the row.</Comment>
@@ -14741,7 +14741,7 @@ def</Comment>
     <CodeLabel>
       <Address>91196</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1643C</Label>
+      <Label>L1643C_DecBottomOffset</Label>
       <Comment> Subtract A=1 from bottom offset.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -14774,7 +14774,7 @@ def</Comment>
     <CodeLabel>
       <Address>91232</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L16460</Label>
+      <Label>L16460_LoopWallTile</Label>
       <Comment> Get a tile from wall tile list.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -14849,7 +14849,7 @@ def</Comment>
     <CodeLabel>
       <Address>91188</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L16434</Label>
+      <Label>L16434_ReachedTopWallBottom</Label>
       <Comment> Read a zero tile. Reached the bottom of a top wall.&#xD;
 &#xD;
  Set up A and X to move top and bottom offsets to the next column.&#xD;
@@ -14879,7 +14879,7 @@ def</Comment>
     <CodeLabel>
       <Address>91301</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L164A5</Label>
+      <Label>L164A5_LoopRotate</Label>
       <Comment> Copy 1 tile.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -15220,7 +15220,7 @@ def</Comment>
     <CodeLabel>
       <Address>91524</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L16584</Label>
+      <Label>L16584_LoopRowTile</Label>
       <Comment> Copy 1 door tile.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -15245,7 +15245,7 @@ def</Comment>
     <CodeLabel>
       <Address>91517</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1657D</Label>
+      <Label>L1657D_LoopColumn</Label>
       <Comment> For each column (3 or 2), indexed by [05] down to 1:&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -15865,7 +15865,7 @@ def</Comment>
     <CodeLabel>
       <Address>95845</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L17665</Label>
+      <Label>L17665_ByDoorType</Label>
       <Comment> The door attribute indicates the walkability.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -16062,7 +16062,7 @@ def</Comment>
     <CodeLabel>
       <Address>92005</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L16765</Label>
+      <Label>L16765_FindSquare</Label>
       <Comment> Get a square descriptor.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -16070,7 +16070,7 @@ def</Comment>
     <CodeLabel>
       <Address>92016</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L16770</Label>
+      <Label>L16770_FoundColumn</Label>
       <Comment> We found the column.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -16190,7 +16190,7 @@ def</Comment>
     <CodeLabel>
       <Address>92128</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L167E0</Label>
+      <Label>L167E0_WriteType2</Label>
       <Comment> Type 2 square.&#xD;
  Primary is a tile used for the whole square.&#xD;
  Primary &lt; $70 or &gt;= $F3.&#xD;
@@ -16275,7 +16275,7 @@ def</Comment>
     <CodeLabel>
       <Address>92026</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1677A</Label>
+      <Label>L1677A_LoopSquareRow</Label>
       <Comment> Write and repeat squares from the column.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -16332,7 +16332,7 @@ def</Comment>
     <CodeLabel>
       <Address>92072</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L167A8</Label>
+      <Label>L167A8_NextLoopSquareRow</Label>
       <Comment> Increment the processed row count.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -16793,7 +16793,7 @@ def</Comment>
     <CodeLabel>
       <Address>92942</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L16B0E</Label>
+      <Label>L16B0E_WriteType3</Label>
       <Comment> Type 3 square.&#xD;
  Square index refers to a set of 4 tile indexes in secondary squares table.&#xD;
  Square index &lt; $10.&#xD;
@@ -17193,7 +17193,7 @@ def</Comment>
     <CodeLabel>
       <Address>93116</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L16BBC</Label>
+      <Label>L16BBC_WriteStairs</Label>
       <Comment> The first type 1 square index.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -17569,7 +17569,7 @@ def</Comment>
     <CodeLabel>
       <Address>82673</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L142F1</Label>
+      <Label>L142F1_RestoreRoomId</Label>
       <Comment> Restore current room ID.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -17802,7 +17802,7 @@ def</Comment>
     <CodeLabel>
       <Address>82762</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1434A</Label>
+      <Label>L1434A_TransferHalfPlayAreaAttrs</Label>
       <Comment> This is the offset of the end of the first half of play area NT attributes.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -18101,7 +18101,7 @@ def</Comment>
     <CodeLabel>
       <Address>82463</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1421F</Label>
+      <Label>L1421F_LimitLow</Label>
       <Comment> Don't let the scroll position go above $2100, the bottom of&#xD;
  the status bar; nor below $2800, the top of NT 2.</Comment>
       <Flags>None</Flags>
@@ -19150,7 +19150,7 @@ def</Comment>
     <CodeLabel>
       <Address>82826</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1438A</Label>
+      <Label>L1438A_DarkenRoom</Label>
       <Comment> Going from room with light to a dark room.&#xD;
 &#xD;
 &#xD;
@@ -21191,7 +21191,7 @@ def</Comment>
     <CodeLabel>
       <Address>96355</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L17863</Label>
+      <Label>L17863_Deactivate</Label>
       <Comment> Deactivate room item object by setting ObjState[$13] to $FF.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -22091,7 +22091,7 @@ def</Comment>
     <CodeLabel>
       <Address>84384</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L149A0</Label>
+      <Label>L149A0_LoopSpawnSpot</Label>
       <Comment> Get a spawn spot from the list.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -26027,7 +26027,7 @@ def</Comment>
     <CodeLabel>
       <Address>85460</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14DD4</Label>
+      <Label>L14DD4_MaskButtons</Label>
       <Comment> The boundary was crossed. Mask buttons.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -26513,7 +26513,7 @@ def</Comment>
     <CodeLabel>
       <Address>94973</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L172FD</Label>
+      <Label>L172FD_HaveInput</Label>
       <Comment> There were input directions.&#xD;
 &#xD;
  If there was only one input direction, go set object direction&#xD;
@@ -27118,7 +27118,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>86400</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L15180</Label>
+      <Label>L15180_SearchOverflowBounds</Label>
       <Comment> Not in a doorway. Look for a doorway that Link might be in.&#xD;
 &#xD;
  To match a doorway:&#xD;
@@ -27270,7 +27270,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>86462</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L151BE</Label>
+      <Label>L151BE_LoopUnderflowDoorway</Label>
       <Comment> [00] is Link's Y, if facing horizontally; else X.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -27300,7 +27300,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>86429</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1519D</Label>
+      <Label>L1519D_NotInDoorway</Label>
       <Comment> Not in any doorway. Reset DoorwayDir.&#xD;
  Leave [0F] moving direction as is.&#xD;
 </Comment>
@@ -28348,7 +28348,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>85965</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14FCD</Label>
+      <Label>L14FCD_HandleInput</Label>
       <Comment> If input direction = 0, go draw and reset moving direction.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -34477,7 +34477,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>94808</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L17258</Label>
+      <Label>L17258_DecSubmenuScroll</Label>
       <Comment> Decrease the counter for the next frame.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -34700,7 +34700,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>95697</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L175D1</Label>
+      <Label>L175D1_DoneRotate</Label>
       <Comment> Exclude rooms that are not part of this level, and certain rooms&#xD;
  that should never be marked visited in the submenu map.&#xD;
 &#xD;
@@ -34729,7 +34729,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>95706</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L175DA</Label>
+      <Label>L175DA_MaskRooms</Label>
       <Comment> For each element ($10) in the row, starting from $F:&#xD;
  If the current row is set in the submenu map mask,&#xD;
  then replace the tile with $F5, a blank map tile.&#xD;
@@ -34879,7 +34879,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>82099</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L140B3</Label>
+      <Label>L140B3_ShortRotation</Label>
       <Comment> The submenu map's rotation &lt; 8.&#xD;
  It represents the number of tiles to move right.&#xD;
  So, multiply it by 8.&#xD;
@@ -34890,7 +34890,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>82102</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L140B6</Label>
+      <Label>L140B6_SumMarkerX</Label>
       <Comment> Add the offset we calculated, and $62 to [00] to get&#xD;
  the position marker's X coordinate.&#xD;
 </Comment>
@@ -35526,7 +35526,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>82353</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L141B1</Label>
+      <Label>L141B1_LoopTile</Label>
       <Comment> Get the offset into the submenu triforce transfer buffers of&#xD;
  the current tile slot.&#xD;
 </Comment>
@@ -35553,7 +35553,7 @@ For example:&#xD;
       <Comment> We have the triforce piece.&#xD;
 &#xD;
  If the base/empty tile already in the transfer buf = $E5 or $E6,&#xD;
- then make it $F5. These are tile that were half full, and now&#xD;
+ then make it $F5. These are tiles that were half full, and now&#xD;
  need to be full.&#xD;
 &#xD;
  Else replace it with the one at the current triforce tile slot&#xD;
@@ -35565,7 +35565,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>82385</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L141D1</Label>
+      <Label>L141D1_NextLoopTile</Label>
       <Comment> Bottom of the inner loop.&#xD;
 &#xD;
  Increment the triforce tile slot.&#xD;
@@ -35600,7 +35600,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>82349</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L141AD</Label>
+      <Label>L141AD_LoopPiece</Label>
       <Comment> Inner loop.&#xD;
  Each level bit will make 3 triforce tile slots be&#xD;
  checked and replaced.&#xD;
@@ -36402,7 +36402,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>84662</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14AB6</Label>
+      <Label>L14AB6_LoopOpenedDoorBit</Label>
       <Comment> If the door for the direction bit is not opened, go see if it's a shutter.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -36411,7 +36411,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>84668</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14ABC</Label>
+      <Label>L14ABC_NextLoopOpenedDoorBit</Label>
       <Comment> This door was opened. Shift the direction bit right.&#xD;
  Loop until direction bit = 0.&#xD;
 </Comment>
@@ -36430,7 +36430,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>84680</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14AC8</Label>
+      <Label>L14AC8_TriggerIfShutter</Label>
       <Comment> Pass the direction bit as an argument to get the door attribute.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -36541,7 +36541,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>85023</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14C1F</Label>
+      <Label>L14C1F_TriggerShutters</Label>
       <Comment> No monsters are left. Trigger shutters to open, and return C=1.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -36996,7 +36996,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>91700</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L16634</Label>
+      <Label>L16634_LoopTransferRec</Label>
       <Comment> Copy [06] to [04] for the call to write tiles below.&#xD;
  We need to remember how many tiles need to be copied&#xD;
  in each transfer record.&#xD;
@@ -37553,8 +37553,8 @@ For example:&#xD;
     <CodeLabel>
       <Address>91412</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L16514</Label>
-      <Comment> We jump here if the door type is bombable and its open.&#xD;
+      <Label>L16514_SetPF9</Label>
+      <Comment> We jump here if the door type is bombable and was opened.&#xD;
  Change the provisional door face to value 9, which&#xD;
  will become the "hole in the wall".&#xD;
 </Comment>
@@ -64014,9 +64014,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>82009</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14059</Label>
+      <Label>L14059_SelectTransferBufAndIncState</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -64030,17 +64030,17 @@ For example:&#xD;
     <CodeLabel>
       <Address>82131</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L140D3</Label>
+      <Label>L140D3_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>82257</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14151</Label>
+      <Label>L14151_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -64086,17 +64086,17 @@ For example:&#xD;
     <CodeLabel>
       <Address>82462</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1421E</Label>
+      <Label>L1421E_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>82465</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14221</Label>
+      <Label>L14221_ResetVScrollLo</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -64110,9 +64110,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>82567</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14287</Label>
+      <Label>L14287_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -64126,9 +64126,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>82676</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L142F4</Label>
+      <Label>L142F4_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -64222,17 +64222,17 @@ For example:&#xD;
     <CodeLabel>
       <Address>82929</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L143F1</Label>
+      <Label>L143F1_LoopRow</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>82948</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14404</Label>
+      <Label>L14404_NextLoopRow</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -64614,9 +64614,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>85030</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14C26</Label>
+      <Label>L14C26_ReturnFalse</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -64638,17 +64638,17 @@ For example:&#xD;
     <CodeLabel>
       <Address>85207</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14CD7</Label>
+      <Label>L14CD7_IncSubmode</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>85232</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14CF0</Label>
+      <Label>L14CF0_SetLinkDirAndDraw</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -64806,9 +64806,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>86217</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L150C9</Label>
+      <Label>L150C9_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -64902,17 +64902,17 @@ For example:&#xD;
     <CodeLabel>
       <Address>86667</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1528B</Label>
+      <Label>L1528B_TouchWall</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>86674</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L15292</Label>
+      <Label>L15292_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -64942,9 +64942,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>91134</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L163FE</Label>
+      <Label>L163FE_LoopDoorBit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -64958,25 +64958,25 @@ For example:&#xD;
     <CodeLabel>
       <Address>91324</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L164BC</Label>
+      <Label>L164BC_SetRotatedTile</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>91326</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L164BE</Label>
+      <Label>L164BE_NextLoopRotate</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>91343</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L164CF</Label>
+      <Label>L164CF_SwapWithVertical</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -65046,9 +65046,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>92124</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L167DC</Label>
+      <Label>L167DC_WriteLastTile</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -65094,9 +65094,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>92478</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1693E</Label>
+      <Label>L1693E_Add20H</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -65158,9 +65158,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>92938</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L16B0A</Label>
+      <Label>L16B0A_WriteLastTile</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -65182,17 +65182,17 @@ For example:&#xD;
     <CodeLabel>
       <Address>93112</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L16BB8</Label>
+      <Label>L16BB8_Write</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>93115</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L16BBB</Label>
+      <Label>L16BBB_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -65230,17 +65230,17 @@ For example:&#xD;
     <CodeLabel>
       <Address>94232</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L17018</Label>
+      <Label>L17018_SelectTransferBuf</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>94234</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1701A</Label>
+      <Label>L1701A_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -65390,25 +65390,25 @@ For example:&#xD;
     <CodeLabel>
       <Address>94793</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L17249</Label>
+      <Label>L17249_SelectTransferBuf</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>94810</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1725A</Label>
+      <Label>L1725A_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>94818</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L17262</Label>
+      <Label>L17262_Add20H</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -65438,25 +65438,25 @@ For example:&#xD;
     <CodeLabel>
       <Address>94935</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L172D7</Label>
+      <Label>L172D7_LoopDir</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>94965</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L172F5</Label>
+      <Label>L172F5_NextLoopDir</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>94972</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L172FC</Label>
+      <Label>L172FC_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -65470,9 +65470,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>95023</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1732F</Label>
+      <Label>L1732F_SetLinkDirToObjDir</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -65614,9 +65614,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>95638</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L17596</Label>
+      <Label>L17596_Add20H</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -65630,9 +65630,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>95672</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L175B8</Label>
+      <Label>L175B8_Rotate</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -65686,17 +65686,17 @@ For example:&#xD;
     <CodeLabel>
       <Address>95834</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1765A</Label>
+      <Label>L1765A_ShiftIntoMask</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>95857</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L17671</Label>
+      <Label>L17671_LoopDoorBit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -65774,9 +65774,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>96204</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L177CC</Label>
+      <Label>L177CC_LoopItemSlot</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -65790,9 +65790,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>96229</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L177E5</Label>
+      <Label>L177E5_FoundSlot</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -65854,9 +65854,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>96370</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L17872</Label>
+      <Label>L17872_StoreLocation</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
