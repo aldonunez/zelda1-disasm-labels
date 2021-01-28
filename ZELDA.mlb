@@ -1957,7 +1957,7 @@ P:100CC:L100CC: If distance >= 9, then go check the vertical distance.\n
 P:100D0:L100D0_TurnVertically: Choose a vertical direction toward the chase target.\n Then go face in this direction, and flag to shoot.\n
 P:100DC:L100DC: Get the absolute vertical distance between\n the monster and the chase target.\n
 P:100E8:L100E8: If distance >= 9, then go turn if turn timer has expired.\n
-P:100EC:L100EC: Choose a horizontal direction toward the chase target.\n
+P:100EC:L100EC_TurnHorizontally: Choose a horizontal direction toward the chase target.\n
 P:100F5:L100F5: Set the monster's facing direction to the chosen direction\n toward the chase target.\n
 P:100F7:: Set turn timer to a random value.\n
 P:100FC:: Set "wants to shoot" flag to 1.\n
@@ -2086,7 +2086,7 @@ P:103B9:: Look up and set the horizontal and vertical q-speeds.\n
 P:103C5:: Set state to $10: monster shot active.\n Set object timer to $10, so it's seen but delays a little before moving.\n
 P:103CC:L103CC: State 1.\n\n Fireballs are delayed and visible for a few frames before moving.\n If timer <> 0, go draw.\n
 P:103D0:: If the room boundary blocks the fireball, then destroy it.\n
-P:103D7:L103D7
+P:103D7:L103D7_DestroyMonster
 P:103DA:L103DA: A movement routine is used that works along one axis.\n So, load its parameters, and call it for each axis individually.\n\n First, load the horizontal direction into [0F].\n
 P:103DF:: Load the horizontal q-speed and position fraction,\n move, then save the position fraction.\n
 P:103EB:: Second, load the vertical direction into [0F].\n
@@ -2193,12 +2193,12 @@ P:10648-1064F:StatueYs: A list of coordinates divided into sets for each pattern
 P:10650:UpdateStatues: If person fireballs are enabled (from the two fires), then\n go make fireballs with pattern 2.\n
 P:10657:: Else if the room layout has two or four statues that shoot fireballs,\n then go shoot fireballs with the corresponding pattern in Y register:\n - layout $23: pattern 1: 2 statues\n - layout $24: pattern 0: 4 statues\n
 P:1065C:L1065C
-P:10665:L10665: Look for an empty monster slot.\n If none is found, return.\n\n Later, for each fireball, we'll call a routine to make the fireball\n object. This routine takes a shooter object, and instantiates\n a fireball object at the shooter's location.\n\n The object slot we set up here will behave as the shooter.\n For each fireball index, this object slot will have its coordinates\n changed.\n\n Note that this means that:\n 1. The first fireball made will be its own shooter.\n    Practically, there's nothing special about this.\n 2. If there is more than one fireball made in a frame,\n    then two of them will come from the same statue.\n\n\n Save the fireball pattern.
+P:10665:L10665_Shoot: Look for an empty monster slot.\n If none is found, return.\n\n Later, for each fireball, we'll call a routine to make the fireball\n object. This routine takes a shooter object, and instantiates\n a fireball object at the shooter's location.\n\n The object slot we set up here will behave as the shooter.\n For each fireball index, this object slot will have its coordinates\n changed.\n\n Note that this means that:\n 1. The first fireball made will be its own shooter.\n    Practically, there's nothing special about this.\n 2. If there is more than one fireball made in a frame,\n    then two of them will come from the same statue.\n\n\n Save the fireball pattern.
 P:1066C:: Restore the fireball pattern.
 P:1066F:: If we found a slot, but it < 6, return.\n
 P:10673:: Store the object slot in [0A].\n Store fireball pattern in [0B].\n
 P:10677:: Look for the number of fireballs to make (minus 1) by pattern number.\n
-P:1067B:L1067B: For each fireball to make, indexed by X, (1 or 3 down to 0):\n\n Decrement the fireball timer at this index.\n
+P:1067B:L1067B_LoopFireball: For each fireball to make, indexed by X, (1 or 3 down to 0):\n\n Decrement the fireball timer at this index.\n
 P:10683:: If it was not 0, then this fireball index has to keep waiting\n to make a fireball. Go loop again.\n
 P:10686:: If the random value for this fireball index >= $F0, go loop again.\n This fireball index will wait another $100 frames.\n
 P:1068C:: Else choose one of four start times for the fireball based on\n the random value.\n
@@ -2210,11 +2210,11 @@ P:106A6:: Look up and set the X coordinate for the fireball object.\n Also store
 P:106AD:: Look up and set the Y coordinate for the fireball object.\n Also store it in [03].\n
 P:106B4:: Set mask value 3 in [04].\n
 P:106B8:: Loop to compare each of Link's coordinates to the fireball's.\n Each time the distance < $18, the mask in [04] is shifted right.\n
-P:106BA:L106BA
+P:106BA:L106BA_LoopAxis
 P:106CB:L106CB
 P:106CE:: If [04] <> 0, then its value is 1 or 3, meaning that it was shifted\n 0 or 1 time, instead of 2.\n\n This, in turn, means that the distance between Link and the\n fireball was >= $18 in at least one axis.\n\n So, we're OK to finish making the fireball.\n
 P:106D7:L106D7: Restore the fireball index.
-P:106D9:L106D9: Bottom of the loop.\n Loop while fireball index >= 0.\n
+P:106D9:L106D9_NextLoopFireball: Bottom of the loop.\n Loop while fireball index >= 0.\n
 P:106DC:L106DC_Exit
 P:106E0:CheckZora: If the zora attribute of this room is off, return.\n
 P:106E5:: Zora attribute
@@ -2222,14 +2222,14 @@ P:106E9:: If zora is active, return.\n
 P:106EE:: Look for an empty monster slot. If none is found, return.\n
 P:106F3:: Loop $D times looking for a water tile to put a zora on.\n Indexed by [0D].\n
 P:106F7:: Switch to the new object slot.\n
-P:106F9:L106F9: Turn the random value at this index into a $10 pixel aligned X coordinate.\n If it = 0 or $F0, go loop again.\n
+P:106F9:L106F9_LoopTileCandidate: Turn the random value at this index into a $10 pixel aligned X coordinate.\n If it = 0 or $F0, go loop again.\n
 P:10708:: Turn the random value into a $10 pixel aligned Y coordinate.\n If it < $50 or >= $E0, go loop again.\n
 P:10717:: Turn it into a normal object Y coordinate by OR'ing it with $D.\n
 P:1071B:: Get the tile at that location.\n If it's not a water tile, then go loop again.\n
 P:10726:: Flag the zora active, and set up the object.\n
 P:10729:: Zora object type
-P:1072E:L1072E: Bottom of the loop. Keep going until loop index [0D] = 0.\n
-P:10732:L10732
+P:1072E:L1072E_NextLoopTileCandidate: Bottom of the loop. Keep going until loop index [0D] = 0.\n
+P:10732:L10732_Exit
 P:10733-10736:_TektiteStartingDirs
 P:10737:InitBoulderSet: Reset active boulder count.\n
 P:1073C:InitBoulder
@@ -2245,11 +2245,11 @@ P:10775:InitPeahat: Peahats do not use a spawn cloud. Also, go up at first.\n
 P:1077C:EndInitFlyer
 P:1078A:InitPondFairy: Play "item taken" sound effect.\n
 P:1078F:: The fairy goes at location ($78, $7D).\n
-P:10797:L10797
+P:10797:L10797_Exit
 P:10798:UpdateZora: If we have the magic clock, then return.\n
 P:107A0:: If zora died in the call above, then it happened while in\n states 2, 3, or 4. In the code below, the state won't be 0.\n So, it won't flag the zora inactive. This is why the zora does\n not come back after killing it.\n\n If state <> 3 or timer <> $FD,\n then go see if the object needs to be destroyed.\n
 P:107AC:: Shoot a fireball; and set the timer so that it expires faster.\n
-P:107B5:L107B5: If state = 0, then destroy zora object.\n Also flag it inactive, so that the object update loop will try\n to make another one.\n
+P:107B5:L107B5_DestroyWhenDone: If state = 0, then destroy zora object.\n Also flag it inactive, so that the object update loop will try\n to make another one.\n
 P:107BF:UpdateMoblin: Set turn rate to $A0.\n
 P:107C7:: Arrow object type
 P:107CC:UpdateLynel
@@ -2308,8 +2308,8 @@ P:108D5-108F1:_JumperYAccelerations: Logically, this array would be 33 bytes: 3 
 P:108F2-108F4:_JumperStartSpeedsHi
 P:108F5-108F7:_JumperYAccelerationBaseOffsets
 P:108F8:UpdateTektiteOrBoulder: If the monster is shoved, then keep shoving it.\n
-P:108FF:L108FF
-P:10902:L10902: If we have the magic clock, or the monster is stunned; \n then go animate, draw, and check collisions.\n
+P:108FF:L108FF_DrawAndCheckCollisions
+P:10902:L10902_CheckStunned: If we have the magic clock, or the monster is stunned; \n then go animate, draw, and check collisions.\n
 P:10909:: If state <> 0, go update the jump.\n
 P:1090D:: State 0. On the ground.\n\n If timer <> 0, then go animate, draw, and check collisions.\n
 P:10911:: State = 0 and object timer expired. Time to jump.\n\n First, turn 1 step toward the chase target.\n
@@ -2404,8 +2404,8 @@ P:10B3C:L10B3C
 P:10B3E:: Add Link's Y and the vertical offset.\n
 P:10B43:: Sanitize the Y coordinate:\n (Y AND $F0) OR $D\n
 P:10B49:: If Y coordinate >= $5D (top of the third square row), then\n go see if the tile is valid to come out of.\n\n Else it's too close to the top edge of the screen. So, return.\n
-P:10B4D:L10B4D
-P:10B4E:L10B4E: Begin with the leever's Y set to Link's Y.\n
+P:10B4D:L10B4D_Exit
+P:10B4E:L10B4E_PlaceHorizontally: Begin with the leever's Y set to Link's Y.\n
 P:10B52:: If Y coordinate < $5D (top of the third square row), then\n it's too close to the top edge of the screen. So, return.\n
 P:10B56:: If facing right, then use X offset $28.\n Else store X offset -$28 in [00].\n
 P:10B60:L10B60
@@ -2416,7 +2416,7 @@ P:10B6B:: Assign that result to the leever's X coordinate and [02].\n
 P:10B6F:: If the leever's X [02] >= Link's X [01], then swap [02] and [01].\n
 P:10B7B:L10B7B: The point is to get the absolute distance between the two.\n
 P:10B80:: If the absolute distance >= $30, then return.\n It means that the leever's X coordinate wrapped around\n the left or right edge of the screen.\n
-P:10B84:L10B84: The leever can't come out of an unwalkable tile. So, return.\n
+P:10B84:L10B84_CheckSafeToSpawn: The leever can't come out of an unwalkable tile. So, return.\n
 P:10B8F:: Set animation counter to 1, so that it will roll over this frame\n and pick up whatever the new value is for state 1.\n
 P:10B94:: Set the long timer to 2, meaning 20 frames.\n
 P:10B9A:: The leever has to face Link in order to move toward him.\n
@@ -2452,9 +2452,9 @@ P:10C65:_DrawObjectMirroredAndCheckCollisions: Params:\n A: frame image\n X: obj
 P:10C6B:UpdateGhini: Pass in turn rate $FF to turn as often as possible.
 P:10C76:: If the monster is still alive, then return.\n
 P:10C7B:: For each object slot from $B to 1:\n If the object is a flying ghini ($22),\n then kill it by setting metastate to $11.\n
-P:10C7D:L10C7D
+P:10C7D:L10C7D_LoopObject
 P:10C89:L10C89
-P:10C8C:L10C8C
+P:10C8C:L10C8C_Exit
 P:10C8D:DrawGhiniAndCheckCollisions
 P:10C90:: Reset [0D]: frame image number. "Back" frame for up.
 P:10C92:: If the direction has an "up" component, then keep the\n frame image 0, and go figure out horizontal flipping.\n
@@ -2472,7 +2472,7 @@ P:10CC7:: Once the object timer reaches 0; if the object is flying ghini,\n go f
 P:10CCA:: Flying Ghini
 P:10CCE:: Else we have an armos.\n\n Store stairs tile $70 in [00] for use later.\n
 P:10CD2:: Look for the current room ID in an array of room ID's that\n have armos secrets.\n
-P:10CD4:L10CD4
+P:10CD4:L10CD4_LoopArmosRoom
 P:10CD6:: If this element does not match the current room ID, go loop again.\n
 P:10CDB:: The secret (usually stairs) is under one of the armoses.\n\n If the armos's X coordinate does not match the one needed\n for the current room in the list, then go loop again.\n
 P:10CE2:: If the armos's Y coordinate <> $80, go loop again.\n
@@ -2481,9 +2481,9 @@ P:10CEC:: The room ID at index 0 is $24. Instead of stairs, this room\n has the 
 P:10CF2:: This resets the room item's state, which activates it.\n
 P:10CF4:: Set the room item ID.\n
 P:10CF8:: If the bracelet has not been taken, then play the "secret found" tune.\n\n Either way, quit the loop, and replace the tile with a floor tile.\n\n Note that, if the item was already taken, then the room item\n object will stay activated. But in E6EA (MoveAndDrawRoomItem),\n it will be ignored, because that routine checks whether\n the item was taken.\n
-P:10D02:L10D02: Bottom of the loop.\n
-P:10D05:L10D05: Not found, or found the power bracelet.\n Use a floor tile $26 to replace the armos.\n
-P:10D09:L10D09
+P:10D02:L10D02_NextLoopArmosRoom: Bottom of the loop.\n
+P:10D05:L10D05_UseFloorTile: Not found, or found the power bracelet.\n Use a floor tile $26 to replace the armos.\n
+P:10D09:L10D09_UseChosenTile
 P:10D0B:: If the replacement tile is a stairs tile, then play the "secret found" tune.\n
 P:10D13:L10D13: Replace the tile where the armos was.\n
 P:10D19:: Because the armos object is aligned to the square grid\n (because it was made from a square),\n set its grid offset to 3 to compensate.\n\n Most objects are aligned to the grid vertically when the\n low nibble is $D.\n
@@ -2528,21 +2528,21 @@ P:10DDF:: Restore the object slot.\n
 P:10DE2:L10DE2
 P:10DE3-10DE9:PondHeartStartAngles
 P:10DEA:PondFairy_MoveHearts: Loop over each heart from object slot 2 to 9.\n\n Even though they are not standalone objects, their info\n is stored in those object slots.\n
-P:10DEC:L10DEC: If the current heart's state <> 0, then go move it.\n Else we have to wait for it come out at the right time.\n
+P:10DEC:L10DEC_LoopHeart: If the current heart's state <> 0, then go move it.\n Else we have to wait for it to come out at the right time.\n
 P:10DF0:: The current heart's state = 0.\n\n If object slot = 2, then go make it appear. This is the first\n heart to show up.\n
-P:10DF4:: Object slot <> 2. If the state of the heart in slot 2 = 0, then\n go start over.\n\n TODO:\n Is it possible to jump here? This looks like an infinite loop.\n
+P:10DF4:: Object slot <> 2. If the state of the heart in slot 2 = 0, then\n go start over.\n\n TODO:\n Is it possible to jump from here? This looks like an infinite loop.\n
 P:10DF8:: Look up the starting angle of this heart with the index\n (object slot - 3). If the first heart has not reached this angle,\n then loop again.\n
-P:10E05:L10E05: Set up this heart. Set its state to 1.\n
+P:10E05:L10E05_SetUpHeart: Set up this heart. Set its state to 1.\n
 P:10E07:: TODO: ?\n
 P:10E0B:: Starting angle $18 (N).\n
 P:10E10:: This heart is right above the fairy. Set its X the same as the fairy's.\n
 P:10E14:: This heart is right above the fairy. Set its Y $1C pixels above the fairy.\n
-P:10E1B:L10E1B: Decrease the angle by $00.60.\n
+P:10E1B:L10E1B_MoveHeart: Decrease the angle by $00.60.\n
 P:10E24:: Rotate the heart's location by the change in angle.\n Use 6 for the number of bits of sine/cosine to use\n for a large ring.\n
 P:10E2C:: Save the loop index.
 P:10E34:: The variable for the currently updating object slot has to be\n set to the heart's object slot for this drawing routine to work.\n
 P:10E3A:: Restore the loop index.
-P:10E3C:L10E3C: Bottom of the loop.\n Increase the object slot.\n
+P:10E3C:L10E3C_NextLoopHeart: Bottom of the loop.\n Increase the object slot.\n
 P:10E42-10E43:RockPushDirections: Also used for the gravestone.
 P:10E44:UpdateRockOrGravestone
 P:10E48:: State 0.\n\n If this is not a gravestone (but it's a rock), and there is no\n bracelet, then return.\n
@@ -2557,7 +2557,7 @@ P:10E81:: Set it to the object's direction. Go to the next state.\n
 P:10E85:: TODO: ?\n Store current room ID.\n
 P:10E8A:: Change from a gravestone tile to the gray floor tile.\n The gravestone object will be drawn above it.\n
 P:10E8C:: Gray floor tile
-P:10E91:L10E91
+P:10E91:L10E91_Exit
 P:10E92:L10E92: State 1.\n\n Move in the object's direction.\n
 P:10E99:: Draw the sprites one pixel above the object's location.\n
 P:10EA1:: If the object's grid offset (distance moved) <> $10 nor -$10,\n then return.\n
@@ -2630,11 +2630,11 @@ P:1101D:: If >= $A0, go to state 2.
 P:11022:: If >= 8, go to state 3.
 P:11024:: Else go to state 4.
 P:11025:L11025: Go set the state we determined.
-P:11028:UpdatePeahat: If the object is begin shoved, then shove it and go draw\n and check for collisions.\n
-P:1102F:L1102F
+P:11028:UpdatePeahat: If the object is being shoved, then shove it and go draw\n and check for collisions.\n
+P:1102F:L1102F_L_DrawAndCheckCollisions
 P:11032:L11032: If we have the clock or the object is stunned, go draw\n and check for collisions.\n
 P:11039:: Else move around.\n
-P:1103F:L1103F
+P:1103F:L1103F_DrawAndCheckCollisions
 P:11042:: Take low bit of the flying distance traveled as the frame image.\n So, the faster it moves, the faster it animates.\n
 P:1104A:: In flying state 5, check for all collisions (so it can get hurt).\n In all other states, only check for collisions with Link.\n
 P:11054:L11054
@@ -2679,8 +2679,8 @@ P:11161:: TODO: why object 1 timer?\n\n Set object slot 1's timer to $60, this m
 P:1116F:: Reset grid offset, tiles crossed, and movement frame.\n
 P:1117A:: Start Wallmaster state 1.\n
 P:1117D:L_Wallmaster_State1: If the monster has been shoved, then shove it and go draw.\n
-P:11184:L11184
-P:11187:L11187: If we have the magic clock or the monster is stunned, then\n go draw and check collisions.\n
+P:11184:L11184_DrawAndCheckCollisions
+P:11187:L11187_CheckStunned: If we have the magic clock or the monster is stunned, then\n go draw and check collisions.\n
 P:11190:: [0F] moving direction
 P:11195:: If grid offset <> $10 nor $F0 (so not square aligned), then\n go draw and check collisions.\n
 P:111A0:L111A0: Truncate grid offset.\n
@@ -2690,19 +2690,19 @@ P:111B2:: Increase the count of tiles crossed.\n
 P:111B5:: If the monster has crossed less than 7 tiles, then\n go draw and check collisions.\n
 P:111BC:: It has reached the end of a trip.\n\n If Wallmaster did not capture Link, then go set state to 0 and return.\n
 P:111C1:: At the end of a trip where Link was captured:\n 1. hide the special sprites used by Wallmaster\n 2. go to mode 3 "unfurl" to go the level's entrance\n 3. reset Link's state, so he's idle\n
-P:111D0:L111D0
-P:111D3:L_Wallmaster_DrawAndCheckCollisions: If Link was captured, then go draw Link and Wallmaster specially.\n
+P:111D0:L111D0_SetState
+P:111D3:L111D3_Wallmaster_DrawAndCheckCollisions: If Link was captured, then go draw Link and Wallmaster specially.\n
 P:111DB:: If after checking object collisions, Link was captured, then\n halt Link and keep him from being shoved.\n
 P:111E8:L111E8: Remember the index of the first sprite that will be used to draw,\n because the drawing routine will cycle the sprites.\n
 P:111EB:: Save the sprite index
 P:111F5:: Restore the sprite index
 P:111F6:: Store the offset of the left sprite record in [00],\n and the right one in [01].\n
-P:111FF:L111FF
+P:111FF:L111FF_PatchSprites
 P:11204:: The default image is the hand open.\n If animation frame = 0, then return.\n
 P:1120C:: Animation frame 1 uses Wallmaster frame image 1, which\n uses tiles $9C/$9D on the left and $9E/$9F on the right.\n The right side is correctly the right side of a closed hand.\n But the left side is Keese. So, we have to patch the left\n side to use the common left side of the hand -- $AC/$AD.\n\n Keep in mind that left and right sprites might be flipped.\n
 P:11217:L11217
 P:1121C:L1121C
-P:1121D:L1121D: Draw Wallmaster with captured Link.\n\n First, put Link right where the monster is.\n
+P:1121D:L1121D_DrawWithCapturedLink: Draw Wallmaster with captured Link.\n\n First, put Link right where the monster is.\n
 P:11231:: Force animation frame 1: hand closed.\n
 P:11239:: Store the offsets of the sprites to show over Link\n ($10 and $11) in [00] and [01] for use in patching the right sprite.\n
 P:1123F:: Go patch up the sprites.\n
@@ -2725,8 +2725,8 @@ P:1128F:: [03] Link's minimum major coordinate
 P:1129D:L1129D
 P:1129E:Wallmaster_PutSpritesBehindBgIfNeeded
 P:112A5:Wallmaster_PutSpriteBehindBgIfNeeded: Loop twice, from 1 to 0, in order to check the left and right\n extents of the sprite (X and X+8).\n
-P:112A7:L112A7: If sprite X + extent >= $E9 or < $18, then\n add priority attribute to show this sprite behind the background.\n
-P:112B6:L112B6
+P:112A7:L112A7_LoopExtent: If sprite X + extent >= $E9 or < $18, then\n add priority attribute to show this sprite behind the background.\n
+P:112B6:L112B6_AddPriorityBit
 P:112BE:L112BE
 P:112C2:InitRope: Rope has $10 HP in quest 1, $40 HP in quest 2.\n
 P:112D3:L112D3
@@ -2740,16 +2740,16 @@ P:11305:: If the facing direction has changed, then set qspeed to $20 (slow).\n
 P:1130E:L1130E: If qspeed <> $20 or grid offset <> 0, then go draw.\n
 P:1131A:: If the absolute horizontal distance between Link and the monster >= 8,\n then go see if the vertical distance is smaller.\n
 P:11326:: Face up.\n
-P:1132A:: But, if Link is down of the monster, then face down.\n
-P:11330:L11330
-P:11332:L11332: Make the rope rush (qspeed $60).\n
-P:11337:L11337: Animation counter $A
+P:1132A:: But, if Link is down from the monster, then face down.\n
+P:11330:L11330_FlipDir
+P:11332:L11332_Rush: Make the rope rush (qspeed $60).\n
+P:11337:L11337_Animate: Animation counter $A
 P:1133C:: If facing left, then flip horizontally.\n
 P:11341:: [0F] horizontal flipping
 P:11343:: Red sprite palette
 P:11348:: In the second quest, ropes always flash.\n So, set sprite attributes to all the cycled palette rows.\n
-P:11356:L11356: TODO: name: movement frame\n The frame image is based on the movement frame.\n
-P:1135F:L1135F: If the absolute vertical distance between Link and the monster >= 8,\n then go draw.\n
+P:11356:L11356_Draw: TODO: name: movement frame\n The frame image is based on the movement frame.\n
+P:1135F:L1135F_CheckVertical: If the absolute vertical distance between Link and the monster >= 8,\n then go draw.\n
 P:1136B:: Face left.\n
 P:1136F:: But, if Link is right of the monster, then face right.\n Either way, go increase speed and draw.\n
 P:11377:UpdateStalfos: Turn rate $80
@@ -2828,13 +2828,13 @@ P:11508-1150F:ControlMoldormFlight_JumpTable
 P:11510:Moldorm_Chase: If the segment is not a head (slot 5 or $A), then return.\n Only the head controls the movement direction.\n
 P:11518:L11518: Chase while flying, as usual.\n
 P:1151B:: If timer has not expired, then\n go see if it's time to propagate direction changes down the chain.\n
-P:1151F:L1151F: Timer = 0. Choose a new flying state, and arm the timer.\n
+P:1151F:Moldorm_ChangeFlyingState: Timer = 0. Choose a new flying state, and arm the timer.\n
 P:11522:: $10 screen frames
 P:11526:: If the next lower slot's direction <> 0, then\n go propagate direction changes down the chain.\n\n But you had to have propagated directions once for the\n next lower direction to be set. How does it happen?\n\n Within a flyer state, the flying routines turn the flyer\n and set the object timer to $10 several times. After any of\n those times will the test succeed.\n\n When a flying state ends, timer will be 0, triggering the code\n in this block to set the timer to $10, and try to propagate\n directions.\n\n But this is also the case the first time here.\n\n So, I believe that the point of this test is to delay moving\n the lower (not head) segments when starting out.\n\n TODO: Base operand is ObjDir-1
 P:1152B:_Moldorm_Wander: If the segment is not a head (slot 5 or $A), then return.\n Only the head controls the movement direction.\n
 P:11533:L11533: Turn randomly while flying, as usual.\n
 P:11536:: After every turn, the common flyer routines set timer to $10.\n This can be used as a signal for moldorm to propagate\n direction changes down the chain.\n\n Between each turn, timer <> $10.\n\n At the end of the delay after the last turn, timer = 0.\n This is a signal that that flying state ended, and a new one\n must be chosen. Also, because a flying interval ended ($10 frames),\n we can propagate direction changes again; and start\n a new flying interval by setting timer to $10. This will make\n the next flying state delay that amount of time before turning\n the first time.\n\n Here and now, if timer has expired, then go decide a new flying state,\n arm the timer again, and shift directions down the chain.\n
-P:1153A:L1153A: If timer <> $10 (rearmed in this frame), then return.\n
+P:1153A:Moldorm_PropagateDirs: If timer <> $10 (rearmed in this frame), then return.\n
 P:11540:: Timer = $10.\n\n If deferred bounce direction <> 0, then\n assign it to facing direction, and reset deferred bounce direction.\n
 P:1154C:L1154C: Will loop 4 times, indexed by [00], once for each segment.\n
 P:11550:: Starting from the last slot of this moldorm chain (0 or 5):\n
@@ -2842,22 +2842,22 @@ P:11558:L11558: Copy old direction from a higher slot to the lower one;\n and to
 P:11561:: Bottom of the loop.\n Increment segment index.\n Decrement loop counter.\n
 P:11566:: Copy current direction to old direction.\n
 P:1156B:L1156B_Exit
-P:1156C:Flyer_MoldormDecideState: If Random >= $40, go to flying state 2, else 3.\n\n Set up 8 turns.\n
+P:1156C:Flyer_MoldormDecideState: TODO:\n Why not call it Moldorm_DecideFlyingState? Same for others.\n\n If Random >= $40, go to flying state 2, else 3.\n\n Set up 8 turns.\n
 P:11575:L11575
 P:11579:: Set 8 turns for the next flying state.
 P:1157F-11582:DigdoggerCornerOffsetsX
 P:11583-11586:DigdoggerCornerOffsetsY
-P:11587:L11587: Params:\n Y: flute state\n\n If flute state = 2, go switch between big and little appearance.\n
+P:11587:_L_Digdogger_AfterFlute: Params:\n Y: flute state\n\n If flute state = 2, go switch between big and little appearance.\n
 P:1158A:: Flute state = 1.\n\n If this is a child digdogger, then go turn and move as usual.\n
 P:1158F:: Set object timer to $40, and increase flute state to 2.\n Then go check collisions as a big digdogger.\n
-P:11599:L11599: If the timer = 0, then skip the block below, and go split up.\n
+P:11599:L11599_SplitUp: If the timer = 0, then skip the block below, and go split up.\n
 P:1159D:: Every 8 frames, switch between behaving as a big and little digdogger.\n\n TODO:\n But is this possible, given the following?\n a. all object timers run concurrently\n b. all object updates are paused until the flute timer expires\n c. the flute timer lasts longer\n
-P:115AE:L115AE: Decrement flute state to 1.\n
+P:115AE:L115AE_MakeChildren: Decrement flute state to 1.\n
 P:115B1:: Loop to make a number of child digdoggers.\n
 P:115B4:: [00] is the loop counter
 P:115B6:: Replace the object count with the number of children.
 P:115B9:: Save the current object index in X register.
-P:115BB:L115BB: Initialize a child digdogger (type $18) in the next object slot.\n
+P:115BB:L115BB_LoopMakeChild: Initialize a child digdogger (type $18) in the next object slot.\n
 P:115C4:: Start with a target speed of $0100.\n The low byte is still 0 from when room data was reset.\n
 P:115C7:: Flag this a child digdogger.\n
 P:115CC:: The speed will increase.\n
@@ -2866,16 +2866,16 @@ P:115D9:: Bottom of the loop.\n Decrement [00] until 0.\n
 P:115DD:: Restore the current object index in X register.
 P:115E2:: Destroy the big digdogger by resetting the object type.\n
 P:115E7:: Don't let the digdogger disappear until the next frame when\n the children can draw themselves. Go draw the big digdogger\n as a little one.\n\n This will work, even though the object type was reset. No\n other object data has not been touched. Also, the code block\n we'll jump to temporarily sets the object type.\n
-P:115EA:L115EA
+P:115EA:_L_Digdogger_TurnTowardLink
 P:115F0:UpdateDigdogger: If we have the magic clock, or the monster is stunned,\n then go check room boundaries and object collisions, and draw.\n
 P:115F7:: If the flute was used, then go start splitting up,\n or handling a child digdogger.\n
-P:115FC:L115FC
+P:115FC:_L_Digdogger_Turn
 P:115FF:: If the object timer has expired, then set it to $10,\n and randomly choose to turn toward Link or randomly.\n
 P:11610:_L_Digdogger_Move
-P:11613:L11613: If this is a child, then finish updating this little digdogger.\n
+P:11613:L_Digdogger_DrawAndCheckCollisions: If this is a child, then finish updating this little digdogger.\n
 P:11621:L11621_CheckBigDigdoggerCollisions: Save the original coordinates.\n
 P:11627:: TODO:\n Reset [0478][X].\n
-P:1162C:L1162C: Digdogger is big, but room boundary checks and\n object collision checks assume a 16x16 monster or smaller.\n Therefore, we have to check these things four times,\n in different corners of the boss.\n\n TODO:\n Loop 4 times, from 0 to 3, indexed by [0478][X].\n
+P:1162C:L1162C_LoopCornerCollision: Digdogger is big, but room boundary checks and\n object collision checks assume a 16x16 monster or smaller.\n Therefore, we have to check these things four times,\n in different corners of the boss.\n\n TODO:\n Loop 4 times, from 0 to 3, indexed by [0478][X].\n
 P:1162F:: Change the coordinates to one corner.\n
 P:1163F:: Check the room boundary and object collisions in this temporary location.\n
 P:11645:: Increase the loop index, and loop again until it = 4.\n
@@ -2946,11 +2946,11 @@ P:117F3:: The boss's object timer has expired. Time to shoot fireballs.\n\n Set 
 P:117F9:: Shoot the middle fireball. Its vertical displacement is 0.\n
 P:11801:: Shoot the lower fireball. Its vertical displacement is 1.\n
 P:11809:: Shoot the upper fireball. Its vertical displacement is -1.\n
-P:11812:L11812: Make the fireballs spread out.\n\n For each object slot from $B to 1:\n
-P:11814:L11814: If type <> $55, loop again.\n
+P:11812:L11812_SpreadOutFireballs: Make the fireballs spread out.\n\n For each object slot from $B to 1:\n
+P:11814:L11814_LoopObject: If type <> $55, loop again.\n
 P:1181B:: Every other screen frame, loop again.\n
 P:11820:: Add the displacement for this fireball to its Y coordinate.\n
-P:11828:L11828: Bottom of the loop.\n
+P:11828:L11828_NextLoopObject: Bottom of the loop.\n
 P:1182B:: Restore the boss's slot number.\n
 P:1182F:_ShootFireball55: Params:\n X: object index\n
 P:11834:AquamentusTiles
@@ -2959,14 +2959,14 @@ P:11846-1184B:AquamentusSpriteOffsetsX
 P:1184C:Aquamentus_Draw: Every $10 screen frames, switch animation frames.\n Each frame has 6 tiles (representing the top of 6 sprites).\n The last tile of frame 0 is at index 5.\n The last tile of frame 1 is at index $B.\n
 P:11856:L11856: [0A] holds the current tile index in frame tile list.
 P:11858:: For each sprite, from 5 to 0, indexed by [0B]:\n
-P:1185C:L1185C: Get current loop index from [0B].
+P:1185C:L1185C_LoopSprite: Get current loop index from [0B].
 P:1185E:: Add the current sprite's offset to the boss's X coordinate.\n Store it in [00].\n
 P:11866:: Add the current sprite's offset to the boss's Y coordinate.\n Store it in [01].\n
 P:1186E:: Calculate sprite attributes:\n [03] := (invincibility timer AND 3) XOR 3\n\n If the boss is temporarily invincible, then\n this makes it flash by cycling all the palette rows.\n\n Otherwise invincibility timer = 0. So [03] becomes 3:\n the attribute value for a normal sprite with palette row 7 (level).\n
 P:11879:: Look up the tile for this sprite.\n If it's not the first one (face), then go write the sprite record.\n
 P:11881:: Else it's the first one (the face tile).\n For timer >= $20, use it as is ($CC). Otherwise, use tile $C0.\n\n $CC/CD shows the closed mouth face.\n $C0/C1 shows the open mouth face.\n
 P:11887:: Open mouth tile
-P:11889:L11889
+P:11889:L11889_WriteSprite
 P:1188C:: Bottom of the loop.\n Decrement tile index and loop index.\n
 P:11893:_WriteBossSprite: Params:\n A: tile\n [00]: X\n [01]: Y\n [03]: sprite attributes\n\n Save the tile
 P:1189B:: Restore the tile
@@ -3038,12 +3038,12 @@ P:11A30-11A31:DodongoBombNegativeLimits
 P:11A32:_Dodongo_IsBombInRange: Params:\n Y: limit index (0 for dust cloud, 1 for the bomb)\n [00]: monster hotspot X\n [01]: monster hotspot Y\n [02]: bomb hotspot X\n [03]: bomb hotspot Y\n\n Returns:\n A: 0 if the bomb is in range of the monster\n Z: 1 if the bomb is in range of the monster\n [04]: horizontal distance\n [05]: vertical distance\n\n Store the positive limit in [06], and the negative one in [07].\n
 P:11A3C:: Set [08] to 3. It will be shifted right once for each axis that\n the bomb is near enough the monster.\n
 P:11A40:: For each coordinate (Y/X), from 1 to 0, indexed by Y register:\n
-P:11A42:L11A42: Subtract the bomb's coordinate from the boss's,\n The loop index determines the coordinate.\n
+P:11A42:L11A42_LoopAxis: Subtract the bomb's coordinate from the boss's,\n The loop index determines the coordinate.\n
 P:11A49:: If the distance >= positive offset, or < negative offset;\n then loop again.\n
 P:11A4D:: [07] negative offset
 P:11A51:: The distance is close enough in this axis.\n\n Store the distance in this axis in [05] or [04],\n depending on the loop index.\n
 P:11A54:: Shift [08] right, because we're in range in this axis.\n
-P:11A56:L11A56
+P:11A56:L11A56_NextLoopAxis
 P:11A59:: If close enough in both axes, then [08] will be 0.\n
 P:11A5C-11A65:DodongoFrameImages: Two sets of frame image numbers: 1 set for each animation frame.\n Each set contains 5 frame image numbers, indexed by direction.\n\n But these are not typical direction indexes. Instead a\n 5-way index is used.\n A direction shifted right once becomes a 5-way index.\n The fourth element is unused.\n
 P:11A66-11A6F:DodongoFrameHFlips
@@ -3145,25 +3145,25 @@ P:11CBD:PolsVoice_MoveX: Returns:\n Y: facing direction - 1 (so, 0 to 7)\n\n Add
 P:11CC9:UpdateLikeLike: If the monster captured Link, then go handle it.\n
 P:11CCE:: Turn rate $80
 P:11CD3:: Like-like has a 4 animation frame cycle unlike most monsters\n which have 2.\n
-P:11CE7:L11CE7: Draw.\n
+P:11CE7:L11CE7_Draw: Draw.\n
 P:11CF0:: Check collisions. If Link was not captured, then return.\n
 P:11CF8:: The monster captured Link.\n Put the monster at the same location as him.\n
 P:11D00:: TODO:\n Reset Link's timer, metastate? , and shove info.\n
 P:11D0B:: Restart the monster's movement frame cycle: frame 0, counter 4\n
 P:11D13:: Now Link can't move.\n
-P:11D16:L11D16
+P:11D16:L11D16_Exit
 P:11D17:L11D17: Animate up to frame 3. Then stay there.\n
-P:11D2A:L11D2A: Increment capture time.\n
+P:11D2A:L11D2A_IncCaptureTime: Increment capture time.\n
 P:11D2D:: Once capture time >= $60 screen frames, remove the magic shield.\n
 P:11D39:: Set a value above $60 over and over.\n
-P:11D3E:L11D3E: In this state, we have to draw Like-like over Link.\n So, don't use the usual sprite writing code that cycles sprites.\n
+P:11D3E:L11D3E_DrawAfterCapture: In this state, we have to draw Like-like over Link.\n So, don't use the usual sprite writing code that cycles sprites.\n
 P:11D47:: Check object collisions.\n If this monster hasn't died, then return.\n
 P:11D4F:: But once it has died, then let Link move again.\n
 P:11D57:UpdateVire
 P:11D5A:: If state >= 2, then go split up into 2 keeses.\n
 P:11D66:L11D66: As with Zol, we'll destroy one monster, and make two.\n So, increase object count by 1.\n
 P:11D6C:: Two times, look for an empty monster slot.\n If one is found, then use the "shoot" operation to create a red keese.\n
-P:11D6E:L11D6E: Save loop counter.
+P:11D6E:L11D6E_LoopMakeKeese: Save loop counter.
 P:11D75:: Red Keese object type
 P:11D7C:L11D7C: Restore loop counter.
 P:11D82:UpdateVireState
@@ -3188,18 +3188,18 @@ P:11DF7:BlueWizzrobe_WalkOrTeleport: If timer has not expired, then go walk.\n
 P:11DFB:: Timer = 0. Only teleporting now.\n\n If there is still distance to go while translucent, then\n decrement the distance remaining, and move.\n
 P:11E06:L11E06: Distance remaining = 0. Still teleporting.\n
 P:11E0C:L11E0C: Timer:\n   >= $10: Turn if needed and move every other frame\n   > 1:    Do nothing\n   = 1:    Choose a place to teleport to.\n\n Notice that walking is slower than teleporting; and there is\n a pause of $10 frames at the end.\n
-P:11E17:L11E17
+P:11E17:L11E17_Exit
 P:11E18:L11E18: Every other frame, advance the turn counter, turn if needed,\n and move.\n
 P:11E1D:_BlueWizzrobe_TurnSometimesAndMoveAndCheckTile
 P:11E20:BlueWizzrobe_MoveAndCheckTile
 P:11E26:: If walkable, then return.\n
 P:11E28:: Go handle a wall, if the tile is not a block nor water.\n
-P:11E35:L11E35: If the monster was already teleporting, then return,\n so that it moves again next frame.\n
+P:11E35:L11E35_HitBlockOrWater: If the monster was already teleporting, then return,\n so that it moves again next frame.\n
 P:11E3A:: Else go start teleporting thru this obstacle.\n
-P:11E3D:L11E3D: The monster hit a wall.\n If facing direction has a vertical component, then flip it.\n
+P:11E3D:L11E3D_HitWall: The monster hit a wall.\n If facing direction has a vertical component, then flip it.\n
 P:11E4A:L11E4A: If facing direction has a horizontal component, then flip it.\n
 P:11E54:L11E54
-P:11E57:L11E57
+P:11E57:L11E57_Exit
 P:11E58:_BlueWizzrobe_AdvanceCounterAndTurnTowardLinkIfNeeded: Description:\n Increment the turn counter. Then turn toward Link\n when the turn counter is a multiple of $40.\n\n Increment the turn counter.\n
 P:11E5B:_L_BlueWizzrobe_TurnTowardLinkIfNeeded: Description:\n When the counter is a multiple of $40, switch between facing\n toward Link horizontally or vertically. All other times, return.\n
 P:11E62:_BlueWizzrobe_TurnTowardLink: If the multiple of $40 is even, then turn horizontally,\n else vertically.\n
@@ -3250,8 +3250,8 @@ P:11F58:BlueWizzrobe_TryShooting: Once every $20 frames, and when not fading, we
 P:11F63:: If Link and the monster are not within the same square row,\n then go see about the same square column.\n
 P:11F71:: If the monster is to the right of Link, then choose left.\n Else choose right.\n
 P:11F7A:L11F7A: If the direction chosen = the monster's facing direction,\n then go shoot.\n
-P:11F7E:L11F7E
-P:11F7F:L11F7F: If Link and the monster are not within the same square column,\n then return.\n
+P:11F7E:L11F7E_Exit
+P:11F7F:L_BlueWizzrobe_CheckSquareColumn: If Link and the monster are not within the same square column,\n then return.\n
 P:11F8B:: If the monster is down from Link, then choose up.\n Else choose down.\n
 P:11F94:L11F94: If the direction chosen <> the monster's facing direction,\n then return.\n
 P:11F98:L11F98
@@ -3362,16 +3362,16 @@ P:12234:: Don't let the base segment be temporarily invincible.\n
 P:1223D:L1223D
 P:12240:: If still alive, then return.\n
 P:12248:: Don't let the base die on its own.\n If this is the base, then reset metastate, and return.\n\n The base only dies once the last hand dies.\n
-P:12252:L12252: At this point, we have a hand that just died.\n\n For each hand, from 3 to 0, indexed by 0:\n
+P:12252:L12252_CountHands: At this point, we have a hand that just died.\n\n For each hand, from 3 to 0, indexed by 0:\n
 P:12254:: Count how many are allocated.\n This includes the current dead one, and the other living ones.\n Store the count in [00].\n
-P:12258:L12258
+P:12258:L12258_LoopHand
 P:12261:L12261
 P:12264:: Decrease by 1, to account for the current dead one.\n
 P:12266:: If the count >= 0 (signed comparison), then\n go change this hand object to the dead dummy.\n
 P:1226A:L1226A: The last hand died. So, kill the base.\n\n Change the base segment's object type to the dead dummy.\n Immediately set metastate to $10, instead of waiting for\n the dead dummy object's update routine to do it.\n Also set its timer to $10.\n
-P:12279:L12279: Set the "segment just died" flag.\n
+P:12279:L12279_FlagHandDied: Set the "segment just died" flag.\n
 P:1227C:L1227C_Exit
-P:1227D:L1227D: Dead dummy object type
+P:1227D:L1227D_MakeDeadDummy: Dead dummy object type
 P:12285:Manhandla_SetAllSegmentsDirection: Params:\n A: direction\n
 P:12287:L12287
 P:1228E:Manhandla_Move: Implement a way of manifesting the fractional part of the speed\n in the movement.\n\n Let's say the 16-bit speed is $0140. If we only took the high\n byte to add to the coordinates, then the effective speed would\n be 1 pixel a second instead of 1.25.\n\n By keeping a speed accumulator, we can turn speed $0140\n into 1.25 pixels a frame over four frames, using this calculation:\n\n   (SA=speed accumulator, SH=speed high, SL=speed low)\n\n   SA := SA + (SL AND $E0)\n   [03] := SH + carry\n\n AND'ing the low speed byte with $E0 isn't strictly needed.\n
@@ -3398,10 +3398,10 @@ P:12306:: If the low nibble = 2 or 3, then go draw not mirrored.\n These are the
 P:12313:L12313
 P:12316:UpdateGohma: If flagged not to continue straight, then choose a random facing direction.\n
 P:1231B:: If Random:\n   >= $B0: right\n   >= $60: left\n   Else:   down\n
-P:12329:L12329
+P:12329:L12329_ChangeDir
 P:1232B:: Now we can go straight without changing direction for some time.\n
 P:1232E:: Go animate the eye.\n
-P:12331:L12331: Add $80 to the movement accumulator.\n
+P:12331:L12331_Move: Add $80 to the movement accumulator.\n
 P:1233A:: If movement accumulator didn't overflow, then go animate the eye.\n
 P:1233C:: Increase the distance traveled, and move 1.\n
 P:1233F:: Set a direction mask in [02], starting with right (1).\n
@@ -3413,18 +3413,18 @@ P:12363:L12363: If Gohma has not traveled $20 pixels, then go animate the eye.\n
 P:1236A:: Gohma has traveled $20 pixels. Reset the distance traveled.\n Reverse the facing direction, and increase the number of sprints.\n
 P:12378:: If the previous number of sprints was odd, then flag that Gohma\n should randomly change direction.\n
 P:12380:L12380_AnimateEye: Animate the eye.\n\n First, if the counter for when to open the eye next = 0, then\n set it to a random value at least $C0; and set the timer for\n keeping the eye open to $80.\n\n Note that $C0 is not a number of frames, because it's changed\n every other frame.\n
-P:12391:L12391: Decrement the next open eye counter.\n
+P:12391:L12391_DecNextOpenEyeCounter: Decrement the next-open-eye counter.\n
 P:12399:L12399: If open eye timer = 0, then the eye is closed.\n Go animate it differently.\n
 P:1239E:: Else decrement the open eye timer.\n
 P:123A1:: If open eye timer >= $70 and < $10, then the eye is fully open.\n So, set its frame image to 2. Else use 3 for a half open eye.\n
 P:123AC:L123AC
-P:123AD:L123AD
-P:123B0:L123B0: Decrement the shoot timer.\n
+P:123AD:L123AD_SetEyeStateAndShoot
+P:123B0:L123B0_ShootAnimateCollide: Decrement the shoot timer.\n
 P:123B3:: If it became 0, then set it to $41, and shoot fireball $56.\n
-P:123BF:L123BF: Pass the frame image for the eye.\n
-P:123C8:L123C8: Here the eye is closed. So animate it this way.\n Increment the animation counter, and if <> 8, then\n go shoot, draw, and check collisions.\n
+P:123BF:L123BF_AnimateAndCheckCollisions: Pass the frame image for the eye.\n
+P:123C8:L123C8_AnimateClosedEye: Here the eye is closed. So animate it this way.\n Increment the animation counter, and if <> 8, then\n go shoot, draw, and check collisions.\n
 P:123D2:: Roll over the eye animation counter to 0.\n Clear bit 1 and invert bit 0 to switch between frame images 0 and 1.\n
-P:123DE:: Go shoot, draw, and check collisions\n
+P:123DE:: Go set eye state/frame image, shoot, draw, and check collisions\n
 P:123E1-123E2:GohmaLegOffsetsX
 P:123E3:_AnimateAndDrawGohma: Params:\n A: eye frame image\n\n Draw the eye with the frame image passed in.\n
 P:123F3:: Draw the right legs.\n
@@ -3469,46 +3469,46 @@ P:124E1:: Calculate the index of the last neck of this kind of gleeok.\n Subtrac
 P:124E7:: TODO:\n For each neck, counting down, indexed by [04D7]:\n
 P:124EA:L124EA_LoopNeck: If the bit for this neck is in the dead neck mask,\n then go loop again.\n
 P:124F8:L124F8: Get the addresses of this neck's segment data arrays.\n
-P:124FB:L124FB: Load neck data.\n\n For each segment from 5 to 0, indexed by Y register:\n - load coordinates into object slots 6 to 1\n - load miscellany into an array at [0413]\n
+P:124FB:L124FB_LoadNeckBytes: Load neck data.\n\n For each segment from 5 to 0, indexed by Y register:\n - load coordinates into object slots 6 to 1\n - load miscellany into an array at [0413]\n
 P:1250D:: Each screen frame, one neck is chosen to move and try to shoot.\n
 P:1251D:: The head is in object slot 5. Set it for when we want to shoot,\n so that it looks like the fireball came from the head.\n
 P:1251F:: If Random < $20, and there's no object (fireball) in slot $B,\n then shoot fireball $56.\n
-P:1252F:L1252F: This is run for all necks.\n
+P:1252F:L1252F_DrawAndCheckCollisions: This is run for all necks.\n
 P:12532:: Store the neck data.\n
-P:12535:L12535
+P:12535:L12535_SaveNeckBytes
 P:12547:L12547_NextLoopNeck: Bottom of the neck loop.\n Decrement the neck index until it < 0.\n
 P:1254D:Gleeok_FetchNeckAddrs: Returns:\n X: neck index\n Y: 5 -- the last segment index\n [00:01]: address of segment X array\n [02:03]: address of segment Y array\n [04:05]: address of segment miscellaneous array\n
 P:1256E:: Start loading data from segment 5.
-P:12571:L12571
+P:12571:L12571_L_Gleeok_UDiv4
 P:12576:Gleeok_MoveNeck: Get the H-distance from the head to the base.\n
 P:1257B:: If the difference is positive, then go divide by 4 unsigned.\n
 P:1257D:: Else divide by 4 signed.\n
-P:12585:L12585: Store the signed reference segment distance.\n
+P:12585:L_Gleeok_StoreRefSegDistance: Store the signed reference segment distance.\n
 P:12588:: Get the absolute horizontal reference segment distance.\n This is the first tier of reference distances.\n\n Pass the value here to calculate and store the\n second and third tier horizontal distances.\n
 P:1258B:: 0 for horizontal distances.
 P:12590:: Get the absolute V-distance from the head to the base,\n and divide it be 4.\n
 P:1259A:: Calculate and store the second and third tier vertical distances.\n
 P:1259E:: Keep segments within the third tier distance of each other.\n Any segment that is too far from the previous one is moved\n 2 pixels toward it.\n\n Loop over the 4 segments above the base, from 0 to 3,\n accessing slots 2 to 5.\n
-P:125A0:L125A0: Get the absolute H-distance between the current segment\n and the previous one.\n
+P:125A0:L125A0_KeepSegsNearNeighbors: Get the absolute H-distance between the current segment\n and the previous one.\n
 P:125A8:: If H-distance < third tier H-distance, then this distance is OK.\n Go look at the vertical distance.\n
 P:125AD:: Otherwise, generally, bring this segment closer to\n the previous one by 2 pixels.\n
 P:125BA:L125BA
-P:125BC:L125BC: Get the absolute V-distance between the current segment\n and the previous one.\n
+P:125BC:L125BC_CheckDistanceV: Get the absolute V-distance between the current segment\n and the previous one.\n
 P:125C4:: If V-distance < third tier V-distance, then this distance is OK.\n Go loop again.\n
 P:125C9:: Otherwise, generally, bring this segment closer to\n the previous one by 2 pixels.\n
 P:125D6:L125D6
-P:125D8:L125D8: Bottom of the loop keeping segments from getting too far apart.\n
+P:125D8:L125D8_NextKeepSegsNearNeighbors: Bottom of the loop keeping segments from getting too far apart.\n
 P:125DD:: Stretch or contract depending on the distance of one segment to the next.\n
 P:125DF:L125DF
 P:125E7:: TODO:\n\n [04D8] is the quarter horizontal distance from the head to the base.\n It represents the reference distance from each segment to the base.\n Multiples of it are used to mark the reference point of each segment.\n Move every segment one pixel closer to its reference point.\n\n Loop over each middle segment, from 2 to 0 in X register.\n Access object slots 4 to 2.\n
-P:125E9:L125E9: Calculate the reference X coordinate:\n   base X + ([04D8] * (loop index + 1))\n
+P:125E9:L125E9_KeepSegsNearRefPoint: Calculate the reference X coordinate:\n   base X + ([04D8] * (loop index + 1))\n
 P:125ED:L125ED
 P:125F4:: If current segment X < reference X, add 1 to it.\n Else subtract 1.\n
-P:125FD:L125FD: Store the new segment X, and loop again.\n
+P:125FD:L125FD_NextKeepSegsNearRefPoint: Store the new segment X, and loop again.\n
 P:12602:: Keep the segments in slots 4 and 3 between their neighbors vertically.\n So if they're not, then move them 1 pixel toward that goal.\n
-P:12604:L12604
+P:12604:L12604_KeepSegsBetweenNeighbors
 P:12613:L12613
-P:1261D:L1261D
+P:1261D:L1261D_NextKeepSegsBetweenNeighbors
 P:12621:_Gleeok_CalcSegmentLimits: Params:\n A: primary reference segment distance\n X: 0 for horizontal, 1 for vertical\n\n Store primary distance, capped at 4.\n
 P:12627:L12627
 P:1262A:: Add 4 and store secondary distance, capped at 8.\n
@@ -3525,16 +3525,16 @@ P:12671:L12671
 P:12675-12686:Gleeok_StretchNeck_JumpTable
 P:12687:Gleeok_ExpandSegment: Randomly, 50% of the time, go move away from the next segment horizontally.\n
 P:1268B:: Else move away vertically.\n
-P:12696:L12696
-P:1269A:L1269A
+P:12696:_L_Gleeok_DecSegmentY
+P:1269A:_L_Gleeok_SetSegmentY
 P:1269C:Gleeok_IgnoreSegment
 P:1269D:Gleeok_ContractSegmentY: Move toward the next segment vertically.\n
-P:126AA:L126AA: Move away from the next segment horizontally.\n
+P:126AA:_L_Gleeok_ExpandHorizontally: Move away from the next segment horizontally.\n
 P:126B5:Gleeok_ContractSegmentX: Move toward the next segment horizontally.\n
-P:126BE:L126BE
-P:126C2:L126C2
+P:126BE:_L_Gleeok_DecSegmentX
+P:126C2:_L_Gleeok_SetSegmentX
 P:126C5:Gleeok_ContractSegment: Randomly, 50% of the time, go move toward the next segment horizontally.\n Else go move vertically.\n
-P:126CB:L126CB: Description:\n This block applies to heads and the bottom segment of a neck.\n These are drawn with sprites that come first in order, so that\n they are drawn above all other sprites, including Link.\n\n Params:\n A: tile number\n\n Normal sprite with level palette row
+P:126CB:Gleeok_WriteHeadOrBaseSpriteAndCheckCollisions: Description:\n This block applies to heads and the bottom segment of a neck.\n These are drawn with sprites that come first in order, so that\n they are drawn above all other sprites, including Link.\n\n Params:\n A: tile number\n\n Normal sprite with level palette row
 P:126CD:: [03] holds sprite attributes
 P:126CF:: Save the tile number.
 P:126D0:: To calculate the base offset of the sprite record:\n offset := neck index * 8\n\n This ends up pointing to one of the first 8 eight sprites,\n at an even index.\n
@@ -3560,7 +3560,7 @@ P:1272F:: The flying head will go in slot (neck index + 7).\n Switch the X regis
 P:12736:: Flag it uninitialized, so that it will be initialized next frame.\n
 P:1273B:: Copy the original head's coordinates to it.\n
 P:12743:: Set object type $46 (flying head).\n
-P:12748:L12748: Restore the segment object slot in X.
+P:12748:L12748_DestroyNeck: Restore the segment object slot in X.
 P:1274A:: Hide the original head's sprite, and the base segment's sprite.\n
 P:12759:: Add the bit for this neck to the dead neck mask.\n Copy it to [00].\n
 P:12767:: Loop over the four bits in the copy of the dead neck mask.\n Count them up, and store the amount in [00].\n
@@ -3568,36 +3568,36 @@ P:1276B:L1276B
 P:12774:: Compare the number of dead necks to the original number\n (object type - $41).\n
 P:1277C:: If they're equal, then go handle the whole boss dying.\n
 P:1277E:: TODO:\n Else reset object metastate of the segment, and return.\n
-P:12781:L12781
+P:12781:L12781_ResetMetastate
 P:12784:L12784_NextLoopSegment: Bottom of the segment loop.\n Decrement segment object slot.\n\n If >= 1, then go draw the next segment and check collisions.\n Else return.\n
-P:1278C:L1278C: The whole gleeok died, because the last neck died.\n\n First, hide the first $10 sprites: the attached heads.\n
+P:1278C:L1278C_BossDied: The whole gleeok died, because the last neck died.\n\n First, hide the first $10 sprites: the attached heads.\n
 P:12792:: We want a death spark. So, set the metastate of the first\n monster slot to $11.\n
 P:12797:: Reset the object type of slots 2 to $A.\n\n Beware a left over fireball in slot $B!\n
-P:12799:L12799
+P:12799:L12799_DestroyFireballs
 P:127A4:Gleeok_MoveHead: Don't do anything until the head's initial timer expires.\n
 P:127A9:: Add 1 or -1 to X as needed.\n
 P:127B3:: Add 1 or -1 to Y as needed.\n
 P:127BD:: Increment the counter to change directions.\n If it's still < 4, then return.\n
 P:127C7:: The counter reached 4. So, reset it.\n Then check the individual direction counters.\n
 P:127CC:: Increment the horizontal direction counter.\n If >= $C, then reset the counter, and flip direction.\n
-P:127E3:L127E3: Increment the vertical direction counter.\n If >= 6, then reset the counter, and flip direction.\n
-P:127FA:L127FA
-P:127FB:L127FB
+P:127E3:L127E3_CheckVertical: Increment the vertical direction counter.\n If >= 6, then reset the counter, and flip direction.\n
+P:127FA:L127FA_Exit
+P:127FB:L127FB_Gleeok_DecHeadTimer
 P:127FF:_Gleeok_ChangeCoordinateBySpeedFlag: Params:\n A: a value to change\n Y: 0 => increment, 1 => decrement\n\n Returns:\n A: original value +/- 1\n
-P:12805:L12805
+P:12805:L12805_Subtract
 P:12809-1280E:GleeokBodyTiles0
 P:1280F-12814:GleeokBodyTiles1
 P:12815-1281A:GleeokBodyTiles2
 P:1281B-1281E:GleeokBodyBaseTileOffsets
-P:1281F:L1281F: Decrement animation timer, and go draw.\n
+P:1281F:_L_Gleeok_DecAnimTimerAndDraw: Decrement animation timer, and go draw.\n
 P:12825:Gleeok_DrawBody: The animation timer controls when the animation frame changes.\n If it has not expired, then go decrement it and draw.\n
 P:1282A:: The animation timer has expired. There are two choices for arming it.\n\n When writhing after a hit, Gleeok animates faster.\n So, when the writhing counter <> 0, set a shorter time (6).\n Otherwise, set a longer time ($10).\n
 P:12836:L12836
 P:12839:: Cycle the animation frame from 0 to 3.\n
-P:12844:L12844: For each row, from 0 to 1, indexed by [06]:\n
+P:12844:_L_Gleeok_WriteSprites: For each row, from 0 to 1, indexed by [06]:\n
 P:12848:: Get the base tile offset for the current animation frame.\n
-P:1284E:L1284E: For each column from 0 to 2, indexed by [07]:\n
-P:12852:L12852: Point to the next rolling sprite record.\n
+P:1284E:L1284E_LoopDrawRow: For each column from 0 to 2, indexed by [07]:\n
+P:12852:L12852_LoopDrawColumn: Point to the next rolling sprite record.\n
 P:12859:: Set sprite's Y to ($57 + row * $10).\n
 P:12864:: Look up and set the tile for this spot.\n
 P:1286A:: If temporarily invincible, then set sprite attributes to\n cycled palette rows.\n\n Else use level palette row 7.\n
@@ -3640,15 +3640,15 @@ P:1299E:: Else Link is near enough to Zelda.\n Go to state 1, and halt Link.\n
 P:129A4:: Put Link at location ($88, $88) and facing left.\n
 P:129AE:: Play the Zelda fanfare.\n
 P:129B3:: Set a delay of $80 frames at the beginning of the next state.\n
-P:129B7:L129B7
-P:129B8:L129B8: State 1.\n\n Draw Link, then return if the object timer <> 0.\n
+P:129B7:L129B7_Exit
+P:129B8:UpdateZelda_State1: State 1.\n\n Draw Link, then return if the object timer <> 0.\n
 P:129BF:: Go to mode $13.\n
 P:129C9:: Mode $13 will start with a curtain furling effect.\n Set up the decreasing column ($20), and the increasing column (1).\n Prepare the background by filling the tile map with blank tile $24.\n
 P:129D3:: [0A] tile to fill with
 P:129D8:UpdateGuardFire: Animation counter 6
 P:129E0:: If the object has not been killed, then return.\n Else change the object type to dead dummy.\n
 P:129E5:_SetDeadDummyObjType
-P:129EA:L129EA
+P:129EA:L129EA_Exit
 P:129EB:UpdateLamnola: If the direction of this segment is not set, then it has not started\n moving yet. So, return.\n
 P:129EF:: If we have the magic clock, then go draw and check collisions.\n
 P:129F7:: If the current segment is a head, then update the direction it's facing.\n
@@ -3685,17 +3685,17 @@ P:12AB8:: There's a 50% chance of going to try to turn toward Link.\n
 P:12ABE:: Otherwise, we randomly choose a perpendicular direction.\n Load the monster's facing direction.\n
 P:12AC0:: Load the next random number into Y register.\n
 P:12AC2:: Based on it, there's a 50% chance of skipping the loop,\n to keep moving straight.\n
-P:12AC6:L12AC6: Loop to rotate the direction bit over the mask.\n The goal is to calculate a direction perpendicular to the monster's\n facing direction.\n\n Shift right the copy of the direction.\n If the direction bit rolled off the low end, then roll it onto the high end.\n
+P:12AC6:L12AC6_LoopFindPerpendicular: Loop to rotate the direction bit over the mask.\n The goal is to calculate a direction perpendicular to the monster's\n facing direction.\n\n Shift right the copy of the direction.\n If the direction bit rolled off the low end, then roll it onto the high end.\n
 P:12ACB:L12ACB: If the current direction bit is masked off, then we've reached\n the opposite direction. Loop again.\n
 P:12AD0:: If Y register >= $40, then break out of the loop.\n So, 75% of the time, if horizontal, then turn up, else left.\n
 P:12AD4:: Set Y register to $40 in order to break out of the loop next time;\n and loop again now.\n So, 25% of the time, if horizontal, then turn down, else right.\n
 P:12AD8:L12AD8_SetDirAndCheckTiles: Change the facing direction to the direction found.\n
 P:12ADA:: Set moving direction [0F] for boundary and tile checks.\n
 P:12ADF:: If not blocked by the room boundary, then go check tile collision.\n
-P:12AE3:L12AE3: Else it was blocked. So, load the facing direction in preparation\n for looking for any non-opposite direction that is not blocked.\n
-P:12AE5:L12AE5: Shift right the copy of the direction.\n If the direction bit rolled off the low end, then roll it onto the high end.\n
+P:12AE3:L12AE3_FindNonOpposite: Else it was blocked. So, load the facing direction in preparation\n for looking for any non-opposite direction that is not blocked.\n
+P:12AE5:L12AE5_LoopFindNonOpposite: Shift right the copy of the direction.\n If the direction bit rolled off the low end, then roll it onto the high end.\n
 P:12AEA:L12AEA: If the current direction bit is not masked off, then go check the\n room boundary in this direction.\n Else we've reached the opposite direction. Loop again.\n
-P:12AF1:L12AF1: We found a direction that was not blocked by the room boundary.\n Check tile collision. If blocked by a tile, then go look for another direction.\n
+P:12AF1:L12AF1_CheckTileCollision: We found a direction that was not blocked by the room boundary.\n Check tile collision. If blocked by a tile, then go look for another direction.\n
 P:12AF9:L12AF9_Exit: TODO: confirm this\n\n If there were a room that had lamnolas, and they could get\n surrounded on 3 sides, then the loop above would get stuck in\n an infinite loop.\n\n But, the only room with that configuration has those blocks\n blocked off with a push block, which can only be pushed after\n all monsters are killed.\n
 P:12AFA:L12AFA_TurnTowardLink: Find the horizontal direction toward Link and store it in [02].\n
 P:12B07:L12B07: Find the vertical direction toward Link and store it in [03].\n
@@ -3793,7 +3793,7 @@ P:12D2D-12D2E:GanonStartXs
 P:12D2F:_Ganon_UpdateBrownState: Every other frame decrement the state.\n But every frame draw Ganon either translucent or opaque.\n
 P:12D36:: If the state becomes 0, then Ganon is blue again.\n Go switch his palette row to reflect it.\n
 P:12D3E:L12D3E: When state >= $30, draw Ganon opaque.\n When state goes below, draw him translucent.\n
-P:12D49:L12D49
+P:12D49:_L_DrawGanon
 P:12D4C:L12D4C
 P:12D4D:Ganon_Dying: Ganon is dying.\n Increment Ganon phase every frame.\n
 P:12D50:: If it just went from $FF to 0, then keep it at $FF.\n
@@ -3802,7 +3802,7 @@ P:12D5E:: If > $50, then go handle ashes only.\n
 P:12D60:: Otherwise Ganon phase = $50.\n Set up the burst and ashes.\n
 P:12D63:: Ganon is now a pile of ashes at offset (7, 8) from where he was.\n
 P:12D75:: Ganon/Triforce song
-P:12D7A:L12D7A
+P:12D7A:L12D7A_HandleAshes
 P:12D7D:: Keep drawing the burst artifacts while Ganon phase < $A0.\n
 P:12D84:: If > $A0, then there's nothing left to do, except return.\n
 P:12D86:: Otherwise Ganon phase = $A0.\n Activate the room item (triforce of power).\n
@@ -3821,14 +3821,14 @@ P:12DDB:: Low density cloud frame image (tile $74)
 P:12DDD:L12DDD: No horizontal flipping.
 P:12DE4:: Restore the coordinates.\n
 P:12DEB:_L_Ganon_DrawBurst: If cloud distance <> 0, then decrement it once every 8 frames.\n
-P:12DF9:L12DF9: Draw the four clouds at diagonal corners.\n
+P:12DF9:L12DF9_DrawClouds: Draw the four clouds at diagonal corners.\n
 P:12E17:: Draw the top and bottom clouds.\n
 P:12E27:: Draw the left and right clouds.\n
 P:12E37:: Save the object index.\n
 P:12E3B:: Loop over the 8 burst rays in slots 2 to 9, to move and draw them.\n
-P:12E3D:L12E3D
+P:12E3D:L12E3D_LoopRay
 P:12E40:: If object slot < 5 or = 7, then move every frame.\n Else move 3 out of every 4 frames.\n\n This makes pieces spread out in somewhat of a circle,\n by making the pieces at cardinal directions move at\n full speed while the diagonal ones move a little slower.\n
-P:12E4E:L12E4E
+P:12E4E:L12E4E_Move
 P:12E51:L12E51
 P:12E54:: The frame counter will make the sprite flash.\n The array has the horizontal and vertical flipping attributes.\n Combine them into [03].\n
 P:12E63:: Bottom of the loop.\n Increment object slot while <= 9.\n
@@ -3852,15 +3852,15 @@ P:12EDE:: Restore the loop index.
 P:12EDF:: Bottom of the part loop.\n
 P:12EE4:Ganon_CheckCollisions: Calculate Ganon's midpoint at offset ($10, $10) from his coordinates.\n Store in [02] and [03].\n
 P:12EF2:: Check for a collision with Link.\n\n We can't call CheckLinkCollision, because we need to\n customize Ganon's midpoint.\n\n So, we've calculated the midpoint hotspot. Now, skip collision\n detection, if Link is invincible. Initialize variables that will\n be returned from the partial collision check routine. Then\n call it.\n
-P:12F04:L12F04: If Ganon is not in state 0, then he's red.\n Go check collision with an arrow.\n
+P:12F04:L12F04_SkipLinkCollision: If Ganon is not in state 0, then he's red.\n Go check collision with an arrow.\n
 P:12F08:: If timer <> 0, then Ganon is visible.\n He can't be harmed like this. So, return.\n
 P:12F0C:: Sword slot
 P:12F11:: TODO: is red the right description of this color and state?\n\n If Ganon has died, according to the usual collision check rules\n (HP = 0), then:\n 1. Restore HP to the initial value $F0\n 2. Set state to $FF to note that Ganon is vulnerable to silver arrows\n 3. Change palette row 7 to make Ganon red\n
-P:12F20:L12F20: If Ganon was harmed, then play the sound effect\n and set timer to $40, so that he's visible for $40 frames.\n
-P:12F2C:L12F2C: Reset metastate, because Ganon cannot die this way.\n
+P:12F20:L12F20_CheckHarmed: If Ganon was harmed, then play the sound effect\n and set timer to $40, so that he's visible for $40 frames.\n
+P:12F2C:L12F2C_UndoDeath: Reset metastate, because Ganon cannot die this way.\n
 P:12F2F:: Reset shove info and invincibility timer, because Ganon\n doesn't react at all as a usual monster.\n
-P:12F32:L12F32
-P:12F33:L12F33: If the silver arrow is not in the inventory, then return.\n
+P:12F32:L12F32_Exit
+P:12F33:_L_Ganon_CheckArrowCollision: If the silver arrow is not in the inventory, then return.\n
 P:12F3A:: Reset the collision return value [06].\n
 P:12F3E:: If there's no arrow in flight, then return.\n
 P:12F47:: Check for collision with an arrow; and return if no collision.\n
@@ -3937,19 +3937,19 @@ P:13115:L13115
 P:13118:L13118: If the player is halted, then return.\n
 P:13120:: In addition to Link, there are 3 objects that can pick up items: \n * arrow\n * sword\n * boomerang\n\n For each weapon that's active, substitute it's location for\n Link's and try taking the item. Have Link himself check last.\n
 P:13122:: [0D] holds index into array of item slots that can take an item.
-P:13124:L13124: Save Link's location.\n
+P:13124:L13124_LoopItemTaker: Save Link's location.\n
 P:1312A:: Set Link's location to this object's.\n
 P:1312C:: TODO: (use ItemTakerObjSlots-1)
 P:13139:: If Link is checking directly, go try to take the item.
 P:1313B:: If the object whose place Link is taking is not active, then\n don't try to take the item.\n
-P:13141:L13141: Try to take the item.\n
+P:13141:L13141_TryToTake: Try to take the item.\n
 P:13144:: MULTI: ObjItemType
-P:1314B:L1314B: Restore Link's location.\n
+P:1314B:L1314B_SkipTaking: Restore Link's location.\n
 P:13151:: Reload object index in X.
 P:13154:: If item object's item type is invalid, then the item was taken.\n So, go destroy this object.\n\n\n MULTI: ObjItemType
 P:1315A:: Decrease the index [0D].
 P:1315C:: If there are more object slots to check from, go try the next one.
-P:1315E:L1315E
+P:1315E:L1315E_Exit
 P:1315F:DestroyMonster_Bank4: Params:\n X: object index\n
 P:13179:_ShootIfWanted: Params:\n A: shot object type\n X: shooter object index\n\n Returns:\n C: 1 if succeeded\n Y: shot slot\n\n Description:\n The shot starts in state $10.\n
 P:1317B:: If the monster does not want to shoot, then return C=0.\n
@@ -3966,9 +3966,9 @@ P:131C4-131C9:UpdateCandle_JumpTable
 P:131CA:UpdateCandle_Begin
 P:131CF:: If it's not a dark room, return.
 P:131D1:: Start a fade-to-light cycle (reverse of $40).
-P:131D9:L131D9
+P:131D9:_L_Candle_IncState
 P:131DC:UpdateCandle_Done
-P:131DD:L131DD: Stop brightening the room, and go set the candle state to done.\n
+P:131DD:_L_Candle_StopBrightening: Stop brightening the room, and go set the candle state to done.\n
 P:131E4:UpdateCandle_Brightening: Animating a brightening cycle.\n
 P:131E7:: If done fading, go stop brightening the room.
 P:131EA:IsDarkRoom_Bank4: Params:\n Y: room ID\n\n Returns:\n A: $80 if dark, else 0\n
@@ -3994,9 +3994,9 @@ P:13266:Flyer_SpeedUp: TODO:\n Increase speed each frame.\n When it reaches a th
 P:13269:L13269
 P:13270:: TODO:\n ([041F][X] & $E0) = 0\n Set a random timer between $40 and $7F.\n
 P:13278:: Go to flying state 5.\n
-P:1327A:L1327A_SetFlyingState
+P:1327A:Flyer_SetFlyingState
 P:1327D:L1327D
-P:1327E:L1327E
+P:1327E:Flyer_CompareMaxSpeed
 P:13281:: TODO: If ([041F][X] & $E0) < [04D1], return.
 P:13283:: Else go to flying state 1, and return.
 P:13288:MoveFlyer: Add (flying speed AND $E0) to flying position fraction.\n
@@ -4032,35 +4032,35 @@ P:13311:L13311_SetFlyingState1
 P:13316:L13316: Set a delay of $10 frames.\n
 P:1331A:TurnTowardsPlayer8: Build a direction in [00] towards the player.\n\n First, calculate a horizontal component:\n\n If   observed player X = object X, [00] := 0 (none)\n elif observed player X > object X, [00] := 1 (right)\n else                               [00] := 2 (left)\n
 P:13328:L13328
-P:1332A:L1332A: Second, calculate a vertical component.\n Combine it with the horizontal component:\n\n Y := 4 (down)\n if observed player Y <> object Y then\n   if observed player Y < object Y then\n     Y := Y << 1   -- makes it 8 (up)\n   [00] := [00] | Y\n
+P:1332A:L1332A_CalcVertical: Second, calculate a vertical component.\n Combine it with the horizontal component:\n\n Y := 4 (down)\n if observed player Y <> object Y then\n   if observed player Y < object Y then\n     Y := Y << 1   -- makes it 8 (up)\n   [00] := [00] | Y\n
 P:13335:L13335
-P:1333C:L1333C: Get the index of the object's direction.\n
+P:1333C:L1333C_SkipVertical: Get the index of the object's direction.\n
 P:1333F:: Check 3 directions turning left:\n 1. right from object direction\n 2. object direction\n 3. left from object direction\n\n If the target direction matches any of these, then\n leave the object's direction alone.\n
 P:13341:: [01] holds the count of directions to check
 P:13343:: Turn right.
-P:13344:L13344
+P:13344:L13344_LoopLeft
 P:13345:: Modulo 8 to roll over the index as needed.
 P:1334D:: Return if it matches.
 P:1334F:: Turn left.
 P:13354:: Check 3 directions turning right:\n 1. left of object direction\n 2. object direction\n 3. right of object direction\n\n If any direction component of the target direction matches\n these, then see if we should turn to this direction.\n
 P:13358:: This brings the index to one turn left of the object's direction.
-P:13359:L13359
+P:13359:L13359_LoopRight
 P:1335A:: Modulo 8 to roll over the index as needed.
-P:13364:L13364: Turn right.
+P:13364:L13364_NextLoopRight: Turn right.
 P:13369:: We didn't find a direction to switch to.\n So turn left once; to one turn right of object direction.\n
-P:1336A:L1336A: Apply the new direction.\n
-P:1336F:L1336F
+P:1336A:L1336A_SetDir8ForIndex: Apply the new direction.\n
+P:1336F:L1336F_Exit
 P:13370:L13370: If (test direction OR target direction) < 7, then allow this turn.\n Else go try the next test direction.\n\n For 3/5 of the arrangements of angles between Link and\n objects; this test yields a turn towards Link. The rest of\n the time, the object will keep going in its original direction\n or turn away from Link.\n
 P:13378:_Flyer_Wander: TODO: Was called _Flyer_TurnRandomly\n\n Description:\n Delay and turn randomly a number of times.\n The go to state 1. After each turn, delay $10 frames.\n\n\n Delay until timer = 0.\n
 P:1337C:: Decrease the turn counter.\n Once there are no more turns, go to flying state 1.\n
 P:13384:L13384: Set a delay of $10 frames.\n
 P:13388:_TurnRandomlyDir8: Turn according to a random value:\n >= $A0: don't turn\n >= $50: turn right\n Else:   turn left\n
-P:13398:L13398
+P:13398:L13398_SetDir
 P:1339C:: Go set object direction for 8-way index.
 P:1339F:GetObjDir8Index: Returns:\n Y: index of 8-way direction of flyer object\n
 P:133A1:L133A1
 P:133AB:: If not found, then use index 0.
-P:133AC:L133AC
+P:133AC:L133AC_Exit
 P:133AD-133BC:_PatraSines
 P:133BD:_RotateObjectLocation: Params:\n A: high bits of cosine to use in calculating Y increment\n Y: high bits of sine to use in calculating X increment\n\n Returns:\n A: new Y coordinate of object\n\n [06] holds the number of high bits of cosine to use
 P:133BF:: [05] holds the number of high bits of sine to use
@@ -4070,19 +4070,19 @@ P:133D4:: The absolute X increment for the current angle is now in [02:03].\n\n 
 P:133D7:: TODO: Why AND with $18?
 P:133DD:: Subtract the product's fraction from the X coordinate fraction.\n
 P:133E6:: And subtract the product's whole part from the X coordinate with carry.\n
-P:133ED:L133ED: Else angle < $10. So, the monster is in the bottom half of circle going right.\n Add the product's fraction to the X coordinate fraction.\n
+P:133ED:L133ED_AddToX: Else angle < $10. So, the monster is in the bottom half of circle going right.\n Add the product's fraction to the X coordinate fraction.\n
 P:133F6:: And add the product's whole part to the X coordinate with carry.\n
-P:133FA:L133FA
+P:133FA:L133FA_SetXRotateY
 P:133FC:: Now rotate the Y coordinate.\n\n Look up the cosine for the current angle, and store it in [00].\n The cosine corresponds to the sine offset by a quarter circle (8).\n
 P:1340A:: Multiply q-speed by [00].\n
 P:13412:: The absolute Y increment for the current angle is now in [02:03].\n\n If (angle - 8) >= $10, then the monster is in the right half of circle going up.\n
 P:1341E:: Subtract the product's fraction from the Y coordinate fraction.\n
 P:13427:: And subtract the product's whole part from the Y coordinate.\n
-P:1342C:L1342C: Else (angle - 8) < $10. So, the monster is in the left half of circle going down.\n Add the product's fraction to the Y coordinate fraction.\n
+P:1342C:L1342C_AddToY: Else (angle - 8) < $10. So, the monster is in the left half of circle going down.\n Add the product's fraction to the Y coordinate fraction.\n
 P:13435:: And add the product's whole part to the Y coordinate with carry.\n
 P:1343A:ShiftMultiply: Params:\n A: multiplicand\n Y: number of high bits of [00] to use\n [00]: multiplier (high Y bits are used)\n\n Returns:\n [02:03]: product\n
-P:13442:L13442
-P:13455:L13455
+P:13442:L13442_Loop
+P:13455:L13455_Next
 P:13459:_DecreaseObjectAngle: Params:\n A: low amount byte\n X: object index\n [0B]: high amount byte\n\n Subtract the low amount byte from low angle byte.\n
 P:13464:: Subtract the high amount byte from high angle byte with borrow.\n
 P:13469:: Cap the high byte at $1F.\n
