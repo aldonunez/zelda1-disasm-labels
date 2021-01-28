@@ -4148,7 +4148,7 @@ P:141AF:: [07] inner loop counter
 P:141B1:L141B1_LoopTile: Get the offset into the submenu triforce transfer buffers of\n the current tile slot.\n
 P:141B4:: If the level test bit is not in the triforce mask, then we don't\n have this piece. So, go loop again, and leave the tile in the\n empty state.\n\n\n [06] level test mask
 P:141BB:: We have the triforce piece.\n\n If the base/empty tile already in the transfer buf = $E5 or $E6,\n then make it $F5. These are tiles that were half full, and now\n need to be full.\n\n Else replace it with the one at the current triforce tile slot\n in the replacement list.\n
-P:141CC:L141CC
+P:141CC:L141CC_ReplaceWithF5
 P:141CE:L141CE
 P:141D1:L141D1_NextLoopTile: Bottom of the inner loop.\n\n Increment the triforce tile slot.\n Decrement [07] and loop again, if it's not 0.\n
 P:141D2:: [07] inner loop counter
@@ -4229,38 +4229,38 @@ P:14325:: Change the target nametable from 0 to 2.\n\n Because there's only a pl
 P:14331:: If the scroll direction is not vertical,
 P:14333:: then you DO have to account for the status bar.\n So, add $100 (by incrementing high byte) to move\n everything down 64 pixels.\n\n Now the play areas will line up in NT 0 and NT 2 when\n we change mirroring to vertical at the end of this mode.
 P:14336:L14336
-P:1433A:L1433A
+P:1433A:L1433A_IncSubmode
 P:1433C:L1433C
-P:1433D:InitMode7_Sub3And4_TransferPlayAreaAttrsToNT2: This transfers half of a room's play area attributes\n to nametable 2. The top half in submode 3, and the bottom\n half in submode 4.\n\n\n Test player's direction for up (8).
+P:1433D:InitMode7_Sub3And4_TransferPlayAreaAttrsToNT2: Transfer half of a room's play area attributes to nametable 2.\n The top half in submode 3, and the bottom half in submode 4.\n\n\n Test player's direction for up (8).
 P:14343:: Test player's direction for down (4).
-P:14348:L14348: Scrolling up or down.\n\n\n This will mean PPU address $2BC0.
+P:14348:L14348_Vertical: Scrolling up or down.\n\n\n This will mean PPU address $2BC0.
 P:1434A:L1434A_TransferHalfPlayAreaAttrs: This is the offset of the end of the first half of play area NT attributes.
 P:14350:: If in submode 4 instead of 3,
 P:14352:: then refer to bottom half of NT attributes.
 P:14355:L14355
-P:14358:L14358: Scrolling left or right.\n\n\n This will mean PPU address $2BD0, 64 pixels down from\n the top of NT 2. See submode 2 for an explanation of\n offsets and mirroring for vertical scrolling.
+P:14358:L14358_Horizontal: Scrolling left or right.\n\n\n This will mean PPU address $2BD0, 64 pixels down from\n the top of NT 2. See submode 2 for an explanation of\n offsets and mirroring for vertical scrolling.
 P:1435A:: Go continue setting up transfer of attributes.
 P:1435C:InitMode7_Sub5: Reset fade cycle, in case we don't need to fade.
 P:14365:: If direction is horizontal,
 P:14367:: then cue transfer of a row of blanks above the play area.\n This should lead to clean vertical scrolling without visual\n artifacts.\n\n TODO: But, maybe it doesn't work, because its address\n $28E0 is in NT 2, which will become a mirror of NT 0 below\n in this submode.
-P:1436B:L1436B
+P:1436B:L1436B_Vertical
 P:1436F:: Scrolling up.\n\n\n Lay out the next room now, because we had to transfer\n the current one to NT 2 earlier. Up is the only direction\n that draws the current room to NT 2.
 P:14371:: Save current room ID.
 P:14372:: Lay out the next room.
 P:14379:: Restore current room ID.
-P:1437C:L1437C: Scrolling in any direction.\n
+P:1437C:L1437C_CheckDark: Scrolling in any direction.\n
 P:14381:: If the next room is not dark, then go finish up and start updating.
 P:14383:: The next room is dark.\n
 P:14388:: If the current room is dark by default, go see if it was lit up.
 P:1438A:L1438A_DarkenRoom: Going from room with light to a dark room.\n\n\n The next room will not be lit yet.
 P:1438F:: Start a fade-to-black cycle.
-P:14397:L14397
+P:14397:L14397_CheckIfLit
 P:1439A:: If it was lit, then go start a fade-to-black cycle.
 P:1439C:: Not lit. Dark to dark. Nothing to do.\n Go finish initializing, and begin updating the mode.
 P:1439E:InitMode7_Sub6
 P:143A1:: If we're still fading, then return.
-P:143A3:L143A3: Finish initializing this mode, and start updating it.\n\n\n Set current room to next room.
-P:143AD:L143AD
+P:143A3:InitMode7_Finish: Finish initializing this mode, and start updating it.\n\n\n Set current room to next room.
+P:143AD:L143AD_Exit
 P:143AE-143B1:Sprite0Descriptor
 P:143B2:WriteAndEnableSprite0
 P:143B8:L143B8
@@ -4293,14 +4293,14 @@ P:14443:: If scrolling up, go handle it.
 P:1444A:: Scrolling down.\n\n\n Start scrolling from $2100, the top of play area in NT 0 (current room).
 P:1444E:: Start past the first row, because the scrolling process first increments it.
 P:14452:L14452_Inc2Submodes: From submode 0 go to submode 2.
-P:14457:L14457: Scrolling left or right.\n\n Keep in mind that columns will not be copied if CurColumn\n is not between 1 and $20.\n\n Set up a starting column number well past the beginning or\n end of the play area; so that we don't write to a part of\n the scroll region.\n\n\n $A0 in UW.
+P:14457:L14457_ScrollHorizontal: Scrolling left or right.\n\n Keep in mind that columns will not be copied if CurColumn\n is not between 1 and $20.\n\n Set up a starting column number well past the beginning or\n end of the play area; so that we don't write to a part of\n the scroll region.\n\n\n $A0 in UW.
 P:1445D:: $E0 in OW.
 P:1445F:L1445F
 P:14464:: Scrolling left.\n\n\n $81 in UW.
 P:1446A:: $41 in OW.
-P:1446C:L1446C: Set CurColumn to the value we determined.
+P:1446C:L1446C_SetColumn: Set CurColumn to the value we determined.
 P:1446E:: Go to submode 2.
-P:14471:L14471: Scrolling up.\n\n\n Start scrolling from $2800, the top of play area in NT 2 (current room).
+P:14471:L14471_ScrollUp: Scrolling up.\n\n\n Start scrolling from $2800, the top of play area in NT 2 (current room).
 P:14475:: Start past the last row, because the scrolling process first decrements it.
 P:1447E:UpdateMode7Scroll_Sub1
 P:14484:ChooseAttrSourceAndDestForSubmode: Results:\n A: low PPU address\n Y: end offset in PlayAreaAttrs to copy from\n\n\n Low byte $D0 mean destination PPU address of $23D0, $27D0, $2BD0, or $2FD0.
@@ -4341,8 +4341,8 @@ P:144FD:L144FD: Restore low byte of PPU address of top of play area attributes.
 P:14501:CueTransferPlayAreaAttrsHalfAndAdvanceSubmodeNT0: Params:\n A: low PPU address\n Y: end offset in PlayAreaAttrs to copy from\n\n\n High byte of destination PPU address for play area attributes.
 P:14506:CopyColumnOrRowToTileBuf: Copies a row if CurRow is valid. Otherwise, tries to copy a column.\n\n If CurRow = PrevRow, does nothing. After a row is copied,\n PrevRow is assigned CurRow.\n\n\n If CurRow is valid, then copy row.
 P:1450C:: unless CurRow = LastRow, then don't repeat
-P:14515:L14515: If 0 < CurColumn < $21, then copy column.
-P:14520:L14520
+P:14515:L14515_CheckColumn: If 0 < CurColumn < $21, then copy column.
+P:14520:L14520_Exit
 P:14521:WaitAndScrollToSplitBottom: Wait for Sprite 0 Hit.
 P:1452B:: Wait cycles.\n TODO: Why do these differ?\n (cycle at 8535 - cycle at 852b) = 1005  (see CPU status in debugger)\n (multiply instruction timing appropriately) = 1010
 P:1452D:L1452D
@@ -4357,7 +4357,7 @@ P:14559:: Prepare for writing to PPUADDR.
 P:1455C:: Set PPUADDR mid-frame to \n achieve split-frame scrolling.
 P:1456D:L1456D
 P:1456F:L1456F
-P:1458B:L1458B
+P:1458B:L1458B_Exit
 P:1458C:L1458C
 P:1458E:: If GameMode < $11,
 P:14590:: then turn off video and return.
@@ -4390,8 +4390,8 @@ P:14782:: Submode 1.\n Copies the whole play area to NT 0, one row each frame.\n
 P:14784:: If CurRow is negative, then go to the next submode.
 P:14789:: If the last row has been copied,
 P:1478B:L1478B: then go to the next submode.
-P:1478D:L1478D
-P:1478E:L1478E
+P:1478D:L1478D_Exit
+P:1478E:L1478E_CheckSub2
 P:14791:: Submode 2.\n
 P:14796:: If this room is dark, then nothing else to do. Go to submode 0.
 P:14798:: This is a light room.\n See if we have to brighten it after leaving a dark room.\n
@@ -4406,7 +4406,7 @@ P:147B3:SetFadeCycleAndAdvanceSubmode: Params:\n A: start index of cycle\n
 P:147B8:L147B8
 P:147B9:InitMode4_Sub3: Submode 3.\n
 P:147BC:: If not done animating, then return.
-P:147BE:L147BE
+P:147BE:InitMode4_GoToSub0
 P:147C6:InitMode_EnterRoom: TODO: Is also called for modes 9, $B, $C.\n\n Description:\n Clears intraroom data.\n Set up Link to walk into a room.\n Decodes and lays out objects.\n Switches from initializing the game mode to updating it.\n
 P:147CC:: Reset [0300] to [051F].\n
 P:147D3:: Reset door trigger info.\n
@@ -4428,13 +4428,13 @@ P:14815:L14815: This part is the same no matter if the player went\n underground
 P:14817:: Link faces down when coming out of a cave or dungeon.
 P:1481B:: Reset DoorwayDir, assuming there is no doorway.
 P:1481D:: Go reset Link's relative position, and work on objects.
-P:14820:L14820: Enter method 2.\n Room to room.\n\n Get the direction that the player is entering from.\n
+P:14820:L14820_Method2: Enter method 2.\n Room to room.\n\n Get the direction that the player is entering from.\n
 P:14822:: The player entered the doorway in a room. So, set DoorwayDir.
 P:14827:: If the player is entering from a door that was opened, then\n set the "close" door command.\n
 P:14831:L14831: If in OW, go reset Link's relative position, and work on objects.\n
 P:14835:: If facing right, then set Link's X to 0 at the left edge.\n If direction is left, then set Link's X to $F0 at the right edge.\n
 P:14843:L14843
-P:14845:L14845: Choose a distance to walk depending on the door you\n come out of.\n\n We'll get a 0 or 1 depending on the direction of the door.\n\n If the attribute of the door is "open", "key", or "key 2";\n then you have shorter distance to cover. So use the\n previous value as is to use indexes 0 and 1.\n\n Otherwise, add 2 to use indexes 2 and 3 to walk farther\n to get out of the way of the wall or door.\n
+P:14845:L14845_ChooseWalkDistance: Choose a distance to walk depending on the door you\n come out of.\n\n We'll get a 0 or 1 depending on the direction of the door.\n\n If the attribute of the door is "open", "key", or "key 2";\n then you have shorter distance to cover. So use the\n previous value as is to use indexes 0 and 1.\n\n Otherwise, add 2 to use indexes 2 and 3 to walk farther\n to get out of the way of the wall or door.\n
 P:14856:L14856
 P:14859:L14859_PlaceObjects
 P:1485F:: Set current object slot variable to $B, to be ready for the\n first frame of mode 5. So, that it begins updating objects\n at slot $B.\n
@@ -4455,17 +4455,17 @@ P:148AC:L148AC: Put the count in [03].
 P:148AE:: Use the room history to modify the number of objects to make.\n
 P:148B8:L148B8
 P:148BB:: If in mode 9 (most caves), then\n reset object count and object list ID.\n
-P:148C7:L148C7: Store the object count.
+P:148C7:L148C7_StoreObjCount: Store the object count.
 P:148CC:: If object count = 0 or object list ID = 0, then\n skip instantiating objects.\n
 P:148D2:: TODO: If object list ID (or call it object template ID?) >= $62,\n then it refers to a list. Go handle it.\n
 P:148D6:: TODO: Object list ID (or call it object template ID) refers to a\n repeated object.\n\n Set the object type at each element from 1 to Object Count\n to object list ID (or call it object template ID).\n
 P:148D8:L148D8
-P:148E5:L148E5: TODO: Object list ID (or call it object template ID) refers to a\n list of object types.\n\n Get the index of the list itself by subtracting $62.\n
+P:148E5:L148E5_PlaceList: TODO: Object list ID (or call it object template ID) refers to a\n list of object types.\n\n Get the index of the list itself by subtracting $62.\n
 P:148EA:: Put the address of the list in [04:05].\n
 P:148F7:: Copy elements from the list to ObjType up to object count [03].\n
 P:148F9:L148F9
-P:14903:L14903: Remember the object template type.\n
-P:14909:L14909
+P:14903:L14903_StoreObjTemplate: Remember the object template type.\n
+P:14909:L14909_SkipObjects
 P:14913:L14913
 P:14929:_DrawLinkBetweenRooms
 P:1492C:: If mode is not $B nor $C (caves),
@@ -4474,8 +4474,8 @@ P:1493B:: If coming out of a cave or dungeon, then ...
 P:14940:L14940
 P:14941:SetupTileObjectOW: If this is a room with a dock ($3F and $55), then\n set the dock object type ($61) in tile object slot ($B).\n
 P:1494B:L1494B
-P:14950:L14950: There's no dock here, but there might be a tile object that\n we found while laying out the room. Set the type, X, and Y\n to the details we determined.\n
-P:1495D:L1495D
+P:14950:L14950_PlaceTileObj: There's no dock here, but there might be a tile object that\n we found while laying out the room. Set the type, X, and Y\n to the details we determined.\n
+P:1495D:L1495D_SetType
 P:14963:: TODO: Activate room tile object.
 P:14966-14969:CellarKeeseXs
 P:1496A-1496D:CellarKeeseYs
@@ -4503,14 +4503,14 @@ P:149BD:L149BD
 P:149C4:L149C4_AssignSpecialPositions: If in mode 9 (play cellar), then spawn 4 blue keeses.\n
 P:149C8:: If not in mode 9, go check caves.
 P:149CC:L149CC: Blue Keese
-P:149DF:L149DF: If the mode is not $B nor $C (caves), then return.\n
-P:149E7:L149E7: We're in a cave.\n Reset object types in slots 1 to 8.\n
+P:149DF:L149DF_CheckCaves: If the mode is not $B nor $C (caves), then return.\n
+P:149E7:L149E7_InCave: We're in a cave.\n Reset object types in slots 1 to 8.\n
 P:149EB:L149EB
 P:149F1:: cave index = ((cave value) >> 2) - $10\n
 P:149F6:: Cave
 P:149FD:: cave dweller object type = $6A + (cave index)\n
 P:14A00:: Replace first non-Link object type with the cave dweller type.
-P:14A03:L14A03
+P:14A03:L14A03_Exit
 P:14A04:IsSafeToSpawn: Params:\n X: object index\n\n Returns:\n C: 1 if unwalkable\n\n\n Save %Y.
 P:14A09:: Restore %Y.
 P:14A11:: If the tile at the object's hotspot is unwalkable, return unwalkable.
@@ -4519,7 +4519,7 @@ P:14A1D:: If distance > $22, return walkable.
 P:14A1F:: Get the absolute Y distance to Link.\n
 P:14A29:: If distance < $22, go return unwalkable.
 P:14A2B:L14A2B: Walkable
-P:14A2D:L14A2D: Unwalkable
+P:14A2D:L14A2D_ReturnUnsafeToSpawn: Unwalkable
 P:14A2F:InitMode11: Decrease Link's invincibility timer. This is needed in submode 1.
 P:14A34:: TODO: draw Link?
 P:14A39:: Go handle submode 1.
@@ -4536,7 +4536,7 @@ P:14A7E:: Reset submode, CurRow, and player's state.
 P:14A86:: There will be 4 turns starting from down direction.
 P:14A8C:: Start updating.
 P:14A8E:L14A8E_SilenceSound
-P:14A96:L14A96
+P:14A96:L14A96_Exit
 P:14A97:SetDoorFlag: Params:\n X: door direction index\n\n Returns:\n Y: room ID\n [00:01]: address of level block world flags\n
 P:14AA0:ResetDoorFlag: Params:\n X: door direction index\n\n Returns:\n Y: room ID\n [00:01]: address of level block world flags\n
 P:14AAD:CheckShutters:\n\n If the shutters have not been triggered to open, return.\n
@@ -4563,18 +4563,19 @@ P:14AFD:: If Start is pressed, go handle it.
 P:14B03:: If Select was pressed,
 P:14B05:: Play a short sound for it (same as rupee taken).
 P:14B0A:: The selection is tracked by the submode.\n Increase it. Wrap around, if needed.
-P:14B16:L14B16: Set tile, attributes, and X for selection sprite (0).
+P:14B16:L14B16_DrawCursor: Set tile, attributes, and X for selection sprite (0).
 P:14B18:L14B18
-P:14B2A:L14B2A: Show in the submode that Start was pressed by setting high bit.
+P:14B21:: Set Y for selection sprite.\n
+P:14B2A:L14B2A_ActivateOption: Show in the submode that Start was pressed by setting high bit.
 P:14B30:: Flash the selection for $40 frames.
-P:14B35:L14B35
+P:14B35:L14B35_AnimateSelection
 P:14B37:: When the timer expires, go handle the selection.
 P:14B39:: Copy to dynamic tile buf the transfer record\n for flashing NT attributes.
 P:14B3B:L14B3B
 P:14B44:: Patch the transfer record to write the low byte of the\n appropriate address of the attributes depending on\n the selection.
 P:14B4F:: Every 4 frames, depending on ObjTimer,\n change the NT attribute byte to another palette.
 P:14B59:L14B59
-P:14B5D:L14B5D: Mask the submode, so that it only holds the selection.
+P:14B5D:L14B5D_HandleActivated: Mask the submode, so that it only holds the selection.
 P:14B66:: Set the next game mode according to the selection.\n 3: Continue\n D: Save\n 0: Retry
 P:14B6D:: Make the player start again with 3 full hearts.
 P:14B7F:: If player chose Retry,
@@ -4604,7 +4605,7 @@ P:14BEA-14BF9:CheckSecretTrigger_JumpTable
 P:14BFA:_CheckHasLivingMonsters: Look for monsters in slots $C to 1 that are not bubbles.\n If one is found, return.\n\n Else flag Link not paralyzed (to cancel the effects of a like-like),\n and set the all-dead-in-room flag.\n
 P:14BFD:L14BFD
 P:14C0E:L14C0E
-P:14C19:L14C19
+P:14C19:L14C19_Exit
 P:14C1A:CheckSecretTriggerAllDead: If there are still monsters, not counting bubbles, then return C=0.\n
 P:14C1F:L14C1F_TriggerShutters: No monsters are left. Trigger shutters to open, and return C=1.\n
 P:14C26:L14C26_ReturnFalse
@@ -4654,8 +4655,8 @@ P:14CEA:: If not left, then go check other directions.
 P:14CEC:: Facing left.\n
 P:14CEE:: Face the next direction (down).
 P:14CF0:L14CF0_SetLinkDirAndDraw
-P:14CF2:L14CF2: Go redraw Link.
-P:14CF5:L14CF5: If not right, then vertical. %A was shifted to become\n horizontal direction counter-clockwise from original\n vertical direction. Got set it and redraw.
+P:14CF2:L14CF2_DrawLink: Go redraw Link.
+P:14CF5:L14CF5_CheckOtherDirs: If not right, then vertical. %A was shifted to become\n horizontal direction counter-clockwise from original\n vertical direction. Got set it and redraw.
 P:14CF7:: Facing right.\n\n Face the next direction (up).
 P:14CF9:: Go set the direction and redraw.
 P:14CFB:UpdateMode11Death_Sub8_AnimateFade
@@ -4681,8 +4682,8 @@ P:14D40:: If not zero yet, then return.
 P:14D42:: Play "heart taken" tune.
 P:14D47:: Hide the Link/spark sprites.
 P:14D4F:: Set a delay of $2D ($2E-1) frames for the next submode.
-P:14D51:L14D51
-P:14D55:L14D55
+P:14D51:UpdateMode11Death_SetTimerIncSubmode
+P:14D55:L14D55_Exit
 P:14D56:UpdateMode11Death_SubB
 P:14D58:: If the timer hasn't expired, then return.
 P:14D5A:: Set a delay of $5F ($60-1) frames for the next submode.
@@ -4717,11 +4718,11 @@ P:14DD6:: [01] button mask
 P:14DDA:: If in OW or button mask <> 0, return.\n
 P:14DE2:: Mask off input directions perpendicular to player's facing.\n
 P:14DEC:L14DEC
-P:14DF3:L14DF3
-P:14DF4:L14DF4: The direction is negative.\n\n If the coordinate crosses (<) the boundary, then\n go mask buttons.\n\n\n Get coordinate in [02].
-P:14DFB:L14DFB: The coordinate is not crossed; then set mask $FF,\n so that no button is excluded.\n
+P:14DF3:L14DF3_Exit
+P:14DF4:L14DF4_PositiveDir: The direction is positive.\n\n If the coordinate crosses (<) the boundary, then\n go mask buttons.\n\n\n Get coordinate in [02].
+P:14DFB:L14DFB_ExcludeNone: The coordinate is not crossed; then set mask $FF,\n so that no button is excluded.\n
 P:14DFD:: [01] holds button mask.
-P:14DFF:L14DFF
+P:14DFF:L14DFF_Exit
 P:14E00:WieldSword: If there's no sword, return.\n
 P:14E05:: Switch to the sword slot.\n
 P:14E07:: If state <> 0, then sword or item is in use. So, return.\n
@@ -4740,7 +4741,7 @@ P:14E56:: Set up the boomerang.\n QSpeed = $C0 (3 pixels a second)\n\n TODO:\n E
 P:14E63:: See _SetUpWeaponForPlayerStateAndAnim for the reason\n that Link's animation counter is set to 1.\n
 P:14E68:: If there's an input direction, then use it as the weapon's direction.\n It might be diagonal, with horizontal and vertical components.\n Else use Link's facing direction.\n
 P:14E6F:L14E6F
-P:14E71:L14E71
+P:14E71:L14E71_Exit
 P:14E72:WieldArrow: If there's no bow, return.\n
 P:14E77:: Switch to the arrow slot.\n
 P:14E79:: If state <> 0 and high bit is clear, return.\n
@@ -4759,7 +4760,7 @@ P:14EB1:: Set up the food in state $80.\n
 P:14EB6:WieldPotion: If there's nothing in the item slot, return.\n
 P:14EBB:: We're using one potion. So decrement the item value.\n
 P:14EBE:: Flag that we're filling hearts and involuntarily paused.\n
-P:14EC6:L14EC6
+P:14EC6:L14EC6_Exit
 P:14EC7:WieldRod: Switch to the rod slot.\n If it's already in use, then return.\n
 P:14ECD:: The first state lasts 5 frames.\n
 P:14ED2:: The initial state is $31.\n
@@ -4771,7 +4772,7 @@ P:14EF5:: Determine the destination room ID, and go there.\n\n If Link's X < $80
 P:14F02:L14F02
 P:14F05:L14F05
 P:14F08:: Set Link's position in the destination room.\n
-P:14F1C:L14F1C: In a cave.\n\n Check whether a person is blocking the upper half of the room.\n
+P:14F1C:L14F1C_InCave: In a cave.\n\n Check whether a person is blocking the upper half of the room.\n
 P:14F21:: If mode is not $C (shortcuts), go check the screen edge.\n
 P:14F25:: In a shortcut cave (mode $C).\n\n If grid offset <> 0, return.\n
 P:14F2A:: If Link's Y <> $9D, go check the screen edge.\n
@@ -4783,20 +4784,20 @@ P:14F52:: Wrap around if needed. Go to that room by way of mode $A.\n
 P:14F58:_GoToModeAFromCellar: Params:\n A: destination room ID\n
 P:14F5D:_GoToModeAFromCave
 P:14F61:_EndPrepareMode
-P:14F72:L14F72
-P:14F73:L14F73
+P:14F72:L14F72_Exit
+P:14F73:L14F73_CheckCaveEdge
 P:14F76:: If the player touched the edge of the screen and triggered\n a transition to another mode, then go set up the right mode.\n
 P:14F7B:CheckLadder: Params:\n [0F]: movement direction\n\n Returns:\n [0F]: movement direction or 0\n\n\n If the ladder's not in use, return.\n
 P:14F7F:: If the ladder is done (state 0), go put away the ladder.\n
 P:14F83:: If the ladder is facing vertically, calculate the vertical distance\n between the ladder and Link.\n If Link's X no longer matches the ladder's, go put the ladder away.\n
 P:14F9A:L14F9A: If instead it's facing horizontally, calculate the horizontal distance\n between the ladder and Link.\n If Link's Y no longer matches the ladder's, go put the ladder away.\n
-P:14FA8:L14FA8: If absolute distance < $10, go handle movement on the ladder and set state 2.\n If > $10, go put the ladder away.\n
+P:14FA8:L14FA8_CheckDistanceToLadder: If absolute distance < $10, go handle movement on the ladder and set state 2.\n If > $10, go put the ladder away.\n
 P:14FAB:: [00] holds the absolute distance between Link and the ladder in whichever axis is relevant.
 P:14FB5:: Distance = $10. If player's not facing in the same direction as\n the ladder, go put away the ladder.\n
 P:14FBB:: Distance = $10, and player's facing in the same direction.\n\n If the ladder's still in initial state 1, then Link's facing the\n ladder and had not stepped onto it yet.\n Go handle movement on it, but don't change state yet.\n\n But if ladder state is 2, then it means Link completely stepped\n off of the ladder. So the ladder should be put away. In this\n case, fall thru.\n
-P:14FC1:L14FC1: Put away the ladder. Reset ladder slot and destroy the object.\n
-P:14FC8:L14FC8
-P:14FC9:L14FC9:  Set state 2, because we're on the ladder.\n
+P:14FC1:L14FC1_StashLadder: Put away the ladder. Reset ladder slot and destroy the object.\n
+P:14FC8:L14FC8_Exit
+P:14FC9:L14FC9_SetState2:  Set state 2, because we're on the ladder.\n
 P:14FCD:L14FCD_HandleInput: If input direction = 0, go draw and reset moving direction.\n
 P:14FD2:: Input direction <> 0. The player intends to move.\n So, see if we need to override the moving direction.\n\n A. If the distance <> 0, and they are facing the same way,\n go draw and set moving direction to Link's direction.\n\n This lets Link step onto the ladder. Otherwise he would have\n been blocked by the water.\n\n Or, Link already passed over the point right over the ladder\n and was allowed to move onto the tiles after the ladder.\n
 P:14FD4:: [00] distance between Link and ladder
@@ -4808,23 +4809,23 @@ P:14FF4:: E. The ladder's direction is up and input direction is up.\n\n An earl
 P:14FF7:: Check the colliding tile as if Link was 8 pixels up.\n
 P:15005:: If the tile is walkable, go draw the ladder and leave the moving\n direction as the input direction (in a roundabout way).\n Else fall thru to reset moving direction and draw the ladder.\n
 P:1500F:L1500F: Set A to reset moving direction in [0F].\n
-P:15011:L15011: Draw the ladder.\n
+P:15011:L15011_DrawLadder: Draw the ladder.\n
 P:1501F:SetMovingDirAndSwitchToPlayerSlot: Params:\n A: direction\n\n Returns:\n [0F]: direction\n
 P:15024:FindNextEdgeSpawnCell: Load [0A] with the value before the call.\n
 P:15029:L15029_LoopEdgeCell: Loop to look for a place to spawn a monster from the edge\n of the screen. Move counterclockwise, one square at a time.\n\n First, if low nibble = 0, then we're at the left edge.\n We'll move down $10 pixels.\n
 P:15031:: Else if low nibble <> $F, then we're at the top or bottom.\n Don't move vertically.\n
-P:15037:L15037: Else low nibble = $F. We're at the right edge,\n and we'll move up $10 pixels.\n
+P:15037:L15037_HandleLeftOrRight: Else low nibble = $F. We're at the right edge,\n and we'll move up $10 pixels.\n
 P:15039:: Add $10 or -$10 at the left or right edge.
-P:1503D:L1503D: Next, if high nibble = $E, then we're at the bottom edge.\n Move right one pixel.\n
+P:1503D:L1503D_CheckTopOrBottom: Next, if high nibble = $E, then we're at the bottom edge.\n Move right one pixel.\n
 P:1504A:L1504A: Else if high nibble <> 4, then we're at the left or right.\n Dont' move horizontally.\n
 P:1504E:: Else high nibble = 4. We're at the top edge.\n Move left 1 pixel.\n
-P:15050:L15050: Time to get the address of the column.\n Starting at the top of the leftmost column.\n
+P:15050:L15050_PointToColumn: Time to get the address of the column.\n Starting at the top of the leftmost column.\n
 P:15053:: Add $2C to the address as many times as the low nibble of [0A],\n in order to point to the column we want.\n
 P:1505A:L1505A: Each column is $16 tiles. Each square column has two columns.
-P:15062:L15062: Turn the row part of [0A] into a tile index.\n row := (([0A] AND $F0) - $40) / 8\n
+P:15062:L15062_GetRowOffset: Turn the row part of [0A] into a tile index.\n row := (([0A] AND $F0) - $40) / 8\n
 P:1506D:: If the tile < $84, then it's walkable. So, go use it.\n $84 is a sand tile, which is OK for many monsters; but not\n when coming in from the edges.\n
 P:15073:: Bottom of the loop.\n If you reach the original cell, then stop.\n
-P:1507A:L1507A: Set the spawn cell to the one we found.\n
+P:1507A:L1507A_SetSpawnCell: Set the spawn cell to the one we found.\n
 P:15080:InitModeB
 P:15085-15096:InitModeB_JumpTable
 P:15097:InitModeC
@@ -4839,7 +4840,7 @@ P:150C9:L150C9_Exit
 P:150CA:L150CA: If kill count in room flags = 0, leave object count alone, and return.\n
 P:150D1:: If kill count = 7, go reset object count and object list ID.\n Else subtract kill count from object count.\n
 P:150DC:: If the result >= 0, go set the object count to this.
-P:150DE:L150DE: Else, reset object count and object list ID.
+P:150DE:L150DE_ResetObjList: Else, reset object count and object list ID.
 P:150E2:L150E2
 P:150E5:SaveKillCountOW
 P:150E8:: Put kill count from the room's flags in [02].
@@ -4849,7 +4850,7 @@ P:150F8:: If RoomKillCount >= RoomFoeCount, go store the max kill count.
 P:150FA:: Limit RoomKillCount to 7.
 P:150FC:: Add it to kill count from flags.
 P:15101:: If the total > 7,
-P:15103:L15103: then limit it to 7.
+P:15103:L15103_LimitCount: then limit it to 7.
 P:15105:L15105: Combine this new total and the room's flags.
 P:1510A:InitMode9
 P:1510F-15122:InitMode9_JumpTable
@@ -4858,7 +4859,7 @@ P:15148:: If the facing direction is part of the input direction, then\n keep mo
 P:1514F:: If the opposite of the facing direction is part of the input direction, then\n face the opposite direction.\n
 P:15157:: If neither direction matched input direction, then\n change input direction to facing direction.\n
 P:1515B:L1515B
-P:1515E:L1515E
+P:1515E:L1515E_Exit
 P:15168-1516B:DoorwayRequiredCoord: To be considered within a doorway, one condition is that\n Link's perpendicular coordinate ([00]) has to match the doorway's\n (X=$78 for verticals, Y=$8D for horizontals).\n\n TODO:\n See _GetPlayerCoordsForDirection.\n
 P:1516C-1516F:DoorwayBoundsMinOver: Player coordinate must be >= these bounds.\n Using these bounds; the player will be considered within the\n bounds of a doorway, if strictly inside or 1 pixel outside.\n
 P:15170-15173:DoorwayBoundsMaxOver: Player coordinate must be < these bounds.\n Using these bounds; the player will be considered within the\n bounds of a doorway, if strictly inside or 1 pixel outside.\n
@@ -4866,16 +4867,16 @@ P:15174:DoorwayBoundsMinUnder: Player coordinate must be >= these bounds.\n Usin
 P:15178:DoorwayBoundsMaxUnder: Player coordinate must be < these bounds.\n Using these bounds; the player will be considered within the\n bounds of a doorway, if strictly inside except for 1 or 2 pixels\n at the edge.\n
 P:1517C:CheckDoorway: Params:\n [0F]: moving direction\n\n Returns:\n [0E]: reverse index of doorway direction found, or $FF if blocked\n [0F]: untouched, or changed from 0 to a moving direction\n\n When not at or in a doorway, this function leaves\n [0F] moving direction as is.\n\n When blocked by a door, [0E] will be set to $FF. But [0F]\n will be left as is, assuming that it had been reset before this\n routine by BoundByRoom.\n\n Otherwise, [0F] will be changed from 0 to the door's direction.\n\n\n If already in a doorway, go handle it separately.\n
 P:15180:L15180_SearchOverflowBounds: Not in a doorway. Look for a doorway that Link might be in.\n\n To match a doorway:\n 1. Link's [00] coordinate has to match the doorway's\n    (X=$78 for verticals, Y=$8D for horizontals)\n 2. Link's [01] coordinate has to >=  min bound, and < max bound\n\n The "overflow" bounds are used that consider 1 pixel outside\n a doorway to be part of it.\n
-P:15187:L15187: [00] is Link's Y, if facing horizontally; else X.
+P:15187:L15187_LoopOverflowBounds: [00] is Link's Y, if facing horizontally; else X.
 P:1518E:: [01] is Link's X, if facing horizontally; else Y.
 P:15198:: If found a doorway, go see what it does when you touch it.
 P:1519A:L1519A
 P:1519D:L1519D_NotInDoorway: Not in any doorway. Reset DoorwayDir.\n Leave [0F] moving direction as is.\n
-P:151A2:L151A2: In a doorway. DoorwayDir is in A.\n
+P:151A2:L151A2_InDoorway: In a doorway. DoorwayDir is in A.\n
 P:151A7:: Get reverse index of doorway direction.
 P:151AA:: [01] is Link's X, if facing horizontally; else Y.
 P:151AC:: If the player is within the bounds of the doorway for DoorwayDir\n (for example the left door way, if DoorwayDir = left;\n instead of right doorway while DoorwayDir = left),\n and player is facing in DoorwayDir, then go repeat the\n original search used to enter the doorway.\n
-P:151BC:L151BC: The player might be in the original doorway facing backwards,\n outside it, or in the other doorway along the axis.\n\n Look for a doorway that Link might be in.\n The difference between this search and the one above\n is that we check the "underflow" bounds that are shorter than\n the full doorway length.\n
+P:151BC:L151BC_SearchUnderflowDoorway: The player might be in the original doorway facing backwards,\n outside it, or in the other doorway along the axis.\n\n Look for a doorway that Link might be in.\n The difference between this search and the one above\n is that we check the "underflow" bounds that are shorter than\n the full doorway length.\n
 P:151BE:L151BE_LoopUnderflowDoorway: [00] is Link's Y, if facing horizontally; else X.
 P:151C5:: [01] is Link's X, if facing horizontally; else Y.
 P:151D1:L151D1
@@ -4890,7 +4891,7 @@ P:151EE:: If blocked, then return and leave DoorwayDir as it was.\n
 P:151F2:: Set variables to doorway direction found.\n
 P:151F7:: [0F] movement direction
 P:151FB:: Movement was not blocked at a doorway.\n If we're at a false wall or bombable, then go pass thru it\n and leave the room.\n
-P:1520B:L1520B
+P:1520B:L1520B_Exit
 P:1520C:L1520C
 P:1520F:_GetPlayerCoordsForDirection: Params:\n A: direction\n\n Returns:\n [00]: coordinate on perpendicular axis\n [01]: coordinate on direction's axis\n\n [00]: Y if facing left or right, else X\n [01]: X if facing left or right, else Y\n
 P:1521B:L1521B
@@ -4899,8 +4900,8 @@ P:15225-15234:TouchDoor_JumpTable
 P:15235:TouchDoorWall
 P:15239:TouchDoorOpen
 P:1523A:TouchDoorFalse: At first, Link's timer = 0. So set it to $18 frames, and block movement.\n Subsequently, block movement until timer = 1.\n
-P:15243:L15243
-P:15247:L15247
+P:15243:L15243_SetTimer
+P:15247:L15247_BlockMovement
 P:1524A:TouchDoorBombable: Block movement, if this door's direction is not in the open door mask.\n
 P:15251:TouchDoorShutter: If a door is triggered or this door wasn't already opened,\n then block movement.\n
 P:1525B:: TODO: ?\n
@@ -4910,10 +4911,10 @@ P:1526B:TouchDoorKey: If this door was already opened, return.\n
 P:15271:: If a door is triggered, go block movement while Link's timer <> 0.\n
 P:15275:: If we don't have the magic key nor any normal keys, \n go block movement.\n
 P:1527F:: If we don't have the magic key, decrease the key count.\n
-P:15282:L15282: Trigger this door to open.\n
+P:15282:L15282_TriggerDoor: Trigger this door to open.\n
 P:15287:: Set player's timer to block for $20 frames.\n
-P:1528B:L1528B_TouchWall
-P:1528E:L1528E: Block movement while Link's timer <> 0.\n
+P:1528B:L1528B_BlockAtWall
+P:1528E:L1528E_BlockUntilTime: Block movement while Link's timer <> 0.\n
 P:15292:L15292_Exit
 P:15293:ModifyObjCountByHistoryUW: Look for the room in the history.\n
 P:15297:L15297
@@ -4923,9 +4924,9 @@ P:152A6:: If not all defeated, go subtract kill count from object count.
 P:152A8:: The room is not in history, and all foes were defeated.\n Does the object list ID indicate a non-recurring object?\n
 P:152B8:: If it's non-recurring, go reset the object count.
 P:152BA:L152BA: The object list ID is for recurring objects.\n So, reset the kill count in room flags and level block.\n
-P:152C6:L152C6: Subtract the level block's kill count from the object count.\n
+P:152C6:L152C6_CalcObjCount: Subtract the level block's kill count from the object count.\n
 P:152CE:: If the result >= 0, go set the object count to this.
-P:152D0:L152D0: Else, reset object count and object list ID.
+P:152D0:L152D0_ResetObjCount: Else, reset object count and object list ID.
 P:152D4:L152D4
 P:152D7:SaveKillCountUW
 P:152DA:: Reset kill count part of the room's flags.
@@ -4939,9 +4940,9 @@ P:15300:: RoomKillCount < _RoomObjCount.\n Add RoomKillCount to level kill count
 P:15309:: Cap the kill count to 2.
 P:1530F:L1530F: Shift the adjusted kill count (up to 2) into the top 2 bits.
 P:15313:: Go combine this mask with the room's flags.
-P:15316:L15316: For this room in the level block, set kill count to max ($F).
+P:15316:L15316_StoreMax: For this room in the level block, set kill count to max ($F).
 P:1531D:: For this room in world flags, set kill count to max (3).
-P:1531F:L1531F: Combine the mask with the room's flags.
+P:1531F:L1531F_CombineWithFlags: Combine the mask with the room's flags.
 P:15324-15327:BossSoundEffects
 P:15328:CheckBossSoundEffectUW
 P:1532E:: Get room flags for boss room.
@@ -5032,11 +5033,11 @@ P:1647A:: If reached the end of the column,
 P:1647C:: then count $A tile pairs again.
 P:16480:: Set A to advance to next column (at second tile).
 P:16482:: $1F means add this amount to bottom offset to move\n it to bottom of next column.
-P:16484:L16484: Increase top offset by 1 tile, or by another amount to get to the next column (at second tile).
+P:16484:L16484_MoveWallPtrs: Increase top offset by 1 tile, or by another amount to get to the next column (at second tile).
 P:16487:: We need the amount to add or subtract in A.
 P:16489:: If X was 1, then go subtract 1 from bottom offset.
 P:1648B:: Else add the original X value to bottom offset,\n intending to move it to the bottom of the next column.
-P:1648E:L1648E: Increment the wall tile list address.
+P:1648E:L1648E_NextLoopWallTile: Increment the wall tile list address.
 P:16493:: If wall tile list pointer hasn't reached the end ($94EE), go process tiles again. At this point, we'll have written the walls on the left half of the play area.
 P:16495:: Copy rotated 180 degrees, accounting for appropriate\n horizontal or vertical flipping of tiles.\n\n The source is in the top left.
 P:1649D:: The destination is the bottom right.
@@ -5072,10 +5073,10 @@ P:1650A:: If door attribute > 4, go use it as the provisional face.
 P:1650E:: Door attribute < 4, go process it.
 P:16512:: Door attribute = 4, go use 8 as the provisional face.
 P:16514:L16514_SetPF9: We jump here if the door type is bombable and was opened.\n Change the provisional door face to value 9, which\n will become the "hole in the wall".\n
-P:16518:L16518: Door attribute < 4 (open or any wall), clear door bit from\n the mask of opened doors, because this is not a true door.\n
+P:16518:L16518_ClearFromOpenedMask: Door attribute < 4 (open or any wall), clear door bit from\n the mask of opened doors, because this is not a true door.\n
 P:16519:: [02] current direction
 P:16522:: Furthermore, if door type = 0, then use 4 as the provisional face.\n
-P:16528:L16528: The door attribute (DA) has been mapped to a\n provisional door face value (PF) in %A as follows:\n\n DA PF Meaning\n -------------\n 0  4  open\n 1  1  wall\n 2  2  false wall\n 3  3  false wall 2\n 4  8  bombable\n 5  5  key\n 6  6  key 2\n 7  7  shutter\n\n Also at this point, the door bit in CurOpenedDoors\n has been cleared, if the type was "open" or any wall.\n\n\n Save the provisional face.
+P:16528:L16528_DoneClosedPF: The door attribute (DA) has been mapped to a\n provisional door face value (PF) in %A as follows:\n\n DA PF Meaning\n -------------\n 0  4  open\n 1  1  wall\n 2  2  false wall\n 3  3  false wall 2\n 4  8  bombable\n 5  5  key\n 6  6  key 2\n 7  7  shutter\n\n Also at this point, the door bit in CurOpenedDoors\n has been cleared, if the type was "open" or any wall.\n\n\n Save the provisional face.
 P:16529:: If the current direction points to a door that has been opened,\n then see if we need to set door flags.\n
 P:1652B:: [02] current door direction
 P:1652E:: Restore the provisional face.
@@ -5088,7 +5089,7 @@ P:1653A:: If provisional door face is for "key" or "bombable",
 P:1653D:: then set the door's flag.
 P:16541:: If the provisional door face = 8 (closed "bombable"),\n then go make it 9 (open "bombable").\n Else make it 4 (open "door").\n
 P:16545:L16545
-P:16547:L16547: For opened doors, the provisional door face has become:\n\n DA PF Meaning\n -------------\n 0  4  open\n 1  1  wall\n 2  2  false wall\n 3  3  false wall 2\n 4  9  bombable\n 5  4  key\n 6  4  key 2\n 7  4  shutter\n\n\n If handling the first half [06], then calculate OpenDoorwayMask.\n
+P:16547:L16547_DoneOpenPF: For opened doors, the provisional door face has become:\n\n DA PF Meaning\n -------------\n 0  4  open\n 1  1  wall\n 2  2  false wall\n 3  3  false wall 2\n 4  9  bombable\n 5  4  key\n 6  4  key 2\n 7  4  shutter\n\n\n If handling the first half [06], then calculate OpenDoorwayMask.\n
 P:1654B:: [0B] direction index
 P:16555:L16555: If provisional door face < 4 (any wall), then go loop another half,\n because the visible door face is already a wall.\n
 P:16559:: For all other provisional face values, calculate:\n door face := provisional face - 3
@@ -5119,7 +5120,7 @@ P:165AF:: If finished the last door (X < 0), then return.
 P:165B1:: Go handle the next door.
 P:165B4:FetchDoorAddrsFaceTilesSrcAndPlayAreaDst: Params:\n A: direction index\n Y: face index\n\n Returns:\n X: direction index\n [$00:01]: address of door inside play area tile map\n [$02:03]: address of door tiles for direction and face\n
 P:165C9:L165C9: Add ($C * (face - 1)) to [$02:03].
-P:165D4:L165D4
+P:165D4:L165D4_Exit
 P:165D5-165E2:HorizontalDoorFaceIndexes
 P:165E3-165E6:HorizontalDoorFaceIndexesBaseOffsets
 P:165E7-165EA:DoorVramAddrsHi
@@ -5160,7 +5161,7 @@ P:166C9:L166C9
 P:166CF:L166CF: Second, subtract 3 from provisional face index.\n
 P:166D3:: Lastly, if the door is closed ([08] = 0) and provisional\n face index >= 3, then subtract 1 from it.\n\n But if open ([08] <> 0) and provisional face index <> 5,\n then make it 1.\n
 P:166DD:L166DD
-P:166E2:L166E2: The routine that returned the door type also returned its\n reverse direction index in [03].\n\n We want a forward direction index. So, subtract [03] from 3.\n
+P:166E2:L166E2_MakeForwardIndex: The routine that returned the door type also returned its\n reverse direction index in [03].\n\n We want a forward direction index. So, subtract [03] from 3.\n
 P:166E7:: Call this to put the address of door face tiles in [02:03].\n
 P:166EA:: Return the address of the door in the nametable in [01:00].\n Note the order is reversed, as usual with VRAM addresses.\n
 P:166F4:: Return the direction of the door in [09], and the dynamic\n transfer buf length in X register.\n
@@ -5243,9 +5244,9 @@ P:16877:UpdateMode12EndLevel_Sub1: Flash the screen.\n\n $18 is LevelPaletteTran
 P:1687D:: Every 4 frames, switch palettes.
 P:16883:: WhitePaletteBottomHalfTransferBuf
 P:16885:L16885
-P:16887:L16887
-P:16888:L16888: Start filling hearts, and go to next submode.\n\n TODO: why 2?
-P:1688C:L1688C
+P:16887:L16887_Exit
+P:16888:L16888_StartFillingHearts: Start filling hearts, and go to next submode.\n\n TODO: why 2?
+P:1688C:L1688C_IncSubmode
 P:1688F:UpdateMode12EndLevel_Sub2
 P:16894:: If finished filling hearts, then go set the timer for the next submode.
 P:16897:UpdateMode12EndLevel_Sub3
@@ -5320,16 +5321,16 @@ P:16A6F:: The secret was found in this room.\n
 P:16A71:: If this is a tree, go turn it into stairs.
 P:16A75:: If this is a rock wall, go turn it into a cave entrance.
 P:16A79:: If this not a special armos, go leave the primary as is.
-P:16A7B:L16A7B: This is a tree or a special armos ($EA).\n Set the primary to stairs ($70), and square index to the\n first value ($10) for a type 1 square.\n
-P:16A83:L16A83: This is a rock wall. Turn it into a cave entrance.\n
-P:16A87:L16A87
-P:16A88:L16A88: Restore primary square, if it wasn't modified above.
+P:16A7B:L16A7B_MakeStairs: This is a tree or a special armos ($EA).\n Set the primary to stairs ($70), and square index to the\n first value ($10) for a type 1 square.\n
+P:16A83:L16A83_MakeCave: This is a rock wall. Turn it into a cave entrance.\n
+P:16A87:L16A87_RestoreSquare
+P:16A88:L16A88_SkipSecret: Restore primary square, if it wasn't modified above.
 P:16A91:: Point to next square in column in play area.
 P:16A98:: Get square descriptor.
 P:16A9C:: If we need to repeat this tile,
 P:16A9E:: then flip [$0C].
 P:16AA2:: After the second time flipping it, [$0C] = 0, and we've repeated it once. So,
-P:16AA4:L16AA4: Point to the next square descriptor.
+P:16AA4:L16AA4_NextSquare: Point to the next square descriptor.
 P:16AA7:L16AA7: Increment the processed row count.
 P:16AAB:: There are $B square rows in the play area.
 P:16AAD:: If we haven't written $B rows, then go process a square.
@@ -5401,7 +5402,7 @@ P:16BE7:: Assume that we'll write a type 1 square with primary square\n taken fr
 P:16BED:: If tile < $27 or >= $F3, we'll write a type 3 square.\n So, we have to look up the square index corresponding\n to primary square/tile in [05].\n\n Look in primary square table from $E to 1. If a match is found,\n then the X register will have the square index value.\n
 P:16BF5:L16BF5
 P:16BF7:L16BF7
-P:16BFF:L16BFF: Write the square.\n
+P:16BFF:L16BFF_Write: Write the square.\n
 P:16C04:: Restore object index.
 P:16C07:FetchTileMapAddr: Returns:\n [$00:01]: address of room tile map
 P:16C10:CopyNextRowToTransferBufAndAdvanceSubmodeWhenDone: Returns:\n C: 1 if copied the last row\n
@@ -5446,13 +5447,13 @@ P:1707A:InitMode6
 P:1707D:: TODO: ?
 P:17082:: If in UW,
 P:17084:: TODO: then ?
-P:17087:L17087: TODO: Draw Link?
+P:17087:L17087
 P:17091:: TODO: get door attribute in direction we're facing
 P:17094:: If the door attribute is "false wall",\n then play the "found secret" tune.
 P:1709B:: Play "found secret" tune.
 P:170A0:L170A0
 P:170A1:: If the player is at an "open", "key", or "shutter" door,\n then the player walked all the way to the edge of the play\n area. So, use index 2 to set Link's relative position to 0.\n\n Otherwise, the player is at wall level. Link has to walk to the\n edge of the play area. So, set a relative position that\n reflects that distance: $28 or -$28.\n\n If walking in a decreasing direction (left or up), then\n Link's relative position is $28 and has to decrease to 0.\n\n If walking in an increasing direction (right or down), then\n Link's relative position is -$28 and has to increase to 0.\n
-P:170AB:L170AB
+P:170AB:L170AB_SetWalkDistance0
 P:170AD:L170AD
 P:170B6:_ResetInvObjState: Reset LadderSlot. No ladder is active.\n
 P:170BA:: Reset ObjState of all weapons.\n
@@ -5506,12 +5507,12 @@ P:171E8:: If not filling hearts, then return.
 P:171EA:: Play the "heart taken" tune.
 P:171F4:: If HeartPartial >= $F8, go complete a heart.
 P:171F6:: else add 6.
-P:171FD:L171FD: Set HeartPartial to zero for the next heart.
+P:171FD:L171FD_CompleteHeart: Set HeartPartial to zero for the next heart.
 P:17205:: If hearts <> heart containers, go increase hearts.
 P:17207:: They're equal, so make HeartPartial full by\n decreasing from 0 to $FF.
 P:1720A:: We reached the end. So stop filling hearts.
-P:17213:L17213
-P:17214:L17214
+P:17213:L17213_Exit
+P:17214:L17214_IncHearts
 P:17218-17224:SubmenuTransferBufSelectorsUW
 P:17225-17239:SubmenuTransferBufSelectorsOW
 P:1723A:_CueTransferSubmenuRowUW: If menu scroll value is negative, then we transferred everything.\n So, return.\n
@@ -5535,12 +5536,12 @@ P:17286:: Shift right. The value in A is now (menu scroll value) / 2,\n and repr
 P:1728A:: There's nothing to do for row $15.\n If submenu row < $15, cue a transfer of a triforce or other\n transfer buffer for this row.\n
 P:17291:L17291_SelectTransferBufAndDecCounter
 P:17293:L17293: Decrease the counter for the next frame.\n
-P:17295:L17295
+P:17295:L17295_Exit
 P:17296-17299:AxisMasks:Indexed by reverse direction index.\n\nIs used in mapping a direction to a mask for its axis.\nFor example:\n- right masks off up and down\n- up masks off left and right\n
 P:1729A:Link_HandleInput: If state = 0, handle A and B buttons.\n
 P:172A1:: If the sword is not blocked, then handle the sword if A is pressed.\n\n\n SwordBlockedTimer
 P:172B1:L172B1: If B is pressed, handle the item.\n
-P:172BA:L172BA: If player was shoved, return.\n
+P:172BA:L172BA_CheckMovement: If player was shoved, return.\n
 P:172C0:: If in UW, then move correctly inside doorways.\n
 P:172C7:L172C7: Change directions according to whether the player is at an intersection point\n (grid offset = 0) or between points along a line (grid offset <> 0).\n
 P:172CF:Link_ModifyDirAtGridPoint: Grid offset = 0, so A = 0 here.\n Reset some variables.\n\n\n [0B] holds input direction count.\n
@@ -5579,12 +5580,12 @@ P:17357:: Mask input directions with the mask for the object's direction's axis.
 P:1735C:: Restore input directions.
 P:1735F:L1735F_SetLinkDirAndSpeed: Set object and input direction to value in A.\n Set Link_GoStraightWhenDiagInput to value X.\n
 P:17366:_InitLinkSpeed: Link gets a quarter speed (QSpeed) of $60 by default (1.5 pixels a frame).
-P:1736C:: If in OW, go use this speed.
+P:1736C:: If in UW, go use this speed.
 P:1736E:: In OW. If standing on mountain stairs, then\n use a lower quarter speed of $30.
 P:17379:L17379
 P:17380:: If Link's speed is not this lower speed,
 P:17382:: then reset the position fraction.
-P:17387:L17387
+P:17387:L17387_SetSpeed
 P:1738C:L1738C
 P:1738D:Link_ModifyDirOnGridLine:\n If not moving, then return.\n
 P:17392:: If there's more than one component in the input direction,\n then take only one of them.\n\n After this point, Y holds the reverse index of this single direction.\n
@@ -5601,14 +5602,14 @@ P:173B3:: Link's movement grid cell size is 8. If he's moved half that\n length 
 P:173BF:: [01] holds the opposite of facing direction.
 P:173C6:: If Link had turned back and is facing a grid point that he\n had started walking from, then return.\n
 P:173D3:L173D3
-P:173D8:L173D8: Reverse Link's direction.\n
+P:173D8:L173D8_ReverseDir: Reverse Link's direction.\n
 P:173DC:: Reverse the grid offset. Yield an offset for the same position\n in the line, but in the opposite direction. For example,\n -1 => 7\n 3 => -5\n\n Positive offset: -8 - -offset\n Negative offset:  8 - -offset\n
 P:173E5:L173E5
-P:173F3:L173F3
+P:173F3:L173F3_Exit
 P:173F4:CheckWarps: If just came out of a cave, dungeon, or cellar; or if grid offset <> 0;\n then return.\n
 P:173FB:: If in OW room $22 and Link's X is not a multiple of 8, then return.\n This is a special case, because Level 6's entrance is wide.\n
-P:1740D:L1740D: In other OW rooms and in UW, make sure X is a multiple of $10.\n
-P:17413:L17413: If Link's Y is not at ((multiple of $10) + $D), then return.\n
+P:1740D:L1740D_EnsureSquareX: In other OW rooms and in UW, make sure X is a multiple of $10.\n
+P:17413:L17413_EnsureSquareY: If Link's Y is not at ((multiple of $10) + $D), then return.\n
 P:1741B:: Check tile collision standing still.\n
 P:1741E:: If in OW, go handle the tile separately.\n
 P:17425:: In UW.\n\n If tile is not part of stairs square (tiles $70 to $74), return.\n
@@ -5634,15 +5635,15 @@ P:17490:: If < $40, go deal with a level.\n $40 means cave index $10. Levels hav
 P:17494:: If attribute <> $50, go to mode $B for a regular cave.\n
 P:1749A:: Attribute = $50 meaning cave index $14 (shortcuts).\n Go to mode $C for a shortcut cave.\n
 P:1749B:L1749B
-P:1749F:L1749F: Load a level.\n\n Shift right by two to get the level number.\n
+P:1749F:L1749F_LoadLevel: Load a level.\n\n Shift right by two to get the level number.\n
 P:174A5:: Remember where we came from.
 P:174A8:: Target mode is 2 to load a level.
-P:174AC:InitSaveRam: If already cleared, then return false.
+P:174AC:InitSaveRam: Returns:\n C: 1 if cleared; 0 if already cleared\n\n\n If already cleared, then return false.
 P:174BA:L174BA: Since we're clearing save RAM, treat file B as committed.
 P:174C5:: TODO: Clear from $6530 to the end of Save RAM.
 P:174CF:L174CF
 P:174E4:: Return C=1.
-P:174E6:L174E6: Return C=0.
+P:174E6:L174E6_ReturnFalse: Return C=0.
 P:174E8:ClearRam
 P:174EA:: It doesn't touch [$07FF].
 P:174EF:: Clear a few individual variables that are left.
@@ -5703,7 +5704,7 @@ P:175FA:: If in level 9,
 P:175FC:: then check the level 9 variables.
 P:175FE:L175FE: Sanitize the zero-based level number.
 P:17604:: Return the item value for the current level.
-P:17607:L17607
+P:17607:L17607_Exit
 P:17608:_WriteScanningMapRoomMark: Params:\n Y: offset from the third element in dynamic transfer buf\n    to write at (between 1 and $10)\n\n\n Save dynamic transfer buf offset.
 P:1760A:: Call this to load the address of level block world flags.
 P:1760D:: Save current room ID.
@@ -5714,7 +5715,7 @@ P:1761D:: Visit state
 P:1761F:: If it's been visited, then check each of the 4 doors,\n and build an open door mask.\n\n Start with direction up and direction index 3.\n
 P:17623:: [02] holds door direction
 P:17627:L17627
-P:17632:L17632: Restore current room ID and dynamic buffer offset.\n
+P:17632:L17632_WriteMapTile: Restore current room ID and dynamic buffer offset.\n
 P:17637:: The map marks are arranged in the same order as all the\n possible values of OpenDoorMask.\n\n Add $E2 for the first map mark tile, and store it in the\n dynamic transfer buf at the current offset.\n
 P:17641:CalcOpenDoorwayMask: Call for each direction index (3 to 0) to build an open doorway mask\n based on doorway type and room flags. Each call will shift the next\n doorway state bit into OpenDoorwayMask.\n\n Params:\n A: door attribute\n X: direction index\n\n Returns:\n A: untouched\n
 P:17643:: Save door attribute.
@@ -5743,11 +5744,11 @@ P:17697-176A6:SubmenuItemXs
 P:176A7:DrawSubmenuItems: Look for a magic boomerang, then a wooden boomerang.\n If you find one, then draw it.\n
 P:176A9:L176A9
 P:176B3:: If don't find either, skip drawing a boomerang.
-P:176B5:L176B5
+P:176B5:L176B5_FoundBoomerang
 P:176B7:: [01] Y
 P:176BB:: [00] X
 P:176BE:: Copy the item slot.
-P:176C2:L176C2: Look at the rest of the items, starting at index 1.\n
+P:176C2:L176C2_DrawOtherItems: Look at the rest of the items, starting at index 1.\n
 P:176C4:L176C4_LoopDrawItem
 P:176C7:: If at the compass item slot, check this level's compass.\n
 P:176CE:: Set compass item slot $10 again.
@@ -5763,20 +5764,20 @@ P:176EE:: If the item goes in the first selectable row (item slot < 5),\n then g
 P:176F4:: If the item goes in the second selectable row (item slot < 9 or = $F),\n then go set Y coordinate to $46 and draw.\n
 P:176FE:: If the item goes in the unselectable row at the top (item slot < $10),\n then go set Y coordinate to $1E and draw.\n
 P:17704:: The Y coordinate of the compass is $9E; and the map's is $76.\n The X coordinate for both is $2C.\n
-P:17710:L17710: [01] Y
+P:17710:L17710_Draw: [01] Y
 P:17715:: Restore the item slot.
-P:17717:L17717: Loop until item slot = $12.\n
+P:17717:L17717_NextLoopDrawItem: Loop until item slot = $12.\n
 P:1771D-17725:SubmenuCursorXs
-P:17726:UpdateSubmenuSelection: Pseudo-item slot 0 is for boomerangs.\n If its not the currently selected item slot, then skip this.\n
+P:17726:UpdateSubmenuSelection: Pseudo-item slot 0 is for boomerangs.\n If it's not the currently selected item slot, then skip this.\n
 P:1772B:: Look for a magic boomerang, then a wooden boomerang.\n If you find one, then use its item slot.\n
 P:1772D:L1772D
-P:17739:L17739: Draw the item in the box for the currently selected item,\n if we have it.\n\n There's also the special case for the letter. If the selected item\n is the letter, but we have a potion, then skip this.\n\n If the letter is selected and there's no potion, then make\n the item value 1 in [04]. Except that, the call to 05:B81C\n below will overwrite [04].\n
+P:17739:L17739_DrawBreakoutItem: Draw the item in the box for the currently selected item,\n if we have it.\n\n There's also the special case for the letter. If the selected item\n is the letter, but we have a potion, then skip this.\n\n If the letter is selected and there's no potion, then make\n the item value 1 in [04]. Except that, the call to 05:B81C\n below will overwrite [04].\n
 P:17747:: Special case for letter selected and no potion.
 P:17749:L17749: [04] holds the item value.
 P:1774D:: [01] Y
 P:17751:: [00] X
-P:17756:L17756: If the selected item slot is the letter's and we have potions,\n then select the potion item slot.\n
-P:17767:L17767: Look up the X coordinate for the selected item slot.\n Set it for the left cursor sprite.\n Then add 8 to set the right cursor sprite's X.\n
+P:17756:L17756_AfterBreakoutItem: If the selected item slot is the letter's and we have potions,\n then select the potion item slot.\n
+P:17767:L17767_DrawCursor: Look up the X coordinate for the selected item slot.\n Set it for the left cursor sprite.\n Then add 8 to set the right cursor sprite's X.\n
 P:17773:: The Y coordinate is $36 for item slots < 5, else $46.\n
 P:1777B:L1777B
 P:17781:: $1E is the cursor tile.\n
@@ -5791,7 +5792,7 @@ P:177AE:: Save selected item slot.
 P:177B2:: Restore the input direction.
 P:177B6:: If the new item slot = old item slot, go cancel the\n "selection changed" tune.\n\n\n Pop selected item slot.
 P:177BC:: Else the selection changed. The new slot should have an item.\n If it does not, then cancel the "selection changed" tune.\n
-P:177C4:L177C4
+P:177C4:L177C4_CancelTune
 P:177C7:L177C7
 P:177C8:FindAndSelectOccupiedItemSlot: Params:\n A: direction to search: 0=none, 1=forward, 2=backward\n Y: starting item slot\n\n Returns:\n [EF]: direction to search\n
 P:177CA:: Check 9 slots.
@@ -5822,7 +5823,7 @@ P:1781C:DrawItemInInventoryWithX: [$00]: X\n [$01]: Y\n X: item slot\n
 P:17821:Cycle9InDirection: Params:\n [$EF]: direction to search: 0=none, 1=forward, 2=backward\n Y: value to cycle\n\n If A = 0, does nothing.\n If A = 1, Y := (Y + 1) mod 9\n If A = 2, Y := (Y - 1) mod 9\n
 P:1782D:L1782D
 P:17833:L17833
-P:17839:L17839
+P:17839:L17839_Exit
 P:1783A:CreateRoomObjects: Reset ObjState[$13] to activate room item object.\n
 P:1783E:: If in OW, go create heart container in room 5F.\n
 P:17842:: If the player got the room item already, go deactivate\n the room item object.\n

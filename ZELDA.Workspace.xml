@@ -3391,7 +3391,7 @@ def</Comment>
     <CodeLabel>
       <Address>83221</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14515</Label>
+      <Label>L14515_CheckColumn</Label>
       <Comment> If 0 &lt; CurColumn &lt; $21, then copy column.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -4132,7 +4132,11 @@ def</Comment>
       <Address>95404</Address>
       <AddressType>PrgRom</AddressType>
       <Label>InitSaveRam</Label>
-      <Comment> If already cleared, then return false.</Comment>
+      <Comment> Returns:&#xD;
+ C: 1 if cleared; 0 if already cleared&#xD;
+&#xD;
+&#xD;
+ If already cleared, then return false.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -4436,7 +4440,7 @@ def</Comment>
     <CodeLabel>
       <Address>95462</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L174E6</Label>
+      <Label>L174E6_ReturnFalse</Label>
       <Comment> Return C=0.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -7656,7 +7660,7 @@ def</Comment>
     <CodeLabel>
       <Address>84758</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14B16</Label>
+      <Label>L14B16_DrawCursor</Label>
       <Comment> Set tile, attributes, and X for selection sprite (0).</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -7697,7 +7701,7 @@ def</Comment>
     <CodeLabel>
       <Address>84778</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14B2A</Label>
+      <Label>L14B2A_ActivateOption</Label>
       <Comment> Show in the submode that Start was pressed by setting high bit.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -7765,7 +7769,7 @@ def</Comment>
     <CodeLabel>
       <Address>84829</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14B5D</Label>
+      <Label>L14B5D_HandleActivated</Label>
       <Comment> Mask the submode, so that it only holds the selection.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -11705,7 +11709,7 @@ def</Comment>
     <CodeLabel>
       <Address>94717</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L171FD</Label>
+      <Label>L171FD_CompleteHeart</Label>
       <Comment> Set HeartPartial to zero for the next heart.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -12298,7 +12302,7 @@ def</Comment>
     <CodeLabel>
       <Address>85234</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14CF2</Label>
+      <Label>L14CF2_DrawLink</Label>
       <Comment> Go redraw Link.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -12332,7 +12336,7 @@ def</Comment>
     <CodeLabel>
       <Address>85237</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14CF5</Label>
+      <Label>L14CF5_CheckOtherDirs</Label>
       <Comment> If not right, then vertical. %A was shifted to become&#xD;
  horizontal direction counter-clockwise from original&#xD;
  vertical direction. Got set it and redraw.</Comment>
@@ -12988,7 +12992,7 @@ def</Comment>
     <CodeLabel>
       <Address>92296</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L16888</Label>
+      <Label>L16888_StartFillingHearts</Label>
       <Comment> Start filling hearts, and go to next submode.&#xD;
 &#xD;
  TODO: why 2?</Comment>
@@ -14750,7 +14754,7 @@ def</Comment>
     <CodeLabel>
       <Address>91268</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L16484</Label>
+      <Label>L16484_MoveWallPtrs</Label>
       <Comment> Increase top offset by 1 tile, or by another amount to get to the next column (at second tile).</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -14758,7 +14762,7 @@ def</Comment>
     <CodeLabel>
       <Address>91278</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1648E</Label>
+      <Label>L1648E_NextLoopWallTile</Label>
       <Comment> Increment the wall tile list address.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -15444,7 +15448,7 @@ def</Comment>
     <CodeLabel>
       <Address>91416</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L16518</Label>
+      <Label>L16518_ClearFromOpenedMask</Label>
       <Comment> Door attribute &lt; 4 (open or any wall), clear door bit from&#xD;
  the mask of opened doors, because this is not a true door.&#xD;
 </Comment>
@@ -15475,7 +15479,7 @@ def</Comment>
     <CodeLabel>
       <Address>91432</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L16528</Label>
+      <Label>L16528_DoneClosedPF</Label>
       <Comment> The door attribute (DA) has been mapped to a&#xD;
  provisional door face value (PF) in %A as follows:&#xD;
 &#xD;
@@ -15663,7 +15667,7 @@ def</Comment>
     <CodeLabel>
       <Address>91463</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L16547</Label>
+      <Label>L16547_DoneOpenPF</Label>
       <Comment> For opened doors, the provisional door face has become:&#xD;
 &#xD;
  DA PF Meaning&#xD;
@@ -16918,7 +16922,7 @@ def</Comment>
     <CodeLabel>
       <Address>92836</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L16AA4</Label>
+      <Label>L16AA4_NextSquare</Label>
       <Comment> Point to the next square descriptor.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -17007,7 +17011,7 @@ def</Comment>
     <CodeLabel>
       <Address>92795</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L16A7B</Label>
+      <Label>L16A7B_MakeStairs</Label>
       <Comment> This is a tree or a special armos ($EA).&#xD;
  Set the primary to stairs ($70), and square index to the&#xD;
  first value ($10) for a type 1 square.&#xD;
@@ -17018,7 +17022,7 @@ def</Comment>
     <CodeLabel>
       <Address>92803</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L16A83</Label>
+      <Label>L16A83_MakeCave</Label>
       <Comment> This is a rock wall. Turn it into a cave entrance.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -17027,7 +17031,7 @@ def</Comment>
     <CodeLabel>
       <Address>92808</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L16A88</Label>
+      <Label>L16A88_SkipSecret</Label>
       <Comment> Restore primary square, if it wasn't modified above.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -17757,7 +17761,7 @@ def</Comment>
     <CodeLabel>
       <Address>82760</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14348</Label>
+      <Label>L14348_Vertical</Label>
       <Comment> Scrolling up or down.&#xD;
 &#xD;
 &#xD;
@@ -17768,7 +17772,7 @@ def</Comment>
     <CodeLabel>
       <Address>82776</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14358</Label>
+      <Label>L14358_Horizontal</Label>
       <Comment> Scrolling left or right.&#xD;
 &#xD;
 &#xD;
@@ -17782,9 +17786,8 @@ def</Comment>
       <Address>82749</Address>
       <AddressType>PrgRom</AddressType>
       <Label>InitMode7_Sub3And4_TransferPlayAreaAttrsToNT2</Label>
-      <Comment> This transfers half of a room's play area attributes&#xD;
- to nametable 2. The top half in submode 3, and the bottom&#xD;
- half in submode 4.&#xD;
+      <Comment> Transfer half of a room's play area attributes to nametable 2.&#xD;
+ The top half in submode 3, and the bottom half in submode 4.&#xD;
 &#xD;
 &#xD;
  Test player's direction for up (8).</Comment>
@@ -17895,7 +17898,7 @@ def</Comment>
     <CodeLabel>
       <Address>82812</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1437C</Label>
+      <Label>L1437C_CheckDark</Label>
       <Comment> Scrolling in any direction.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -17958,7 +17961,7 @@ def</Comment>
     <CodeLabel>
       <Address>82851</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L143A3</Label>
+      <Label>InitMode7_Finish</Label>
       <Comment> Finish initializing this mode, and start updating it.&#xD;
 &#xD;
 &#xD;
@@ -18023,7 +18026,7 @@ def</Comment>
     <CodeLabel>
       <Address>83057</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14471</Label>
+      <Label>L14471_ScrollUp</Label>
       <Comment> Scrolling up.&#xD;
 &#xD;
 &#xD;
@@ -18283,7 +18286,7 @@ def</Comment>
     <CodeLabel>
       <Address>83031</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14457</Label>
+      <Label>L14457_ScrollHorizontal</Label>
       <Comment> Scrolling left or right.&#xD;
 &#xD;
  Keep in mind that columns will not be copied if CurColumn&#xD;
@@ -19193,7 +19196,7 @@ def</Comment>
     <CodeLabel>
       <Address>83052</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1446C</Label>
+      <Label>L1446C_SetColumn</Label>
       <Comment> Set CurColumn to the value we determined.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -20632,7 +20635,7 @@ def</Comment>
       <Address>94343</Address>
       <AddressType>PrgRom</AddressType>
       <Label>L17087</Label>
-      <Comment> TODO: Draw Link?</Comment>
+      <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -20668,7 +20671,7 @@ def</Comment>
     <CodeLabel>
       <Address>86806</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L15316</Label>
+      <Label>L15316_StoreMax</Label>
       <Comment> For this room in the level block, set kill count to max ($F).</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -20880,7 +20883,7 @@ def</Comment>
     <CodeLabel>
       <Address>86275</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L15103</Label>
+      <Label>L15103_LimitCount</Label>
       <Comment> then limit it to 7.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -20896,7 +20899,7 @@ def</Comment>
     <CodeLabel>
       <Address>86815</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1531F</Label>
+      <Label>L1531F_CombineWithFlags</Label>
       <Comment> Combine the mask with the room's flags.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -21505,7 +21508,7 @@ def</Comment>
     <CodeLabel>
       <Address>91874</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L166E2</Label>
+      <Label>L166E2_MakeForwardIndex</Label>
       <Comment> The routine that returned the door type also returned its&#xD;
  reverse direction index in [03].&#xD;
 &#xD;
@@ -21583,7 +21586,7 @@ def</Comment>
     <CodeLabel>
       <Address>84037</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14845</Label>
+      <Label>L14845_ChooseWalkDistance</Label>
       <Comment> Choose a distance to walk depending on the door you&#xD;
  come out of.&#xD;
 &#xD;
@@ -21795,7 +21798,7 @@ def</Comment>
     <CodeLabel>
       <Address>86726</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L152C6</Label>
+      <Label>L152C6_CalcObjCount</Label>
       <Comment> Subtract the level block's kill count from the object count.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -21812,7 +21815,7 @@ def</Comment>
     <CodeLabel>
       <Address>86736</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L152D0</Label>
+      <Label>L152D0_ResetObjCount</Label>
       <Comment> Else, reset object count and object list ID.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -21882,7 +21885,7 @@ def</Comment>
     <CodeLabel>
       <Address>86238</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L150DE</Label>
+      <Label>L150DE_ResetObjList</Label>
       <Comment> Else, reset object count and object list ID.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -21900,7 +21903,7 @@ def</Comment>
     <CodeLabel>
       <Address>84167</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L148C7</Label>
+      <Label>L148C7_StoreObjCount</Label>
       <Comment> Store the object count.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -21941,7 +21944,7 @@ def</Comment>
     <CodeLabel>
       <Address>84197</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L148E5</Label>
+      <Label>L148E5_PlaceList</Label>
       <Comment> TODO: Object list ID (or call it object template ID) refers to a&#xD;
  list of object types.&#xD;
 &#xD;
@@ -21979,7 +21982,7 @@ def</Comment>
     <CodeLabel>
       <Address>84227</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14903</Label>
+      <Label>L14903_StoreObjTemplate</Label>
       <Comment> Remember the object template type.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -22163,7 +22166,7 @@ def</Comment>
     <CodeLabel>
       <Address>84525</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14A2D</Label>
+      <Label>L14A2D_ReturnUnsafeToSpawn</Label>
       <Comment> Unwalkable</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -22314,7 +22317,7 @@ def</Comment>
     <CodeLabel>
       <Address>84447</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L149DF</Label>
+      <Label>L149DF_CheckCaves</Label>
       <Comment> If the mode is not $B nor $C (caves), then return.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -22323,7 +22326,7 @@ def</Comment>
     <CodeLabel>
       <Address>84455</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L149E7</Label>
+      <Label>L149E7_InCave</Label>
       <Comment> We're in a cave.&#xD;
  Reset object types in slots 1 to 8.&#xD;
 </Comment>
@@ -22377,7 +22380,7 @@ def</Comment>
     <CodeLabel>
       <Address>84304</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14950</Label>
+      <Label>L14950_PlaceTileObj</Label>
       <Comment> There's no dock here, but there might be a tile object that&#xD;
  we found while laying out the room. Set the type, X, and Y&#xD;
  to the details we determined.&#xD;
@@ -22453,7 +22456,7 @@ def</Comment>
     <CodeLabel>
       <Address>84000</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14820</Label>
+      <Label>L14820_Method2</Label>
       <Comment> Enter method 2.&#xD;
  Room to room.&#xD;
 &#xD;
@@ -22581,7 +22584,7 @@ def</Comment>
       <Address>95084</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> If in OW, go use this speed.</Comment>
+      <Comment> If in UW, go use this speed.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -25851,7 +25854,7 @@ def</Comment>
     <CodeLabel>
       <Address>94906</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L172BA</Label>
+      <Label>L172BA_CheckMovement</Label>
       <Comment> If player was shoved, return.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -25995,8 +25998,8 @@ def</Comment>
     <CodeLabel>
       <Address>85492</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14DF4</Label>
-      <Comment> The direction is negative.&#xD;
+      <Label>L14DF4_PositiveDir</Label>
+      <Comment> The direction is positive.&#xD;
 &#xD;
  If the coordinate crosses (&lt;) the boundary, then&#xD;
  go mask buttons.&#xD;
@@ -26009,7 +26012,7 @@ def</Comment>
     <CodeLabel>
       <Address>85499</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14DFB</Label>
+      <Label>L14DFB_ExcludeNone</Label>
       <Comment> The coordinate is not crossed; then set mask $FF,&#xD;
  so that no button is excluded.&#xD;
 </Comment>
@@ -26386,7 +26389,7 @@ def</Comment>
     <CodeLabel>
       <Address>95192</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L173D8</Label>
+      <Label>L173D8_ReverseDir</Label>
       <Comment> Reverse Link's direction.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -27152,7 +27155,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>86434</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L151A2</Label>
+      <Label>L151A2_InDoorway</Label>
       <Comment> In a doorway. DoorwayDir is in A.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -27177,7 +27180,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>86460</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L151BC</Label>
+      <Label>L151BC_SearchUnderflowDoorway</Label>
       <Comment> The player might be in the original doorway facing backwards,&#xD;
  outside it, or in the other doorway along the axis.&#xD;
 &#xD;
@@ -27246,7 +27249,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>86407</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L15187</Label>
+      <Label>L15187_LoopOverflowBounds</Label>
       <Comment> [00] is Link's Y, if facing horizontally; else X.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -28276,7 +28279,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>85953</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14FC1</Label>
+      <Label>L14FC1_StashLadder</Label>
       <Comment> Put away the ladder. Reset ladder slot and destroy the object.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -28285,7 +28288,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>85928</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14FA8</Label>
+      <Label>L14FA8_CheckDistanceToLadder</Label>
       <Comment> If absolute distance &lt; $10, go handle movement on the ladder and set state 2.&#xD;
  If &gt; $10, go put the ladder away.&#xD;
 </Comment>
@@ -28330,7 +28333,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>86033</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L15011</Label>
+      <Label>L15011_DrawLadder</Label>
       <Comment> Draw the ladder.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -28339,7 +28342,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>85961</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14FC9</Label>
+      <Label>L14FC9_SetState2</Label>
       <Comment>  Set state 2, because we're on the ladder.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -28522,7 +28525,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>85788</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14F1C</Label>
+      <Label>L14F1C_InCave</Label>
       <Comment> In a cave.&#xD;
 &#xD;
  Check whether a person is blocking the upper half of the room.&#xD;
@@ -28751,7 +28754,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>95245</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1740D</Label>
+      <Label>L1740D_EnsureSquareX</Label>
       <Comment> In other OW rooms and in UW, make sure X is a multiple of $10.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -28770,7 +28773,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>95251</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L17413</Label>
+      <Label>L17413_EnsureSquareY</Label>
       <Comment> If Link's Y is not at ((multiple of $10) + $D), then return.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -28924,7 +28927,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>95391</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1749F</Label>
+      <Label>L1749F_LoadLevel</Label>
       <Comment> Load a level.&#xD;
 &#xD;
  Shift right by two to get the level number.&#xD;
@@ -30805,7 +30808,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>86658</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L15282</Label>
+      <Label>L15282_TriggerDoor</Label>
       <Comment> Trigger this door to open.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -30823,7 +30826,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>86670</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1528E</Label>
+      <Label>L1528E_BlockUntilTime</Label>
       <Comment> Block movement while Link's timer &lt;&gt; 0.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -33699,7 +33702,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>93183</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L16BFF</Label>
+      <Label>L16BFF_Write</Label>
       <Comment> Write the square.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -34555,7 +34558,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>95794</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L17632</Label>
+      <Label>L17632_WriteMapTile</Label>
       <Comment> Restore current room ID and dynamic buffer offset.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -34964,7 +34967,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>95938</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L176C2</Label>
+      <Label>L176C2_DrawOtherItems</Label>
       <Comment> Look at the rest of the items, starting at index 1.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -35052,7 +35055,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>96023</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L17717</Label>
+      <Label>L17717_NextLoopDrawItem</Label>
       <Comment> Loop until item slot = $12.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -35125,7 +35128,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>96016</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L17710</Label>
+      <Label>L17710_Draw</Label>
       <Comment> [01] Y</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -35135,7 +35138,7 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label>UpdateSubmenuSelection</Label>
       <Comment> Pseudo-item slot 0 is for boomerangs.&#xD;
- If its not the currently selected item slot, then skip this.&#xD;
+ If it's not the currently selected item slot, then skip this.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -35153,7 +35156,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>96057</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L17739</Label>
+      <Label>L17739_DrawBreakoutItem</Label>
       <Comment> Draw the item in the box for the currently selected item,&#xD;
  if we have it.&#xD;
 &#xD;
@@ -35170,7 +35173,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>96086</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L17756</Label>
+      <Label>L17756_AfterBreakoutItem</Label>
       <Comment> If the selected item slot is the letter's and we have potions,&#xD;
  then select the potion item slot.&#xD;
 </Comment>
@@ -35212,7 +35215,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>96103</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L17767</Label>
+      <Label>L17767_DrawCursor</Label>
       <Comment> Look up the X coordinate for the selected item slot.&#xD;
  Set it for the left cursor sprite.&#xD;
  Then add 8 to set the right cursor sprite's X.&#xD;
@@ -38780,7 +38783,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>86114</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L15062</Label>
+      <Label>L15062_GetRowOffset</Label>
       <Comment> Turn the row part of [0A] into a tile index.&#xD;
  row := (([0A] AND $F0) - $40) / 8&#xD;
 </Comment>
@@ -38799,7 +38802,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>86077</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1503D</Label>
+      <Label>L1503D_CheckTopOrBottom</Label>
       <Comment> Next, if high nibble = $E, then we're at the bottom edge.&#xD;
  Move right one pixel.&#xD;
 </Comment>
@@ -38809,7 +38812,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>86096</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L15050</Label>
+      <Label>L15050_PointToColumn</Label>
       <Comment> Time to get the address of the column.&#xD;
  Starting at the top of the leftmost column.&#xD;
 </Comment>
@@ -38842,7 +38845,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>86071</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L15037</Label>
+      <Label>L15037_HandleLeftOrRight</Label>
       <Comment> Else low nibble = $F. We're at the right edge,&#xD;
  and we'll move up $10 pixels.&#xD;
 </Comment>
@@ -38909,7 +38912,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>86138</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1507A</Label>
+      <Label>L1507A_SetSpawnCell</Label>
       <Comment> Set the spawn cell to the one we found.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -64054,9 +64057,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>82380</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L141CC</Label>
+      <Label>L141CC_ReplaceWithF5</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -64158,9 +64161,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>82746</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1433A</Label>
+      <Label>L1433A_IncSubmode</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -64182,25 +64185,25 @@ For example:&#xD;
     <CodeLabel>
       <Address>82795</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1436B</Label>
+      <Label>L1436B_Vertical</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>82839</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14397</Label>
+      <Label>L14397_CheckIfLit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>82861</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L143AD</Label>
+      <Label>L143AD_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -64270,9 +64273,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>83232</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14520</Label>
+      <Label>L14520_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -64318,9 +64321,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>83339</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1458B</Label>
+      <Label>L1458B_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -64350,17 +64353,17 @@ For example:&#xD;
     <CodeLabel>
       <Address>83853</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1478D</Label>
+      <Label>L1478D_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>83854</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1478E</Label>
+      <Label>L1478E_CheckSub2</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -64374,9 +64377,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>83902</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L147BE</Label>
+      <Label>InitMode4_GoToSub0</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -64438,9 +64441,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>84233</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14909</Label>
+      <Label>L14909_SkipObjects</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -64478,9 +64481,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>84317</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1495D</Label>
+      <Label>L1495D_SetType</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -64518,17 +64521,17 @@ For example:&#xD;
     <CodeLabel>
       <Address>84483</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14A03</Label>
+      <Label>L14A03_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>84630</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14A96</Label>
+      <Label>L14A96_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -64550,9 +64553,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>84789</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14B35</Label>
+      <Label>L14B35_AnimateSelection</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -64606,9 +64609,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>85017</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14C19</Label>
+      <Label>L14C19_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -64662,17 +64665,17 @@ For example:&#xD;
     <CodeLabel>
       <Address>85329</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14D51</Label>
+      <Label>UpdateMode11Death_SetTimerIncSubmode</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>85333</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14D55</Label>
+      <Label>L14D55_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -64694,17 +64697,17 @@ For example:&#xD;
     <CodeLabel>
       <Address>85491</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14DF3</Label>
+      <Label>L14DF3_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>85503</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14DFF</Label>
+      <Label>L14DFF_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -64718,9 +64721,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>85617</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14E71</Label>
+      <Label>L14E71_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -64734,9 +64737,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>85702</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14EC6</Label>
+      <Label>L14EC6_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -64774,25 +64777,25 @@ For example:&#xD;
     <CodeLabel>
       <Address>85874</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14F72</Label>
+      <Label>L14F72_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>85875</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14F73</Label>
+      <Label>L14F73_CheckCaveEdge</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>85960</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14FC8</Label>
+      <Label>L14FC8_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -64830,9 +64833,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>86366</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1515E</Label>
+      <Label>L1515E_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -64854,9 +64857,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>86539</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1520B</Label>
+      <Label>L1520B_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -64878,17 +64881,17 @@ For example:&#xD;
     <CodeLabel>
       <Address>86595</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L15243</Label>
+      <Label>L15243_SetTimer</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>86599</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L15247</Label>
+      <Label>L15247_BlockMovement</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -64902,7 +64905,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>86667</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1528B_TouchWall</Label>
+      <Label>L1528B_BlockAtWall</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -64990,9 +64993,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>91604</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L165D4</Label>
+      <Label>L165D4_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -65070,17 +65073,17 @@ For example:&#xD;
     <CodeLabel>
       <Address>92295</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L16887</Label>
+      <Label>L16887_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>92300</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1688C</Label>
+      <Label>L1688C_IncSubmode</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -65088,7 +65091,7 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label>L168AA</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -65126,9 +65129,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>92807</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L16A87</Label>
+      <Label>L16A87_RestoreSquare</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -65278,9 +65281,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>94379</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L170AB</Label>
+      <Label>L170AB_SetWalkDistance0</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -65374,17 +65377,17 @@ For example:&#xD;
     <CodeLabel>
       <Address>94739</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L17213</Label>
+      <Label>L17213_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>94740</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L17214</Label>
+      <Label>L17214_IncHearts</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -65430,9 +65433,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>94869</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L17295</Label>
+      <Label>L17295_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -65486,9 +65489,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>95111</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L17387</Label>
+      <Label>L17387_SetSpeed</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -65534,9 +65537,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>95219</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L173F3</Label>
+      <Label>L173F3_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -65662,9 +65665,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>95751</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L17607</Label>
+      <Label>L17607_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -65726,9 +65729,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>95925</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L176B5</Label>
+      <Label>L176B5_FoundBoomerang</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -65758,9 +65761,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>96196</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L177C4</Label>
+      <Label>L177C4_CancelTune</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -65838,9 +65841,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>96313</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L17839</Label>
+      <Label>L17839_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -70152,6 +70155,15 @@ For example:&#xD;
       <AddressType>SaveRam</AddressType>
       <Label>L770D_Exit</Label>
       <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>84769</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set Y for selection sprite.&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
