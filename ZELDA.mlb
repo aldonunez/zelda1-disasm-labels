@@ -1896,11 +1896,11 @@ P:C038-C03B:PatternBlockSizesOW
 P:C03C-C043:PatternBlockSizesUW
 P:C044:TransferLevelPatternBlocks
 P:C04F:: Go handle UW levels.
-P:C051:LC051
+P:C051:LC051_LoopBlockOW
 P:C05A:: There are two blocks.
 P:C05C:: If we haven't transferred the second, then go do so.
-P:C05E:ResetPatterBlockIndex
-P:C064:LC064
+P:C05E:ResetPatternBlockIndex
+P:C064:TransferLevelPatternBlocksUW
 P:C06F:: If at block index 1, then go transfer the second block.
 P:C071:: At this point, we've transferred two common blocks\n (BG and sprites). Now UW, transfer bosses and other\n specialized sprite patterns.\n
 P:C080:FetchPatternBlockAddrUW
@@ -1910,7 +1910,7 @@ P:C0BC:FetchPatternBlockUWBoss
 P:C0CC:FetchPatternBlockSizeUW
 P:C0DC:TransferPatternBlock_Bank3: Params:\n [$00:01]: source address\n [$03:02]: size\n\n Look up and transfer destination PPU address by PatternBlockIndex.\n
 P:C0EE:: Start copying.
-P:C0F0:LC0F0: Transfer 1 byte from source pattern block in ROM to PPU.
+P:C0F0:LC0F0_LoopCopy: Transfer 1 byte from source pattern block in ROM to PPU.
 P:C0F5:: Increment source address.\n
 P:C102:: Decrement count.\n
 P:C10F:: If count is not zero, go copy more.\n
@@ -4604,18 +4604,18 @@ P:14BE6:CheckSecretTriggerNone
 P:14BE7:CheckSecretTrigger: Returns:\n C: 1 if the condition for the secret was met\n
 P:14BEA-14BF9:CheckSecretTrigger_JumpTable
 P:14BFA:_CheckHasLivingMonsters: Look for monsters in slots $C to 1 that are not bubbles.\n If one is found, return.\n\n Else flag Link not paralyzed (to cancel the effects of a like-like),\n and set the all-dead-in-room flag.\n
-P:14BFD:L14BFD
-P:14C0E:L14C0E
+P:14BFD:L14BFD_Loop
+P:14C0E:L14C0E_Next
 P:14C19:L14C19_Exit
 P:14C1A:CheckSecretTriggerAllDead: If there are still monsters, not counting bubbles, then return C=0.\n
 P:14C1F:L14C1F_TriggerShutters: No monsters are left. Trigger shutters to open, and return C=1.\n
 P:14C26:L14C26_ReturnFalse
 P:14C28:CheckSecretTriggerRingleader: If the first monster slot is empty, go kill all monsters.\n
 P:14C2D:: If the first monster slot has an object other than a monster,\n then return C=0.\n
-P:14C31:L14C31: For each object slot from $C to 1:\n\n If the slot is empty, or has something not a monster, or is\n already dying; then go loop again.\n
-P:14C34:L14C34
+P:14C31:L14C31_KillMonsters: For each object slot from $C to 1:\n\n If the slot is empty, or has something not a monster, or is\n already dying; then go loop again.\n
+P:14C34:L14C34_Loop
 P:14C42:: Set the object's metastate to die.\n
-P:14C47:L14C47
+P:14C47:L14C47_Next
 P:14C4A:: Return C=1.\n
 P:14C4C:CheckSecretTriggerBlockDoor: If the block has not been pushed completely, then return C=0.\n
 P:14C51:: Else go trigger shutters to open, and return C=1.\n
@@ -4770,7 +4770,7 @@ P:14EDD:: In a cellar.\n\n If Link's Y >= $40 or input direction <> up, return.\
 P:14EEA:: Look for this room's ID in the 6-element cellar room array.\n
 P:14EEF:L14EEF
 P:14EF5:: Determine the destination room ID, and go there.\n\n If Link's X < $80 look in level block attributes A, else B.\n\n Note that in cellars, level block attributes A and B indicate\n the destination room ID only.\n
-P:14F02:L14F02
+P:14F02:L14F02_GetRightSideRoom
 P:14F05:L14F05
 P:14F08:: Set Link's position in the destination room.\n
 P:14F1C:L14F1C_InCave: In a cave.\n\n Check whether a person is blocking the upper half of the room.\n
@@ -5856,8 +5856,8 @@ P:1803E:InitMode2_Submodes
 P:18043-18046:InitMode2_Submodes_JumpTable
 P:18047:InitMode2_Sub0: Copy level block for level.\n
 P:18052:: First quest.\n
-P:1805E:L1805E: Second quest.\n
-P:18067:L18067
+P:1805E:L1805E_SecondQuest: Second quest.\n
+P:18067:L18067_Copy
 P:18070:InitMode2_Sub1: Copy level info.\n
 P:1808C:CopyCommonDataToRam: Get the source address of common data block in ROM.
 P:180A4:FetchLevelBlockDestInfo: Returns:\n [$02:03]: destination address\n [$04:05]: end address\n\n Destination address $687E.
@@ -5865,19 +5865,19 @@ P:180AC:: End address $6B7D.
 P:180B5:FetchLevelInfoDestInfo: Returns:\n [$02:03]: destination address\n [$04:05]: end address\n\n Destination address $6B7E.
 P:180BD:: End address $6C7D.
 P:180C6:FetchDestAddrForCommonDataBlock: 67F0 to 687D (inclusive)
-P:180D7:CopyBlock: Params:\n [$00:01]: source address\n [$02:03]: destination address\n [$04:05]: end address\n\n Also increments submode.\n
-P:180D9:L180D9
-P:180EC:L180EC
+P:180D7:CopyBlock: Params:\n [$00:01]: source address\n [$02:03]: destination address\n [$04:05]: end destination address\n\n Also increments submode.\n
+P:180D9:L180D9_Loop
+P:180EC:L180EC_Next
 P:18109:UpdateMode2Load_Full: Make replacements for the second quest.\n
 P:1810E:: If not second quest, then return.
 P:18112:: If OW, then go patch rooms.
 P:18117:: Get an address for the current level that points\n to an array of replacement bytes for Q2 UW level info.\n\n This address array doesn't access the OW element (0).\n So, it overlaps the last two bytes of LevelInfoUWQ2Replacements9.\n\n DASM.EXPR: LevelInfoUWQ2ReplacementAddrs-2\n
 P:1811C:: DASM.EXPR: LevelInfoUWQ2ReplacementAddrs-1\n
 P:18121:: Get the number of replacement bytes for Q2 UW level info.\n This address array doesn't access the OW element (0).\n\n DASM.EXPR: LevelInfoUWQ2ReplacementSizes-1\n
-P:18124:L18124: Copy bytes from Q2 replacement array to level info\n starting at offset $29 (shortcut position array).
-P:1812C:L1812C
-P:1812D:L1812D: Replace attributes of several rooms in OW in second quest.\n
-P:1812F:L1812F
+P:18124:L18124_ReplaceInfoBytes: Copy bytes from Q2 replacement array to level info\n starting at offset $29 (shortcut position array).
+P:1812C:L1812C_Exit
+P:1812D:L1812D_PatchQ2Rooms: Replace attributes of several rooms in OW in second quest.\n
+P:1812F:L1812F_ReplaceRoomBytes
 P:1815F-18166:LevelBlockAttrsBQ2ReplacementOffsets
 P:18167-1816E:LevelBlockAttrsBQ2ReplacementValues
 P:1816F-181A7:LevelInfoUWQ2Replacements1
@@ -5922,12 +5922,12 @@ P:1A0C6:L1A0C6
 P:1A0C7:: If the count was 0 (bottom 6 bits),\n then make it 64.
 P:1A0CB:L1A0CB
 P:1A0CD:: We pulled the flags out, and we're left with a count in A.\n Move it to X.
-P:1A0CE:L1A0CE: If the original bit 6 is clear,
+P:1A0CE:L1A0CE_Loop: If the original bit 6 is clear,
 P:1A0D0:: then increment Y index (not repeating).
 P:1A0D1:L1A0D1
 P:1A0D9:: Restore VRAM address high byte.
 P:1A0DA:: If we wrote to $3Fxx, then set PPUADDR to $3F00, then $0000.\n
-P:1A0EA:L1A0EA: Advance the source address to one after the last byte read.\n
+P:1A0EA:L1A0EA_AdvanceSource: Advance the source address to one after the last byte read.\n
 P:1A0F6:TransferTileBuf
 P:1A0FB:: Read high byte of VRAM address.
 P:1A0FD:: End when we read a negative VRAM address.

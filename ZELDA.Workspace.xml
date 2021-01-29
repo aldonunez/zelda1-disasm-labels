@@ -2646,7 +2646,7 @@ def</Comment>
     <CodeLabel>
       <Address>106702</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1A0CE</Label>
+      <Label>L1A0CE_Loop</Label>
       <Comment> If the original bit 6 is clear,</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -2754,7 +2754,7 @@ def</Comment>
     <CodeLabel>
       <Address>106730</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1A0EA</Label>
+      <Label>L1A0EA_AdvanceSource</Label>
       <Comment> Advance the source address to one after the last byte read.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -4025,7 +4025,7 @@ def</Comment>
       <Comment> Params:&#xD;
  [$00:01]: source address&#xD;
  [$02:03]: destination address&#xD;
- [$04:05]: end address&#xD;
+ [$04:05]: end destination address&#xD;
 &#xD;
  Also increments submode.&#xD;
 </Comment>
@@ -13333,7 +13333,7 @@ def</Comment>
     <CodeLabel>
       <Address>49246</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>ResetPatterBlockIndex</Label>
+      <Label>ResetPatternBlockIndex</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -13389,7 +13389,7 @@ def</Comment>
     <CodeLabel>
       <Address>49392</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LC0F0</Label>
+      <Label>LC0F0_LoopCopy</Label>
       <Comment> Transfer 1 byte from source pattern block in ROM to PPU.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -13685,7 +13685,7 @@ def</Comment>
     <CodeLabel>
       <Address>98398</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1805E</Label>
+      <Label>L1805E_SecondQuest</Label>
       <Comment> Second quest.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -13905,7 +13905,7 @@ def</Comment>
     <CodeLabel>
       <Address>98605</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1812D</Label>
+      <Label>L1812D_PatchQ2Rooms</Label>
       <Comment> Replace attributes of several rooms in OW in second quest.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -14149,7 +14149,7 @@ def</Comment>
     <CodeLabel>
       <Address>98596</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L18124</Label>
+      <Label>L18124_ReplaceInfoBytes</Label>
       <Comment> Copy bytes from Q2 replacement array to level info&#xD;
  starting at offset $29 (shortcut position array).</Comment>
       <Flags>None</Flags>
@@ -36647,7 +36647,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>85041</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14C31</Label>
+      <Label>L14C31_KillMonsters</Label>
       <Comment> For each object slot from $C to 1:&#xD;
 &#xD;
  If the slot is empty, or has something not a monster, or is&#xD;
@@ -61909,17 +61909,17 @@ For example:&#xD;
     <CodeLabel>
       <Address>49233</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LC051</Label>
+      <Label>LC051_LoopBlockOW</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>49252</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LC064</Label>
+      <Label>TransferLevelPatternBlocksUW</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -64597,17 +64597,17 @@ For example:&#xD;
     <CodeLabel>
       <Address>84989</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14BFD</Label>
+      <Label>L14BFD_Loop</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>85006</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14C0E</Label>
+      <Label>L14C0E_Next</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -64629,17 +64629,17 @@ For example:&#xD;
     <CodeLabel>
       <Address>85044</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14C34</Label>
+      <Label>L14C34_Loop</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>85063</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14C47</Label>
+      <Label>L14C47_Next</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -64757,9 +64757,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>85762</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L14F02</Label>
+      <Label>L14F02_GetRightSideRoom</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -65877,41 +65877,41 @@ For example:&#xD;
     <CodeLabel>
       <Address>98407</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L18067</Label>
+      <Label>L18067_Copy</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>98521</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L180D9</Label>
+      <Label>L180D9_Loop</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>98540</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L180EC</Label>
+      <Label>L180EC_Next</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>98604</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1812C</Label>
+      <Label>L1812C_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>98607</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1812F</Label>
+      <Label>L1812F_ReplaceRoomBytes</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
