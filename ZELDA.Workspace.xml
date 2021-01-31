@@ -777,7 +777,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Comment> For each save slot:&#xD;
    If file B is uncommitted and valid, then&#xD;
      Copy file B to file A (also marks file B committed)&#xD;
-   If file A's static markers or wrong or file is invalid, then&#xD;
+   If file A's static markers are wrong or file is invalid, then&#xD;
      Format file A&#xD;
 &#xD;
  TODO: This is also mode 1 submode 0 init.&#xD;
@@ -4723,7 +4723,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>39200</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9920</Label>
+      <Label>L9920_LoopSprite</Label>
       <Comment> Get base tile for current sprite.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -4772,7 +4772,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>39175</Address>
       <AddressType>PrgRom</AddressType>
       <Label>L9907</Label>
-      <Comment>Keep a copy of the new value in [$05].</Comment>
+      <Comment> Keep a copy of the new value in [$05].</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -4808,7 +4808,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>39239</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9947</Label>
+      <Label>L9947_LoopSprite</Label>
       <Comment> Every 16 frames, switch between&#xD;
  the two frames of animation.</Comment>
       <Flags>None</Flags>
@@ -5138,7 +5138,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>39854</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9BAE</Label>
+      <Label>L9BAE_CopyPalette</Label>
       <Comment> Copy the chosen palette into the transfer record.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -5299,7 +5299,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>38360</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L95D8</Label>
+      <Label>L95D8_CheckVScroll</Label>
       <Comment> Scrolling hasn't ended until we've scrolled to the bottom,&#xD;
  wrapped around, and scrolled 8 more lines.</Comment>
       <Flags>None</Flags>
@@ -5366,7 +5366,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>38700</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L972C</Label>
+      <Label>L972C_Loop</Label>
       <Comment> Once an object has fallen off the top of the screen,&#xD;
  disable it.</Comment>
       <Flags>None</Flags>
@@ -5505,7 +5505,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>38463</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L963F</Label>
+      <Label>L963F_Scroll</Label>
       <Comment> Update vertical scrolling.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -5513,7 +5513,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>38477</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L964D</Label>
+      <Label>L964D_CheckLine</Label>
       <Comment> 7/8 of the lines,</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -5553,7 +5553,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>38847</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L97BF</Label>
+      <Label>L97BF_PopAndNextObject</Label>
       <Comment> Restore the index.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -5618,7 +5618,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>38534</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9686</Label>
+      <Label>L9686_CheckNTEnd</Label>
       <Comment> Check if we reached the end of a nametable.&#xD;
  If we did, then set the address to the top of the other one.&#xD;
  $2BC0 -&gt; $2000&#xD;
@@ -5629,7 +5629,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>38567</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L96A7</Label>
+      <Label>L96A7_CheckText</Label>
       <Comment> Check text and NT attributes.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -5638,7 +5638,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>38597</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L96C5</Label>
+      <Label>L96C5_CopyLine</Label>
       <Comment> X is an offset into the destination line.&#xD;
  Y is an offset into the source tiles of the current record.&#xD;
 &#xD;
@@ -5681,7 +5681,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>38614</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L96D6</Label>
+      <Label>L96D6_ProcessAttrs</Label>
       <Comment> Finished processing attribute $80.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -5830,7 +5830,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>38725</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9745</Label>
+      <Label>L9745_MakeObject</Label>
       <Comment> Look for the first disabled object.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -6832,7 +6832,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>38947</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9823</Label>
+      <Label>L9823_SkipSprite</Label>
       <Comment> Add 8 to X coordinate.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -6875,7 +6875,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>38919</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9807</Label>
+      <Label>L9807_LoopSprite</Label>
       <Comment> From this table, get the tile.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -7036,7 +7036,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>41724</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA2FC</Label>
+      <Label>LA2FC_NextSlot</Label>
       <Comment> Advance to the next save slot.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -7092,7 +7092,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>41677</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA2CD</Label>
+      <Label>LA2CD_CheckFileA</Label>
       <Comment> Calculate the checksum of the save file.&#xD;
  It's only a sum.</Comment>
       <Flags>None</Flags>
@@ -7213,10 +7213,10 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>36936</Address>
+      <Address>37008</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: ?</Comment>
+      <Comment> Point to hearts value</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -7822,7 +7822,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>36995</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9083</Label>
+      <Label>L9083_NextFormatSlot</Label>
       <Comment> Copy death count from file A to save slot info.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -8091,7 +8091,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>37012</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9094</Label>
+      <Label>L9094_LoopHeart</Label>
       <Comment> Load the hearts value or heart partial from Items block in file A.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -8190,7 +8190,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>37031</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L90A7</Label>
+      <Label>L90A7_StoreValue</Label>
       <Comment> Pop whatever we pushed: heart partial or full hearts value</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -8269,7 +8269,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>37052</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L90BC</Label>
+      <Label>L90BC_CopyNames</Label>
       <Comment> Copy the name from file A to save slot info.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -8409,7 +8409,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>42842</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA75A</Label>
+      <Label>LA75A_DiscardFileB</Label>
       <Comment> Discard file B, because it couldn't be validated.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -8485,7 +8485,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>42122</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA48A</Label>
+      <Label>LA48A_LoopSlot</Label>
       <Comment> Save ring offset in Items block of current slot.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -8617,7 +8617,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>42193</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA4D1</Label>
+      <Label>LA4D1_OffsetSlotLineAddr</Label>
       <Comment> Add ($60 * CurSaveSlot) to the PPU address of each record in the buffer.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -8626,7 +8626,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>42225</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Copy name for current slot to beginning of payload&#xD;
+      <Comment> Copy name of current slot to beginning of payload&#xD;
  of first record in dynamic transfer buf.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -8732,7 +8732,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>42336</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA560</Label>
+      <Label>LA560_Emit0</Label>
       <Comment> Else, emit a '0'.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -8804,7 +8804,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>42406</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA5A6</Label>
+      <Label>LA5A6_ChangeSelection</Label>
       <Comment> Request to play the selection change SFX (same as rupee taken).</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -9028,7 +9028,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>42639</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA68F</Label>
+      <Label>LA68F_NextSlot</Label>
       <Comment> Move Y down for the next slot.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -9124,7 +9124,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>42494</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA5FE</Label>
+      <Label>LA5FE_ChoseSlot</Label>
       <Comment> The player chose a save slot.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -9226,7 +9226,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>40482</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9E22</Label>
+      <Label>L9E22_FormatSlotsB</Label>
       <Comment> Format all file B's.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -9267,7 +9267,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>40530</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9E52</Label>
+      <Label>L9E52_SetBufLen</Label>
       <Comment> Record the length of the transfer buf.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -9351,7 +9351,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>40557</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9E6D</Label>
+      <Label>L9E6D_OverwriteName</Label>
       <Comment> The names are all arranged one after another.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -9408,7 +9408,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>40612</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9EA4</Label>
+      <Label>L9EA4_CheckSub3</Label>
       <Comment> Submode 3:&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -9417,7 +9417,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>40633</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9EB9</Label>
+      <Label>L9EB9_Sub4</Label>
       <Comment> Submode 4:&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -9633,7 +9633,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>41482</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA20A</Label>
+      <Label>LA20A_ChangeSelection</Label>
       <Comment> Request to play the selection tune (same as rupee taken).</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -9739,7 +9739,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>40700</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9EFC</Label>
+      <Label>L9EFC_GoIdle</Label>
       <Comment> then go handle idle time.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -9813,7 +9813,14 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>41463</Address>
       <AddressType>PrgRom</AddressType>
       <Label>ModifyFlashingCursorY</Label>
-      <Comment> Adjust the Y coordinate to account for the visible part of&#xD;
+      <Comment> Params:&#xD;
+ A: cursor Y&#xD;
+&#xD;
+ Returns:&#xD;
+ Y: adjusted cursor Y, or $F8 to hide it&#xD;
+&#xD;
+ Description:&#xD;
+ Adjust the Y coordinate to account for the visible part of&#xD;
  block cursor being in the bottom half of sprite.&#xD;
  Also, make the cursor flash.&#xD;
 </Comment>
@@ -9911,7 +9918,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>40703</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9EFF</Label>
+      <Label>L9EFF_ChoseEnd</Label>
       <Comment> Pressed Start over "End" option.&#xD;
 &#xD;
  Silence tune channel 1.</Comment>
@@ -10076,7 +10083,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>41306</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA15A</Label>
+      <Label>LA15A_MoveCursor</Label>
       <Comment> Move name cursor right 8 pixels.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -10117,7 +10124,11 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  at VRAM addresses $20CE to $20D5.&#xD;
 &#xD;
  Once the $E becomes a 6, we've gone past the end of&#xD;
- the name field.</Comment>
+ the name field.&#xD;
+&#xD;
+ Keep in mind that [0423] is the second byte of the transfer&#xD;
+ record header.&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -10170,7 +10181,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>41355</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA18B</Label>
+      <Label>LA18B_Exit</Label>
       <Comment> Go set the name cursor sprite X.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -10261,7 +10272,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>41262</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA12E</Label>
+      <Label>LA12E_CheckAB</Label>
       <Comment> At this point:&#xD;
  - NameCharOffset [$0421] holds the offset of the first character in the save slot info name for the current slot.&#xD;
    - This will be changed as the player inputs characters.&#xD;
@@ -10339,7 +10350,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>41028</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA044</Label>
+      <Label>LA044_ChooseRepeatDelay</Label>
       <Comment> If this is the first button press, then wait $10 frames&#xD;
  to repeat; otherwise wait 8 frames.</Comment>
       <Flags>None</Flags>
@@ -10453,8 +10464,11 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>41200</Address>
       <AddressType>PrgRom</AddressType>
       <Label>CycleCharBoardCursorY</Label>
-      <Comment> X: 0 for down, 3 for up.&#xD;
- Return ModeE_WrappedAroundBoardY [$042A]=1 if wrapped arounnd.&#xD;
+      <Comment> Params:&#xD;
+ X: 0 for down, 3 for up.&#xD;
+&#xD;
+ Returns:&#xD;
+ ModeE_WrappedAroundBoardY [$042A]=1 if wrapped arounnd.&#xD;
 &#xD;
  Assume we don't wrap around.</Comment>
       <Flags>None</Flags>
@@ -10639,7 +10653,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>41156</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA0C4</Label>
+      <Label>LA0C4_Finish</Label>
       <Comment> Go finish.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -10759,7 +10773,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>40825</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9F79</Label>
+      <Label>L9F79_NextChar</Label>
       <Comment> TODO: Point to the next char in save slot info name.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -10775,7 +10789,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>40746</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9F2A</Label>
+      <Label>L9F2A_CopyName</Label>
       <Comment> Copy next character from save slot info to file B.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -10961,7 +10975,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>40814</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9F6E</Label>
+      <Label>L9F6E_FlagBReady</Label>
       <Comment> Restore save slot number.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -18003,6 +18017,14 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
+      <Address>40456</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>SlotToBlankNameTransferBufEndOffset</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>3</Length>
+    </CodeLabel>
+    <CodeLabel>
       <Address>125804</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
@@ -23073,6 +23095,14 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
+      <Address>40424</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>DeletedSlotBlankNameTransferBuf</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>15</Length>
+    </CodeLabel>
+    <CodeLabel>
       <Address>125557</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
@@ -24748,7 +24778,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>38834</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L97B2</Label>
+      <Label>L97B2_AnimateNormal</Label>
       <Comment> Animate normal items (type &lt; $30).&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -24757,7 +24787,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>38844</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L97BC</Label>
+      <Label>L97BC_AnimateFinal</Label>
       <Comment> At the end of the list of items are special items for Link&#xD;
  and the sheet of paper.&#xD;
 </Comment>
@@ -60365,15 +60395,15 @@ For example:&#xD;
     <CodeLabel>
       <Address>32792</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L8018</Label>
+      <Label>L8018_LoopBlock</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>32852</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L8054</Label>
+      <Label>L8054_Loop</Label>
       <Comment> Load and transfer 1 byte to VRAM.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -60382,49 +60412,49 @@ For example:&#xD;
     <CodeLabel>
       <Address>36884</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9014</Label>
+      <Label>InitDemo_Phase1</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>36912</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9030</Label>
+      <Label>L9030_HandleSubmodes</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>36956</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L905C</Label>
+      <Label>L905C_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>36969</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9069</Label>
+      <Label>L9069_LoopFormatSlot</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>37054</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L90BE</Label>
+      <Label>L90BE_LoopNameByte</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>37086</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L90DE</Label>
+      <Label>AnimateDemo_Phase1</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -60438,41 +60468,41 @@ For example:&#xD;
     <CodeLabel>
       <Address>38170</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L951A</Label>
+      <Label>L951A_CopyTitlePalette</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>38189</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L952D</Label>
+      <Label>L952D_ClearVars</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>38203</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L953B</Label>
+      <Label>L953B_DisableObjects</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>38267</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L957B</Label>
+      <Label>L957B_CopyStoryPalette</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>38280</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9588</Label>
+      <Label>L9588_ClearVars</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -60486,185 +60516,185 @@ For example:&#xD;
     <CodeLabel>
       <Address>38333</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L95BD</Label>
+      <Label>L95BD_SkipTimer</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>38379</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L95EB</Label>
+      <Label>L95EB_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>38429</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L961D</Label>
+      <Label>L961D_DecObjYs</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>38462</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L963E</Label>
+      <Label>L963E_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>38495</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L965F</Label>
+      <Label>L965F_ClearLine</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>38553</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9699</Label>
+      <Label>L9699_CheckNT0</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>38562</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L96A2</Label>
+      <Label>L96A2_ResetVramLo</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>38611</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L96D3</Label>
+      <Label>L96D3_EndLine</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>38687</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L971F</Label>
+      <Label>L971F_SetNT0</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>38692</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9724</Label>
+      <Label>L9724_SetVramLo</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>38697</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9729</Label>
+      <Label>L9729_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>38710</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9736</Label>
+      <Label>L9736_Next</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>38727</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9747</Label>
+      <Label>L9747_FindDisabled</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>38735</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L974F</Label>
+      <Label>L974F_SetUpObject</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>38802</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9792</Label>
+      <Label>L9792_IncRow</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>38806</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9796</Label>
+      <Label>L9796_CenterLink</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>38815</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L979F</Label>
+      <Label>L979F_LoopObject</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>38849</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L97C1</Label>
+      <Label>L97C1_NextObject</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>38996</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9854</Label>
+      <Label>AnimateDemoPhase1End_AnimateObjects</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>39021</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L986D</Label>
+      <Label>L986D_CopySprites</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>39040</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9880</Label>
+      <Label>L9880_CopyTriforcePalette</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>39083</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L98AB</Label>
+      <Label>L98AB_DecGlowCycle</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>39145</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L98E9</Label>
+      <Label>L98E9_UpdateSprites</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -60678,49 +60708,49 @@ For example:&#xD;
     <CodeLabel>
       <Address>39191</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9917</Label>
+      <Label>L9917_SetOffset</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>39888</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9BD0</Label>
+      <Label>L9BD0_UpdateAnimation</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>40238</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9D2E</Label>
+      <Label>L9D2E_AddE</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>40247</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9D37</Label>
+      <Label>L9D37_CopyAddresses</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>40502</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9E36</Label>
+      <Label>L9E36_CopyTiles</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>40519</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9E47</Label>
+      <Label>L9E47_OverwriteTitle</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -60734,65 +60764,65 @@ For example:&#xD;
     <CodeLabel>
       <Address>40538</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9E5A</Label>
+      <Label>L9E5A_CheckSub1</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>40544</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9E60</Label>
+      <Label>L9E60_CopySlotTemplates</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>40585</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9E89</Label>
+      <Label>L9E89_OverwriteEndOption</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>40597</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9E95</Label>
+      <Label>L9E95_SkipOverwriteEndOption</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>40601</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9E99</Label>
+      <Label>L9E99_CheckSub2</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>40607</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9E9F</Label>
+      <Label>L9E9F_SelectMenuBuf</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>40645</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9EC5</Label>
+      <Label>L9EC5_FindInactiveSlot</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>40656</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9ED0</Label>
+      <Label>L9ED0_FoundInactiveSlot</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -60806,9 +60836,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>40791</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9F57</Label>
+      <Label>L9F57_CompareToZelda</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -60830,49 +60860,49 @@ For example:&#xD;
     <CodeLabel>
       <Address>40936</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9FE8</Label>
+      <Label>DeleteSlot</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>40948</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L9FF4</Label>
+      <Label>L9FF4_CopyBlankBuf</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>40969</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA009</Label>
+      <Label>LA009_ClearName</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>40993</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA021</Label>
+      <Label>ModeE_HandleDirectionButton</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>41005</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA02D</Label>
+      <Label>LA02D_CheckSameButton</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>41019</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA03B</Label>
+      <Label>LA03B_CheckRepeat</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -60886,25 +60916,25 @@ For example:&#xD;
     <CodeLabel>
       <Address>41084</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA07C</Label>
+      <Label>LA07C_Left</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>41124</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA0A4</Label>
+      <Label>LA0A4_Down</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>41159</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA0C7</Label>
+      <Label>LA0C7_Up</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -60918,81 +60948,81 @@ For example:&#xD;
     <CodeLabel>
       <Address>41199</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA0EF</Label>
+      <Label>LA0EF_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>41223</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA107</Label>
+      <Label>LA107_ReturnValue</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>41226</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA10A</Label>
+      <Label>LA10A_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>41249</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA121</Label>
+      <Label>LA121_CopyHeaderTemplate</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>41279</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA13F</Label>
+      <Label>LA13F_CopyHeader</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>41360</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA190</Label>
+      <Label>LA190_CopySprites</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>41410</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA1C2</Label>
+      <Label>LA1C2_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>41423</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA1CF</Label>
+      <Label>LA1CF_WriteCursorY</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>41431</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA1D7</Label>
+      <Label>ModeE_SetNameCursorSpriteX</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>41449</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA1E9</Label>
+      <Label>LA1E9_WriteCursorCoords</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -61006,49 +61036,49 @@ For example:&#xD;
     <CodeLabel>
       <Address>41555</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA253</Label>
+      <Label>LA253_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>41639</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA2A7</Label>
+      <Label>LA2A7_LoopSlot</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>41718</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA2F6</Label>
+      <Label>LA2F6_FormatA</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>41743</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA30F</Label>
+      <Label>LA30F_SumName</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>41753</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA319</Label>
+      <Label>LA319_SumItems</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>41771</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA32B</Label>
+      <Label>LA32B_SumWorldFlags</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -61062,25 +61092,25 @@ For example:&#xD;
     <CodeLabel>
       <Address>41825</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA361</Label>
+      <Label>LA361_ClearName</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>41834</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA36A</Label>
+      <Label>LA36A_ClearItems</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>41849</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA379</Label>
+      <Label>LA379_ClearWorldFlags</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -61094,25 +61124,25 @@ For example:&#xD;
     <CodeLabel>
       <Address>41961</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA3E9</Label>
+      <Label>LA3E9_SumName</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>41971</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA3F3</Label>
+      <Label>LA3F3_SumItems</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>41989</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA405</Label>
+      <Label>LA405_SumWorldFlags</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -61126,25 +61156,25 @@ For example:&#xD;
     <CodeLabel>
       <Address>42043</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA43B</Label>
+      <Label>LA43B_ClearName</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>42052</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA444</Label>
+      <Label>LA444_ClearItems</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>42067</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA453</Label>
+      <Label>LA453_ClearWorldFlags</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -61166,49 +61196,49 @@ For example:&#xD;
     <CodeLabel>
       <Address>42182</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA4C6</Label>
+      <Label>LA4C6_CopySlotLineTemplate</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>42233</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA4F9</Label>
+      <Label>LA4F9_CopyName</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>42272</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA520</Label>
+      <Label>LA520_CopyTemplate</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>42289</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA531</Label>
+      <Label>LA531_LoopSlot</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>42338</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA562</Label>
+      <Label>LA562_EmitChar</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>42362</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA57A</Label>
+      <Label>LA57A_FindActiveSlot</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -61222,33 +61252,33 @@ For example:&#xD;
     <CodeLabel>
       <Address>42432</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA5C0</Label>
+      <Label>LA5C0_WriteCursorSprite</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>42460</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA5DC</Label>
+      <Label>LA5DC_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>42502</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA606</Label>
+      <Label>LA606_CopyItems</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>42521</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA619</Label>
+      <Label>LA619_CopyWorldFlags</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -61270,33 +61300,33 @@ For example:&#xD;
     <CodeLabel>
       <Address>42570</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA64A</Label>
+      <Label>LA64A_LoopSlot</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>42694</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA6C6</Label>
+      <Label>LA6C6_CopyItems</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>42732</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA6EC</Label>
+      <Label>LA6EC_CopyName</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>42767</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA70F</Label>
+      <Label>LA70F_CopyWorldFlags</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -61318,33 +61348,33 @@ For example:&#xD;
     <CodeLabel>
       <Address>42839</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA757</Label>
+      <Label>LA757_IncSubmode</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>42882</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA782</Label>
+      <Label>LA782_CopyItems</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>42932</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA7B4</Label>
+      <Label>LA7B4_CopyName</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>42941</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA7BD</Label>
+      <Label>LA7BD_CopyWorldFlags</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -61374,9 +61404,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>43047</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA827</Label>
+      <Label>LA827_CopyHearts</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>

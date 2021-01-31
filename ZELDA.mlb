@@ -942,13 +942,13 @@ P:8006-800B:CommonPatternBlockSizes
 P:800C-8011:CommonPatternVramAddrs
 P:8012:TransferCommonPatterns
 P:8015:: Clear address latch and scroll.
-P:8018:L8018
+P:8018:L8018_LoopBlock
 P:801D:: Put block address in [00:01] and size in [03:02].\n Load destination VRAM address and set it.\n The size and VRAM address have the high byte first.\n
 P:803E:: Loop until pattern block index = 3.\n
 P:8045:: Mark this block copied.
 P:8049:: Reset pattern block index.
 P:804F:TransferPatternBlock_Bank2: Params:\n [00:01]: source address\n [03:02]: size\n A: low byte of desination VRAM address\n
-P:8054:L8054: Load and transfer 1 byte to VRAM.\n
+P:8054:L8054_Loop: Load and transfer 1 byte to VRAM.\n
 P:8059:: Increment the 16-bit source address at [00:01].\n
 P:8066:: Decrement the 16-bit amount remaining in [03:02].\n
 P:8073:: Loop until the amount remaining = 0.\n
@@ -958,36 +958,36 @@ P:877F-8E7E:CommonBackgroundPatterns
 P:8E7F-8F5E:CommonMiscPatterns
 P:9000:InitDemo_RunTasks
 P:900E-9013:InitDemo_RunTasks_Phase0_JumpTable
-P:9014:L9014
+P:9014:InitDemo_Phase1
 P:901A-901F:InitDemo_RunTasks_Phase1_JumpTable
 P:9020:UpdateMode0Demo
 P:9022:: Only animate if submode = 0 and SkippedDemo = 0
 P:902C:: If no longer updating,
 P:902E:: then return.
-P:9030:L9030
+P:9030:L9030_HandleSubmodes
 P:9035-903A:UpdateMode0Demo_JumpTable
 P:903B:UpdateMode0Demo_Sub0: If Start is not pressed,
 P:903F:: then return.
 P:9041::TODO: Else, store $10 in TransferredDemoPatterns. Why?
-P:9048:: TODO: ?
 P:9050:: Go to next submode.
 P:9058:: Queue transfer record for menu palettes.
-P:905C:L905C
+P:905C:L905C_Exit
 P:905D:UpdateMode0Demo_Sub2: Copy data from each save file A to save slot info.\n Most of the game will deal with save slot info.\n Format each inactive file A, to make sure it's clear.\n
-P:9069:L9069
+P:9069:L9069_LoopFormatSlot
 P:9070:: Save the slot.
 P:9072:: Switch to this slot's addresses.
 P:907E:: Fetch the address set for slot 0 again,\n so that we can keep referring to its\n IsSaveSlotActive address as a table base.\n\n After this, the slot is still not active, but it will\n definitely be clear.
 P:9082:: Restore the slot.
-P:9083:L9083: Copy death count from file A to save slot info.
+P:9083:L9083_NextFormatSlot: Copy death count from file A to save slot info.
 P:9088:: Copy quest number from file A to save slot info.
+P:9090:: Point to hearts value
 P:9092:: 0: process hearts value; 1: process heart partial.
-P:9094:L9094: Load the hearts value or heart partial from Items block in file A.
+P:9094:L9094_LoopHeart: Load the hearts value or heart partial from Items block in file A.
 P:9096:: Push either value.
 P:9099:: If X is even, then the value is a hearts value.\n So, make the hearts equal the heart containers.
 P:909B:: Pop what we pushed, because we're going to push\n a modification.
 P:90A6:: Push the full hearts value.
-P:90A7:L90A7: Pop whatever we pushed: heart partial or full hearts value
+P:90A7:L90A7_StoreValue: Pop whatever we pushed: heart partial or full hearts value
 P:90A8:: Copy to hearts in save slot info.
 P:90AB:: Point to the next byte in Items block.\n hearts value -> hearts partial
 P:90AC:: Increment the index of the value we check.
@@ -996,13 +996,13 @@ P:90AF:: Once we finish the last value, quit the loop.
 P:90B1:: If X is odd, then go process heart partial instead of hearts value.
 P:90B5:: The 3 files are consecutive in the set.\n Point to the hearts value in the next slot.
 P:90B9:: Go process hearts in the next slot.
-P:90BC:L90BC: Copy the name from file A to save slot info.
-P:90BE:L90BE
+P:90BC:L90BC_CopyNames: Copy the name from file A to save slot info.
+P:90BE:L90BE_LoopNameByte
 P:90C6:: Go to the next game mode (Menu).
 P:90C8:: We're set to initialize the mode.
 P:90CF:AnimateDemo
 P:90DA-90DD:AnimateDemo_Phase0_JumpTable
-P:90DE:L90DE
+P:90DE:AnimateDemo_Phase1
 P:90E4-90ED:AnimateDemo_Phase1_JumpTable
 P:90EE-915D:InitialTitleSprites
 P:915E:DemoLineAttrs: TODO: How long?
@@ -1018,19 +1018,19 @@ P:94E7:InitDemoSubphaseClearArtifacts
 P:94EA:L94EA_IncSubphase
 P:94EE-9511:TitlePaletteTransferRecord
 P:9512:InitDemoSubphaseQueueTitlePalette: Write a tile buf record for the title palette.
-P:951A:L951A
+P:951A:L951A_CopyTitlePalette
 P:9523:: Reset variables used in this phase.
-P:952D:L952D
+P:952D:L952D_ClearVars
 P:9539:: Mark objects 1 to 10 disabled.
-P:953B:L953B
+P:953B:L953B_DisableObjects
 P:9542:: Go advance the DemoSubphase and return.
 P:9545:InitDemoSubphaseRequestTitleSong: Request the title song.
 P:954A:: Select transfer buffer 8 (offset $10 in table):\n title nametables and attributes.
 P:954F-9572:StoryPaletteTransferRecord
 P:9573:InitDemoSubphaseQueueStoryPalette: Copy the transfer record for the story palette.
-P:957B:L957B
+P:957B:L957B_CopyStoryPalette
 P:9584:: Reset variables used in this phase.
-P:9588:L9588
+P:9588:L9588_ClearVars
 P:9597:: Go to the next subphase and return.
 P:959A:InitDemoSubphaseQueueStoryTiles
 P:95A0:: Select transfer buffer 1 (offset 2 in table):\n Story nametables and attributes.
@@ -1038,20 +1038,20 @@ P:95A2:EndInitDemo
 P:95AC:AnimateDemoPhase0Subphase0: Animate while we wait about 512 frames.\n
 P:95AE:: The timer is incremented every other frame.
 P:95BA:: Go advance the demo subphase and return.
-P:95BD:L95BD
+P:95BD:L95BD_SkipTimer
 P:95C1:AnimateDemoPhase1Subphase0: Increase CurVScroll every odd frame.
 P:95C9:: Have we scrolled to the bottom of nametable 2?
 P:95CF:: TODO: Set [$0415]
 P:95D2:: The bottom of NT 2 is also the top of NT 0.\n So, reset CurVScroll and the base NT.
-P:95D8:L95D8: Scrolling hasn't ended until we've scrolled to the bottom,\n wrapped around, and scrolled 8 more lines.
-P:95EB:L95EB
+P:95D8:L95D8_CheckVScroll: Scrolling hasn't ended until we've scrolled to the bottom,\n wrapped around, and scrolled 8 more lines.
+P:95EB:L95EB_Exit
 P:95EC:AnimateDemoPhase1Subphase1
 P:95F4:: Go to the next subphase.
 P:95F7:L95F7: TODO: Why these values? Why set them every frame?
 P:960C:AnimateDemoPhase1Subphase2
 P:9619:: Every even frame, just return.
 P:961B:: Decrement the Y coordinate of every object.
-P:961D:L961D
+P:961D:L961D_DecObjYs
 P:9622:: We scrolled one more line.
 P:9628:: Once we've scrolled a whole screen,
 P:962A:: Increment the screen count.
@@ -1060,31 +1060,31 @@ P:9632:: Scroll the nametable.
 P:9634:: Scroll half a screen more.
 P:9639:: Scroll the nametable.
 P:963B:: Go to the next subphase.
-P:963E:L963E
-P:963F:L963F: Update vertical scrolling.
+P:963E:L963E_Exit
+P:963F:L963F_Scroll: Update vertical scrolling.
 P:9645:: If we reached the bottom of the screen,
 P:9647:: Switch the base nametable and reset scroll.
-P:964D:L964D: 7/8 of the lines,
+P:964D:L964D_CheckLine: 7/8 of the lines,
 P:9652:: just return.
 P:9654:: But every 8 lines, we have to check for new text and objects.
 P:9657:: Queue a request to transfer a line.\n It's blank by default. Change it later.
-P:965F:L965F
+P:965F:L965F_ClearLine
 P:9678:: The next line is 32 bytes farther.
 P:967E:: If crossed a page,
 P:9680:: then increment high address byte,
 P:9683:: and do the next task.
-P:9686:L9686: Check if we reached the end of a nametable.\n If we did, then set the address to the top of the other one.\n $2BC0 -> $2000\n $23C0 -> $2800
-P:9699:L9699
-P:96A2:L96A2
-P:96A7:L96A7: Check text and NT attributes.\n
+P:9686:L9686_CheckNTEnd: Check if we reached the end of a nametable.\n If we did, then set the address to the top of the other one.\n $2BC0 -> $2000\n $23C0 -> $2800
+P:9699:L9699_CheckNT0
+P:96A2:L96A2_ResetVramLo
+P:96A7:L96A7_CheckText: Check text and NT attributes.\n
 P:96AF:: If attribute $80 isn't set, then leave the line blank.
 P:96B8:: Get the address of the current text field.
 P:96C2:: The first byte of text field is the offset into the line.
-P:96C5:L96C5: X is an offset into the destination line.\n Y is an offset into the source tiles of the current record.\n\n Get the next source tile.
+P:96C5:L96C5_CopyLine: X is an offset into the destination line.\n Y is an offset into the source tiles of the current record.\n\n Get the next source tile.
 P:96CA:: When you reach the end marker, quit.
 P:96CC:: Copy to the tile buf.
-P:96D3:L96D3
-P:96D6:L96D6: Finished processing attribute $80.\n
+P:96D3:L96D3_EndLine
+P:96D6:L96D6_ProcessAttrs: Finished processing attribute $80.\n
 P:96D9:: Advance to the next line.
 P:96DD:ProcessDemoLineAttrs
 P:96E5:: If attribute $40 is missing, then return.
@@ -1093,19 +1093,19 @@ P:96F3:: 8 zeroes in VRAM take up 1 byte in record.
 P:9702:: TODO: $416?
 P:9705:: The next attributes go 8 bytes farther.
 P:970E:: Check if we reached the end of nametable attributes.\n If we did, then set the address to the top of the other one.\n $2C00 -> $23C0\n $2400 -> $2BC0
-P:971F:L971F
-P:9724:L9724
-P:9729:L9729
+P:971F:L971F_SetNT0
+P:9724:L9724_SetVramLo
+P:9729:L9729_Exit
 P:972A:DisableFallenObjects: For objects 1..10, indexed by X:\n
-P:972C:L972C: Once an object has fallen off the top of the screen,\n disable it.
+P:972C:L972C_Loop: Once an object has fallen off the top of the screen,\n disable it.
 P:972E:: The Y coordinate where we consider an object\n completely off the screen is $F0.
 P:9732:: TODO: Set the corresponding ObjState to $FF.
-P:9736:L9736
+P:9736:L9736_Next
 P:973A:ProcessDemoLineItems
 P:9740:: If attribute $20 is present, then instantiate a new object.
-P:9745:L9745: Look for the first disabled object.
-P:9747:L9747
-P:974F:L974F
+P:9745:L9745_MakeObject: Look for the first disabled object.
+P:9747:L9747_FindDisabled
+P:974F:L974F_SetUpObject
 P:9752:: Allocate an object for the item on the left.
 P:9758:: Start at the bottom of the screen.
 P:9768:: Link gets a special item ID.
@@ -1113,17 +1113,17 @@ P:976A:: Go center the object horizontally, if it is Link.
 P:976C:: Allocate another object for the item on the right.
 P:9787:: Special case: The triforce must be centered.\n But it shows up in both column lists.\n Two objects were instantiated, but they'll overlap.
 P:978F:: TODO: $430?
-P:9792:L9792
-P:9796:L9796
+P:9792:L9792_IncRow
+P:9796:L9796_CenterLink
 P:979D:Demo_AnimateObjects: For each object 1..10, indexed by X:\n
-P:979F:L979F
+P:979F:L979F_LoopObject
 P:97A1:: If the object is disabled, then skip it.
 P:97A3:: Save the index.
 P:97A5:: Animate the fairy specially.\n
-P:97B2:L97B2: Animate normal items (type < $30).\n
-P:97BC:L97BC: At the end of the list of items are special items for Link\n and the sheet of paper.\n
-P:97BF:L97BF: Restore the index.
-P:97C1:L97C1
+P:97B2:L97B2_AnimateNormal: Animate normal items (type < $30).\n
+P:97BC:L97BC_AnimateFinal: At the end of the list of items are special items for Link\n and the sheet of paper.\n
+P:97BF:L97BF_PopAndNextObject: Restore the index.
+P:97C1:L97C1_NextObject
 P:97D8:AnimateStationaryFairy
 P:97DE:: Rely on the fact that 2 represents normal sprite\n attributes with palette 6.\n Shift the value to make it 4.
 P:97DF:: Every 4 frames, switch between 2 animation frames.
@@ -1133,48 +1133,48 @@ P:97F6:: Y gets offset of each row: (low_nibble & $0F) * 6
 P:97F7:: Put ObjY,ObjX in [$00, $01].
 P:9801:: For 6 sprites, counted by [$02]:
 P:9806:: X gets the offset to the sprite (index * 4).
-P:9807:L9807: From this table, get the tile.
+P:9807:L9807_LoopSprite: From this table, get the tile.
 P:980A:: If it's zero, skip the sprite.
 P:980F:: Write sprite Y.
 P:9811:: From this table, get the attributes.
 P:981A:: Write sprite X.
 P:981F:: Point to the next sprite.
-P:9823:L9823: Add 8 to X coordinate.
+P:9823:L9823_SkipSprite: Add 8 to X coordinate.
 P:982A:: Increment the sprite index.
 P:982B:: Decrement count.
 P:9830:AnimateDemoPhase1Subphase3: Delay about 256 frames.
 P:983C:AnimateDemoPhase1Subphase4: Delay 56 frames.
 P:9846:: Go to phase 0 again, and initialize it.
-P:9854:L9854
+P:9854:AnimateDemoPhase1End_AnimateObjects
 P:985B:TriforcePaletteTransferRecord
 P:9863:TriforceGlowingColors
 P:986B:AnimateDemoPhase0Subphase0Artifacts: Set up sprites for the title.\n Copy initial sprite data to Sprites area.
-P:986D:L986D
+P:986D:L986D_CopySprites
 P:9879:: When you reach the end of the glow cycle,\n Queue a transfer record for the trifoce palette.
-P:9880:L9880
+P:9880:L9880_CopyTriforcePalette
 P:9889:: Patch the palette record with the color\n for the current point in the cycle.
 P:9892:: Restart the glow timer.
 P:9897:: Advance the glow cycle.
 P:989D:: When the glow cycle finishes,
 P:98A1:: delay a twice as long for one step of the cycle.
 P:98A6:: Restart the glow cycle.
-P:98AB:L98AB
+P:98AB:L98AB_DecGlowCycle
 P:98AF-98B2:WaterfallWaveTiles
 P:98B3-98B6:WaterfallCrestTiles
 P:98B7-98BA:WaterfallSpriteXs
 P:98BB-98BD:WaterfallWaveSpriteOffsets
 P:98C3:UpdateWaterfallAnimation
 P:98C8:: Initialize animation values.
-P:98E9:L98E9
+P:98E9:L98E9_UpdateSprites
 P:98EB:L98EB
 P:98F5:UpdateSpritesForWaterfallWave: Add 2 to current waterfall wave Y.\n But keep it in the range $B2..$E3.
-P:9907:L9907:Keep a copy of the new value in [$05].
+P:9907:L9907: Keep a copy of the new value in [$05].
 P:9909:: Depending on the Y coordinate of the wave,\n modify the animation state.\n\n < $B9, use tile offset 0\n < $C2, use tile offset 8\n else, use tile offset $10
-P:9917:L9917
+P:9917:L9917_SetOffset
 P:9919:: Keep a copy of the wave index in [$02].
 P:991B:: Y gets offset of first sprite in current wave.
 P:991E:: For each sprite (4) in current wave, indexed by X:
-P:9920:L9920: Get base tile for current sprite.
+P:9920:L9920_LoopSprite: Get base tile for current sprite.
 P:9924:: Modify the tile according to the current state of the wave.
 P:9929:: Set sprite X to each part of wave in a row.
 P:992F:: Set sprite Y to rolling value.
@@ -1182,7 +1182,7 @@ P:9934:: Set sprite attributes: normal with palette 4.
 P:9939:: Advance to the next sprite.
 P:9940:: Put the wave index in X again.
 P:9943:UpdateSpritesForWaterfallCrest: For each sprite (4) in crest, indexed by X:
-P:9947:L9947: Every 16 frames, switch between\n the two frames of animation.
+P:9947:L9947_LoopSprite: Every 16 frames, switch between\n the two frames of animation.
 P:9951:: The Y coordinate is fixed in place.
 P:9956:: Set sprite X to each part of crest in a row.
 P:995C:: Set sprite attributes: normal with palette 4.
@@ -1194,21 +1194,21 @@ P:9B7C:: go update animation only.
 P:9B7E:: Calculate the address to the palette to transfer.\n Addr = DemoPhase0Subphase1Palettes + (DemoPhase0Subphase1Palettes * $20)
 P:9B98:: Set up the header of the transfer record.
 P:9BA7:: Put an end marker at the end.
-P:9BAE:L9BAE: Copy the chosen palette into the transfer record.
+P:9BAE:L9BAE_CopyPalette: Copy the chosen palette into the transfer record.
 P:9BB6:: Advance the subphase cycle.
 P:9BB9:: Set the timer to the delay for the current point in the cycle.
 P:9BC4:: If we reached the end of the cycle,
 P:9BC6:: Advance to the next demo phase.
 P:9BC9:: Reset the demo subphase.
 P:9BCE:: We have to initialize the new demo phase.
-P:9BD0:L9BD0
+P:9BD0:L9BD0_UpdateAnimation
 P:9D00-9D0D:SaveFileBAddressSets
 P:9D0E-9D1B:SaveFileBAddressSet1
 P:9D1C-9D29:SaveFileBAddressSet2
 P:9D2A:FetchFileBAddressSet: Calculate the end of the address set for current file.
-P:9D2E:L9D2E
+P:9D2E:L9D2E_AddE
 P:9D35:: Copy the file address set (14 bytes) for the current\n save file to [$C0] to make it easier to work with.
-P:9D37:L9D37
+P:9D37:L9D37_CopyAddresses
 P:9D41-9D5D:ModeFTitleTransferBuf
 P:9D5E-9D6F:ModeFTitlePatchRegister
 P:9D70-9D7A:ModeFSaveSlotTemplatePatchRegister
@@ -1216,58 +1216,60 @@ P:9D7B-9DAE:ModeFSaveSlotTemplateTransferBuf
 P:9DAF-9DB2:ModeEandFSlotCursorYs
 P:9DB3-9DDE:ModeE_CharMap
 P:9DDF-9DE7:SlotToInitialNameCharTransferHeaders
+P:9DE8-9DF6:DeletedSlotBlankNameTransferBuf
 P:9DF7-9E01:ModeEandFCursorSprites
 P:9E02-9E07:ModeE_CharBoardYOffsetsAndBounds
+P:9E08-9E0A:SlotToBlankNameTransferBufEndOffset
 P:9E0B-9E0D:SlotToNameOffset
 P:9E0E-9E10:SlotToInitialNameCharTransferHeaderEndOffsets
 P:9E11:InitModeEandF_Full
 P:9E1D:: Go handle submodes 1 and up.
 P:9E1F:: Submode 0:\n
-P:9E22:L9E22: Format all file B's.\n
+P:9E22:L9E22_FormatSlotsB: Format all file B's.\n
 P:9E30:: Reset CurSaveSlot.
 P:9E34:: Copy the title tiles to the dynamic transfer buf.
-P:9E36:L9E36
+P:9E36:L9E36_CopyTiles
 P:9E43:: If in mode E, overwrite "ELIMINATION MODE" with "REGISTER YOUR NAME".
-P:9E47:L9E47
-P:9E52:L9E52: Record the length of the transfer buf.
+P:9E47:L9E47_OverwriteTitle
+P:9E52:L9E52_SetBufLen: Record the length of the transfer buf.
 P:9E54:L9E54_SetTransferBufLenAndIncSubmode
-P:9E5A:L9E5A
+P:9E5A:L9E5A_CheckSub1
 P:9E5E:: Submode 1:\n\n Copy ModeFSaveSlotTemplateTransferBuf to dynamic transfer buf.
-P:9E60:L9E60
+P:9E60:L9E60_CopySlotTemplates
 P:9E69:: Overwrite payload of a dynamic transfer record with a name.
-P:9E6D:L9E6D: The names are all arranged one after another.
+P:9E6D:L9E6D_OverwriteName: The names are all arranged one after another.
 P:9E78:: If copied the whole name,
 P:9E7A:: Skip the header for the next transfer record.
 P:9E7F:: If there are more names to write, go write the next one.
 P:9E85:: If in mode E, overwrite "ELIMINATION" with "REGISTER".
-P:9E89:L9E89
-P:9E95:L9E95
+P:9E89:L9E89_OverwriteEndOption
+P:9E95:L9E95_SkipOverwriteEndOption
 P:9E97:: Go record the length of the transfer buf, and advance the submode.
-P:9E99:L9E99
+P:9E99:L9E99_CheckSub2
 P:9E9B:: Go handle submode 3 and 4.
 P:9E9D:: Submode 2:\n\n Cue a transfer of ModeFCharBoardTransferBuf.
-P:9E9F:L9E9F
-P:9EA4:L9EA4: Submode 3:\n
+P:9E9F:L9E9F_SelectMenuBuf
+P:9EA4:L9EA4_CheckSub3: Submode 3:\n
 P:9EA6:: Go handle submode 4.
 P:9EA8:: In mode $E, use $15 for cursor color.
 P:9EB0:: In mode $F, use $30 for cursor color.
 P:9EB2:L9EB2: Replace byte 1 of row 3 of sprite palette in transfer buf\n TileBufSelector=$12.
 P:9EB7:: Go cue transfer of menu palettes and advance submode.
-P:9EB9:L9EB9: Submode 4:\n
+P:9EB9:L9EB9_Sub4: Submode 4:\n
 P:9EBD:: If in mode E,
 P:9EBF:: Then look for the first slot that's inactive.
-P:9EC5:L9EC5
+P:9EC5:L9EC5_FindInactiveSlot
 P:9ECB:: Found one. Quit the loop.
 P:9ECE:: Loop again. If not found, then CurSaveSlot will be 3 (out of bounds).
-P:9ED0:L9ED0
+P:9ED0:L9ED0_FoundInactiveSlot
 P:9ED7:: If we're at the "end" option, then hide the char-board cursor.
 P:9EDE:L9EDE: The X of Link objects is $50.
 P:9EE2:: The base Y of Link objects is $30.
 P:9EEB-9EEF:ZeldaString
 P:9EF0:UpdateModeERegister: If didn't press Start,
 P:9EF6:: or didn't select "End" option,
-P:9EFC:L9EFC: then go handle idle time.
-P:9EFF:L9EFF: Pressed Start over "End" option.\n\n Silence tune channel 1.
+P:9EFC:L9EFC_GoIdle: then go handle idle time.
+P:9EFF:L9EFF_ChoseEnd: Pressed Start over "End" option.\n\n Silence tune channel 1.
 P:9F04:: TODO: Reset [$0425].
 P:9F07:: TODO: Reset [$0423].
 P:9F0A:: Reset CurSaveSlot.
@@ -1278,7 +1280,7 @@ P:9F19:: TODO: Reset FileBReadyToSave [$0426].
 P:9F1C:: Reset checksum for current save file B.
 P:9F23:: Save current save slot number.
 P:9F28:: Restore save slot number.
-P:9F2A:L9F2A: Copy next character from save slot info to file B.
+P:9F2A:L9F2A_CopyName: Copy next character from save slot info to file B.
 P:9F30:: TODO: [$0425] (and [$0423])
 P:9F37:: If we copied a space, then go advance offsets and check things.
 P:9F3C:: If the save slot is active, then go advance offsets and check things.
@@ -1288,15 +1290,15 @@ P:9F49:: Initialize file B's max bombs to 8.
 P:9F4F:: Save the current save slot number.
 P:9F51:: Multiply it by 8 to get offset to current name in save slot info.
 P:9F55:: Compare the name to "ZELDA".
-P:9F57:L9F57
+P:9F57:L9F57_CompareToZelda
 P:9F5D:: If there's any mismatch, then skip the rest.
 P:9F63:: Go check the next character until the end of "ZELDA".
 P:9F65:: Pop and push the slot number, so we can get it into X.
 P:9F68:: Set second quest in file B.
-P:9F6E:L9F6E: Restore save slot number.
+P:9F6E:L9F6E_FlagBReady: Restore save slot number.
 P:9F70:: Set FileBReadyToSave [$0426].
 P:9F77:: Set IsSaveSlotActive in file B.
-P:9F79:L9F79: TODO: Point to the next char in save slot info name.
+P:9F79:L9F79_NextChar: TODO: Point to the next char in save slot info name.
 P:9F7C:: TODO: Point to the next char in save file B name.
 P:9F7F:: TODO: [$0425]
 P:9F84:: If we haven't copied 8 characters from save slot info name, then go copy the next one.
@@ -1325,27 +1327,27 @@ P:9FD4:: "End" was chosen. So, go to mode $E.
 P:9FDE:ModeE_ResetVariables: Assumes that zero is passed in A.\n\n Reset CharBoardIndex [$041F].
 P:9FE1:: Reset InitializedNameField [$0420].
 P:9FE4:: Reset NameCharOffset [$0421].
-P:9FE8:L9FE8
+P:9FE8:DeleteSlot
 P:9FEA:: TODO: ?
 P:9FF2:: Copy the appropriate transfer buf of a blank name for\n current slot to dynamic transfer buf.
-P:9FF4:L9FF4
+P:9FF4:L9FF4_CopyBlankBuf
 P:A007:: Clear the name in save slot info.
-P:A009:LA009
+P:A009:LA009_ClearName
 P:A011:ModeE_HandleDirections
 P:A013:: Filter and keep direction buttons.
 P:A015:: If no button is down, then reset repeat state.
 P:A017:ResetButtonRepeatState
-P:A021:LA021
+P:A021:ModeE_HandleDirectionButton
 P:A025:: If we weren't holding a button last frame,
 P:A027:: Store current buttons down.
 P:A02A:: Now we definitely are holding a button.
-P:A02D:LA02D
+P:A02D:LA02D_CheckSameButton
 P:A034:: If it's not the same button as before,
 P:A036:: then reset repeat state.
-P:A03B:LA03B
+P:A03B:LA03B_CheckRepeat
 P:A03E:: Once the repeat timer reaches zero, handle the direction button again.
 P:A040:: Otherwise, only count down the timer.
-P:A044:LA044: If this is the first button press, then wait $10 frames\n to repeat; otherwise wait 8 frames.
+P:A044:LA044_ChooseRepeatDelay: If this is the first button press, then wait $10 frames\n to repeat; otherwise wait 8 frames.
 P:A04D:LA04D
 P:A058:: Pressed Right.\n\n Increase CharBoardIndex [$041F] to put cursor at character to the right.
 P:A05B:: Move the char board cursor right one spot.
@@ -1355,7 +1357,7 @@ P:A06A:: Cycle down.
 P:A072:: If wrapped around to the top,
 P:A074:: then reset CharBoardIndex [$041F].
 P:A079:LA079: Go finish.
-P:A07C:LA07C
+P:A07C:LA07C_Left
 P:A080:: Pressed Left.\n\n Decrease CharBoardIndex [$041F] to put cursor at character to the left.
 P:A083:: Move the char board cursor left one spot.
 P:A08C:: If still on the board, then go finish.
@@ -1364,13 +1366,13 @@ P:A092:: Cycle up.
 P:A09A:: If wrapped around to the bottom,
 P:A09C:: then set CharBoardIndex [$041F] to the last index.
 P:A0A1:LA0A1: Go finish.
-P:A0A4:LA0A4
+P:A0A4:LA0A4_Down
 P:A0A8:: Pressed Down.\n\n Increase CharBoardIndex [$041F] by $B (one row down).
 P:A0B1:: Cycle down.
 P:A0B9:: If didn't wrap around, then go finish.
 P:A0BB:: Wrapped around. So, move CharBoardIndex [$041F] to top row.
-P:A0C4:LA0C4: Go finish.
-P:A0C7:LA0C7
+P:A0C4:LA0C4_Finish: Go finish.
+P:A0C7:LA0C7_Up
 P:A0C9:: If no single direction was pressed, then return.
 P:A0CB:: Pressed Up.\n\n Decrease CharBoardIndex [$041F] by $B (one row up).
 P:A0D4:: Cycle up.
@@ -1378,49 +1380,49 @@ P:A0DC:: If didn't wrap around, then go finish.
 P:A0DE:: Wrapped around. So, move CharBoardIndex [$041F] to bottom row.
 P:A0E7:LA0E7_FinishInput
 P:A0EC:: Request "selection changed" tune (same as rupee taken).
-P:A0EF:LA0EF
-P:A0F0:CycleCharBoardCursorY: X: 0 for down, 3 for up.\n Return ModeE_WrappedAroundBoardY [$042A]=1 if wrapped arounnd.\n\n Assume we don't wrap around.
+P:A0EF:LA0EF_Exit
+P:A0F0:CycleCharBoardCursorY: Params:\n X: 0 for down, 3 for up.\n\n Returns:\n ModeE_WrappedAroundBoardY [$042A]=1 if wrapped arounnd.\n\n Assume we don't wrap around.
 P:A0F2:: Move the char board cursor Y one spot in given direction.
 P:A0F5:: TODO: Add $10 or -$10 ($F0), depending on X passed in (0 or 3).
 P:A0FA:: Look at boundaries.
 P:A0FE:: If we didn't reach the boundary, then return Y=0.
 P:A100:: Set cursor Y to wrapped around position.
 P:A106:: Return ModeE_WrappedAroundBoardY [$042A]=1.
-P:A107:LA107
-P:A10A:LA10A
+P:A107:LA107_ReturnValue
+P:A10A:LA10A_Exit
 P:A10B:ModeE_HandleAOrB: InitializedNameField [$0420]
 P:A10E:: If InitializedNameField [$0420] is set, then skip initializing\n the name field.
 P:A114:: If at the "End" option, then return.
 P:A116:: Set NameCharOffset [$0421] to the offset of first char\n in the current slot's name.
 P:A11C:: Get the offset of the end of the initial name character\n transfer record header for the current slot.
 P:A11F:: Each transfer record header is 3 bytes.
-P:A121:LA121
+P:A121:LA121_CopyHeaderTemplate
 P:A124:: Copy a byte of transfer header for current slot to [$0422][Y].
 P:A12B:: Set InitializedNameField [$0420] to mark the name field initialized.
-P:A12E:LA12E: At this point:\n - NameCharOffset [$0421] holds the offset of the first character in the save slot info name for the current slot.\n   - This will be changed as the player inputs characters.\n - [$0422] to [$0424] hold a transfer record header. The VRAM address points to the beginning of the appropriate name field in the nametable.\n   - This will be changed as the player inputs characters.\n - InitializedNameField [$0420] is set to 1.\n
+P:A12E:LA12E_CheckAB: At this point:\n - NameCharOffset [$0421] holds the offset of the first character in the save slot info name for the current slot.\n   - This will be changed as the player inputs characters.\n - [$0422] to [$0424] hold a transfer record header. The VRAM address points to the beginning of the appropriate name field in the nametable.\n   - This will be changed as the player inputs characters.\n - InitializedNameField [$0420] is set to 1.\n
 P:A132:: If neither A nor B was pressed, then go finish.
 P:A134:: A or B was pressed.\n
 P:A136:: If B was pressed, then go move the name cursor only.
 P:A138:: A was pressed.\n\n Request to play the character click tune (same as bomb set).
 P:A13D:: Copy our char transfer record header (in [$0422-0424]) to dynamic transfer buf.
-P:A13F:LA13F
+P:A13F:LA13F_CopyHeader
 P:A148:: Write the end marker to dynamic transfer buf.
 P:A14B:: Get NameCharOffset at [$0421].
 P:A14E:: CharBoardIndex in [$041F] will index into character map.
 P:A151:: Get the character that's highlighted.
 P:A154:: Write the chosen character to dynamic transfer buf.
 P:A157:: Set the character in the name.
-P:A15A:LA15A: Move name cursor right 8 pixels.
+P:A15A:LA15A_MoveCursor: Move name cursor right 8 pixels.
 P:A161:: Increment NameCharOffset [$0421].
 P:A164:: Increment the low VRAM address where next char will go.
-P:A167:: If VRAM address still points inside the name field,\n then go finish.\n\n The idea is that each name field in nametable begins at\n an address ending in $E. For example, slot 0 has a name\n at VRAM addresses $20CE to $20D5.\n\n Once the $E becomes a 6, we've gone past the end of\n the name field.
+P:A167:: If VRAM address still points inside the name field,\n then go finish.\n\n The idea is that each name field in nametable begins at\n an address ending in $E. For example, slot 0 has a name\n at VRAM addresses $20CE to $20D5.\n\n Once the $E becomes a 6, we've gone past the end of\n the name field.\n\n Keep in mind that [0423] is the second byte of the transfer\n record header.\n
 P:A170:: The VRAM address now points outside the name field.\n So, wrap around to the beginning of the name field.\n\n For example, $20D6 -> $20CE.
 P:A179:: It also means that we went past the end of the save slot\n info name. Set the offset to the beginning of the name.
 P:A17E:: NameCharOffset [$0421].
 P:A181:: If the name cursor has gone past the end of the field,\n then wrap around.
-P:A18B:LA18B: Go set the name cursor sprite X.
+P:A18B:LA18B_Exit: Go set the name cursor sprite X.
 P:A18E:ModeEandF_SetUpCursorSprites: Copy almost 3 sprite records ($B bytes) to byte 1 of\n Sprites block. Only sprite 0 byte 0 is missing.\n These are the cursor sprites.
-P:A190:LA190
+P:A190:LA190_CopySprites
 P:A199:: Set the Y of the slot cursor sprite (#0) according to current save slot.
 P:A1A7:: There's more work in mode $E.\n The name cursor position is held in ObjX/ObjY[0].\n The char-board cursor position is held in ObjX/ObjY[1].
 P:A1A9:: Use a heart tile for the slot cursor sprite (#0).
@@ -1428,29 +1430,29 @@ P:A1AE:: Because the visible part of the cursor block sprite is\n in the bottom,
 P:A1B6:: The base name cursor X is $70.
 P:A1BA:: The base char-board cursor Y is $87.
 P:A1BE:: The base char-board cursor X is $30.
-P:A1C2:LA1C2
+P:A1C2:LA1C2_Exit
 P:A1C3:ModeEandF_WriteNameCursorSpritePosition
 P:A1C5:: If name cursor Y corresponds to a save slot,
 P:A1C7:: then go write the appropriate Y to name cursor sprite.
 P:A1C9:: else hide name cursor.
-P:A1CF:LA1CF
+P:A1CF:LA1CF_WriteCursorY
 P:A1D1:: This returns the adjusted coordinate or $F8 to hide it.
 P:A1D4:: Set name cursor sprite Y.
-P:A1D7:LA1D7
+P:A1D7:ModeE_SetNameCursorSpriteX
 P:A1D9:: Set name cursor sprite X.
 P:A1DD:ModeEandF_WriteCharBoardCursorSpritePosition
 P:A1DF:: If name cursor Y corresponds to a save slot,
 P:A1E1:: then go write the appropriate Y to char-board sprite.
 P:A1E3:: else hide char-board sprite.
-P:A1E9:LA1E9
+P:A1E9:LA1E9_WriteCursorCoords
 P:A1EE:: Set char-board cursor sprite Y.
 P:A1F3:: Set char-board cursor sprite X.
-P:A1F7:ModifyFlashingCursorY: Adjust the Y coordinate to account for the visible part of\n block cursor being in the bottom half of sprite.\n Also, make the cursor flash.\n
+P:A1F7:ModifyFlashingCursorY: Params:\n A: cursor Y\n\n Returns:\n Y: adjusted cursor Y, or $F8 to hide it\n\n Description:\n Adjust the Y coordinate to account for the visible part of\n block cursor being in the bottom half of sprite.\n Also, make the cursor flash.\n
 P:A1FB:: Every 8 frames, put the Y off screen.
 P:A203:LA203
 P:A204:UpdateModeEandF_Idle
 P:A208:: If Select was not pressed, then return.
-P:A20A:LA20A: Request to play the selection tune (same as rupee taken).
+P:A20A:LA20A_ChangeSelection: Request to play the selection tune (same as rupee taken).
 P:A20F:: Choose the next slot.
 P:A215:: If went out of bounds, then wrap around.
 P:A21B:LA21B: Set sprite Y for new selection.
@@ -1464,35 +1466,35 @@ P:A242:: Reset InitializedNameField [$0420].
 P:A245:: Reset NameCharOffset [$0420].
 P:A24C:: If selection is "End" option, then return.
 P:A251:: If the slot is not active, then cycle again.
-P:A253:LA253
+P:A253:LA253_Exit
 P:A254-A273:Mode1SlotLineTransferBuf
 P:A274-A286:Mode1DeathCountsTransferBuf
 P:A287-A289:LinkColors
 P:A28A:InitMode1_Full
 P:A292-A29F:InitMode1_Full_JumpTable
-P:A2A0:UpdateMode0Demo_Sub1: For each save slot:\n   If file B is uncommitted and valid, then\n     Copy file B to file A (also marks file B committed)\n   If file A's static markers or wrong or file is invalid, then\n     Format file A\n\n TODO: This is also mode 1 submode 0 init.\n
+P:A2A0:UpdateMode0Demo_Sub1: For each save slot:\n   If file B is uncommitted and valid, then\n     Copy file B to file A (also marks file B committed)\n   If file A's static markers are wrong or file is invalid, then\n     Format file A\n\n TODO: This is also mode 1 submode 0 init.\n
 P:A2A3:: Reset CurSaveSlot.
 P:A2A5:: For every save file B (3):
-P:A2A7:LA2A7
+P:A2A7:LA2A7_LoopSlot
 P:A2B8:: Does the checksum match?
 P:A2C5:: If not, then go check save file A.
 P:A2CA:: Go process the next slot.
-P:A2CD:LA2CD: Calculate the checksum of the save file.\n It's only a sum.
+P:A2CD:LA2CD_CheckFileA: Calculate the checksum of the save file.\n It's only a sum.
 P:A2D5:: Are the static markers intact?
 P:A2E1:: If not, then go format the file.
 P:A2E7:: Does the checksum match?
 P:A2F4:: If not, then format the file.
-P:A2F6:LA2F6
-P:A2FC:LA2FC: Advance to the next save slot.
+P:A2F6:LA2F6_FormatA
+P:A2FC:LA2FC_NextSlot: Advance to the next save slot.
 P:A304:: After checking every file, go to the next submode.
 P:A307:CalculateFileAChecksum: Reset the sum.
 P:A30D:: Sum the name (8 bytes).
-P:A30F:LA30F
+P:A30F:LA30F_SumName
 P:A317:: Add the Items block ($28 bytes) to [$0F:0E].
-P:A319:LA319
+P:A319:LA319_SumItems
 P:A321:: TODO: Put $0180 in [$01:00].
 P:A329:: TODO: Add $180 bytes from [[$02:03]] to [$0F:0E].
-P:A32B:LA32B
+P:A32B:LA32B_SumWorldFlags
 P:A336:LA336
 P:A340:: IsSaveSlotActive
 P:A345:: TODO: Add byte at [[$08:09]] to [$0F:0E].
@@ -1501,12 +1503,12 @@ P:A34F:: QuestNumber
 P:A351:_AddATo0F0E
 P:A35D:FormatFileA
 P:A35F:: Make the name 8 spaces.
-P:A361:LA361
+P:A361:LA361_ClearName
 P:A366:: Reset the file's Items block.
-P:A36A:LA36A
+P:A36A:LA36A_ClearItems
 P:A36F:: TODO: Put $0180 in [$01:00].
 P:A377:: TODO: Reset $180 bytes at [[$02:03]].
-P:A379:LA379
+P:A379:LA379_ClearWorldFlags
 P:A383:LA383
 P:A38F:: Reset the file's IsSaveSlotActive.
 P:A391:: TODO: Reset byte at [[$08:09]].
@@ -1520,12 +1522,12 @@ P:A3C8:CalculateAndStoreFileBChecksumUncommitted
 P:A3CD:: Now file B is valid, but uncommitted.
 P:A3E1:CalculateFileBChecksum: Reset the sum.
 P:A3E7:: Sum the name (8 bytes).
-P:A3E9:LA3E9
+P:A3E9:LA3E9_SumName
 P:A3F1:: Sum the $28 bytes of the file's Items block with [$CF:CE].
-P:A3F3:LA3F3
+P:A3F3:LA3F3_SumItems
 P:A3FB:: TODO: Put $0180 in [$C1:C0].
 P:A403:: TODO: Add $180 bytes from [[$C2:C3]] to [$CF:CE].
-P:A405:LA405
+P:A405:LA405_SumWorldFlags
 P:A410:LA410
 P:A41A:: Add IsSaveSlotActive byte to [$CF:CE].
 P:A41F:: Add DeathCount byte to [$CF:CE].
@@ -1533,12 +1535,12 @@ P:A424:: TODO: Add byte at [[$CA:CB]] to [$CF:CE].
 P:A429:: Add byte QuestNumber to [$CF:CE].
 P:A42B:_AddAToCFCE
 P:A437:_InitFileB: Clear the name (to all spaces).
-P:A43B:LA43B
+P:A43B:LA43B_ClearName
 P:A440:: Clear $28 bytes of the Items block in file.
-P:A444:LA444
+P:A444:LA444_ClearItems
 P:A449:: TODO: Put $180 at [$C1:C0].
 P:A451:: TODO: Clear $180 bytes at [[$C2:C3]].
-P:A453:LA453
+P:A453:LA453_ClearWorldFlags
 P:A45D:LA45D
 P:A467:: Clear individual bytes.
 P:A469:: IsSaveSlotActive
@@ -1550,7 +1552,7 @@ P:A47B:: Mark this file B committed.
 P:A47F:InitMode1_Sub1: Reset CurSaveSlot. Doing this is useful for the\n work done here, and for the sequence of submodes\n that generate and transfer save slot graphics.
 P:A486:: The ring is at this offset in Items block.
 P:A488:: The offset to the byte we want to change in a palette.
-P:A48A:LA48A: Save ring offset in Items block of current slot.
+P:A48A:LA48A_LoopSlot: Save ring offset in Items block of current slot.
 P:A48C:: Get the ring inventory value.
 P:A48F:: Get the color for that ring level.
 P:A492:: Put the color in the byte 2 of row for current slot in\n sprite palette that will be transferred.
@@ -1564,33 +1566,33 @@ P:A4B3:: TODO: $529?
 P:A4B6:LA4B6
 P:A4BD:InitMode1_Sub2
 P:A4C4:InitMode1_FillAndTransferSlotTiles: Copy the mode 1 line transfer buf template to\n dynamic transfer buf.
-P:A4C6:LA4C6
+P:A4C6:LA4C6_CopySlotLineTemplate
 P:A4CF:: The first time, this is reset in a previous submode.
-P:A4D1:LA4D1: Add ($60 * CurSaveSlot) to the PPU address of each record in the buffer.
-P:A4F1:: Copy name for current slot to beginning of payload\n of first record in dynamic transfer buf.
-P:A4F9:LA4F9
+P:A4D1:LA4D1_OffsetSlotLineAddr: Add ($60 * CurSaveSlot) to the PPU address of each record in the buffer.
+P:A4F1:: Copy name of current slot to beginning of payload\n of first record in dynamic transfer buf.
+P:A4F9:LA4F9_CopyName
 P:A505:: Copy heart values from current save slot info\n to [$0E:0F] for formatting.
 P:A519:: Next time, process the next slot.
 P:A51E:InitMode1_Sub6: Copy the mode 1 death counts transfer buf template to\n dynamic transfer buf.
-P:A520:LA520
+P:A520:LA520_CopyTemplate
 P:A52B:: The save slot.
 P:A52F:: The offset where the string will be written in dynamic transfer record.
-P:A531:LA531
+P:A531:LA531_LoopSlot
 P:A53D:: Emit the first character.
 P:A542:: Emit the second character.
 P:A547:: If the third character isn't '0', then go emit it.
 P:A549:: If the first or second characters weren't spaces,\n then go ahead and emit the '0'.
 P:A55A:: If this slot isn't active,
 P:A55E:: Go emit a space.
-P:A560:LA560: Else, emit a '0'.
-P:A562:LA562
+P:A560:LA560_Emit0: Else, emit a '0'.
+P:A562:LA562_EmitChar
 P:A565:: Advance the offset by 6,
 P:A566:: to the starting position in the next transfer record.
 P:A56B:: Increment the save slot.
 P:A571:: Go process the next slot, if not done.
 P:A573:: Find the first save slot that's active.
 P:A577:: Use room ID $FF, so that mode 3 "Unfurl" will put the player in the room at StartRoomId.
-P:A57A:LA57A
+P:A57A:LA57A_FindActiveSlot
 P:A586:: Start updating.
 P:A589-A58B:Mode1CursorSpriteTriplet
 P:A58C-A590:Mode1CursorSpriteYs
@@ -1599,7 +1601,7 @@ P:A596-A599:UpdateMode1Menu_JumpTable
 P:A59A:UpdateMode1Menu_Sub0
 P:A59E:: If Start was pressed, the go to the next submode.
 P:A5A4:: If Select was pressed,
-P:A5A6:LA5A6: Request to play the selection change SFX (same as rupee taken).
+P:A5A6:LA5A6_ChangeSelection: Request to play the selection change SFX (same as rupee taken).
 P:A5AB:: Select the next slot or option.
 P:A5B1:: If the index is out of bounds,
 P:A5B3:: then wrap around to zero.
@@ -1607,24 +1609,24 @@ P:A5B7:LA5B7
 P:A5B9:: Since CurSaveSlot is used to index menu choices, which\n includes register and eliminate in addition to save slots;\n the IsSaveSlotActive array includes elements at the end\n for these options.
 P:A5BC:: If option or save slot isn't active, then go advance the index.
 P:A5BE:: Write the tile, attributes, and X for the sprite record.
-P:A5C0:LA5C0
+P:A5C0:LA5C0_WriteCursorSprite
 P:A5CE:: Set the sprite Y for current option.
 P:A5D1:: The base Y of Link sprites is $58.
 P:A5D5:: The X coordinate of Link sprites is $30.
-P:A5DC:LA5DC
+P:A5DC:LA5DC_Exit
 P:A5DF:UpdateMode1Menu_Sub1: TODO: Turn off music2.
 P:A5E6:: Begin in OW.
 P:A5E8:: Reset item index.
 P:A5F2:: If not a save slot,
 P:A5F4:: Go to the mode for each option (register, eliminate).
-P:A5FE:LA5FE: The player chose a save slot.\n
+P:A5FE:LA5FE_ChoseSlot: The player chose a save slot.\n
 P:A604:: Copy Items block from file A to profile.
-P:A606:LA606
+P:A606:LA606_CopyItems
 P:A60E:: TODO: ?
 P:A613:: Reset player state.
 P:A615:: Reset clock item.
 P:A618:: Copy WorldFlags block from file A to profile.\n
-P:A619:LA619
+P:A619:LA619_CopyWorldFlags
 P:A623:LA623
 P:A629:LA629
 P:A633:: If not done (destination address < $07FF), then copy more.
@@ -1632,7 +1634,7 @@ P:A638:Mode1_WriteLinkSprites: Put the left tile of Link in [$02].
 P:A63C:: Put the right tile of Link in [$03].
 P:A640:: [$04] is used as an index and sprite attributes.\n It takes on values 0 to 2.\n As an index, it represents a save slot.\n As attributes, these values represent palettes 4 to 6.
 P:A645:: We want to start with sprite 4 (offset $10).\n Begin with 8, so that the loop will add 8 and\n put us at the offset we want.
-P:A64A:LA64A
+P:A64A:LA64A_LoopSlot
 P:A64E:: Each Link is two sprites (8 bytes).
 P:A654:: The right side is the next sprite.
 P:A659:: This object has two sides (sprites).
@@ -1647,7 +1649,7 @@ P:A67A:: Use sprites $20 to $23 for the swords.
 P:A67D:: Use sword tiles.
 P:A682:: Use palette 7.
 P:A687:: Put the sword $C pixels to the right of Link.
-P:A68F:LA68F: Move Y down for the next slot.
+P:A68F:LA68F_NextSlot: Move Y down for the next slot.
 P:A696:: Look at the next slot, and use the next palette.
 P:A69E:: If we're not done, then look at the next slot.
 P:A6A1-A6A3:SaveSlotHeartsAddrsLo
@@ -1659,30 +1661,30 @@ P:A6B2-A6B7:UpdateModeDSave_JumpTable
 P:A6B8:UpdateModeDSave_Sub0: Initialize file B, and copy profile to it.\n Calculate and store file B checksum.\n Mark file B uncommitted.\n
 P:A6C1:: TODO: I think this is called only for $067F put in [$0E:0F].
 P:A6C4:: Copy Items block ($28 bytes) from profile to file B.
-P:A6C6:LA6C6
+P:A6C6:LA6C6_CopyItems
 P:A6D0:: Copy death count from profile to file B.
 P:A6D7:: We're saving, so make sure the current slot is active.
 P:A6DD:: Also set the slot active in the save slot info.
 P:A6E0:: Copy quest number from profile to file B.
 P:A6EA:: Copy name from save slot info to file B.
-P:A6EC:LA6EC
+P:A6EC:LA6EC_CopyName
 P:A6F3:: Put in [$0A] a full hearts value for the profile's heart containers.
 P:A705:: Completely fill the hearts.
 P:A70D:: TODO: Copy $180 bytes from profile to file B.
-P:A70F:LA70F
+P:A70F:LA70F_CopyWorldFlags
 P:A719:LA719
 P:A71F:LA71F
 P:A731:: Go to the next submode.
 P:A734:UpdateModeDSave_Sub1
 P:A754:: The checksum matches, so commit and copy file B to A.
-P:A757:LA757
-P:A75A:LA75A: Discard file B, because it couldn't be validated.\n
+P:A757:LA757_IncSubmode
+P:A75A:LA75A_DiscardFileB: Discard file B, because it couldn't be validated.\n
 P:A764:CopyFileBToFileA
 P:A766:: Reset the save file markers.
 P:A76E:: Reset the checksum.
 P:A77D:: TODO: This puts $067F in [$0E:0F].
 P:A780:: Copy Items block ($28 bytes) from file B to file A.
-P:A782:LA782
+P:A782:LA782_CopyItems
 P:A789:: Copy these individual bytes from file B to file A.
 P:A78B:: IsSaveSlotActive
 P:A78F:: TODO: ?
@@ -1695,9 +1697,9 @@ P:A7A6:: Finish copying quest number from file A to save slot info.
 P:A7AA:: Finish copying death count from file A to save slot info.
 P:A7AE:: Finish copying IsSaveSlotActive  from file A to save slot info.
 P:A7B2:: Copy the name from file B to file A.
-P:A7B4:LA7B4
+P:A7B4:LA7B4_CopyName
 P:A7BB:: TODO: Copy $180 bytes file B to file A.\n It counts up from what's in [$0E:0F] ($067F) to $07FF.
-P:A7BD:LA7BD
+P:A7BD:LA7BD_CopyWorldFlags
 P:A7C7:LA7C7
 P:A7CD:LA7CD
 P:A7D3:LA7D3
@@ -1708,7 +1710,7 @@ P:A803:UpdateModeDSave_Sub2: Go to mode 0 submode 1. Keep it updating.
 P:A80C:FetchProfileNameAddress
 P:A819:StoreSaveSlotHearts
 P:A825:: TODO: Copy HeartsValue and HeartsPartial to set B.
-P:A827:LA827
+P:A827:LA827_CopyHearts
 P:A900:InitMode13_Full
 P:A905-A90E:InitMode13_Full_JumpTable
 P:A90F:InitMode13_Sub0
