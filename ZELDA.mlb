@@ -460,17 +460,17 @@ P:45B8-45C9:MoneyGamePermutations
 P:45CA-45CF:MoneyGamePermutationEndIndexes
 P:45D0:InitCave: The person goes at location ($78, $80).\n
 P:45D7:: If the cave/person does not remember state (give item, door charge),\n then go handle other kinds.\n
-P:45EA:L45EA: Else the cave/person simply does:\n - taken:     no person, no text\n - not taken: show a person and text\n\n So, if the item was not taken, then go set up the text.\n
+P:45EA:L45EA_TakeType: Else the cave/person simply does:\n - taken:     no person, no text\n - not taken: show a person and text\n\n So, if the item was not taken, then go set up the text.\n
 P:45EF:: Otherwise destroy the person object, and let Link continue.\n
 P:45F4:UnhaltLink
-P:45F9:L45F9: Get this cave's index (object type - $6A).\n
+P:45F9:InitCaveContinue: Get this cave's index (object type - $6A).\n
 P:4600:: Get the person text selector by looking up the text selector byte\n for this index, and masking it with $3F.\n
 P:4603:: Save the text selector byte before masking.
 P:4609:: Pop and mask the text selector byte with $C0 to get the\n "pay" and "pick up" cave flags and store them in [03].\n
 P:460E:: At this point, the Y register still has the cave index.\n Multiply it by 3 to get the offset of the first item in a set of 3.\n
 P:4610:L4610
 P:4617:: Loop over the wares from 0 to 2.\n
-P:4619:L4619: Copy 3 item ID bytes from the Cave level block info.\n Item ID's are in the low 6 bits, cave flags are in the high 2 bits.\n
+P:4619:L4619_CopyCaveBytes: Copy 3 item ID bytes from the Cave level block info.\n Item ID's are in the low 6 bits, cave flags are in the high 2 bits.\n
 P:461F:: Copy the cave flags (high 2 bits) of the three items to [00] to [02].\n
 P:4623:: Copy 3 prices from the Cave level block info.\n
 P:4629:: Bottom of the wares copying loop.\n
@@ -479,17 +479,17 @@ P:4638:: Get the top 2 bits of item descriptor 2, shift them right 4 times,\n an
 P:4642:: TODO:\n Get the top 2 bits of item descriptor 1, shift them right twice,\n and combine them with [00] into [0413].\n
 P:464B:: The end result is a byte with 8 cave flags.\n\n If cave flag "money game" is missing, then go finish up,\n instead of choosing random amounts for the money game.\n
 P:464F:: Determine an index randomly with increasing probability,\n from 6 to 1. Start with the following test:\n\n   If $FF < Random, then go use index 6.\n
-P:4653:L4653
+P:4653:L4653_ChoosePermutation
 P:4657:: If the test fails, then subtract $2B from the reference number.\n
-P:465D:L465D: The index chooses the last offset of a permutation of three indexes.\n
+P:465D:L465D_FoundPermutation: The index chooses the last offset of a permutation of three indexes.\n
 P:4660:: Copy the permutation of 3 indexes to [046C] to [046E].\n
-P:4662:L4662
+P:4662:L4662_CopyPermutation
 P:466C:: With the first bit of another random number, choose 10 or 40\n to put in [046F]. This is a random amount to lose.\n
 P:4677:: Put 10 in [0470]. This is a fixed amount to lose.\n
 P:467C:: With a different bit of the second random number,\n choose 20 or 50 to put in [0471]. This is an amount to win.\n
 P:4686:L4686
 P:4689:: TODO:\n The 3 amounts are now in [046F] to [0471].\n Reference these amounts using the permutation of indexes\n in [046C] to [046E]; and copy them to [0448] to [044A].\n
-P:468B:L468B
+P:468B:L468B_ArrangeAmounts
 P:4697:L4697_ResetTextbox: Reset the current character index.\n
 P:469C:: Point to the front of the first textbox line.\n
 P:46A3:SetUpCommonCaveObjects: Params:\n A: X coordinate\n Y: Y coordinate\n\n Set the person's coordinates, HP, and attributes.\n
@@ -500,12 +500,12 @@ P:46DB:UpdateCavePerson: If in state 4, then every other frame skip drawing the 
 P:46E7:L46E7
 P:46EA:: If the cave type is not $74 medicine shop,\n or it is but the letter has not been used, then\n go draw items and run the state code.\n
 P:46F8:: If the letter is selected, and B is pressed, then go use the letter.\n
-P:4705:L4705: If Link is halted, then unhalt him.\n
+P:4705:L4705_Unhalt: If Link is halted, then unhalt him.\n
 P:470E:L470E
-P:470F:L470F: The letter has been used.\n\n Play the "secret found" tune.\n
+P:470F:L470F_UseLetter: The letter has been used.\n\n Play the "secret found" tune.\n
 P:4714:: Set the letter state to used (2).\n
 P:4717:: Change the selected item slot to the potion's.\n
-P:471C:L471C
+P:471C:L471C_DrawItems
 P:471F:L471F_UpdateCavePersonDirect
 P:4724-4735:UpdateCavePerson_JumpTable
 P:4736:DrawCavePerson
@@ -516,35 +516,35 @@ P:4746:CaveWareXs
 P:4749:DrawCaveItems: If the cave flags do not call for showing items, then\n go see about showing prices.\n
 P:474C:: Cave flag: Show items
 P:4750:: Loop over the wares to draw, from 2 to 0.\n\n MULTI: [0421]\n
-P:4755:L4755
+P:4755:L4755_LoopWare
 P:4758:: Look up and set the X coordinate for the current item.\n
 P:475D:: Set Y coordinate $98 for the item.\n
 P:4761:: If the item is nothing ($3F), then loop gain.\n\n MULTI: [0422][X]\n
 P:476A:: Switch to the room item object slot, and draw it.\n
-P:476F:L476F: Bottom of the item drawing loop. Decrement this index until < 0.\n
-P:4774:L4774: If the cave flags do not call for showing prices, then return.\n
+P:476F:L476F_NextWare: Bottom of the item drawing loop. Decrement this index until < 0.\n
+P:4774:L4774_ShowPriceRupee: If the cave flags do not call for showing prices, then return.\n
 P:4777:: Cave flag: Show prices
 P:477B:: Show a rupee at ($30, $AB).\n
-P:478A:L478A
+P:478A:L478A_Exit
 P:478B:UpdateCavePersonState_TransferPrices: If the cave flags do not call for showing prices, then\n advance the state and return.\n
 P:478E:: Cave flag: Show prices
 P:4792:WritePricesTransferBuf
 P:4795:: "X"
 P:4797:WritePricesToDynamicTransferBuf: Params:\n A: price character\n
 P:479A:: Reset the index of current price being formatted\n and offset of price string.\n
-P:47A2:L47A2: Get the price of the current item.\n
+P:47A2:L47A2_LoopPrice: Get the price of the current item.\n
 P:47A5:: If it's 0, then store a space character in the text field [01], [02], [03].\n
-P:47B2:L47B2
+P:47B2:L47B2_Format
 P:47B5:: If the cave flags call for negative amounts, then\n store a dash in prefix byte [04]. Else store a space ($24).\n
 P:47BD:: "-"
-P:47BF:L47BF
+P:47BF:L47BF_Align
 P:47C1:: Move the dash closer to the number.\n
 P:47D9:: Add 4 to the base offset for the next string.\n
 P:47E2:: Bottom of the price loop. Increment the index of the item until = 3.\n
 P:47EC:: Delay $A frames at the beginning of the next state.\n
 P:47F0:: Go to the next state and return.\n
 P:47F2:CueTransferBufAndAdvanceState: Params:\n A: selector\n
-P:47F4:L47F4
+P:47F4:IncCaveState
 P:47F7:SwapSpaceAndSign: Params:\n A: a character of the price string\n [04]: prefix character\n\n Returns:\n   If original A is not a space:\n     A:    original character\n     [04]: original prefix character\n   Else:\n     A:    original prefix character\n     [04]: original character\n
 P:4800:L4800
 P:4801:CopyPriceListTemplate: Copy $11 bytes of the price list template text to the dynamic transfer buf.\n
@@ -556,7 +556,7 @@ P:4818:: If the person's timer has not expired, then return.\n
 P:481C:: Set the timer to wait 6 frames after the next character about\n to be shown.\n
 P:4820:: Copy the 5 bytes of the textbox character transfer record template\n to the dynamic transfer buf.\n
 P:4822:L4822
-P:482B:L482B: Replace the low byte of the VRAM address with the one\n where the next character should be written.\n
+P:482B:L482B_WriteChar: Replace the low byte of the VRAM address with the one\n where the next character should be written.\n
 P:4831:: Increment the low VRAM address for the next character.\n
 P:4834:: Use the person text selector to look up the address of the\n text for the textbox. Store the address in [00:01].\n
 P:4842:: Load the person text current character index.\n
@@ -567,39 +567,39 @@ P:4850:: We have a non-space character. Put it in the transfer record.\n
 P:4853:: Play the "heart taken/character" sound effect.\n
 P:4858:: If the high 2 bits of character element = 0, then return.\n
 P:485E:: Determine an index based on the high 2 bits of the character element:\n   $80: 0\n   $40: 1\n   $C0: 2\n
-P:486A:L486A: The index chooses the low VRAM address of the start\n of another line:\n   0: $C4: front of the second line\n   1: $E4: front of the third line\n   2: $A4: front of the first line\n\n Look up the low VRAM address and store it.\n
+P:486A:L486A_ChangeLine: The index chooses the low VRAM address of the start\n of another line:\n   0: $C4: front of the second line\n   1: $E4: front of the third line\n   2: $A4: front of the first line\n\n Look up the low VRAM address and store it.\n
 P:4870:: If index = 2, then we've reached the end of the text,\n and low VRAM address is moved to the front of the first line.\n So, advance the state of the person object, and unhalt Link.\n
-P:4879:L4879
+P:4879:L4879_Exit
 P:487A:_UpdateCavePersonState_TalkOrShopOrDoorCharge: If the cave flags call for choosing an item, then\n go handle those kinds of caves.\n
 P:487D:: Cave flag: Choose/Pick up (1)
 P:4880:: Advance to the end state, where the person is still shown.\n
 P:4884:: If this is not the "door charge" old man, then return.\n The person only talks.\n
 P:488B:: Post 20 rupees to subtract.\n
 P:4894:: Mark this secret taken.\n
-P:4897:L4897
-P:4898:L4898: This is a cave where the player chooses or touches an item:\n - give item\n - shop\n - hint\n - money game\n\n If rupees are decreasing, then return.\n
+P:4897:L4897_Exit
+P:4898:L4898_CheckPickUp: This is a cave where the player chooses or touches an item:\n - give item\n - shop\n - hint\n - money game\n\n If rupees are decreasing, then return.\n
 P:489D:: Loop over each item from 2 to 0.\n
-P:489F:L489F: If this item is nothing, then loop again.\n\n MULTI: [0422][X]\n
+P:489F:L489F_LoopWare: If this item is nothing, then loop again.\n\n MULTI: [0422][X]\n
 P:48A2:: Mask off the cave flags.
 P:48A4:: No item
 P:48A8:: If Link's X <> item's X, then loop again.\n
 P:48AF:: If the vertical distance between Link and the item < 6, then\n go try to take it.\n
-P:48BB:L48BB: Bottom of the item touch loop.\n
-P:48BF:L48BF: Store the index of the item chosen.\n
+P:48BB:L48BB_NextWare: Bottom of the item touch loop.\n
+P:48BF:L48BF_PickedUp: Store the index of the item chosen.\n
 P:48C2:: If hint and money game cave flags are missing, then\n go take an item given away, or buy it.\n
 P:48C5:: Cave flags: Hint and Money game
 P:48C9:: If have cave flag "money game", then go to state 5 and return.\n
 P:48CD:: Else have "hint" cave flag.\n\n If rupees < price, then return.\n
 P:48D5:: Pass the price to pay for the hint.\n
-P:48DB:L48DB: Go to state 5. It runs the hint cave and money game.\n
-P:48E0:L48E0: This is a shop, or something is being given away.\n\n If "pay" cave flag is missing, then go try to take the item.\n
+P:48DB:L48DB_MadeWager: Go to state 5. It runs the hint cave and money game.\n
+P:48E0:L48E0_PickedUpWare: This is a shop, or something is being given away.\n\n If "pay" cave flag is missing, then go try to take the item.\n
 P:48E7:: If rupees < price, then return.\n
 P:48EF:: Pass the price to pay for the item.\n
-P:48F5:L48F5: If "heart requirement" cave flag is missing, then\n go to take the item without further ado.\n
+P:48F5:L48F5_TryToTake: If "heart requirement" cave flag is missing, then\n go to take the item without further ado.\n
 P:48FC:: Check heart container requirements.\n\n 5 is the minimum for cave type $6C (white sword)\n $C is the minimum otherwise\n
 P:4907:L4907
 P:490A:: If the minimum of heart containers is met, then\n go take the item without further ado.\n
-P:490F:L490F
+P:490F:L490F_Take
 P:4912:: MULTI: [0422][X]\n
 P:4915:: Mask off the cave flags.
 P:4917:: Push the item ID
@@ -610,7 +610,7 @@ P:4926:: Set timer to $40 for when we delay in state 4.\n
 P:492A:ClearPricesCaveFlag: Remove the "show prices" cave flag to get rid of the generic rupee.\n
 P:4932:L4932_Exit
 P:4933:_UpdatePersonState_DelayThenHide
-P:493A:L493A
+P:493A:L493A_Exit
 P:493B-493D:HintCaveTextSelectors0
 P:493E-4940:HintCaveTextSelectors1
 P:4941:_UpdateCavePersonState_HintOrMoneyGame: If "hint" cave flag is missing, then go handle the money game.\n
@@ -621,12 +621,12 @@ P:4958:: Look up text selector by the index calculated above.\n
 P:495E:: Point to the front of the first line of the textbox.\n
 P:4964:: Reset the character index.\n
 P:496C:: Blank textbox lines
-P:4971:L4971: If cave type < $7B, then go handle the money game.\n\n This is a moblin giving away money.\n
+P:4971:L4971_HandleMoneyGameOrGiveaway: If cave type < $7B, then go handle the money game.\n\n This is a moblin giving away money.\n
 P:497B:: Write a price list into the dynamic transfer buf,\n but with a space instead of "X".\n
 P:4980:: "key taken" sound effect
 P:4988:: Go to state 8 to do nothing but show the person.\n
 P:498C:: Post the middle amount in [0431] to add.\n
-P:4992:L4992: Money game\n\n If rupees < $A, then return.\n
+P:4992:L4992_HandleMoneyGame: Money game\n\n If rupees < $A, then return.\n
 P:4999:: "key taken" sound effect
 P:499E:: TODO:\n Copy amounts in [0448][Y] for money game to [0430][Y].\n
 P:49A0:L49A0
@@ -649,8 +649,8 @@ P:4A37:: If this is the man that offers more bomb capacity, then\n go see if the
 P:4A40:InitUnderworldPersonLifeOrMoney_Full: The person goes at location ($78, $80).\n
 P:4A47:: Set text selector for "life or money".\n
 P:4A4C:: Point to the front of the first line in VRAM.\n
-P:4A52:L4A52: Destroy this object if the secret/item was already taken.\n
-P:4A5E:L4A5E
+P:4A52:_UnderworldPerson_DestroyIfTaken: Destroy this object if the secret/item was already taken.\n
+P:4A5E:_L_PlayCharacterSfx
 P:4A61-4A68:UnderworldPersonTextSelectorsB
 P:4A69:InitUnderworldPersonB: The person goes at location ($78, $80).\n
 P:4A70:: Subtract $4B from the object type to get the old man's index.\n
@@ -663,7 +663,7 @@ P:4A96:: Look up and store the text selector.\n
 P:4A9C:: Restore the object type.
 P:4A9D:: Return, if this is not the man at the entrance of Level 9,\n or Link has not gotten all the triforce pieces.\n
 P:4AA8:: Otherwise, open the shutters, and destroy this object.\n
-P:4AB3:L4AB3
+P:4AB3:L4AB3_Exit
 P:4AB4:InitGrumble_Full: Grumble Goriya goes at location ($78, $80).\n
 P:4ABB:: Store text selector $24.\n
 P:4AC0:: Set the low VRAM address of the first character to transfer\n to the front of the first line in NT0. It's at index 2.\n
@@ -671,7 +671,7 @@ P:4AC6:: If Grumble already got the food, then\n reset his type and state to get
 P:4AD3:PlayCharacterSfx: "item taken/character" sound effect
 P:4AD9:UpdateUnderworldPerson_Full: If level is not one of {3, 4, 6, 8, 9}, then\n go handle people that do more than talk.\n
 P:4AE7:L4AE7
-P:4AEA:L4AEA: Else simply draw, check collisions, and show the text.\n
+P:4AEA:L4AEA_DrawAndCheckCollisions: Else simply draw, check collisions, and show the text.\n
 P:4AF2-4AF7:UpdateUnderworldPerson_Full_JumpTable
 P:4AF8:_UpdatePersonState_ResetCharOffset
 P:4AFF:_UpdatePersonState_DoNothing
@@ -681,7 +681,7 @@ P:4B10:L4B10
 P:4B11:UpdateUnderworldComplexPerson: In state 4, the person is shown every other frame.\n
 P:4B1D:L4B1D
 P:4B20:: If this is the "more bombs" man, then show a rupee\n at ($78, $98) using room item object slot $13.\n
-P:4B36:L4B36
+P:4B36:L4B36_HandleState
 P:4B3B-4B44:UpdateUnderworldComplexPerson_JumpTable
 P:4B45:UpdateUnderworldComplexPersonState_Begin: If this is the "more bombs" man, then show the price of the offer.\n
 P:4B4C:: "-100"
@@ -689,8 +689,8 @@ P:4B50:L4B50: Set a timer of $A frames before showing characters,\n and go to st
 P:4B57:UpdateUnderworldComplexPersonState_SenseLink: If this is not the "more bombs" man, then return.\n
 P:4B5E:: If Link's X <> $78, then return.\n
 P:4B64:: If the distance between Link's Y and the rupee's ($98) < 6,\n then go see if Link can pay for it.\n Else return.\n
-P:4B70:L4B70
-P:4B71:L4B71: If rupee count < 100, then return.\n
+P:4B70:L4B70_Exit
+P:4B71:L4B71_CheckCanPay: If rupee count < 100, then return.\n
 P:4B7A:L4B7A: Post 100 rupees more to subtract.\n
 P:4B81:: Play the "key taken" sound effect.\n
 P:4B86:: Increase max bombs by 4, set the amount on hand to the max.\n
@@ -699,13 +699,13 @@ P:4B95:UpdateUnderworldComplexPersonState_DelayAndQuit: If the object timer has 
 P:4B9C:L4B9C
 P:4B9D:Person_DrawAndCheckCollisions
 P:4BA6:UpdateUnderworldPersonLifeOrMoney_Full: In state 4, this person and the items are drawn every other frame.\n
-P:4BB2:L4BB2
+P:4BB2:L4BB2_Draw
 P:4BB8:L4BB8
 P:4BBD-4BC6:UpdateUnderworldPersonLifeOrMoney_Full_JumpTable
 P:4BC7-4BC8:LifeOrMoneyItemXs
 P:4BC9-4BCA:LifeOrMoneyItemTypes
 P:4BCB:_DrawLifeOrMoneyItems: Loop over each item to draw, from 1 to 0.\n
-P:4BCD:L4BCD: Save loop index.
+P:4BCD:L4BCD_LoopWare: Save loop index.
 P:4BCF:: Look up and set the X coordinate of the item.\n
 P:4BD4:: Set Y=$98, and look up the item type.\n
 P:4BDB:: Switch to the room item object slot.\n
@@ -713,22 +713,22 @@ P:4BE0:: Restore loop index.
 P:4BE6:UpdateUnderworldPersonLifeOrMoneyState_0: Delay in the next state $A frames before showing the first character.\n
 P:4BEA:: "-1   -50" text selector
 P:4BEF:UpdateUnderworldPersonLifeOrMoneyState_2: Loop over each item to check, from 1 to 0.\n
-P:4BF1:L4BF1: If Link's X doesn't match the item's, then go loop again.\n
+P:4BF1:L4BF1_LoopWare: If Link's X doesn't match the item's, then go loop again.\n
 P:4BF8:: If the vertical distance between the item and Link < 6, then\n go handle paying appropriately.\n
-P:4C04:L4C04
-P:4C07:L4C07
-P:4C08:L4C08: If the player chose the heart container, go handle it.\n
+P:4C04:L4C04_NextWare
+P:4C07:L4C07_Exit
+P:4C08:L4C08_Pay: If the player chose the heart container, go handle it.\n
 P:4C0C:: The player chose the money.\n But if he doesn't have enough, then return.\n
-P:4C15:L4C15: Post 50 rupees more to subtract, and go flag this offer taken.\n
-P:4C1F:L4C1F: The player chose the heart container.\n\n If the number of heart containers < 4, then\n - leave the number of heart containers alone\n - set HeartPartial to 0, so Link will die with one more hit\n\n Then go flag this offer taken.\n
-P:4C33:: Store (HeartValues - 1 heart container) in [00].\n
+P:4C15:L4C15_PayWithMoney: Post 50 rupees more to subtract, and go flag this offer taken.\n
+P:4C1F:L4C1F_PayWithHeartContainer: The player chose the heart container.\n\n If the number of heart containers < 4, then\n - leave the number of heart containers alone\n - set HeartPartial to 0, so Link will die with one more hit\n\n Then go flag this offer taken.\n
+P:4C33:L4C33_Reduce: Store (HeartValues - 1 heart container) in [00].\n
 P:4C3E:: Get (HeartValues - 1 heart)\n
 P:4C44:: If the result is negative, then make the full hearts 0.\n
-P:4C48:: Combine the heart containers and full hearts, and store it.\n
-P:4C4D:L4C4D: "key taken" sound effect
+P:4C48:L4C48: Combine the heart containers and full hearts, and store it.\n
+P:4C4D:L4C4D_EndLifeOrMoney: "key taken" sound effect
 P:4C5A:UpdateGrumble_Full: If state <> 3, then go check collisions and draw every frame.\n
 P:4C60:: In state 3, the person is translucent by drawing\n (and checking object collisions) every other frame.\n
-P:4C66:L4C66
+P:4C66:L4C66_DrawAndCheckCollisions
 P:4C6F:L4C6F
 P:4C74-4C7B:UpdateGrumble_Full_JumpTable
 P:4C7C:UpdateGrumble1: If there's no food in object slot $F, then return.\n
@@ -744,7 +744,7 @@ P:4CA8:: Make Link idle again, and reset this object's type.\n
 P:4CAD:InitUnderworldPerson_DoNothing
 P:4D00:CopyCommonCodeToRam: Source address $A500.
 P:4D08:: Destination address $6C90.
-P:4D12:L4D12: Copy 1 byte.
+P:4D12:L4D12_Loop: Copy 1 byte.
 P:4D16:: Increment source address.\n
 P:4D23:: Increment destination address.\n
 P:4D30:: Once you reach $7F00, you're done.
@@ -753,11 +753,11 @@ P:4D3F-4D42:DemoPatternBlockSizes
 P:4D43-4D46:DemoPatternVramAddrs
 P:4D47:TransferDemoPatterns
 P:4D4A:: Clear address latch.
-P:4D4D:L4D4D: Loop over each block.\n
+P:4D4D:L4D4D_LoopBlock: Loop over each block.\n
 P:4D52:: Put block address in [00:01] and size in [03:02].\n Load destination VRAM address and set it.\n The size and VRAM address have the high byte first.\n
 P:4D73:: Loop until pattern block index = 2.\n
 P:4D84:TransferPatternBlock_Bank1: Params:\n [00:01]: source address\n [03:02]: size\n A: low byte of desination VRAM address\n
-P:4D89:L4D89: Load and transfer one byte to VRAM.\n
+P:4D89:L4D89_Loop: Load and transfer one byte to VRAM.\n
 P:4D8E:: Increment the 16-bit address at [00:01].\n
 P:4D9B:: Decrement the 16-bit amount at [03:02].\n
 P:4DA8:: Loop again if the amount left <> 0.\n
@@ -774,30 +774,30 @@ P:602D:: Else Link is halted (state $40) and teleporting state <> 0.\n\n Set Lin
 P:602F:: If teleporting state = 1 or whirlwind's X <> $80, go check\n the right screen edge and draw.\n
 P:6036:: Teleporting state = 2 and whirlwind's X = $80.\n\n Reset Link's state, teleporting state, and whirlwind object type.\n
 P:603F:: Update the player position marker, and draw one last time.\n
-P:6049:L6049: Link is not halted or teleporting state = 0.\n Try to pick up Link.\n\n If the whirlwind does not collide with Link, then go check\n for the screen's right edge.\n
+P:6049:L6049_CheckCollision: Link is not halted or teleporting state = 0.\n Try to pick up Link.\n\n If the whirlwind does not collide with Link, then go check\n for the screen's right edge.\n
 P:6050:: Collided with Link.\n\n Make Link face right. Reset shove info and subroom type.\n
 P:605B:: Halt Link (state $40), and hide him.\n
 P:6067:: Find and set the room that will behave as the previous room\n when scrolling right to the room with the level's entrance.\n
 P:6072:: Set teleporting state 1.\n
-P:6075:L6075: If whirlwind's X < $F0, go draw.\n
+P:6075:L6075_CheckRightEdge: If whirlwind's X < $F0, go draw.\n
 P:607B:: The whirlwind has reached the right edge of the screen.\n\n Destroy the object.\n
 P:607E:: If teleporting state <> 0, we picked up Link.\n So, go to the next mode.\n\n Either way, draw one last time.\n
-P:608A:L608A
+P:608A:L608A_Draw
 P:608D:DestroyWhirlwind
 P:60A8:SummonWhirlwind: If not in mode 5, return.\n
 P:60AE:: Advance the teleporting index, and store the mask for its level in [00].\n
 P:60B4:: Truncate to wrap the index around.
 P:60B7:: Note that this is from element 1 instead of 0.
-P:60BC:L60BC: If there are no triforce pieces, then return.\n
+P:60BC:L60BC_LoopTriforcePiece: If there are no triforce pieces, then return.\n
 P:60C1:: If we have gotten this triforce piece, then go try to make a\n whirlwind.\n
 P:60C5:: We have not gotten this piece.\n First, advance the teleporting index again.\n
 P:60C8:: If the direction Link is facing is an increasing one, then\n rotate the level mask in [00] left to correspond to the higher\n level number. Then go test this new mask.\n
-P:60D7:L60D7: If instead the direction is a decreasing one, then\n rotate right to correspond to the lower level number.\n Then go test this new mask.\n
-P:60E0:L60E0: If already summoned or in the middle of teleporting, then\n return and don't summon another one.\n
+P:60D7:L60D7_DecreasingDir: If instead the direction is a decreasing one, then\n rotate right to correspond to the lower level number.\n Then go test this new mask.\n
+P:60E0:L60E0_MakeWhirlwind: If already summoned or in the middle of teleporting, then\n return and don't summon another one.\n
 P:60E8:: Return if we can't find an empty monster slot.\n
 P:60ED:: An empty slot was found. Flag that summoned the whirlwind.\n Switch to the empty slot, and go set up a whirlwind object.\n
 P:60F5:AdvanceTeleportingLevelIndex: If Link is facing an increasing direction (right or down), then\n increase the index. Otherwise, decrease it.\n
-P:6104:L6104
+P:6104:L6104_Exit
 P:6105:_DrawWhirlwind: Frames last 1 screen frame.\n
 P:610A:: The whirlwind flashes by using a palette row based on the\n screen frame counter.\n
 P:6111:: Flip horizontally based on movement frame, which is\n switched based on animation counter.\n
@@ -811,85 +811,85 @@ P:612D:: Whirlwind object goes in slot 9 in destination room.
 P:612F:: Get Y coordinate of whirlwind in this destination.
 P:613B:L613B
 P:613E:CheckTileObjectsBlocking: Params:\n [0F]: movement direction\n\n Returns:\n [0F]: untouched, or 0\n\n\n Look for a tile object among objects 1 to 12 that can block\n the player's movement.\n
-P:6140:L6140
+P:6140:L6140_LoopTileObj
 P:6143:: Block
 P:6147:: Rock
 P:614B:: Gravestone
 P:614F:: TODO: Armos1?
 P:6151:: If it doesn't match any, go check the next object.
-P:6153:L6153
+P:6153:L6153_Found
 P:6157:: If not active, go check the next object.
 P:6159:: If X distance between Link and the object >= $10, skip it.\n
 P:6165:: If Y distance between Link and the object >= $10, skip it.\n
 P:6168:: First, adjust Link's position.
 P:6174:: Link is near the object. Reset movement direction.\n
-P:6178:L6178
+P:6178:L6178_NextTileObj
 P:617C:CheckPowerTriforceFanfare: If the fanfare is not active, then return.\n
 P:6181:: When Link's timer expires, go finish up the fanfare.\n
 P:6185:: While Link's timer is counting down, every 4 frames, switch\n between the level palette and the white palette.\n
 P:6187:: Redundant check of Link's timer that won't branch.\n
 P:6193:L6193
-P:6196:L6196
-P:619D:L619D: The fanfare is done.\n
+P:6196:L6196_FillHearts
+P:619D:L619D_EndFanfare: The fanfare is done.\n
 P:61A0:: Play the song for level 9 again.
 P:61AB:: Make Link idle and not halted.
 P:61AD:: Flag the fanfare not active.
-P:61B0:L61B0
+P:61B0:L61B0_Exit
 P:61B1:TakePowerTriforce
 P:61B4:: Halt Link for $C0 frames.\n
 P:61BD-61C4:_UnknownPaletteTransferRecord
 P:61C5-61CD:_UnknownColorTriples
 P:61D6:_ReplaceAshesPaletteRow
 P:61DA:: Get the dynamic transfer buf length, so we write from were we last wrote.\n
-P:61DD:: Copy the palette row 7  transfer record to dynamic transfer buf (8 bytes).\n
-P:61DF:L61DF
+P:61DD:: Copy the palette row 7 transfer record to dynamic transfer buf (8 bytes).\n
+P:61DF:L61DF_CopyPaletteRecord
 P:61EB:: Update the dynamic transfer buf length.\n
 P:61F0:: TODO:\n Replace the last 3 color bytes (brown shades) that we just\n copied to the dynamic transfer buf with ... (are they colors\n for the pile of ashes?)\n\n Note that here the dynamic transfer buf is being written with\n absolute offsets, instead of relative ones used in copying\n the base palette row transfer record.\n
-P:61F2:L61F2
+P:61F2:L61F2_ReplaceColors
 P:61FC:: Switch back to the current object slot.\n
 P:621B-621E:LinkToSquareOffsetsX
 P:621F-6222:LinkToSquareOffsetsY
 P:6223:_CheckPassiveTileObjects: Returns:\n X: 0\n\n\n If grid offset <> 0 or input direction = 0, return.\n
 P:622D:: Compare the collided tile with tiles $BC to $C3.\n These are tiles for gravestone and armos squares.\n
 P:622F:: [02] holds the collided tile.
-P:6236:L6236
-P:623B:L623B
-P:623E:L623E
+P:6236:L6236_NextTile
+P:623B:L623B_ReturnX0
+P:623E:L623E_TestTile
 P:6242:: We'll be computing the location of the square.\n Start with Link's location.\n
 P:6244:: [00] holds X coordinate
 P:6248:: [01] holds Y coordinate
 P:6250:: Link is facing vertically.\n\n If Link touched the left side of the square with the right side\n of his body, then add 8 to X.\n\n If Link touched the right side of the square with the left side\n of his body, then bitwise AND'ing with $F0 will align X with the square.\n
 P:625E:L625E
-P:6265:L6265: Link is facing horizontally.\n\n If Link touched the top of the square with the bottom\n of his body, then add 8 to Y.\n
-P:6271:L6271: Look for an empty slot to instantiate a monster in.\n If none was found, then return.\n
+P:6265:L6265_CheckHorizontal: Link is facing horizontally.\n\n If Link touched the top of the square with the bottom\n of his body, then add 8 to Y.\n
+P:6271:L6271_FindSlot: Look for an empty slot to instantiate a monster in.\n If none was found, then return.\n
 P:6276:: When dealing with objects, X usually indicates the slot number\n of the object. Set it to the empty slot found.\n
 P:6278:: Offset the coordinates we calculated by a square length\n in the direction Link is facing.\n\n Set the new object's location to them.\n
 P:628D:: TODO: ?\n
 P:6292:: Because armos and flying ghini fade into existence over a little time,\n see if one is already beginning to appear at that location.\n Don't instantiate another one, if there is.\n
 P:6294:: [03] holds the index of the slot to compare to the empty one.
-P:6296:L6296
+P:6296:L6296_FindObjAtLocation
 P:6298:: Skip the empty slot we found. So go decrement index [03].
 P:629F:: If there's no other object at this X, go try another.
 P:62A6:: If there's no other object at this Y, go try another.
 P:62AB:: If there's truly an object there, return without instantiating an object.
 P:62B0:: If there was an initialized object at that location, return.
 P:62B2:: If there was never an object there, go instantiate one.
-P:62B4:L62B4
-P:62B7:L62B7: Choose the right object type for the tile.\n\n\n Armos
+P:62B4:L62B4_NextObjAtLocation
+P:62B7:L62B7_ChooseObjType: Choose the right object type for the tile.\n\n\n Armos
 P:62B9:: [02] collided tile
 P:62BD:: If tile >= $C0, then instantiate an armos.
 P:62BF:: Flying Ghini
 P:62C1:L62C1
 P:62C4:: TODO: ?\n
 P:62C7:: Fade in for $3F frames.
-P:62CB:L62CB: Restore player index in X.
+P:62CB:L62CB_ExitX0: Restore player index in X.
 P:62CE-62D7:_RupeeStashXs
 P:62D8-62E1:_RupeeStashYs
 P:62E2:InitRupeeStash_Full: When initializing, this object makes other objects that\n each have the same object attributes and type as this one.\n
 P:62E5:: [01] holds object attributes
 P:62E9:: [01] holds object type $35 (rupee stash)
 P:62EB:: Loop over $A rupee stash objects to make\n -- each one now representing an individual rupee\n
-P:62ED:L62ED
+P:62ED:L62ED_LoopRupee
 P:62F0:: Look up and set the coordinates for one rupee stash/rupee.\n\n MULTI: A2CE-1\n
 P:62F5:: MULTI: A2D8-1\n
 P:62FE:InitOneSimpleObject: Params:\n [00]: object type\n [01]: object attributes\n
@@ -899,7 +899,7 @@ P:631A:InitTrap_Full: Copy this parent/generator object's attributes to [01].\n
 P:631F:: Assume we're initializing trap object type $49 that makes 6 traps.\n
 P:6321:: The individual trap objects to make will be of type $49.\n Store it in [00].\n
 P:6325:: If the object type we're initializing is not $49 (as in it's $4A),\n then we'll make 4 traps.\n
-P:632C:L632C: Loop over each trap to make, from the last index (5 or 3) to 0.\n
+P:632C:L632C_LoopTrap: Loop over each trap to make, from the last index (5 or 3) to 0.\n
 P:632E:: Add the loop index to the current object slot, and switch the X register to it.\n
 P:6332:: Look up and set the location for this iteration's individual trap.\n
 P:6344-6349:TrapAllowedDirs
@@ -907,12 +907,12 @@ P:634A:UpdateTrap_Full
 P:634E:: State 0. Sensing.\n\n If the absolute vertical distance between Link and the trap >= $E,\n then go see if the horizontal distance is shorter.\n
 P:635A:: Determine the horizontal direction toward Link;\n and if Link and the trap are at the same X, then we can't move\n along this axis. Go see about moving vertically.\n
 P:6366:L6366: Remember the original X coordinate.\n
-P:6368:L6368
+P:6368:L6368_GoToState1
 P:636B:: Set facing direction to the horizontal one that we determined.\n
 P:636E:: If the direction we determined is not allowed for this trap, then\n go draw and check collisions.\n\n MULTI: A344-1
 P:6373:: Advance to state 1 with q-speed $70 (1.75 pixels a frame) (fast).\n
-P:637A:L637A
-P:637D:L637D: If the horizontal distance between Link and the trap >= $E,\n then this trap definitely wasn't triggered.\n Go draw and check collisions.\n
+P:637A:L637A_DrawAndCheckCollisions
+P:637D:L637D_CheckHorizontal: If the horizontal distance between Link and the trap >= $E,\n then this trap definitely wasn't triggered.\n Go draw and check collisions.\n
 P:6389:: Determine the vertical direction toward Link;\n and if Link and the trap are at the same Y, then we can't move\n along this axis. Go draw and check object collisions.\n
 P:6395:L6395: We'll advance to state 1. Go remember the original Y coordinate,\n set the vertical direction we determined, and other preparations.\n
 P:6399:L6399_UpdateMovingStates: State 1 and 2.\n\n Move in the direction it's facing.\n
@@ -920,21 +920,21 @@ P:63A0:: Truncate the grid offset to square length ($10).\n
 P:63AA:L63AA: The trap cannot be harmed. So, only check for collision with Link.\n
 P:63AD:: If moving horizontally, then set target coordinate in [00] to $78\n and current coordinate to the trap's X.\n
 P:63B9:: Else moving vertically. Set target coordinate in [00] to $90\n and current coordinate to the trap's Y.\n
-P:63BF:L63BF: If in state 2, then go finish handling it.\n
+P:63BF:L63BF_Finish: If in state 2, then go finish handling it.\n
 P:63C5:: Finish handling state 1.\n\n Get the distance between the current coordinate and the target.\n
 P:63CC:: If distance >= 5, go draw.\n
 P:63D0:: Else reverse direction, and advace to state 2\n with q-speed $20 (0.5 pixels a frame) (slow).\n
-P:63DE:L63DE
-P:63E1:L63E1: Finish handling state 2.\n\n If the current coordinate = original coordinate, then go to state 0.\n
+P:63DE:L63DE_Draw
+P:63E1:L63E1_FinishState2: Finish handling state 2.\n\n If the current coordinate = original coordinate, then go to state 0.\n
 P:63EB:L_Trap_DrawAndCheckCollisions
 P:63EE:UpdateRupeeStash_Full: Save the current object slot.
 P:63F0:: If Link is not close enough (< 9 pixels in both axes), then\n go draw.\n
 P:6408:: Else Link is close enough. Add 1 rupee, and destroy this object.\n
 P:640E:: Once you've taken one, it counts as taking them all\n once you leave the room.\n
-P:6416:L6416: Draw a rupee.\n
+P:6416:L6416_DrawRupee: Draw a rupee.\n
 P:6419:: Rupee item slot
 P:641B:: Rupee item slot
-P:6420:L6420: Restore the current object slot.
+P:6420:L6420_ExitRestoreX: Restore the current object slot.
 P:6500:CommonCodeBlock_Bank1
 P:7FAC:SwitchBank_Local1
 P:8000-8005:CommonPatternBlockAddrs
