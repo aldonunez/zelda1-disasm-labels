@@ -337,7 +337,7 @@ P:19FD:L19FD_PlaySeaSfx
 P:1A09:L1A09_ContinueSeaSfx
 P:1A10:: SFX counter >= $BF. Increase volume fast.\n
 P:1A14:L1A14: SFX counter < $BF. Decrease volume slowly down to $10 --\n when (counter MOD 8) = 7.\n
-P:1A28:L1A28
+P:1A28:L1A28_SetSeaSfxParams
 P:1A3D-1A54:BombSfxNotes
 P:1A55-1AD4:TuneScripts1
 P:1AD5:DriveTune1
@@ -351,7 +351,7 @@ P:1B25:L1B25_PrepNote
 P:1B32:L1B32_PlayNote
 P:1B47:L1B47_CheckVibrate: If the tune is not one of "flute" or "Link dying", then return.\n
 P:1B54:L1B54
-P:1B64:L1B64
+P:1B64:L1B64_Exit
 P:1B65-1B84:CustomEnvelopeTune1
 P:1B85:DriveSample
 P:1BA9:L1BA9_CheckBgSample
@@ -403,14 +403,14 @@ P:1D54:L1D54_PlayAgain
 P:1D57:L1D57_PrepNote
 P:1D65:L1D65_PlayNote: If something is playing in tune channel 1, then\n don't play a square note here.\n
 P:1D72:L1D72
-P:1D7D:L1D7D
+P:1D7D:L1D7D_SkipSq1
 P:1D83:L1D83_ApplySq1Effects: If something is playing in tune channel 1, then\n skip effects for square channel 1.\n
 P:1D93:L1D93
 P:1DA3:: The demo/title song ($80) vibrates the pitch.\n
 P:1DAE:L1DAE_HandleSq0
 P:1DD0:L1DD0_PlaySq0
 P:1DDD:L1DDD
-P:1DE8:L1DE8
+P:1DE8:L1DE8_SkipSq0
 P:1DEE:L1DEE_ApplySq0Effects
 P:1DFE:L1DFE
 P:1E09:: The demo/title song ($80) vibrates the pitch.\n
@@ -441,9 +441,9 @@ P:1EE6:GetSongNoteLength: Params:\n A: control note\n\n Returns:\n A: note lengt
 P:1EF9-1EFE:StairsSfxNotes
 P:1F00-1F71:NotePeriodTable: Big-endian 16-bit period values.\n
 P:1F72:PrepareCustomSongEnvelope: Returns:\n A: starting custom envelope offset\n X: duty byte $82\n Y: sweep byte $7F\n
-P:1F7C:ShapeSongVolume: Params:\n Y: envelope offset\n
+P:1F7C:ShapeSongVolume: Params:\n Y: envelope offset\n\n Returns:\n A: duty/volume value\n
 P:1F88:L1F88
-P:1F8F:L1F8F
+P:1F8F:L1F8F_ReturnValue
 P:1F92-1FB1:CustomEnvelopeSong
 P:1FB2-1FBB:SwordSfxNotes
 P:1FBC-1FC0:ArrowSfxNotes
@@ -1724,7 +1724,7 @@ P:A93A-A93E:PlayAreaAttr0TransferBuf
 P:A93F:InitMode13_Sub1
 P:A941:LA941
 P:A94A:: Point to the front of the first textbox line,\n and reset the current character index.\n
-P:A958:LA958
+P:A958:LA958_Exit
 P:A959-A97E:ThanksText
 P:A97F:InitMode13_Sub2
 P:A986:: Set a delay of $50 frames in the next submode.\n
@@ -6477,12 +6477,12 @@ P:1F095:: then use $10 and -$10.
 P:1F099:L1F099: Store the limits that we determined.
 P:1F0A1:: If direction is none, then return.
 P:1F0A3:: To allow a wide speed range, we keep the quarter speed.\n Here, apply it 4 times to get the full speed.
-P:1F0AC:ApplyQSpeedToPosition: Check the direction variable for each direction bit.
+P:1F0AC:L1F0AC_ApplyQSpeedToPosition: Check the direction variable for each direction bit.
 P:1F0B7:: Up\n
 P:1F0C0:L1F0C0_Exit
-P:1F0C1:L1F0C1: Down\n
-P:1F0CB:L1F0CB: Right\n
-P:1F0D5:L1F0D5: Left\n
+P:1F0C1:L1F0C1_Down: Down\n
+P:1F0CB:L1F0CB_Right: Right\n
+P:1F0D5:L1F0D5_Left: Left\n
 P:1F0DF-1F0E2:PlayerScreenEdgeBounds:Up, down, left, right.\n
 P:1F0E3:Walker_CheckTileCollision: Params:\n [0E]: $FF, if blocked by a door\n [0F]: movement direction\n\n Returns:\n [0F]: untouched, or changed if blocked or need to change\n\n Summary:\n\n For the player: if at a doorway or walkable tile, check the screen edge.\n Then allow movement or go to the next room. Otherwise,\n check passive tile objects and stop moving.\n\n For other objects: First, if moving, test the colliding tile for\n walkability. Otherwise search for a walkable direction starting\n from input direction.\n\n When you find a walkable direction, see if it makes the object\n cross a boundary. If it doesn't, then make this direction\n the objection direction. Otherwise, keep looping.\n\n If no walkable direction is found, then stop moving.\n\n\n if is player\n   if at doorway\n     go handle a walkable direction\n   if blocked by door\n     return\n
 P:1F0EE:L1F0EE
@@ -7126,6 +7126,7 @@ S:0E50:: If not moving up, then return.
 S:0E55:FormatDecimalByte: Formats a decimal byte. Spaces are used for missing digits.\n\n Params:\n A: value\n\n Returns:\n Y: First character\n A: Second character\n [$01]: First character\n [$02]: Second character\n [$03]: Third character\n
 S:0E69:L66D9_WriteHighChars
 S:0E6E:DivideBy10: Params:\n A: value\n\n Returns:\n Y: result\n A: remainder\n
+S:0E70:L66E0_Loop
 S:0E79:FormatHeartsInTextBuf: [$0E]: hearts value\n [$0F]: heart partial\n Y: The offset of first character in buffer\n\n The end of the bottom row is $12 bytes after the\n start of the top row. We're writing to two transfer\n records. We write the top row in the first transfer\n record wherever the caller chooses. The second\n transfer record has to begin with the heart tiles.\n So, 7 (offset to end of first row) + 3 (size of transfer\n header) + 8 (length of bottom row) = 18 ($12).\n\n Store the starting offset in [$0D].
 S:0E7E:: Put ($F - hearts) in [$00].
 S:0E8A:: Put ($F - heart containers) in [$01].
@@ -7559,6 +7560,7 @@ S:1A14:: Get the object slot of this goriya's boomerang.
 S:1A1C:L728C_Exit
 S:1A1D:L728D_CheckCaptors: If the monster is a wallmaster or like-like and there's a hit\n (using [0C] flag), then set the monster's capture flag.\n\n Wallmaster object type
 S:1A21:: LikeLike object type
+S:1A2C:L729C_Exit2
 S:1A2D:GetObjectMiddle: Params:\n X: object index\n\n Returns:\n [02]: center X\n [03]: center Y\n\n\n Start with offset 8 for X and Y in [02] and [03].\n
 S:1A33:: If object attribute $40 is set, make X offset 4.\n
 S:1A36:: Half width (for collision detection)
@@ -7609,7 +7611,7 @@ S:1C07:: If the monster is invincible to the boomerang, then return.\n
 S:1C0E:: Still the boomerang.\n Reset [07] damage points, and set the monster's stun timer to $10 ($A0 frames).\n
 S:1C16:_HandleMonsterWeaponCollision: If the monster is invincible to this damage type, then\n go play parry sound if needed, and return.\n
 S:1C1D:: If the monster is Blue Gohma or Red Gohma, then\n let it handle the collision.\n
-S:1C2B:: If the monster is Zol or Vire, then\n   If not hit by the boomerang, then\n     Set monster's direction to the weapon's\n   Go deal damage\n
+S:1C2B:L749B_CheckZolVire: If the monster is Zol or Vire, then\n   If not hit by the boomerang, then\n     Set monster's direction to the weapon's\n   Go deal damage\n
 S:1C3F:L74AF_CheckDarknut: If the monster is a red or blue darknut, and it and the weapon\n are facing opposite directions, then only play the parry sound.\n
 S:1C54:DealDamage: Play the "harmed" sound.\n
 S:1C59:: Subtract the damage points from HP; if damage points >= HP,\n then go handle the monster dying.\n

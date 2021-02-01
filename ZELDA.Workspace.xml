@@ -20261,7 +20261,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>127148</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>ApplyQSpeedToPosition</Label>
+      <Label>L1F0AC_ApplyQSpeedToPosition</Label>
       <Comment> Check the direction variable for each direction bit.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -20277,7 +20277,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>127169</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1F0C1</Label>
+      <Label>L1F0C1_Down</Label>
       <Comment> Down&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -20295,7 +20295,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>127179</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1F0CB</Label>
+      <Label>L1F0CB_Right</Label>
       <Comment> Right&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -20304,7 +20304,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>127189</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1F0D5</Label>
+      <Label>L1F0D5_Left</Label>
       <Comment> Left&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -40559,7 +40559,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>7211</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L749B_CheckZolVire</Label>
       <Comment> If the monster is Zol or Vire, then&#xD;
    If not hit by the boomerang, then&#xD;
      Set monster's direction to the weapon's&#xD;
@@ -59193,9 +59193,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>6696</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1A28</Label>
+      <Label>L1A28_SetSeaSfxParams</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -59267,9 +59267,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>7012</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1B64</Label>
+      <Label>L1B64_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -59608,9 +59608,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>7549</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1D7D</Label>
+      <Label>L1D7D_SkipSq1</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -59658,9 +59658,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>7656</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1DE8</Label>
+      <Label>L1DE8_SkipSq0</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -59838,6 +59838,9 @@ For example:&#xD;
       <Label>ShapeSongVolume</Label>
       <Comment> Params:&#xD;
  Y: envelope offset&#xD;
+&#xD;
+ Returns:&#xD;
+ A: duty/volume value&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -59853,9 +59856,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>8079</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1F8F</Label>
+      <Label>L1F8F_ReturnValue</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -61460,9 +61463,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>43352</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>LA958</Label>
+      <Label>LA958_Exit</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -70278,6 +70281,22 @@ For example:&#xD;
       <Address>3859</Address>
       <AddressType>SaveRam</AddressType>
       <Label>L6783_AddPriority</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>6700</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L729C_Exit2</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>3696</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L66E0_Loop</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
