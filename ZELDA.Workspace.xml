@@ -2790,7 +2790,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>3758</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L671E_FinishedFirstRow</Label>
       <Comment> If there are no hearts,&#xD;
  or still processing missing heart containers;</Comment>
       <Flags>None</Flags>
@@ -2799,7 +2799,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>3766</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L6726_EmitSpace</Label>
       <Comment> Use a blank tile.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -2831,7 +2831,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>3776</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L6730_EmitFullHeart</Label>
       <Comment> Use a full heart tile.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -2887,7 +2887,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>3797</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L6745_EmitEmptyHeart</Label>
       <Comment> Use an empty heart tile.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -6208,7 +6208,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>6282</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L70FA_LoopSprite</Label>
       <Comment> Write the sprite tile.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -11801,7 +11801,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>3286</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L6546_ResetSlot</Label>
       <Comment> Reset the slot we chose.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -18553,7 +18553,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>6200</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L70A8_UseTableAttr</Label>
       <Comment> Look up the sprite attribute.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -18871,7 +18871,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>6217</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L70B9_DrawHalfWidth</Label>
       <Comment> Mark the object narrow (half-width).</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -19337,7 +19337,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>5459</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L6DC3_Reset</Label>
       <Comment> Else you have to start over.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -20367,7 +20367,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>4057</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L6849_ClearCarry</Label>
       <Comment> Replace saved (pushed) carry flag with 0.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -20503,7 +20503,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>4096</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L6870_SetCarry</Label>
       <Comment> Replace saved (pushed) carry flag with 1.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -23828,7 +23828,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>5009</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L6C01_SkipLift</Label>
       <Comment> Look up the item slot and sprite attributes by the item type.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -23981,7 +23981,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>5058</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L6C32_CheckClass1</Label>
       <Comment> A: item class&#xD;
  X: item type&#xD;
  Y: item slot&#xD;
@@ -24192,7 +24192,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>5202</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L6CC2_CompareHearts</Label>
       <Comment> For that many hearts, add them one by one.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -24209,7 +24209,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>5214</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L6CCE_AddWholeHeart</Label>
       <Comment> Add a whole heart.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -25474,7 +25474,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>3909</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L67B5_Left</Label>
       <Comment> Check left boundary.&#xD;
  If X coordinate crosses (&lt;) left bound, go reset the direction.&#xD;
 </Comment>
@@ -25500,7 +25500,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>3947</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>BoundDirectionReturn</Label>
       <Comment> If the reference direction in Y register is 0, then&#xD;
  return and leave direction alone.&#xD;
  Else reset the target direction.&#xD;
@@ -25528,7 +25528,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>3938</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L67D2_Right</Label>
       <Comment> Check right boundary.&#xD;
  If X coordinate is within (&lt;) right bound, return and leave direction alone.&#xD;
 </Comment>
@@ -25583,7 +25583,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>3983</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L67FF_Up</Label>
       <Comment> Check up boundary.&#xD;
  If Y coordinate crosses (&lt;) up bound, go reset the direction.&#xD;
 </Comment>
@@ -25620,7 +25620,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>4012</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L681C_Down</Label>
       <Comment> Check down boundary.&#xD;
  If Y coordinate is within (&lt;) down bound, return and leave direction alone.&#xD;
 </Comment>
@@ -29311,7 +29311,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>4426</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L69BA_GetValue</Label>
       <Comment> Load the offset for the calculated index.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -30212,7 +30212,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>4442</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L69CA_NotInUse</Label>
       <Comment> If we have the blue candle and it was used, then return.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -31013,7 +31013,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>7767</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L76C7_CheckHorizontal</Label>
       <Comment> If the direction checked is left or right,&#xD;
  set [08] to 2 (left), monster X in [04] and other X in [05].&#xD;
 </Comment>
@@ -31023,7 +31023,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>7780</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L76D4_CheckVertical</Label>
       <Comment> If the monster is down or right of the other object,&#xD;
  then use the opposite direction already in [08].&#xD;
  Else shift [08] right to turn it into the opposite&#xD;
@@ -31119,7 +31119,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>7838</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L770E_MonsterDefender</Label>
       <Comment> A monster is the defender. A weapon is the attacker.&#xD;
 &#xD;
  Set the shove direction to the weapon's direction,&#xD;
@@ -31133,8 +31133,8 @@ For example:&#xD;
       <AddressType>SaveRam</AddressType>
       <Label />
       <Comment> TODO:&#xD;
- If the monster's attribute "reverse after hit Link" is set, the combine the&#xD;
- shove direction with $40.&#xD;
+ If the monster's attribute "reverse after hit Link" is set, then&#xD;
+ combine the shove direction with $40.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -31160,7 +31160,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>7889</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L7741_SetShoveDir</Label>
       <Comment> Store the shove direction for the monster.&#xD;
 &#xD;
  Turn on the high bit to indicate that the next time we try to&#xD;
@@ -31412,7 +31412,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>7015</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L73D7_ResetHelp</Label>
       <Comment> Reset values used in special item drops.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -31443,7 +31443,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>7081</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L7419_HandleDied</Label>
       <Comment> Link died.&#xD;
 &#xD;
  Set full hearts, partial heart, and Link's object state to 0.&#xD;
@@ -31456,7 +31456,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>7056</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L7400_BorrowHeart</Label>
       <Comment> This isn't a simple case of borrowing. For example, supposing:&#xD;
    full heart=4 partial heart=$70&#xD;
  The straightforward way to subtract $80 would yield $3F0.&#xD;
@@ -32270,7 +32270,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>4305</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L6941_Subtract</Label>
       <Comment> If the difference between the coordinates &lt; 9, increment [00].&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -32381,7 +32381,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>4231</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L68F7_Swap</Label>
       <Comment> TODO: call it speed index or angle?&#xD;
  If the difference in distances is within 8 pixels,&#xD;
  return the speed index (angle) we have.&#xD;
@@ -32493,7 +32493,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>4240</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L6900_Turn</Label>
       <Comment> TODO: call it speed index or angle?&#xD;
  Otherwise, go to the next speed index (angle).&#xD;
 </Comment>
@@ -32524,7 +32524,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>4264</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L6918_Return</Label>
       <Comment> TODO: call it speed index or angle?&#xD;
  Return the speed index (angle) we found.&#xD;
 </Comment>
@@ -33774,7 +33774,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>4345</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L6969_FoundSlot</Label>
       <Comment> We found a slot that's empty or has a fire. It could be $10 or $11.&#xD;
  If the other slot has a bomb that's not yet detonating (state &lt; $13),&#xD;
  then return.&#xD;
@@ -33785,7 +33785,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>4358</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L6976_Activate</Label>
       <Comment> We're using a bomb. Decrement the count.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -33992,7 +33992,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>4562</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L6A42_Clear</Label>
       <Comment> At times $12 and $D, shift left to make the low bit 0.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -34001,7 +34001,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>4571</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L6A4B_SetMask</Label>
       <Comment> Only at times $16, $11, $12, $D do we commit the mask&#xD;
  we calculated.&#xD;
 </Comment>
@@ -37872,7 +37872,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>6685</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L728D_CheckCaptors</Label>
       <Comment> If the monster is a wallmaster or like-like and there's a hit&#xD;
  (using [0C] flag), then set the monster's capture flag.&#xD;
 &#xD;
@@ -40340,7 +40340,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>6944</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L7390_FacingOpposite</Label>
       <Comment> Link and the shot are facing opposite directions.&#xD;
  Link can parry certain weapons/shots.&#xD;
 &#xD;
@@ -40364,7 +40364,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>6960</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L73A0_Parry</Label>
       <Comment> Else Link parries.&#xD;
 &#xD;
  Play the "parry" tune, and cancel the collision (reset [06]).&#xD;
@@ -40622,7 +40622,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>7286</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L74E6_HandleMonsterDied</Label>
       <Comment> Handle the monster dying.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -40631,7 +40631,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>7231</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L74AF_CheckDarknut</Label>
       <Comment> If the monster is a red or blue darknut, and it and the weapon&#xD;
  are facing opposite directions, then only play the parry sound.&#xD;
 </Comment>
@@ -40641,7 +40641,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>7311</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L74FF_SetDyingMetastate</Label>
       <Comment> Set the dying metastate, and reset some object info.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -40808,7 +40808,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>7658</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L765A_CheckHorizontal</Label>
       <Comment> Else Link is facing horizontally.&#xD;
  [04] := (weapon X + 8)&#xD;
  A    := (weapon Y + 6)&#xD;
@@ -40994,7 +40994,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>7425</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L7571_SetHotspot</Label>
       <Comment> The weapon's midpoint/hotspot is at (X + 8, Y + 8).&#xD;
  Pass it in [04] and [05].&#xD;
 </Comment>
@@ -41127,7 +41127,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>7501</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L75BD_Horizontal</Label>
       <Comment> Else switch it:&#xD;
  [0D] := $10&#xD;
  [0E] := $C&#xD;
@@ -58878,7 +58878,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>7872</Address>
       <AddressType>SaveRam</AddressType>
-      <Label />
+      <Label>L7730_Gohma</Label>
       <Comment> This a Gohma, but if the current part [0F] is not an eye part (3 or 4),&#xD;
  then return, so that the hit doesn't register.&#xD;
 </Comment>
@@ -70191,6 +70191,390 @@ For example:&#xD;
       <Label />
       <Comment> TODO: Unnamed label is too far&#xD;
 </Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>3222</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L6506_Exit</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>3312</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L6560_CheckSubtract</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>3390</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L65AE_FormatKeyCount</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>3398</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L65B6_FormatBombCount</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>3689</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L66D9_WriteHighChars</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>3799</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L6747_EmitChar</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>3780</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L6734_CheckPartial</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>3770</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L672A_CheckOccupiedSlot</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>3845</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L6775_LoopSprite</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>3867</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L678B_NextSprite</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>3859</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L6783_AddPriority</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>4117</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L6885_Loop</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>4165</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L68B5_ReturnBlocked</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>4290</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L6932_Exit</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>4411</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L69AB_Exit</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1627</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>InvCandle</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>4430</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L69BE_Exit</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>4573</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L6A4D_Exit</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>4668</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L6AAC_SetAttr</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>4667</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L6AAB_PopSetAttr</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>4650</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: LevelMasks-1</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>4723</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L6AE3_Exit</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>4688</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L6AC0_LoopColumn</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>5045</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L6C25_SetItemValue</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>5194</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L6CBA_Exit</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>5222</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L6CD6_FillHeartPartial</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>5291</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L6D1B_Exit</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>5382</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L6D76_Exit</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>5346</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L6D52_CopyPalette</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>5383</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L6D77_ReturnDone</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>5464</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L6DC8_CheckMountainMaze</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>5455</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L6DBF_Mismatch</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>5448</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L6DB8_Exit</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>5446</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L6DB6_SetNextRoom</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>5478</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L6DD6_Match</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>6485</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L71C5_Narrow</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>6506</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L71DA_Wide</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>6517</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L71E5__Slim</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>6653</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L726D_CheckLink</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>6684</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L728C_Exit</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>6969</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L73A9_Exit</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>6970</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L73AA_HarmLink</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>7387</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L754B_Exit</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>7370</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L753A_CheckCollision</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>7461</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L7595_Exit</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>7626</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L763A_Exit</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>7715</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L7693_ReturnValue</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>7904</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label>L7750_Exit2</Label>
+      <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>

@@ -243,6 +243,7 @@ R:0657:Items
 R:0658:InvBombs
 R:0659:InvArrow
 R:065A:Bow
+R:065B:InvCandle
 R:065D:InvFood
 R:065E:Potion
 R:0660:InvRaft
@@ -7067,6 +7068,7 @@ S:0BCD-0BF9:LevelInfo_StatusBarMapTransferBuf
 S:0BFA:LevelInfo_PaletteCycles
 S:0C5A-0C79:LevelInfo_DeathPaletteSeries
 S:0C90:BeginUpdateMode: Returns:\n A: 0\n
+S:0C96:L6506_Exit
 S:0C97-0CBF:StatusBarTransferBufTemplate
 S:0CC0:World_ChangeRupees
 S:0CC2:: If a static transfer buf is already chosen, then return.
@@ -7074,11 +7076,12 @@ S:0CC7:: If the dynamic transfer buf is already used, then return.
 S:0CC9:: Reset RupeesToAdd or RupeesToSubtract as appropriate,\n if reached 0 or max.\n\n Index of RupeesToSubtract item slot.\n
 S:0CD0:: Index of RupeesToAdd item slot.
 S:0CD4:: If 0 < rupees < $FF, don't reset anything.
-S:0CD6:: Reset the slot we chose.
+S:0CD6:L6546_ResetSlot: Reset the slot we chose.
 S:0CDE:: Every two frames, return.
 S:0CE3:: If RupeesToAdd <> 0,
 S:0CE5:: then add one rupee.
 S:0CEB:: Play "heart taken" tune, probably because it's more\n pleasing for a continuous process than "rupee taken".
+S:0CF0:L6560_CheckSubtract
 S:0CF3:: If RupeesToSubtract = 0, then skip it, and go format header text.
 S:0CF8:: Subtract one rupee.
 S:0CFB:: Play the tune for this.
@@ -7089,6 +7092,8 @@ S:0D2D:: Put an "X" in [$01].
 S:0D31:: Put an "A" in formatting buffer.
 S:0D36:: TODO: ?
 S:0D3B:: Have the magic key. Skip formatting key count.
+S:0D3E:L65AE_FormatKeyCount
+S:0D46:L65B6_FormatBombCount
 S:0D50:FormatDecimalCountByteInTextBuf: Params:\n A: value\n Y: offset of first character in buffer.
 S:0D55:CopyTripletToTextBuf: Params:\n [$00]: offset to first character in buffer\n
 S:0D64:FormatDecimalCountByte: Formats a byte:\n 123 -> "123"\n  23 -> "X23"\n   3 -> "X3 "\n\n Params:\n A: value\n\n Returns:\n [$01]: First character\n [$02]: Second character\n [$03]: Third character\n
@@ -7119,6 +7124,7 @@ S:0E46:CheckPersonBlocking: Params:\n [0F]: movement direction\n\n Returns:\n [0
 S:0E4A:: Return if Y coordinate >= $8E.
 S:0E50:: If not moving up, then return.
 S:0E55:FormatDecimalByte: Formats a decimal byte. Spaces are used for missing digits.\n\n Params:\n A: value\n\n Returns:\n Y: First character\n A: Second character\n [$01]: First character\n [$02]: Second character\n [$03]: Third character\n
+S:0E69:L66D9_WriteHighChars
 S:0E6E:DivideBy10: Params:\n A: value\n\n Returns:\n Y: result\n A: remainder\n
 S:0E79:FormatHeartsInTextBuf: [$0E]: hearts value\n [$0F]: heart partial\n Y: The offset of first character in buffer\n\n The end of the bottom row is $12 bytes after the\n start of the top row. We're writing to two transfer\n records. We write the top row in the first transfer\n record wherever the caller chooses. The second\n transfer record has to begin with the heart tiles.\n So, 7 (offset to end of first row) + 3 (size of transfer\n header) + 8 (length of bottom row) = 18 ($12).\n\n Store the starting offset in [$0D].
 S:0E7E:: Put ($F - hearts) in [$00].
@@ -7129,40 +7135,46 @@ S:0E9F:: Y keeps track of index of heart in row.\n Start at the end of the first
 S:0EA1:L6711_LoopHeartSlot: For X in 0..$10 (all hearts spots):\n
 S:0EA3:: If finished first row,
 S:0EAA:: Set [$0B] to offset of last heart in bottom row.
-S:0EAE:: If there are no hearts,\n or still processing missing heart containers;
-S:0EB6:: Use a blank tile.
+S:0EAE:L671E_FinishedFirstRow: If there are no hearts,\n or still processing missing heart containers;
+S:0EB6:L6726_EmitSpace: Use a blank tile.
 S:0EB8:: Go emit it.
+S:0EBA:L672A_CheckOccupiedSlot
 S:0EBC:: At the boundary heart, go check the partial heart.
 S:0EBE:: If no longer processing missing hearts,
-S:0EC0:: Use a full heart tile.
+S:0EC0:L6730_EmitFullHeart: Use a full heart tile.
 S:0EC2:: Go emit it.
+S:0EC4:L6734_CheckPartial
 S:0EC6:: If partial heart is 0, go emit an empty heart tile.
 S:0ECA:: If partial heart at least half full, go emit a full heart tile.
 S:0ECE:: TODO: else, clear [$0529]
 S:0ED1:: and use a half heart tile.
-S:0ED5:: Use an empty heart tile.
+S:0ED5:L6745_EmitEmptyHeart: Use an empty heart tile.
+S:0ED7:L6747_EmitChar
 S:0ED9:: Emit chosen tile to buf.
 S:0EE9:SilenceAllSound
 S:0EF9-0EFA:SpriteRelativeExtents
 S:0EFB:ShowLinkSpritesBehindHorizontalDoors
+S:0F05:L6775_LoopSprite
+S:0F13:L6783_AddPriority
+S:0F1B:L678B_NextSprite
 S:0F23:: TODO: Is this ever run?
 S:0F29:_BoundDirectionHorizontally: Params:\n X: object index\n [0F]: direction\n\n Returns:\n Y: direction of boundary that was crossed\n [0F]: original direction, or 0 if boundary was crossed\n\n\n Checking left direction.
 S:0F2D:: [00] holds X coordinate
 S:0F33:: If object slot >= $D (items and weapons) or object type = $5C (boomerang),\n then add $B to X coordinate.\n
-S:0F45:: Check left boundary.\n If X coordinate crosses (<) left bound, go reset the direction.\n
+S:0F45:L67B5_Left: Check left boundary.\n If X coordinate crosses (<) left bound, go reset the direction.\n
 S:0F4C:: If object is not the player and (slot >= $D or type = $5C),\n then subtract $17 from X coordinate in order to check the\n right bound.\n
 S:0F4E:: If object is the player, skip this.
 S:0F59:: If not boomerang type, skip this.
-S:0F62:: Check right boundary.\n If X coordinate is within (<) right bound, return and leave direction alone.\n
-S:0F6B:: If the reference direction in Y register is 0, then\n return and leave direction alone.\n Else reset the target direction.\n
+S:0F62:L67D2_Right: Check right boundary.\n If X coordinate is within (<) right bound, return and leave direction alone.\n
+S:0F6B:BoundDirectionReturn: If the reference direction in Y register is 0, then\n return and leave direction alone.\n Else reset the target direction.\n
 S:0F73:_BoundDirectionVertically: Params:\n X: object index\n [0F]: direction\n\n Returns:\n Y: direction of boundary that was crossed\n [0F]: original direction, or 0 if boundary was crossed\n\n\n Checking up direction.
 S:0F77:: [00] holds Y coordinate
 S:0F7D:: If object slot >= $D (items and weapons) or object type = $5C (boomerang),\n then add $F to X coordinate.\n
-S:0F8F:: Check up boundary.\n If Y coordinate crosses (<) up bound, go reset the direction.\n
+S:0F8F:L67FF_Up: Check up boundary.\n If Y coordinate crosses (<) up bound, go reset the direction.\n
 S:0F96:: If object is not the player and (slot >= $D or type = $5C),\n then subtract $21 from Y coordinate in order to check the\n down bound.\n
 S:0F98:: If object is the player, skip this.
 S:0FA3:: If not boomerang type, skip this.
-S:0FAC:: Check down boundary.\n If Y coordinate is within (<) down bound, return and leave direction alone.\n
+S:0FAC:L681C_Down: Check down boundary.\n If Y coordinate is within (<) down bound, return and leave direction alone.\n
 S:0FB3:: If Y coordinate crosses (>=) right boundary, go reset target direction.
 S:0FB5:L6825_Exit
 S:0FB6:_BoundByRoomWithA: Params:\n A: direction\n X: object index\n\n Returns:\n A: original direction, or 0 if boundary was crossed\n Y: direction of boundary that was crossed\n Z: 1 if boundary was crossed\n [0F]: original direction, or 0 if boundary was crossed\n
@@ -7170,7 +7182,7 @@ S:0FB8:BoundByRoom: Params:\n X: object index\n [0F]: direction\n\n Returns:\n A
 S:0FC1:AddQSpeedToPositionFraction: Params:\n TODO:\n [010E]: _PositiveRelPosLimit\n [010F]: _NegativeRelPosLimit\n\n Returns:\n C: 1 if fractional position reached a whole pixel\n
 S:0FCB:: Save carry flag.
 S:0FCC:: Don't let positions go past the limits\n If we're at a limit, then clear carry.
-S:0FD9:: Replace saved (pushed) carry flag with 0.
+S:0FD9:L6849_ClearCarry: Replace saved (pushed) carry flag with 0.
 S:0FDC:: Restore carry flag to use in addition below.
 S:0FDD:: But save it again in order to return it at the end.
 S:0FDE:: TODO: Add only carry to _ObjRelPos[X].\n Carry represents whether the fractional position reached\n a whole pixel (C=1).
@@ -7178,39 +7190,42 @@ S:0FE6:: Return carry flag from speed addition, or 0 if we reached a limit.
 S:0FE8:SubQSpeedFromPositionFraction: Params:\n TODO:\n [010E]: _PositiveRelPosLimit\n [010F]: _NegativeRelPosLimit\n\n Returns:\n C: 0 if fractional position reached a whole pixel\n
 S:0FF2:: Save carry flag.
 S:0FF3:: Don't let positions go past the limits\n If we're at a limit, then set carry.
-S:1000:: Replace saved (pushed) carry flag with 1.
+S:1000:L6870_SetCarry: Replace saved (pushed) carry flag with 1.
 S:1003:: Restore carry flag to use in addition below.
 S:1004:: But save it again in order to return it at the end.
 S:1005:: TODO: Subtract only carry from _ObjRelPos[X].\n Carry represents whether the fractional position reached\n a whole pixel (C=0).
 S:100D:: Return carry flag from speed subtraction, or 1 if we reached a limit.
 S:100F-1012:OppositeDirs
 S:1013:GetOppositeDir: Params:\n A: direction\n\n Returns:\n A: opposite direction\n Y: a reverse direction index\n\n The reverse direction index returned has this mapping:\n In Dir: 1 2 4 8\n         -------\n Index:  3 2 1 0\n
+S:1015:L6885_Loop
 S:101F:Abs: Params:\n A: value\n\n Returns:\n A: absolute value\n
 S:1021:Negate: Params:\n A: value\n\n Returns:\n A: result\n
 S:1027:_MoveShot: Params:\n A: direction\n X: object index\n [0E]: 0 to change grid offset, else leave it as is\n\n Returns:\n [0E]: $80 if blocked\n [0F]: moving direction, or 0 if boundary was crossed\n\n\n If a boundary was crossed, go set [0E] to $80 instead of moving.\n
 S:102C:: Move the object as if grid offset were 0.\n
 S:1039:: If [0E] is set, keep the original value in grid offset,\n or else add the new amount to it.\n\n TODO:\n But I'm not clear about where [0E] was last set.\n At least with a player's shot, [0E] was last written in\n 77E7 DrawObjectWithAnim to draw Link. It was set to\n animation index 0. But is that always the case?\n
+S:1045:L68B5_ReturnBlocked
 S:104A:_GetDirectionsAndDistancesToTarget: Params:\n A: object index of target\n X: object index of origin\n [00]: 0\n\n Returns:\n [00]: the number of axes where the distance <= 8\n [03]: distance X\n [04]: distance Y\n [0A]: vertical direction from origin to target\n [0B]: horizontal direction from origin to target\n\n\n Handle the horizontal.\n
 S:105E:: Handle the vertical.\n
 S:106F:_CalcDiagonalSpeedIndex: Params:\n Y: middle speed index (4)\n [03]: horizontal distance\n [04]: vertical distance\n [0A]: vertical direction\n [0B]: horizontal direction\n\n Returns:\n Y: speed index (0 to 8) for the angle\n\n\n TODO: call it speed index or angle?\n Store the middle speed index in [00]. It will be changed to the\n right speed index to use incrementally.\n Lower speed indexes yield faster X speeds and lower Y speeds.\n Higher speed indexes yield faster Y speeds and lower X speeds.\n
 S:1071:: Assuming horizontal distance >= vertical distance, the\n index offset in [01] is negative (-1) to go towards the X axis.\n
 S:1075:: TODO:\n If horizontal distance [03] < vertical distance [04], swap [03] and [04],\n and store positive speed index 1 in [01] to go towards the Y axis.\n\n The point is to put the greater value in [03] and the lesser one in [04],\n and use a speed index offset (1 or -1) that will point us in the direction\n of the farther distance faster.\n
-S:1087:: TODO: call it speed index or angle?\n If the difference in distances is within 8 pixels,\n return the speed index (angle) we have.\n
-S:1090:: TODO: call it speed index or angle?\n Otherwise, go to the next speed index (angle).\n
+S:1087:L68F7_Swap: TODO: call it speed index or angle?\n If the difference in distances is within 8 pixels,\n return the speed index (angle) we have.\n
+S:1090:L6900_Turn: TODO: call it speed index or angle?\n Otherwise, go to the next speed index (angle).\n
 S:1097:: TODO: call it speed index or angle?\n If a speed index (angle) limit (0 or 8), we've gone all the way to an axis\n (0, 90, 180, 270 degrees). So return this speed index (angle).\n
 S:109D:: Subtract the lesser distance from the greater distance.\n If they still haven't crossed, then we can turn more.\n
-S:10A8:: TODO: call it speed index or angle?\n Return the speed index (angle) we found.\n
+S:10A8:L6918_Return: TODO: call it speed index or angle?\n Return the speed index (angle) we found.\n
 S:10AB:_SetBoomerangSpeed: Params:\n A: q-speed fraction\n
 S:10AE:: If in major state $50, use this speed as is.\n
 S:10B6:: Else, in major state $40, go at half the speed.\n
 S:10B9:: Once we've traveled the target amount of time, set state $50 to go faster.\n In major state $40, ObjMovingLimit is a timer to change the state to $50.\n
+S:10C2:L6932_Exit
 S:10C3:_GetOneDirectionAndDistanceToTarget: Params:\n A: target coordinate\n Y: origin coordinate\n [00]: a value\n [0A]: the decreasing direction on the coordinates' axis (2 or 8)\n\n Returns:\n A: the distance from origin to target\n [00]: the original value + 1, if < 8 pixels between origin and target\n [0A]: the direction from origin to target\n\n\n If the origin coordinate already >= target coordinate, then\n the direction in [0A] is already correct. Otherwise, shift it right\n to flip it.\n\n After this, [02] will >= [01].\n
-S:10D1:: If the difference between the coordinates < 9, increment [00].\n
+S:10D1:L6941_Subtract: If the difference between the coordinates < 9, increment [00].\n
 S:10DD:WieldBomb: If there are no bombs in inventory, return.\n
 S:10E2:: Look in slot $10. If it's empty or there's a fire\n (state = 0, or major state <> $10), then\n go activate a bomb.\n
 S:10EE:: Else look at slot $11.\n If there's a bomb there (major state = $10), then return.\n
-S:10F9:: We found a slot that's empty or has a fire. It could be $10 or $11.\n If the other slot has a bomb that's not yet detonating (state < $13),\n then return.\n
-S:1106:: We're using a bomb. Decrement the count.\n
+S:10F9:L6969_FoundSlot: We found a slot that's empty or has a fire. It could be $10 or $11.\n If the other slot has a bomb that's not yet detonating (state < $13),\n then return.\n
+S:1106:L6976_Activate: We're using a bomb. Decrement the count.\n
 S:1109:: Play the "set a bomb" tune.\n
 S:110E:: Reset the object timer.\n
 S:1112:: Start in state $11.\n
@@ -7222,15 +7237,17 @@ S:1125:: Set object's direction to the player's.\n
 S:1129:: Set object's X to player's X + offset for direction.\n
 S:1130:: Set object's Y to player's Y + offset for direction.\n
 S:1132:: Shift player's direction, so that it behaves like a horizontal if it's vertical.
+S:113B:L69AB_Exit
 S:113C:_ChooseOffsetForDirectionH: Params:\n A: direction\n [01]: value for right\n [02]: value for left\n\n Returns:\n A: chosen value, or 0 if not horizontal\n C: 0\n\n\n Set default value 0 in default address 0.\n
 S:1142:: If vertical, go choose slot 0 (value 0).
 S:1144:: Direction is horizontal. Increment index to 1.
 S:1147:: If direction is right, go choose slot 1.
 S:1149:: Direction is left. Increment index to 2.
-S:114A:: Load the offset for the calculated index.
+S:114A:L69BA_GetValue: Load the offset for the calculated index.
 S:114D:: Clear carry in preparation for adding offset to another value.
+S:114E:L69BE_Exit
 S:114F:WieldCandle: Returns:\n X: last object slot tested, regardless of whether it's empty\n\n Fails if no empty slot was found, or the blue candle was already used.\n\n\n Look in slots $10 and $11. If none are empty, return.\n Otherwise, X will have the empty slot found.\n\n Note that it's possible that we fail to find an empty slot,\n but the caller might find slot X occupied by a fire made earlier.\n
-S:115A:: If we have the blue candle and it was used, then return.\n
+S:115A:L69CA_NotInUse: If we have the blue candle and it was used, then return.\n
 S:1166:: Set the candle used.\n
 S:116B:: Reset the new fire object's movement info.\n Set quarter speed (q-speed) to $20 (half a pixel a second).\n
 S:1178:: Activate the fire object. Initial state = $21 (moving fire).\n
@@ -7247,8 +7264,9 @@ S:11BB:UpdateBombFlashEffect: If state <> $13, return.\n
 S:11C1:: The effect involves turning grayscale rendering on and off\n in PPUMASK.\n\n Start by setting A register to the PPU mask shifted right to\n throw away the grayscale bit.\n
 S:11C4:: Then, based on the timer value, shift in a 1 or 0 in the low bit.\n
 S:11C6:: At times $16 and $11, rotate carry=1 to the low bit.\n Carry will have been set, because of the comparison (CPY).\n
-S:11D2:: At times $12 and $D, shift left to make the low bit 0.\n
-S:11DB:: Only at times $16, $11, $12, $D do we commit the mask\n we calculated.\n
+S:11D2:L6A42_Clear: At times $12 and $D, shift left to make the low bit 0.\n
+S:11DB:L6A4B_SetMask: Only at times $16, $11, $12, $D do we commit the mask\n we calculated.\n
+S:11DD:L6A4D_Exit
 S:11DE:UpdatePlayerPositionMarker: Return if mode 9 or whirlwind teleporting.
 S:11ED:UpdatePositionMarker: Params:\n A: room ID\n\n\n Push the room ID.
 S:11EE:: Sanitize the row of the room ID.
@@ -7269,14 +7287,18 @@ S:1215:: Use the position marker tile.
 S:121C:: If we're updating the triforce marker,
 S:121E:: Set up a default "inactive" palette (attribute), which means "not gotten".
 S:1225:: If you're in level 9, use the "active" palette only.
+S:122A:: DASM.EXPR: LevelMasks-1
 S:122D:: If player hasn't gotten the piece,
 S:1235:: then every 16 frames,
 S:1238:: switch between two palettes.
+S:123B:L6AAB_PopSetAttr
+S:123C:L6AAC_SetAttr
 S:123F:L6AAF_Exit
 S:1240:UpdateWorldCurtainEffect_Bank2
 S:1248:UpdateWorldCurtainEffect: Params:\n [$7C]/ObjX[$C]: column index that will be decreased + 1\n [$7D]/ObjX[$D]: column index that will be increased + 1\n\n Switches to bank 5.\n
 S:124A:: Delay until ObjTimer[0] expires.
 S:124C:: Start with column index in [$7D] ObjX[$D].
+S:1250:L6AC0_LoopColumn
 S:1252:: Get current column index.
 S:1254:: Set CurColumn for column copying routine to use.
 S:125B:: Set vertical nametable mirroring.
@@ -7285,6 +7307,7 @@ S:1265:: If we copied both columns, then quit.
 S:1267:: Invalidate CurColumn
 S:126B:: Set a delay of 4 frames (5-1) in ObjTimer[0].
 S:126F:: Change the column indexes.
+S:1273:L6AE3_Exit
 S:1274:Add1ToInt16At0: Params:\n [$00:01]: a 16-bit value to increment\n\n Returns:\n [$00:01]: sum\n A: low byte of sum\n
 S:1276:AddToInt16At0: Params:\n A: value 1\n [$00:01]: value 2\n\n Returns:\n [$00:01]: sum\n A: low byte of sum\n
 S:1280:Add1ToInt16At2: Params:\n [$02:03]: a 16-bit value to increment\n
@@ -7316,7 +7339,7 @@ S:137E:: If we're in a cave or cellar, then\n prepare to lift the item.\n
 S:1384:: Lift for $80 frames.
 S:1389:: Play the "item" song.
 S:138E:: Set the item type for lifting.
-S:1391:: Look up the item slot and sprite attributes by the item type.\n
+S:1391:L6C01_SkipLift: Look up the item slot and sprite attributes by the item type.\n
 S:1399:: [0A] holds the item value from the low nibble of descriptor.\n
 S:139F:: Check the high nibble which specifies the item's class.\n\n A: item class\n X: item type\n Y: item slot\n
 S:13A1:: Go check classes 1 and 2.
@@ -7325,9 +7348,10 @@ S:13A7:: Compass item slot
 S:13AB:: Triforce pieces item slot
 S:13AF:: Triforce of Power item slot
 S:13B3:: Finally, this is a simple item. Put the item value in the item slot.\n
+S:13B5:L6C25_SetItemValue
 S:13B8:L6C28_Exit
 S:13B9:L6C29_Take5Rupees: For 5 Rupees, perform the action for 1 rupee 5 times.\n
-S:13C2:: A: item class\n X: item type\n Y: item slot\n
+S:13C2:L6C32_CheckClass1: A: item class\n X: item type\n Y: item slot\n
 S:13C4:: Go check class 2 items.
 S:13C6:: Class 1. We have a type of item with an amount.\n Item value is the amount to add.\n\n\n Heart container item slot
 S:13CA:: 5 Rupees item slot
@@ -7361,14 +7385,16 @@ S:1433:: Make sure the level index is in the range 0 to 8.
 S:1436:: Combine the mask for this level with the mask in the item slot.\n
 S:143F:: If the item taken was a triforce piece, then go to mode $12.\n
 S:1441:: If it's not a triforce piece, then return.
+S:144A:L6CBA_Exit
 S:144B:L6CBB_TakeHearts: Params:\n [0A]: item value/amount\n
 S:144E:L6CBE_TakeHeartsNoSound: Move item value in [0A] to [01].
 S:1450:: [01] holds the number of hearts to add minus 1.
-S:1452:: For that many hearts, add them one by one.\n
+S:1452:L6CC2_CompareHearts: For that many hearts, add them one by one.\n
 S:1455:: If there's room to add a whole heart, go add it.
 S:1457:: If partial heart is not full, then fill it and return.\n
-S:145E:: Add a whole heart.\n
+S:145E:L6CCE_AddWholeHeart: Add a whole heart.\n
 S:1463:: If there are more hearts to add, go compare them to heart containers again.
+S:1466:L6CD6_FillHeartPartial
 S:146C:CompareHeartsToContainers: Returns:\n Z: 1 if hearts = containers\n
 S:147C:L6CEC_L_TakePowerTriforce
 S:1484:L6CF4_HandleClass2: Class 2. We have a type of item that is ordered by grade.\n Item value is the grade.\n\n A: item class\n X: item type\n Y: item slot\n [0A]: item value\n
@@ -7383,6 +7409,7 @@ S:149A:: Get the offset of row 4, 5, or 6, depending on save slot.
 S:149D:: Patch the color into the menu palette.
 S:14A0:: Then patch the color into the level's palette.
 S:14A3:TakeOneRupee: Play "rupee taken" tune.
+S:14AB:L6D1B_Exit
 S:14AC:PlayKeyTakenTune: Stop playing tune 2.
 S:14B1:: Play "key taken" tune.
 S:14B7:AnimateWorldFading: Params:\n [$051C]: cycle number\n\n Returns:\n Z: 1 if done updating\n\n ObjTimer[12] is the world fade timer. Every 10 frames,\n we step to the next half palette. There are 4 steps to fading.\n
@@ -7393,9 +7420,12 @@ S:14CD:: Start writing in dynamic transfer buf from the next position\n availabl
 S:14D0:: Write PPU address $3F08, bottom half of background palette.
 S:14DB:: %A holds 8. Write that as the length of the record.
 S:14DF:: Copy 8 bytes of half palette into transfer buf.\n
+S:14E2:L6D52_CopyPalette
 S:14EE:: Write the end marker.
 S:14F3:: Store the new position into the dynamic transfer buf as the length.
 S:1502:: Update every 10 frames.
+S:1506:L6D76_Exit
+S:1507:L6D77_ReturnDone
 S:150A-1511:_BlankSpriteTemplates
 S:1512:_Write16BlankSprites: TODO: Why? And why are their Y coordinates $3D and $DD? Those values are the highest and lowest that Link can normally take.\n\n Repeat two sprites in the first $10 records. They have\n transparent tile $1C, priority 1 (behind BG), and X=0.\n The first of the pair has Y=$3D, and the second one has Y=$DD.\n
 S:1527-152A:ForestMazeDirs
@@ -7406,14 +7436,19 @@ S:153D:: If direction doesn't match current step, go handle it.
 S:153F:: The direction matches the step.\n
 S:1541:: If the last step matches, go let the player pass.
 S:1543:L6DB3_AdvanceMaze: Haven't passed the last step. So increment the step,\n but repeat this room.
+S:1546:L6DB6_SetNextRoom
+S:1548:L6DB8_Exit
 S:1549:L6DB9_ResetMazeStep
+S:154F:L6DBF_Mismatch
 S:1551:: If going right in the forest, allow exit.
-S:1553:: Else you have to start over.
+S:1553:L6DC3_Reset: Else you have to start over.
 S:1556:: Go set the next room to the current one, and return.
+S:1558:L6DC8_CheckMountainMaze
 S:155A:: If not in the mountain maze either, go reset the maze step and leave room alone.
 S:155F:: If the direction matches the current step, go see if it's the last one.
 S:1563:: If not going left in the mountain, go start over.
 S:1565:: Else allow exit.
+S:1566:L6DD6_Match
 S:1568:: If this isn't the last step, then go advance the step, but repeat the room.
 S:156A:L6DDA_PlaySecretTune: Play secret tune, and let the player leave the maze.\n
 S:1570:_MapScreenPosToPpuAddr: Params:\n [02]: Y\n [03]: X\n\n Returns:\n [00]: high byte of PPU address\n [01]: low byte of PPU address\n\n\n Turn the 16-bit value 08YY into the PPU address\n ($2000 + (YY * 4)) by multiplying it by 4.\n\n Each row of tiles is 32 tiles (and bytes) long, and 8 pixels tall.\n This is why the Y coordinate is multiplied by 4 (= 32 / 8).\n
@@ -7449,10 +7484,10 @@ S:182A:: If the object has a "half-width draw" attribute, then\n go draw half-wi
 S:182D:: "Half-width draw" object attribute
 S:1831:: If the object has the "Ignore sprite attribute table" attribute,\n then don't look up sprite attributes.\n
 S:1834:: "Ignore sprite attribute table" object attribute
-S:1838:: Look up the sprite attribute.
+S:1838:L70A8_UseTableAttr: Look up the sprite attribute.
 S:183E:: If it's Link, write the sprites. He's never mirrored.\n
 S:1842:: For other objects, the caller controls mirroring and flipping.\n\n If mirrored [0C], then draw it mirrored.\n Else draw it horizontally flippable, controlled by [0F].\n
-S:1849:: Mark the object narrow (half-width).
+S:1849:L70B9_DrawHalfWidth: Mark the object narrow (half-width).
 S:184E:Anim_WriteHorizontallyFlippableSpritePair: Params:\n [00]: Object X\n [01]: Object Y\n [02]: Left tile\n [03]: Right tile\n [04]: Left attributes\n [05]: Right attributes\n [07]: Has two sides\n [08]: Cycle sprite index\n [0A]: X separation\n [0F]: Flip horizontally\n [0343]: LeftSpriteOffset\n [0344]: RightSpriteOffset\n\n If [0F] = 0, write the sprite pair with no further processing.\n
 S:1852:: Otherwise, reverse the two sides.\n
 S:185C:: Set the horizontal flip sprite attributes.\n
@@ -7462,7 +7497,7 @@ S:186F:: Toss out the palette bits of the sprite attributes.
 S:1877:: Patch the bottom 2 bits of the invincibility timer.
 S:187F:: This gives us the flashing effect.
 S:1885:Anim_WriteSpritePairNotFlashing: Access the first sprite.
-S:188A:: Write the sprite tile.
+S:188A:L70FA_LoopSprite: Write the sprite tile.
 S:1890:: Write the sprite Y.
 S:1895:: Write the sprite X.
 S:189A:: Separate the second sprite appropriately from the first.
@@ -7488,13 +7523,16 @@ S:1940:: [02] gets the tile we just looked up.
 S:1943:: The second tile must be two tiles farther in CHR.
 S:1945:: Put it in [03].
 S:1947:: If left tile is $F3 or in [$20, $62),\n then this is a narrow / half-width object.
+S:1955:L71C5_Narrow
 S:1958:: If not left-aligning a half-width object,
 S:195A:: Then add 4 to X to center it.
 S:1961:: Record that this is a half-width object.
 S:1963:: And mark it as such.
 S:1967:: Finished. Go write sprites.
+S:196A:L71DA_Wide
 S:196C:: If tile < $6C, go mark this a slim object.
 S:1972:: Tile >= $7C. Can flip horizontally.
+S:1975:L71E5__Slim
 S:1977:: Both sides of slim objects overlap one pixel.
 S:1979:Anim_WriteMirroredSpritePair: Params:\n X: cycle sprite index / object index\n [00]: X\n [01]: Y\n [02]: left tile\n [03]: right tile\n [04]: left sprite attributes\n [05]: right sprite attributes\n [0343]: LeftSpriteOffset\n [0344]: RightSpriteOffset\n\n\n All wide items that we process have mirrored sides.
 S:197B:: Make the right side the same as the left.
@@ -7513,11 +7551,13 @@ S:19D3:: If the object is invincible, skip checking collisions with Link's weapo
 S:19D6:: Invincible
 S:19DA:: If temporarily invincible, return.\n
 S:19DF:: Check for collisions with each weapon.\n
+S:19FD:L726D_CheckLink
 S:1A00:: If the monster is not dying, then go see about monsters\n that capture Link.\n
 S:1A08:: This monster is dying.\n\n If it's a goriya that threw a boomerang, then destroy the boomerang.\n
 S:1A0C:: Red Goriya
 S:1A14:: Get the object slot of this goriya's boomerang.
-S:1A1D:: If the monster is a wallmaster or like-like and there's a hit\n (using [0C] flag), then set the monster's capture flag.\n\n Wallmaster object type
+S:1A1C:L728C_Exit
+S:1A1D:L728D_CheckCaptors: If the monster is a wallmaster or like-like and there's a hit\n (using [0C] flag), then set the monster's capture flag.\n\n Wallmaster object type
 S:1A21:: LikeLike object type
 S:1A2D:GetObjectMiddle: Params:\n X: object index\n\n Returns:\n [02]: center X\n [03]: center Y\n\n\n Start with offset 8 for X and Y in [02] and [03].\n
 S:1A33:: If object attribute $40 is set, make X offset 4.\n
@@ -7537,19 +7577,21 @@ S:1AF4:: They collide. Now find out how they collide.\n\n If it's a regular mons
 S:1AFB:: Here, the attacker is a monster's shot/projectile.\n Flag this kind of collision.\n
 S:1AFE:: If object type = Fireball2 ($56) or $5A, or Link is not idle;\n then go harm Link.\n
 S:1B0C:: If Link and the shot are not facing opposite directions,\n then go harm Link.\n\n Note the bitwise AND in the test. It picks out one direction\n component of a monster that can move diagonally.\n
-S:1B20:: Link and the shot are facing opposite directions.\n Link can parry certain weapons/shots.\n\n For flying rock, $54, arrow, and boomerang, this means\n no harmful collision; but it still counts as a shot collision.\n So, go treat this as a parry.\n
+S:1B20:L7390_FacingOpposite: Link and the shot are facing opposite directions.\n Link can parry certain weapons/shots.\n\n For flying rock, $54, arrow, and boomerang, this means\n no harmful collision; but it still counts as a shot collision.\n So, go treat this as a parry.\n
 S:1B2B:: If the magic shield is missing, then the rest of the shots do damage.\n So, go harm Link.\n
-S:1B30:: Else Link parries.\n\n Play the "parry" tune, and cancel the collision (reset [06]).\n
+S:1B30:L73A0_Parry: Else Link parries.\n\n Play the "parry" tune, and cancel the collision (reset [06]).\n
+S:1B39:L73A9_Exit
+S:1B3A:L73AA_HarmLink
 S:1B3D:: Flag collision with [0C], even though [06] was already set.\n
 S:1B3F:: Unpack the damage points for the monster's type.\n The low nibble is the high byte.\n (Damage points byte AND $F0) is the low byte.\n
 S:1B4F:Link_BeHarmed: Params:\n X: object index of the attacker\n [0D]: damage points high byte\n [0E]: damage points low byte\n\n\n TODO: ?\n If object type is not whirlwind, then make the "hurt" sound effect\n
 S:1B5B:: For every level of ring (1 or 2), divide the 16-bit damage amount in [0E:0D] by 2.\n
-S:1B67:: Reset values used in special item drops.\n
+S:1B67:L73D7_ResetHelp: Reset values used in special item drops.\n
 S:1B70:: If heart partial >= low damage points byte, then simply\n subtract the damage byte from heart partial.\n Else go borrow from full hearts.\n
 S:1B7D:: If full hearts >= high damage points byte, then simply\n subtract the damage byte from full hearts.\n Else go handle Link dying.\n
-S:1B90:: This isn't a simple case of borrowing. For example, supposing:\n   full heart=4 partial heart=$70\n The straightforward way to subtract $80 would yield $3F0.\n But the method here yields $3EF, because partial heart is\n considered full when = $FF instead of $100.\n
+S:1B90:L7400_BorrowHeart: This isn't a simple case of borrowing. For example, supposing:\n   full heart=4 partial heart=$70\n The straightforward way to subtract $80 would yield $3F0.\n But the method here yields $3EF, because partial heart is\n considered full when = $FF instead of $100.\n
 S:1B9D:: If we can't borrow from full hearts, then Link died.
-S:1BA9:: Link died.\n\n Set full hearts, partial heart, and Link's object state to 0.\n Make Link face down.\n Go to mode $11.\n
+S:1BA9:L7419_HandleDied: Link died.\n\n Set full hearts, partial heart, and Link's object state to 0.\n Make Link face down.\n Go to mode $11.\n
 S:1BC2:CheckMonsterBoomerangOrFoodCollision: Params:\n X: monster slot\n Y: weapon slot\n [02]: monster mid X\n [03]: monster mid Y\n\n Returns:\n [00]: weapon slot\n\n If the weapon slot holds food (high bit of state is set), then return.\n
 S:1BC8:: [00] holds the weapon slot
 S:1BCA:: Set boomerang damage type (2) in [09].\n
@@ -7568,7 +7610,7 @@ S:1C0E:: Still the boomerang.\n Reset [07] damage points, and set the monster's 
 S:1C16:_HandleMonsterWeaponCollision: If the monster is invincible to this damage type, then\n go play parry sound if needed, and return.\n
 S:1C1D:: If the monster is Blue Gohma or Red Gohma, then\n let it handle the collision.\n
 S:1C2B:: If the monster is Zol or Vire, then\n   If not hit by the boomerang, then\n     Set monster's direction to the weapon's\n   Go deal damage\n
-S:1C3F:: If the monster is a red or blue darknut, and it and the weapon\n are facing opposite directions, then only play the parry sound.\n
+S:1C3F:L74AF_CheckDarknut: If the monster is a red or blue darknut, and it and the weapon\n are facing opposite directions, then only play the parry sound.\n
 S:1C54:DealDamage: Play the "harmed" sound.\n
 S:1C59:: Subtract the damage points from HP; if damage points >= HP,\n then go handle the monster dying.\n
 S:1C5C:: [07] damage points
@@ -7577,10 +7619,10 @@ S:1C68:L74D8_Exit
 S:1C69:L_PlayParrySoundForDamageType: Play the parry sound for all but fire and bomb damage types.\n
 S:1C6B:: Fire damage type
 S:1C6F:: Bomb damage type
-S:1C76:: Handle the monster dying.\n
+S:1C76:L74E6_HandleMonsterDied: Handle the monster dying.\n
 S:1C79:: Increase the help drop counter, if not at max ($A).\n
 S:1C81:: If the help drop counter has reached the max, and damage type = bomb (8);\n then set [51] HelpDropValue in order to drop a bomb next time.\n
-S:1C8F:: Set the dying metastate, and reset some object info.\n
+S:1C8F:L74FF_SetDyingMetastate: Set the dying metastate, and reset some object info.\n
 S:1C96:_ResetShoveInfoAndInvincibilityTimer: Params:\n A: 0\n
 S:1C9D:CheckMonsterSwordShotOrMagicShotCollision: Params:\n X: monster slot\n Y: weapon slot\n [02]: monster mid X\n [03]: monster mid Y\n\n Returns:\n [00]: weapon slot\n\n [00] holds the weapon slot
 S:1C9F:: Set magic shot damage type ($10) in [09].\n
@@ -7589,9 +7631,11 @@ S:1CA9:: Set horizontal collision threshold $C.\n
 S:1CAD:: If the weapon is a magic shot, go use $20 damage points.\n
 S:1CB5:: The weapon is a sword shot.\n\n First, change the damage type to sword (1).\n
 S:1CB9:: Determine the damage points for the kind of sword.\n - wood sword:   $10\n - white sword:  $20\n - master sword: $40\n
+S:1CCA:L753A_CheckCollision
 S:1CCE:: If no collision, then return.\n
 S:1CD2:: Else handle blocking the shot.\n
 S:1CD4:: Shot object slot
+S:1CDB:L754B_Exit
 S:1CDC:CheckMonsterBombOrFireCollision: Params:\n X: monster slot\n Y: weapon slot\n [02]: monster mid X\n [03]: monster mid Y\n\n Returns:\n [00]: weapon slot\n\n [00] holds the weapon slot
 S:1CDE:: Set up parameters for a fire.\n
 S:1CE0:: [09] holds fire damage type
@@ -7602,10 +7646,11 @@ S:1CF5:: Else set up parameters for a bomb.\n
 S:1CF7:: [09] holds bomb damage type
 S:1CFB:: [07] holds $40 damage points
 S:1CFF:: [0D] holds collision threshold $18
-S:1D01:: The weapon's midpoint/hotspot is at (X + 8, Y + 8).\n Pass it in [04] and [05].\n
+S:1D01:L7571_SetHotspot: The weapon's midpoint/hotspot is at (X + 8, Y + 8).\n Pass it in [04] and [05].\n
 S:1D11:: Pass collision threshold in A.
 S:1D13:: If the objects do not collide, then return.\n
 S:1D1B:: If the monster is weak to the damage type, then shove it.\n
+S:1D25:L7595_Exit
 S:1D26-1D28:SwordDamagePoints
 S:1D29:CheckMonsterSwordCollision: Params:\n X: monster slot\n Y: weapon slot\n [02]: monster mid X\n [03]: monster mid Y\n\n Returns:\n [00]: weapon slot\n [06]: 1 if objects collide\n\n [00] holds the weapon slot
 S:1D2B::Set sword damage type (1) in [09].\n
@@ -7614,7 +7659,7 @@ S:1D36:: Look up and set the damage points for the sword type.\n
 S:1D39:: DASM.EXPR: SwordDamagePoints-1
 S:1D3C:_CheckMonsterStabbingCollision: Params:\n A: damage points\n X: monster slot\n Y: weapon slot\n [02]: monster mid X\n [03]: monster mid Y\n [09]: damage type\n\n Returns:\n [06]: 1 if objects collide\n\n [07] damage points
 S:1D3E:: If Link's direction is vertical, then set collision thresholds accordingly:\n [0D] := $C\n [0E] := $10\n
-S:1D4D:: Else switch it:\n [0D] := $10\n [0E] := $C\n
+S:1D4D:L75BD_Horizontal: Else switch it:\n [0D] := $10\n [0E] := $C\n
 S:1D58:: If no collision, then return.\n
 S:1D5F:CheckMonsterArrowOrRodCollision: Params:\n X: monster slot\n Y: weapon slot\n [02]: monster mid X\n [03]: monster mid Y\n\n Returns:\n [00]: weapon slot\n [06]: 1 if objects collide\n\n [00] holds the weapon slot
 S:1D64:: If the weapon is a rod, then\n go check a stabbing collision using rod parameters.\n
@@ -7635,10 +7680,11 @@ S:1DAD:: Red Darknut
 S:1DB1:: Blue Darknut
 S:1DC2:: Else shove the monster.\n
 S:1DC5:PlayParryTune
+S:1DCA:L763A_Exit
 S:1DCB:_CheckMonsterSlenderWeaponCollision: Params:\n A: damage points\n X: monster object slot\n [00]: weapon object slot\n [02]: monster object mid X\n [03]: monster object mid Y\n [09]: damage type\n [0D]: horizontal threshold\n\n Returns:\n [06]: 1 if objects collide\n [07]: damage points\n [0E]: vertical threshold\n
 S:1DD1:_CheckMonsterSlenderWeaponCollision2: Params:\n X: monster object slot\n [00]: weapon object slot\n [02]: monster object mid X\n [03]: monster object mid Y\n [07]: damage points\n [09]: damage type\n [0D]: horizontal threshold\n [0E]: vertical threshold\n\n Returns:\n [06]: 1 if objects collide\n
 S:1DD3:: If Link is facing vertically, then:\n [04] := (weapon X + 6)\n A    := (weapon Y + 8)\n\n TODO: Shouldn't it be based on the weapon's direction?\n
-S:1DEA:: Else Link is facing horizontally.\n [04] := (weapon X + 8)\n A    := (weapon Y + 6)\n\n TODO: Shouldn't it be based on the weapon's direction?\n
+S:1DEA:L765A_CheckHorizontal: Else Link is facing horizontally.\n [04] := (weapon X + 8)\n A    := (weapon Y + 6)\n\n TODO: Shouldn't it be based on the weapon's direction?\n
 S:1DF8:: The A register will be copied to [05] and used here.\n
 S:1DFB:_DoObjectsCollide: Params:\n A: collision distance threshold (objects collide if nearer in X and Y)\n [00]: weapon object slot (unused)\n [02]: object 1 mid X\n [03]: object 1 mid Y\n [04]: object 2 mid X\n [05]: object 2 mid Y\n\n Returns:\n A: 1 if objects collide\n Y: weapon object slot\n Z: 0 if objects collide\n [06]: 1 if objects collide\n [0A]: horizontal distance\n [0B]: vertical distance\n\n\n Use the same threshold value horizontally and vertically.\n Copy it to [0D] for horizontal threshold, and [0E] for vertical one.\n
 S:1DFF:_DoObjectsCollideWithThresholds: Params:\n [00]: weapon or Link object slot (unused)\n [02]: object 1 mid X\n [03]: object 1 mid Y\n [04]: object 2 mid X\n [05]: object 2 mid Y\n [0D]: horizontal threshold\n [0E]: vertical threshold\n\n Returns:\n A: 1 if objects collide\n Y: weapon or Link object slot (copied from [00])\n Z: 0 if objects collide\n [06]: 1 if objects collide\n [0A]: horizontal distance\n [0B]: vertical distance\n\n\n Reset [06] to indicate no collision by default.\n
@@ -7647,12 +7693,13 @@ S:1E0F:: If distance >= horizontal threshold in [0D], return 0.\n
 S:1E13:: Store in [0B] the vertical distance between the two objects.\n
 S:1E1D:: If distance >= vertical threshold in [0E], return 0.\n
 S:1E21:: If we get here, then the objects are close enough in both axes.\n Return 1.\n
+S:1E23:L7693_ReturnValue
 S:1E26:BeginShove: Params:\n X: caller's object index, a monster\n    the attacker, if monster attacks Link\n    else defender, if weapon attacks monster\n [00]: 0 if monster attacks Link (defender),\n       else weapon slot (attacker)\n [09]: damage type,\n       only if a monster is defending\n TODO:\n [0B]: direction\n\n Only monsters (and fire) call this routine.\n\n When monsters attack Link, they set [00] to 0 for Link's slot.\n\n On the other hand, if a weapon attacks a monster,\n the monster sets [00] to the weapon's slot.\n\n\n If a weapon attacks a monster, and the weapon's damage\n type matches the monster's invincibility mask;\n then return without shoving.\n\n If a monster attacks Link, then damage type will be 0.\n
 S:1E33:: [08], [04], and [05] are used in determining the direction to push Link,\n if he is defending. The goal is to push Link away from the monster.\n\n If instead a monster is defending, then all this calculation\n won't matter, because the shove direction will be set to the\n weapon's direction.\n\n As such, calculate a direction from the monster to the defender,\n assuming it's Link.\n\n Start with an assumption that the direction is vertical:\n Store 8 (up) in [08], monster Y in [04], and other Y in [05].\n
 S:1E40:: If the defender is Link and his grid offset <> 0 then\n use his usual object direction variable to determine\n which axis to check.\n
 S:1E51:: For monsters defending, or Link with grid offset = 0,\n check direction in [0B].\n\n For monsters defending, this won't matter. For Link with grid\n offset = 0, I believe the result will be arbitrary.\n\n TODO:\n Is [0B] always set if Link's grid offset = 0?\n It doesn't seem to be if candle fire attacks him.\n
-S:1E57:: If the direction checked is left or right,\n set [08] to 2 (left), monster X in [04] and other X in [05].\n
-S:1E64:: If the monster is down or right of the other object,\n then use the opposite direction already in [08].\n Else shift [08] right to turn it into the opposite\n direction up or down.\n\n Again assuming Link is the defender; after this, [08] points\n Link away from the monster.\n
+S:1E57:L76C7_CheckHorizontal: If the direction checked is left or right,\n set [08] to 2 (left), monster X in [04] and other X in [05].\n
+S:1E64:L76D4_CheckVertical: If the monster is down or right of the other object,\n then use the opposite direction already in [08].\n Else shift [08] right to turn it into the opposite\n direction up or down.\n\n Again assuming Link is the defender; after this, [08] points\n Link away from the monster.\n
 S:1E6C:: If a monster is the defender, go handle it separately.\n
 S:1E70:: Link is the defender.\n\n If Link is invincible, return without shoving.\n
 S:1E75:: Store the shove direction we determined.\n\n Turn on the high bit to indicate that the next time we try to\n move by shoving, it will be the first time for this shove action.\n
@@ -7662,14 +7709,15 @@ S:1E88:: Link was shoved by a monster.\n\n If the monster's object attribute "re
 S:1E8F:: If the attacker is a vire, then return.\n
 S:1E96:: Turn the attacker in the opposite direction.\n
 S:1E9D:L770D_Exit
-S:1E9E:: A monster is the defender. A weapon is the attacker.\n\n Set the shove direction to the weapon's direction,\n instead of the direction passed in [0B].\n
-S:1EA3:: TODO:\n If the monster's attribute "reverse after hit Link" is set, the combine the\n shove direction with $40.\n
+S:1E9E:L770E_MonsterDefender: A monster is the defender. A weapon is the attacker.\n\n Set the shove direction to the weapon's direction,\n instead of the direction passed in [0B].\n
+S:1EA3:: TODO:\n If the monster's attribute "reverse after hit Link" is set, then\n combine the shove direction with $40.\n
 S:1EB0:: If the monster is invincible, then return without shoving.\n
 S:1EB5:: If the monster is not a Gohma, then go store the shove direction.\n
-S:1EC0:: This a Gohma, but if the current part [0F] is not an eye part (3 or 4),\n then return, so that the hit doesn't register.\n
+S:1EC0:L7730_Gohma: This a Gohma, but if the current part [0F] is not an eye part (3 or 4),\n then return, so that the hit doesn't register.\n
 S:1ECA:: If Gohma's eye state/frame image <> 3, then return.\n
-S:1ED1:: Store the shove direction for the monster.\n\n Turn on the high bit to indicate that the next time we try to\n move by shoving, it will be the first time for this shove action.\n
+S:1ED1:L7741_SetShoveDir: Store the shove direction for the monster.\n\n Turn on the high bit to indicate that the next time we try to\n move by shoving, it will be the first time for this shove action.\n
 S:1ED7:: Mark the monster invincible $10 frames, and should move $40 pixels.\n
+S:1EE0:L7750_Exit2
 S:1EE1-1EFF:Unknown_7EE1
 S:1FFF:SaveRamEnd
 G:2000:PpuControl_2000:7  bit  0\n---- ----\nVPHB SINN\n|||| ||||\n|||| ||++- Base nametable address\n|||| ||    (0 = $2000; 1 = $2400; 2 = $2800; 3 = $2C00)\n|||| |+--- VRAM address increment per CPU read/write of PPUDATA\n|||| |     (0: add 1, going across; 1: add 32, going down)\n|||| +---- Sprite pattern table address for 8x8 sprites\n||||       (0: $0000; 1: $1000; ignored in 8x16 mode)\n|||+------ Background pattern table address (0: $0000; 1: $1000)\n||+------- Sprite size (0: 8x8; 1: 8x16)\n|+-------- PPU master/slave select\n|          (0: read backdrop from EXT pins; 1: output color on EXT pins)\n+--------- Generate an NMI at the start of the\n           vertical blanking interval (0: off; 1: on)
