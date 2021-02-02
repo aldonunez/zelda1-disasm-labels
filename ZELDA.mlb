@@ -9,7 +9,7 @@ R:0018-0024:Random
 R:0026:StunCycle
 R:0027:DoorTimer
 R:0028-003B:ObjTimer
-R:003C:_FluteTimer
+R:003C:FluteTimer
 R:003D-004A:ObjStunTimer
 R:004B:MonstersFromEdgesLongTimer
 R:004C:SwordBlockedLongTimer
@@ -133,11 +133,11 @@ R:0438:_DemoPhase0Subphase1Timer
 R:0444:_Multi_0444: TODO:\n Mode 0: (Demo) ItemTypes\n Mode 5: ObjFlyingState\n Mode 5: jump target Y\n
 R:0451-045D:_ObjShootTimer: ObjShootTimer\n While this variable <> 0, a walking monster will not walk.\n When it reaches $10, it will shoot.\n
 R:0485-0491:ObjHP
-R:0492-049D:_ObjUninitialized
-R:049E-04B1:_ObjCollidedTile
-R:04B2-04BE:_ObjInvincibilityMask
+R:0492-049D:ObjUninitialized
+R:049E-04B1:ObjCollidedTile
+R:04B2-04BE:ObjInvincibilityMask
 R:04BF-04CA:ObjAttr
-R:04CC:_EnablePersonFireballs
+R:04CC:PersonFireballsEnabled
 R:04CD:LevelBlockAttrsByteF: This seems to be used for convenience in accessing it multiple times in a room.
 R:04CE:ShutterTrigger
 R:04CF:BlockPushComplete

@@ -19738,7 +19738,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>1182</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>_ObjCollidedTile</Label>
+      <Label>ObjCollidedTile</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>20</Length>
@@ -27986,7 +27986,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>1170</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>_ObjUninitialized</Label>
+      <Label>ObjUninitialized</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>12</Length>
@@ -31181,7 +31181,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>1202</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>_ObjInvincibilityMask</Label>
+      <Label>ObjInvincibilityMask</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>13</Length>
@@ -32816,7 +32816,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>60</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>_FluteTimer</Label>
+      <Label>FluteTimer</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -35880,7 +35880,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>1228</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>_EnablePersonFireballs</Label>
+      <Label>PersonFireballsEnabled</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
