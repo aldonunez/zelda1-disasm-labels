@@ -1934,7 +1934,7 @@ P:1000D:PlayBossDeathCryIfNeeded
 P:10015:InitMonsterShot: QSpeed $C0 (3 pixels a second)
 P:10019:_InitMonsterShot_Unknown54
 P:1001B:L1001B
-P:10025:_InitWalker: If the facing direction was already set, then return.\n
+P:10025:InitWalker: If the facing direction was already set, then return.\n
 P:10029:: Calculate horizontal distance and direction away from chase target.\n Store the distance in [00].\n
 P:10033:L10033
 P:10035:: If chase target is to the right of the object, then\n store left (2) in [01], else right (1).\n\n Also, make this the object's facing direction, even though\n it will be clobbered shortly.\n
@@ -2796,12 +2796,12 @@ P:11441:: TODO: Why 8 instead of 10?
 P:11447:InitAquamentus: Aquamentus is invincible to boomerang and fire.\n
 P:1144C:: TODO: ?\n
 P:11451:: The monster goes at ($B0, $80).\n
-P:1145A:_InitDigdogger1: TODO: ?\n
+P:1145A:InitDigdogger1: TODO: ?\n
 P:1145F:: Set a random 8-way direction.\n
 P:11469:: Set low speed byte to $3F.\n This assumes that the high byte is 0 from when the room\n was reset; or will bet set during digdogger split-up.\n
 P:1146E:: Set low target speed byte to $80.\n This assumes that the high byte is 0 from when the room\n was reset; or will bet set during digdogger split-up.\n
 P:11473:: Set child count of 3.\n
-P:11479:_InitDigdogger2
+P:11479:InitDigdogger2
 P:1147C:: TODO:\n Change object type to $38 (Digdogger1).\n\n Probably to simplify a test.\n
 P:11481:: Set child count of 1.\n
 P:11487:InitDodongo: TODO: ?\n
@@ -6938,15 +6938,15 @@ P:1FCEF:: Fire
 P:1FCF3:: Armos
 P:1FCF7:: Whirlwind
 P:1FCFB:: Flying rock
-P:1FCFF:L1FCFF__UninitMonsterFromEdge: If the "monsters from edges" long timer expired, then\n go bring the monster in.\n Else revert the flag, so this monster becomes uninitialized.\n
-P:1FD07:_L_InitMonsterFromEdge
+P:1FCFF:L1FCFF_UninitMonsterFromEdge: If the "monsters from edges" long timer expired, then\n go bring the monster in.\n Else revert the flag, so this monster becomes uninitialized.\n
+P:1FD07:L1FD07_InitMonsterFromEdge
 P:1FD12:: Extract and set the monster's location.\n
 P:1FD15:: Square column in low nibble. Multiply by 16 to get X.\n
 P:1FD1C:: Square row in high nibble. Subtract 3, for the usual offset, to get Y.\n
 P:1FD24:: Set the monsters-from-edges long timer to a random value\n between 2 and 5. So, it will last 20 to 50 frames.\n
 P:1FD2D:: If the distance to Link is too close to Link, then\n go flag the monster uninitialized again, so we can\n try to spawn it again next time.\n
 P:1FD37:: OK to spawn.\n In this situation, monsters don't spawn from a cloud.\n
-P:1FD3C:_L_InitObject
+P:1FD3C:L1FD3C_NormalSpawn
 P:1FD41:: For monsters that spawn in a cloud, set their start time to\n the same value as the object slot; so that they all start\n moving at different times.\n
 P:1FD47:: Armos
 P:1FD4B:: Flying Ghini
@@ -6959,7 +6959,7 @@ P:1FD6C:: Cave 1
 P:1FD75:: Init cave
 P:1FD78:L1FD78_CheckTileObj: If object is a cave or tile object (type >= $5F),\n go assign object attribute $81, and get\n it ready to behave autonomously and updating.\n
 P:1FD7F:L1FD7F: Else run the object initialization routine.\n
-P:1FD82-1FE3F:_L_InitObject_JumpTable
+P:1FD82-1FE3F:InitObject_JumpTable
 P:1FE40:UpdateWhirlwind
 P:1FE48:InitRupeeStash
 P:1FE50:UpdateRupeeStash
@@ -6982,7 +6982,7 @@ P:1FEB3:SetTypeAndClearObject: Params:\n A: object type\n X: object index\n
 P:1FEBB:FindEmptyMonsterSlot: Look for an empty object slot for a monster from $B to 1.\n\n Returns:\n A: 0 if found an empty slot\n Y: an empty slot, if found\n Z: 0 if found an empty slot\n [59]: an empty slot, if found\n
 P:1FEBD:L1FEBD_Loop
 P:1FEC7:L1FEC7_End
-P:1FECA:_InitTileObjOrItem: TODO: Describe attribute $81. 1 is self-check collisions and draw.\n\n Set object attribute to $81, and go reset metastate and timer;\n so that the object is ready to start updating itself.\n
+P:1FECA:InitTileObjOrItem: TODO: Describe attribute $81. 1 is self-check collisions and draw.\n\n Set object attribute to $81, and go reset metastate and timer;\n so that the object is ready to start updating itself.\n
 P:1FED1:InitFluteSecret: Summary:\n The flute secret object manages the secret color cycle.\n\n The flute secret object is initialized in the same frame that\n the flute was wielded. But this object won't update until\n the flute timer expires.\n
 P:1FED6:ResetObjMetastateAndTimer
 P:1FEDA:ResetObjMetastate: Reset the object metastate so that it's ready to start\n behaving autonomously (updating on its own).\n This is the normal state outside of the spawning cloud and\n the death sparkle.\n

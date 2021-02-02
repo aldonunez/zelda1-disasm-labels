@@ -38070,7 +38070,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>130303</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1FCFF__UninitMonsterFromEdge</Label>
+      <Label>L1FCFF_UninitMonsterFromEdge</Label>
       <Comment> If the "monsters from edges" long timer expired, then&#xD;
  go bring the monster in.&#xD;
  Else revert the flag, so this monster becomes uninitialized.&#xD;
@@ -38105,7 +38105,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>130364</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_L_InitObject</Label>
+      <Label>L1FD3C_NormalSpawn</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -38199,7 +38199,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>130762</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_InitTileObjOrItem</Label>
+      <Label>InitTileObjOrItem</Label>
       <Comment> TODO: Describe attribute $81. 1 is self-check collisions and draw.&#xD;
 &#xD;
  Set object attribute to $81, and go reset metastate and timer;&#xD;
@@ -38220,7 +38220,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>65573</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_InitWalker</Label>
+      <Label>InitWalker</Label>
       <Comment> If the facing direction was already set, then return.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -38764,7 +38764,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>130311</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_L_InitMonsterFromEdge</Label>
+      <Label>L1FD07_InitMonsterFromEdge</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -48119,7 +48119,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>70746</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_InitDigdogger1</Label>
+      <Label>InitDigdogger1</Label>
       <Comment> TODO: ?&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -48128,7 +48128,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>70777</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_InitDigdogger2</Label>
+      <Label>InitDigdogger2</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -67063,7 +67063,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>130434</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_L_InitObject_JumpTable</Label>
+      <Label>InitObject_JumpTable</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>190</Length>
