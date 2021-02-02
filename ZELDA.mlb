@@ -238,7 +238,7 @@ R:0636:IsRegisterSaveFileOptionEnabled
 R:0637:IsEliminateSaveFileOptionEnabled
 R:0638-064F:Names
 R:0650:SaveSlotHearts
-R:0656:_CurItemIndex: TODO: Or SelectedItemSlot
+R:0656:SelectedItemSlot
 R:0657:Items
 R:0658:InvBombs
 R:0659:InvArrow
@@ -5807,11 +5807,11 @@ P:177DA:: Found an item. Go see if the slot is OK.
 P:177DE:: This is the potion slot, but no potion. Go check the letter.
 P:177E0:L177E0_CheckNextItem
 P:177E1:: If there are more slots, then check the next one.
-P:177E3:: We found no items. Set CurItemIndex to zero.
+P:177E3:: We found no items. Set SelectedItemSlot to zero.
 P:177E5:L177E5_FoundSlot
-P:177E7:: If not the arrow, go set CurItemIndex.
+P:177E7:: If not the arrow, go set SelectedItemSlot.
 P:177EC:: If we don't have the bow, then keep looking for a slot.
-P:177EE:L177EE_SetSlotFound: Set CurItemIndex to the slot we found.
+P:177EE:L177EE_SetSlotFound: Set SelectedItemSlot to the slot we found.
 P:177F1:L177F1_Exit
 P:177F2:L177F2_CheckBoomerangs: Check the boomerangs.\n\n Start with the magical boomerang.
 P:177F4:L177F4
@@ -5822,7 +5822,7 @@ P:17808:L17808_CheckLetter: Check the letter.\n
 P:1780D:: If there's a letter, go see if there's a potion.
 P:17811:: There's no letter, so continue searching where we left off.
 P:17813:L17813
-P:17816:: If there's no potion, then go set CurItemIndex to the letter slot.
+P:17816:: If there's no potion, then go set SelectedItemSlot to the letter slot.
 P:1781C:DrawItemInInventoryWithX: [$00]: X\n [$01]: Y\n X: item slot\n
 P:17821:Cycle9InDirection: Params:\n [$EF]: direction to search: 0=none, 1=forward, 2=backward\n Y: value to cycle\n\n If A = 0, does nothing.\n If A = 1, Y := (Y + 1) mod 9\n If A = 2, Y := (Y - 1) mod 9\n
 P:1782D:L1782D
@@ -6101,13 +6101,13 @@ P:1E77E:: then make the item slot $20, a special slot to differentiate the image
 P:1E780:: Go write the sprites.
 P:1E783:DrawStatusBarPotion: We have a potion to draw.\n\n\n Potion item slot.
 P:1E788:: Go draw the potion.
-P:1E78A:DrawStatusBarItemsAndEnsureItemSelected: Draws the selected item and the sword in the status bar.\n Before drawing the item, it ensures that CurItemIndex\n refers to an occupied, equippable item slot.\n\n This accounts for the fallback behavior between potions\n and letters and the two boomerangs.\n\n Start at slot zero. Normally, it would be used to\n check swords. When it's used as the selected item index;\n it's a pseudo-slot used for checking boomerangs.\n
+P:1E78A:DrawStatusBarItemsAndEnsureItemSelected: Draws the selected item and the sword in the status bar.\n Before drawing the item, it ensures that SelectedItemSlot\n refers to an occupied, equippable item slot.\n\n This accounts for the fallback behavior between potions\n and letters and the two boomerangs.\n\n Start at slot zero. Normally, it would be used to\n check swords. When it's used as the selected item index;\n it's a pseudo-slot used for checking boomerangs.\n
 P:1E78D:: If pseudo-slot zero is chosen, then go check boomerangs.
 P:1E792:: If there's no item in the current item slot, then go check for potions and letters.
 P:1E794:: We have an item. See if it's in the letter slot.
 P:1E796:: If it's not the letter slot, then go draw it.
 P:1E798:: It's in the letter slot. See if we have a potion.
-P:1E79B:: If we have a potion, then go set CurItemIndex to its slot, and draw it.
+P:1E79B:: If we have a potion, then go set SelectedItemSlot to its slot, and draw it.
 P:1E79D:: Otherwise, we only have a letter.
 P:1E79E:: Use only 1 as the palette attribute.
 P:1E7A0:DrawStatusBarItemB: Set palette attribute to inventory value.
@@ -6119,7 +6119,7 @@ P:1E7BA:: If we have one of the boomerangs, then go draw it.
 P:1E7BF:: Go check the next boomerang.
 P:1E7C3:: No boomerangs. Go search for an occupied slot starting at 0.
 P:1E7C6:L1E7C6_FindItemOrDrawSword
-P:1E7C9:: If there's an item in this slot, then CurItemIndex was already\n set. Go handle the sword instead of drawing the item.\n Next frame, we'll draw this item.
+P:1E7C9:: If there's an item in this slot, then SelectedItemSlot was already\n set. Go handle the sword instead of drawing the item.\n Next frame, we'll draw this item.
 P:1E7CB:L1E7CB_EnsureSelectedItem: Not found. Search for an occupied slot.
 P:1E7D2:: Go backwards from current slot.
 P:1E7D7:DrawStatusBarSword: Handle the sword.\n
@@ -6129,7 +6129,7 @@ P:1E7EE:L1E7EE_CheckMissingItem: No item in slot.\n
 P:1E7F0:: If the current item slot isn't for potions, then go handle the slot almost as usual.
 P:1E7F2:: This slot is for potions but don't have one. Check the letter.
 P:1E7F5:: If we don't have a letter, then go look for an occupied slot.
-P:1E7F7:: We have a letter. Set CurItemIndex to its slot.
+P:1E7F7:: We have a letter. Set SelectedItemSlot to its slot.
 P:1E7FC:: Go handle the sword (indirectly).
 P:1E7FE:CheckLiftItem
 P:1E801:: If there's no item to lift, then return.

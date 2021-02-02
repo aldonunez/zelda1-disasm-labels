@@ -572,8 +572,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>1622</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>_CurItemIndex</Label>
-      <Comment> TODO: Or SelectedItemSlot</Comment>
+      <Label>SelectedItemSlot</Label>
+      <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -11293,7 +11293,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>96231</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> If not the arrow, go set CurItemIndex.</Comment>
+      <Comment> If not the arrow, go set SelectedItemSlot.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -11309,7 +11309,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>96238</Address>
       <AddressType>PrgRom</AddressType>
       <Label>L177EE_SetSlotFound</Label>
-      <Comment> Set CurItemIndex to the slot we found.</Comment>
+      <Comment> Set SelectedItemSlot to the slot we found.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -11341,7 +11341,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>96227</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> We found no items. Set CurItemIndex to zero.</Comment>
+      <Comment> We found no items. Set SelectedItemSlot to zero.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -11381,7 +11381,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>96278</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> If there's no potion, then go set CurItemIndex to the letter slot.</Comment>
+      <Comment> If there's no potion, then go set SelectedItemSlot to the letter slot.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -11441,7 +11441,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <AddressType>PrgRom</AddressType>
       <Label>DrawStatusBarItemsAndEnsureItemSelected</Label>
       <Comment> Draws the selected item and the sword in the status bar.&#xD;
- Before drawing the item, it ensures that CurItemIndex&#xD;
+ Before drawing the item, it ensures that SelectedItemSlot&#xD;
  refers to an occupied, equippable item slot.&#xD;
 &#xD;
  This accounts for the fallback behavior between potions&#xD;
@@ -11522,7 +11522,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>124827</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> If we have a potion, then go set CurItemIndex to its slot, and draw it.</Comment>
+      <Comment> If we have a potion, then go set SelectedItemSlot to its slot, and draw it.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -11573,7 +11573,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>124919</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> We have a letter. Set CurItemIndex to its slot.</Comment>
+      <Comment> We have a letter. Set SelectedItemSlot to its slot.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -11581,7 +11581,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>124873</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> If there's an item in this slot, then CurItemIndex was already&#xD;
+      <Comment> If there's an item in this slot, then SelectedItemSlot was already&#xD;
  set. Go handle the sword instead of drawing the item.&#xD;
  Next frame, we'll draw this item.</Comment>
       <Flags>None</Flags>
