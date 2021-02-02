@@ -676,7 +676,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>125521</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_ResetPlayer</Label>
+      <Label>ResetPlayerState</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -4429,7 +4429,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>1317</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>_CurEdgeSpawnCell</Label>
+      <Label>CurEdgeSpawnCell</Label>
       <Comment> The previous cell that was checked to try to spawn&#xD;
  a monster from the edge of the screen.&#xD;
 &#xD;
@@ -6940,7 +6940,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>41809</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_AddATo0F0E</Label>
+      <Label>AddATo0F0E</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -7231,7 +7231,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>42027</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_AddAToCFCE</Label>
+      <Label>AddAToCFCE</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -13329,7 +13329,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>125440</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_ClearRoomHistory</Label>
+      <Label>ClearRoomHistory</Label>
       <Comment> Returns:&#xD;
  A: 0&#xD;
 &#xD;
@@ -19501,7 +19501,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>1306</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>_SecretColorCycle</Label>
+      <Label>SecretColorCycle</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -20400,7 +20400,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>4062</Address>
       <AddressType>SaveRam</AddressType>
       <Label />
-      <Comment> TODO: Add only carry to _ObjRelPos[X].&#xD;
+      <Comment> Add only carry to the grid offset.&#xD;
  Carry represents whether the fractional position reached&#xD;
  a whole pixel (C=1).</Comment>
       <Flags>None</Flags>
@@ -20528,7 +20528,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>4101</Address>
       <AddressType>SaveRam</AddressType>
       <Label />
-      <Comment> TODO: Subtract only carry from _ObjRelPos[X].&#xD;
+      <Comment> Subtract only carry from the grid offset.&#xD;
  Carry represents whether the fractional position reached&#xD;
  a whole pixel (C=0).</Comment>
       <Flags>None</Flags>
@@ -20667,8 +20667,9 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>5394</Address>
       <AddressType>SaveRam</AddressType>
-      <Label>_Write16BlankSprites</Label>
-      <Comment> TODO: Why? And why are their Y coordinates $3D and $DD? Those values are the highest and lowest that Link can normally take.&#xD;
+      <Label>WriteBlankPrioritySprites</Label>
+      <Comment> TODO: Why are their Y coordinates $3D and $DD?&#xD;
+ Those values are the highest and lowest that Link can normally take.&#xD;
 &#xD;
  Repeat two sprites in the first $10 records. They have&#xD;
  transparent tile $1C, priority 1 (behind BG), and X=0.&#xD;
@@ -20932,7 +20933,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>94403</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_GetDoorPassingThruAttr</Label>
+      <Label>GetPassedDoorType</Label>
       <Comment> Returns door attr in direction Link's facing (mode 6),&#xD;
  or opposite direction (other modes).&#xD;
 &#xD;
@@ -21381,7 +21382,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>86855</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: ?</Comment>
+      <Comment> Add the flag to repeat</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -22512,7 +22513,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>94390</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_ResetInvObjState</Label>
+      <Label>ResetInvObjState</Label>
       <Comment> Reset LadderSlot. No ladder is active.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -25008,10 +25009,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>78712</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_Flyer_Wander</Label>
-      <Comment> TODO: Was called _Flyer_TurnRandomly&#xD;
-&#xD;
- Description:&#xD;
+      <Label>Flyer_Wander</Label>
+      <Comment> Description:&#xD;
  Delay and turn randomly a number of times.&#xD;
  The go to state 1. After each turn, delay $10 frames.&#xD;
 &#xD;
@@ -25197,7 +25196,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>78728</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_TurnRandomlyDir8</Label>
+      <Label>TurnRandomlyDir8</Label>
       <Comment> Turn according to a random value:&#xD;
  &gt;= $A0: don't turn&#xD;
  &gt;= $50: turn right&#xD;
@@ -25439,7 +25438,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>3881</Address>
       <AddressType>SaveRam</AddressType>
-      <Label>_BoundDirectionHorizontally</Label>
+      <Label>BoundDirectionHorizontally</Label>
       <Comment> Params:&#xD;
  X: object index&#xD;
  [0F]: direction&#xD;
@@ -25511,7 +25510,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>3955</Address>
       <AddressType>SaveRam</AddressType>
-      <Label>_BoundDirectionVertically</Label>
+      <Label>BoundDirectionVertically</Label>
       <Comment> Params:&#xD;
  X: object index&#xD;
  [0F]: direction&#xD;
@@ -27065,7 +27064,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>4022</Address>
       <AddressType>SaveRam</AddressType>
-      <Label>_BoundByRoomWithA</Label>
+      <Label>BoundByRoomWithA</Label>
       <Comment> Params:&#xD;
  A: direction&#xD;
  X: object index&#xD;
@@ -27152,7 +27151,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>86543</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_GetPlayerCoordsForDirection</Label>
+      <Label>GetPlayerCoordsForDirection</Label>
       <Comment> Params:&#xD;
  A: direction&#xD;
 &#xD;
@@ -27308,8 +27307,7 @@ For example:&#xD;
  Link's perpendicular coordinate ([00]) has to match the doorway's&#xD;
  (X=$78 for verticals, Y=$8D for horizontals).&#xD;
 &#xD;
- TODO:&#xD;
- See _GetPlayerCoordsForDirection.&#xD;
+ See GetPlayerCoordsForDirection.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>4</Length>
@@ -28079,7 +28077,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>130266</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_InitObject</Label>
+      <Label>InitObject</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -29167,7 +29165,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>3456</Address>
       <AddressType>SaveRam</AddressType>
-      <Label>_BitOr0603WithA</Label>
+      <Label>PlayEffect</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -29175,7 +29173,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>3452</Address>
       <AddressType>SaveRam</AddressType>
-      <Label>_BitOr0601WithA</Label>
+      <Label>PlaySample</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -29184,8 +29182,7 @@ For example:&#xD;
       <Address>85525</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: ?&#xD;
-</Comment>
+      <Comment> Sword sound effect</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -29252,7 +29249,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>4412</Address>
       <AddressType>SaveRam</AddressType>
-      <Label>_ChooseOffsetForDirectionH</Label>
+      <Label>ChooseOffsetForDirectionH</Label>
       <Comment> Params:&#xD;
  A: direction&#xD;
  [01]: value for right&#xD;
@@ -29443,7 +29440,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>128841</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_PlayerToWeaponOffsetsX</Label>
+      <Label>PlayerToWeaponOffsetsX</Label>
       <Comment> 4 sets of horizontal offsets, one for each state of weapon.&#xD;
  Each set contains 4 offsets in reverse direction index order:&#xD;
  up, down, left, right&#xD;
@@ -29456,7 +29453,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>128857</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_PlayerToWeaponOffsetsY</Label>
+      <Label>PlayerToWeaponOffsetsY</Label>
       <Comment> 4 sets of vertical offsets, one for each state of weapon.&#xD;
  Each set contains 4 offsets in reverse direction index order:&#xD;
  up, down, left, right&#xD;
@@ -29745,8 +29742,7 @@ For example:&#xD;
       <Address>129149</Address>
       <AddressType>PrgRom</AddressType>
       <Label>L1F87D_SetUp</Label>
-      <Comment> TODO: sound effect?&#xD;
-</Comment>
+      <Comment> Sword shot sound effect</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -30258,8 +30254,7 @@ For example:&#xD;
       <Address>4476</Address>
       <AddressType>SaveRam</AddressType>
       <Label />
-      <Comment> TODO: sound effect?&#xD;
-</Comment>
+      <Comment> Flame sound effect</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -30495,7 +30490,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>7675</Address>
       <AddressType>SaveRam</AddressType>
-      <Label>_DoObjectsCollide</Label>
+      <Label>DoObjectsCollide</Label>
       <Comment> Params:&#xD;
  A: collision distance threshold (objects collide if nearer in X and Y)&#xD;
  [00]: weapon object slot (unused)&#xD;
@@ -30522,7 +30517,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>7679</Address>
       <AddressType>SaveRam</AddressType>
-      <Label>_DoObjectsCollideWithThresholds</Label>
+      <Label>DoObjectsCollideWithThresholds</Label>
       <Comment> Params:&#xD;
  [00]: weapon or Link object slot (unused)&#xD;
  [02]: object 1 mid X&#xD;
@@ -30634,8 +30629,7 @@ For example:&#xD;
  [0E]: damage points low byte&#xD;
 &#xD;
 &#xD;
- TODO: ?&#xD;
- If object type is not whirlwind, then make the "hurt" sound effect&#xD;
+ If object type is not whirlwind, then make the "hurt" sound effect.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -31514,8 +31508,7 @@ For example:&#xD;
       <Address>85637</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: ?&#xD;
-</Comment>
+      <Comment> Boomerang/arrow sound effect</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -31623,10 +31616,9 @@ For example:&#xD;
       <Address>128285</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: _GetDirectionsAndDistancesToTarget&#xD;
- Reset [00], which will hold the number of axes where the distance &lt;= 8&#xD;
+      <Comment> Reset [00], which will hold the number of axes where the distance &lt;= 8&#xD;
  when calculating the angle to return to thrower.&#xD;
- See states $40 and $50 and _GetDirectionsAndDistancesToTarget.&#xD;
+ See states $40 and $50 and GetDirectionsAndDistancesToTarget.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -31970,7 +31962,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>4517</Address>
       <AddressType>SaveRam</AddressType>
-      <Label>_DestroyObject_WRAM</Label>
+      <Label>DestroyObject_WRAM</Label>
       <Comment> Params:&#xD;
  A: 0&#xD;
  X: object index&#xD;
@@ -32076,7 +32068,7 @@ For example:&#xD;
       <Address>85603</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> See _SetUpWeaponForPlayerStateAndAnim for the reason&#xD;
+      <Comment> See PlaceWeaponForPlayerStateAndAnim for the reason&#xD;
  that Link's animation counter is set to 1.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -32123,8 +32115,10 @@ For example:&#xD;
     <CodeLabel>
       <Address>3600</Address>
       <AddressType>SaveRam</AddressType>
-      <Label>_PlayBoomerangSfx</Label>
-      <Comment />
+      <Label>PlayBoomerangSfx</Label>
+      <Comment> Params:&#xD;
+ Y: 2&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -32157,15 +32151,7 @@ For example:&#xD;
       <Address>128718</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: ?</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
-      <Address>128720</Address>
-      <AddressType>PrgRom</AddressType>
-      <Label />
-      <Comment> TODO: is this right?</Comment>
+      <Comment> Boomerang effect</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -32223,7 +32209,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>4170</Address>
       <AddressType>SaveRam</AddressType>
-      <Label>_GetDirectionsAndDistancesToTarget</Label>
+      <Label>GetDirectionsAndDistancesToTarget</Label>
       <Comment> Params:&#xD;
  A: object index of target&#xD;
  X: object index of origin&#xD;
@@ -32245,7 +32231,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>4291</Address>
       <AddressType>SaveRam</AddressType>
-      <Label>_GetOneDirectionAndDistanceToTarget</Label>
+      <Label>GetOneDirectionAndDistanceToTarget</Label>
       <Comment> Params:&#xD;
  A: target coordinate&#xD;
  Y: origin coordinate&#xD;
@@ -32833,7 +32819,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>1307</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>_UsedFlute</Label>
+      <Label>UsedFlute</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -33395,7 +33381,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>69761</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_PlaySecretFoundTune</Label>
+      <Label>PlaySecretFoundTune</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -33413,7 +33399,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>69426</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_RevealAndFlagSecretStairsObj</Label>
+      <Label>RevealAndFlagSecretStairsObj</Label>
       <Comment> Params:&#xD;
  X: object index of the tile object&#xD;
 &#xD;
@@ -33425,7 +33411,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>69344</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_RevealSecretTileObj</Label>
+      <Label>RevealSecretTileObj</Label>
       <Comment> Params:&#xD;
  A: the first tile of tile object&#xD;
  X: object index&#xD;
@@ -33436,7 +33422,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>125026</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_ChangeTileObjTiles</Label>
+      <Label>ChangeTileObjTiles</Label>
       <Comment> Params:&#xD;
  A: first tile&#xD;
  X: object index&#xD;
@@ -33484,7 +33470,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>5488</Address>
       <AddressType>SaveRam</AddressType>
-      <Label>_MapScreenPosToPpuAddr</Label>
+      <Label>MapScreenPosToPpuAddr</Label>
       <Comment> Params:&#xD;
  [02]: Y&#xD;
  [03]: X&#xD;
@@ -33607,7 +33593,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>93124</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_ChangePlayMapSquareOW</Label>
+      <Label>ChangePlayMapSquareOW</Label>
       <Comment> Save object index.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -33849,8 +33835,7 @@ For example:&#xD;
       <Address>129351</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO:&#xD;
- If the minor state = 3, play the sound effect?&#xD;
+      <Comment> If the minor state = 3, play the sound effect.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -34738,7 +34723,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>95607</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_MapRowMasks</Label>
+      <Label>MapRowMasks</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>8</Length>
@@ -35432,7 +35417,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>5386</Address>
       <AddressType>SaveRam</AddressType>
-      <Label>_BlankSpriteTemplates</Label>
+      <Label>BlankPrioritySpriteTemplates</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>8</Length>
@@ -38147,7 +38132,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>77824</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_ExtractHitPointValue</Label>
+      <Label>ExtractHitPointValue</Label>
       <Comment> Params:&#xD;
  A: hit point doublet (byte)&#xD;
  [00]: object type&#xD;
@@ -38339,7 +38324,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>1322</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>_WorldKillCycle</Label>
+      <Label>WorldKillCycle</Label>
       <Comment> TODO: 0 to 9&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -39563,7 +39548,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>69428</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_RevealAndFlagSecretTileObj</Label>
+      <Label>RevealAndFlagSecretTileObj</Label>
       <Comment> Params:&#xD;
  A: the first tile of tile object&#xD;
  X: object index&#xD;
@@ -42700,7 +42685,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>68179</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_BlueLeeverStateQSpeeds</Label>
+      <Label>BlueLeeverStateQSpeeds</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>6</Length>
@@ -42708,7 +42693,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>68185</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_BlueLeeverStateTimes</Label>
+      <Label>BlueLeeverStateTimes</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>6</Length>
@@ -42725,7 +42710,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>68191</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_BlueLeeverStateAnimTimes</Label>
+      <Label>BlueLeeverStateAnimTimes</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>6</Length>
@@ -42827,7 +42812,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>68262</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_AnimateDrawBurrowerAndCheckCollisions</Label>
+      <Label>Burrower_AnimateDrawAndCheckCollisions</Label>
       <Comment> Params:&#xD;
  A: new value for animation counter, in case it rolls over&#xD;
  X: object index&#xD;
@@ -42936,7 +42921,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>68570</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_RedLeever_CycleStateDrawAndCheckCollisions</Label>
+      <Label>RedLeever_CycleStateDrawAndCheckCollisions</Label>
       <Comment> Cycle the state between 0 and 5.&#xD;
 &#xD;
  If a cycle was completed (wrapped around to 0),&#xD;
@@ -43256,7 +43241,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>67379</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_TektiteStartingDirs</Label>
+      <Label>TektiteStartingDirs</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>4</Length>
@@ -43536,7 +43521,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>67786</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_JumperYOffsets</Label>
+      <Label>JumperYOffsets</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>11</Length>
@@ -43565,7 +43550,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>68173</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_Jumper_ResetVSpeedFrac</Label>
+      <Label>Jumper_ResetVSpeedFrac</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -43624,7 +43609,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>68129</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_Jumper_MoveY</Label>
+      <Label>Jumper_MoveY</Label>
       <Comment> Params:&#xD;
  A: acceleration&#xD;
  Y: max speed high byte&#xD;
@@ -43710,7 +43695,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>67797</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_JumperYAccelerations</Label>
+      <Label>JumperYAccelerations</Label>
       <Comment> Logically, this array would be 33 bytes: 3 sets of 11 bytes,&#xD;
  1 byte for each 8-way direction&#xD;
 &#xD;
@@ -43724,7 +43709,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>67829</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_JumperYAccelerationBaseOffsets</Label>
+      <Label>JumperYAccelerationBaseOffsets</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>3</Length>
@@ -43837,7 +43822,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>67826</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_JumperStartSpeedsHi</Label>
+      <Label>JumperStartSpeedsHi</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>3</Length>
@@ -44154,7 +44139,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>66959</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_Gel_Move</Label>
+      <Label>Gel_Move</Label>
       <Comment> Go handle state 0 or 2 as appropriate.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -44303,7 +44288,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>67062</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_ZolGelDelays</Label>
+      <Label>ZolGelDelays</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>8</Length>
@@ -44320,7 +44305,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>67070</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_Gel_MoveSplitting</Label>
+      <Label>Gel_MoveSplitting</Label>
       <Comment> TODO:&#xD;
  Or call this BigShove like in Loz?&#xD;
 &#xD;
@@ -44764,7 +44749,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>77840</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_PlayBossDeathCry</Label>
+      <Label>PlayBossDeathCry</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -44772,7 +44757,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>65549</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_PlayBossDeathCryIfNeeded</Label>
+      <Label>PlayBossDeathCryIfNeeded</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -44780,7 +44765,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>65536</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_PlayBossHitCryIfNeeded</Label>
+      <Label>PlayBossHitCryIfNeeded</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -45022,7 +45007,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>71827</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_WriteBossSprite</Label>
+      <Label>WriteBossSprite</Label>
       <Comment> Params:&#xD;
  A: tile&#xD;
  [00]: X&#xD;
@@ -45748,7 +45733,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>72242</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_Dodongo_IsBombInRange</Label>
+      <Label>Dodongo_IsBombInRange</Label>
       <Comment> Params:&#xD;
  Y: limit index (0 for dust cloud, 1 for the bomb)&#xD;
  [00]: monster hotspot X&#xD;
@@ -46666,7 +46651,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>70955</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_Moldorm_Wander</Label>
+      <Label>Moldorm_Wander</Label>
       <Comment> If the segment is not a head (slot 5 or $A), then return.&#xD;
  Only the head controls the movement direction.&#xD;
 </Comment>
@@ -49815,7 +49800,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>75775</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_Gleeok_ChangeCoordinateBySpeedFlag</Label>
+      <Label>Gleeok_ChangeCoordinateBySpeedFlag</Label>
       <Comment> Params:&#xD;
  A: a value to change&#xD;
  Y: 0 =&gt; increment, 1 =&gt; decrement&#xD;
@@ -50200,7 +50185,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>75297</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_Gleeok_CalcSegmentLimits</Label>
+      <Label>Gleeok_CalcSegmentLimits</Label>
       <Comment> Params:&#xD;
  A: primary reference segment distance&#xD;
  X: 0 for horizontal, 1 for vertical&#xD;
@@ -51219,7 +51204,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>73468</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_BlueWizzrobe_AlignWithNearestSquareAndRandomizeTimer</Label>
+      <Label>BlueWizzrobe_AlignWithNearestSquareAndRandomizeTimer</Label>
       <Comment> Set a random timer &gt;= $70.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -51467,7 +51452,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>73304</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_BlueWizzrobe_AdvanceCounterAndTurnTowardLinkIfNeeded</Label>
+      <Label>BlueWizzrobe_AdvanceCounterAndTurnTowardLinkIfNeeded</Label>
       <Comment> Description:&#xD;
  Increment the turn counter. Then turn toward Link&#xD;
  when the turn counter is a multiple of $40.&#xD;
@@ -51523,7 +51508,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>73314</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_BlueWizzrobe_TurnTowardLink</Label>
+      <Label>BlueWizzrobe_TurnTowardLink</Label>
       <Comment> If the multiple of $40 is even, then turn horizontally,&#xD;
  else vertically.&#xD;
 </Comment>
@@ -51545,7 +51530,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>73245</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_BlueWizzrobe_TurnSometimesAndMoveAndCheckTile</Label>
+      <Label>BlueWizzrobe_TurnSometimesAndMoveAndCheckTile</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -52212,7 +52197,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>77233</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_Ganon_SetUpBurstRays</Label>
+      <Label>Ganon_SetUpBurstRays</Label>
       <Comment> Loop over 8 burst rays, from 7 to 0, indexed by Y register.&#xD;
  Access object slots 9 to 2.&#xD;
 </Comment>
@@ -52426,7 +52411,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>77103</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_Ganon_UpdateBrownState</Label>
+      <Label>Ganon_UpdateBrownState</Label>
       <Comment> Every other frame decrement the state.&#xD;
  But every frame draw Ganon either translucent or opaque.&#xD;
 </Comment>
@@ -52454,7 +52439,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>77051</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_Ganon_RandomizeLocation</Label>
+      <Label>Ganon_RandomizeLocation</Label>
       <Comment> Description:&#xD;
  Put Ganon at Y=$A0, and a random X of $30 or $B0.&#xD;
 </Comment>
@@ -52900,7 +52885,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>74723</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_AnimateAndDrawGohma</Label>
+      <Label>Gohma_AnimateAndDraw</Label>
       <Comment> Params:&#xD;
  A: eye frame image&#xD;
 &#xD;
@@ -52971,7 +52956,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>74746</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_Gohma_DrawLegsOneSide</Label>
+      <Label>Gohma_DrawLegsOneSide</Label>
       <Comment> Params:&#xD;
  Y: side: 0 for left, 1 for right&#xD;
 &#xD;
@@ -53523,7 +53508,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>76261</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_SetDeadDummyObjType</Label>
+      <Label>SetDeadDummyObjType</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -53582,7 +53567,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>78937</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_DecreaseObjectAngle</Label>
+      <Label>DecreaseObjectAngle</Label>
       <Comment> Params:&#xD;
  A: low amount byte&#xD;
  X: object index&#xD;
@@ -53614,7 +53599,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>78781</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_RotateObjectLocation</Label>
+      <Label>RotateObjectLocation</Label>
       <Comment> Params:&#xD;
  A: high bits of cosine to use in calculating Y increment&#xD;
  Y: high bits of sine to use in calculating X increment&#xD;
@@ -53781,7 +53766,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>78765</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_PatraSines</Label>
+      <Label>PatraSines</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>16</Length>
@@ -57399,7 +57384,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>94512</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_InitMode_AdvanceSubmode</Label>
+      <Label>InitModeSubroom_AdvanceSubmode</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -64959,8 +64944,8 @@ For example:&#xD;
       <Address>86861</Address>
       <AddressType>PrgRom</AddressType>
       <Label>L1534D</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Comment> Silence sample and tune1.</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -70594,6 +70579,14 @@ For example:&#xD;
       <AddressType>SaveRam</AddressType>
       <Label>L7750_Exit2</Label>
       <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>91837</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Door sound</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
