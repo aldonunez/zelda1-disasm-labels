@@ -1252,7 +1252,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>1029</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>_ObjMetaState</Label>
+      <Label>ObjMetastate</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>13</Length>
@@ -28051,7 +28051,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>130778</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_ResetObjMetastate</Label>
+      <Label>ResetObjMetastate</Label>
       <Comment> Reset the object metastate so that it's ready to start&#xD;
  behaving autonomously (updating on its own).&#xD;
  This is the normal state outside of the spawning cloud and&#xD;
@@ -29363,7 +29363,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>129109</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_ResetObjState</Label>
+      <Label>ResetObjState</Label>
       <Comment> Returns:&#xD;
  A: 0&#xD;
 &#xD;
@@ -38206,7 +38206,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>130774</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_ResetObjMetastateAndTimer</Label>
+      <Label>ResetObjMetastateAndTimer</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>

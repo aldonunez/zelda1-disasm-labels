@@ -105,7 +105,7 @@ R:03BC-03CF:_ObjQSpeedFrac
 R:03D0-03E3:ObjAnimCounter
 R:03E4-03F7:_ObjMovementFrame
 R:03F8-0404:ObjInputDir: At the beginning of a frame, this will be set to 0 to 2 directions.\n
-R:0405-0411:_ObjMetaState
+R:0405-0411:ObjMetastate
 R:0412:_Multi_0412: TODO:\n Mode 0: TriforceGlowTimer\n Mode 5: ObjFlyingPosFrac\n Mode 5: Push timer for blocks, rocks, and gravestones (slot $B)\n Mode 5: "wants to shoot" for walkers\n Mode 5: vertical speed high byte for jumpers\n Mode 10: TargetY\n
 R:0413:_TriforceGlowCycle: TODO:\n 0: TriforceGlowCycle\n B: CaveFlags\n\n TODO: describe the cave flags\n
 R:0415:_ScrolledScreenCount
@@ -6789,7 +6789,7 @@ P:1F841:L1F841_ChooseSpeed: If high bit of state is set, use $A0 else $C0 for th
 P:1F84A:L1F84A
 P:1F84E:: Set the shot object's grid offset the same as the player's.\n
 P:1F854:L1F854_Exit
-P:1F855:_ResetObjState: Returns:\n A: 0\n\n If it's the room item, then deactivates it.\n
+P:1F855:ResetObjState: Returns:\n A: 0\n\n If it's the room item, then deactivates it.\n
 P:1F85A:L1F85A_MakeSwordShot: Try to activate a sword shot.\n\n Switch to shot slot $E.\n
 P:1F85C:: If state <> 0, return. It's already activated.\n
 P:1F860:: If [0529] is set, go activate a sword shot regardless of hearts.\n\n TODO: But is this used?\n
@@ -6984,8 +6984,8 @@ P:1FEBD:L1FEBD_Loop
 P:1FEC7:L1FEC7_End
 P:1FECA:_InitTileObjOrItem: TODO: Describe attribute $81. 1 is self-check collisions and draw.\n\n Set object attribute to $81, and go reset metastate and timer;\n so that the object is ready to start updating itself.\n
 P:1FED1:InitFluteSecret: Summary:\n The flute secret object manages the secret color cycle.\n\n The flute secret object is initialized in the same frame that\n the flute was wielded. But this object won't update until\n the flute timer expires.\n
-P:1FED6:_ResetObjMetastateAndTimer
-P:1FEDA:_ResetObjMetastate: Reset the object metastate so that it's ready to start\n behaving autonomously (updating on its own).\n This is the normal state outside of the spawning cloud and\n the death sparkle.\n
+P:1FED6:ResetObjMetastateAndTimer
+P:1FEDA:ResetObjMetastate: Reset the object metastate so that it's ready to start\n behaving autonomously (updating on its own).\n This is the normal state outside of the spawning cloud and\n the death sparkle.\n
 P:1FEE0-1FEE7:WaterPaletteTransferBufTemplate
 P:1FEE8-1FEF3:PondCycleColors
 P:1FEF4:UpdateFluteSecret: If secret color cycle >= $C, return.\n
