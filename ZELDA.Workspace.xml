@@ -2626,7 +2626,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>94850</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_CueTransferSubmenuRowOW</Label>
+      <Label>Submenu_CueTransferRowOW</Label>
       <Comment>&#xD;
 &#xD;
  If menu scroll value is negative, then we transferred everything.&#xD;
@@ -2944,7 +2944,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>129615</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_AnimateObjectWalking</Label>
+      <Label>AnimateObjectWalking</Label>
       <Comment> Params:&#xD;
  X: object index&#xD;
 &#xD;
@@ -6604,7 +6604,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>6412</Address>
       <AddressType>SaveRam</AddressType>
-      <Label>_Anim_WriteStaticItemSpritesWithAttributes</Label>
+      <Label>Anim_WriteStaticItemSpritesWithAttributes</Label>
       <Comment> A: sprite attributes&#xD;
  X: cycle sprite index / object index&#xD;
  Y: item slot&#xD;
@@ -7875,7 +7875,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>42039</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_InitFileB</Label>
+      <Label>FormatFileB</Label>
       <Comment> Clear the name (to all spaces).</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -12740,7 +12740,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>94543</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_InitModeB_Sub1</Label>
+      <Label>InitModeB_Sub1</Label>
       <Comment> Transfer the cave BG palette rows.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -18403,7 +18403,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>129650</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_SetObjFlipHorizontalForSpriteDescriptor</Label>
+      <Label>Anim_SetObjHFlipForSpriteDescriptor</Label>
       <Comment> Use the movement frame as the value for horizontal flipping.&#xD;
 &#xD;
  Params:&#xD;
@@ -18465,7 +18465,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>6119</Address>
       <AddressType>SaveRam</AddressType>
-      <Label>_DrawObjectWithAnim</Label>
+      <Label>DrawObjectWithAnim</Label>
       <Comment> Params:&#xD;
  A: frame&#xD;
  X: object index/cycle sprite index&#xD;
@@ -19517,7 +19517,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>94503</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_DrawDynamicElementsBetweenRoomsAndAdvanceSubmode</Label>
+      <Label>DrawSpritesBetweenRoomsAndAdvanceSubmode</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -20566,7 +20566,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>94487</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_InitModeSubroom_Sub0</Label>
+      <Label>InitModeSubroom_Sub0</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -20625,14 +20625,6 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>94333</Address>
-      <AddressType>PrgRom</AddressType>
-      <Label />
-      <Comment> TODO: ?</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
       <Address>94338</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
@@ -20644,7 +20636,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>94340</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: then ?</Comment>
+      <Comment> then clear the sprites that go above all the rest.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -20697,7 +20689,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>1376</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>_LevelKillCounts</Label>
+      <Label>LevelKillCounts</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>128</Length>
@@ -20713,7 +20705,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>863</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>_RoomObjTemplateType</Label>
+      <Label>RoomObjTemplateType</Label>
       <Comment> TODO: Or RoomObjTemplate, or RoomMonsterTemplate,&#xD;
  or RoomTemplateObjType&#xD;
 </Comment>
@@ -21242,7 +21234,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>91825</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_PrepareWriteHorizontalDoorTransferRecords</Label>
+      <Label>PrepareWriteHorizontalDoorTransferRecords</Label>
       <Comment> Params:&#xD;
  [08]: 0 if closed&#xD;
 &#xD;
@@ -21397,7 +21389,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>125661</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_RunCrossRoomTasksAndBeginUpdateMode</Label>
+      <Label>RunCrossRoomTasksAndBeginUpdateMode</Label>
       <Comment> Called in modes 4, 5, 6, 9, $B, $C.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -21580,7 +21572,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>84265</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_DrawLinkBetweenRooms</Label>
+      <Label>DrawLinkBetweenRooms</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -21588,7 +21580,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>125501</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_DrawDynamicElementsBetweenRooms</Label>
+      <Label>DrawSpritesBetweenRooms</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -22417,7 +22409,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>95078</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_InitLinkSpeed</Label>
+      <Label>InitLinkSpeed</Label>
       <Comment> Link gets a quarter speed (QSpeed) of $60 by default (1.5 pixels a frame).</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -22543,7 +22535,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>101</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>_UndergroundEntranceTile</Label>
+      <Label>UndergroundEntranceTile</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -22944,7 +22936,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>125651</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_RunCrossRoomTasksAndBeginUpdateMode_EnterPlayModes</Label>
+      <Label>RunCrossRoomTasksAndBeginUpdateMode_EnterPlayModes</Label>
       <Comment> Called in modes 4, 5, 9, $B, $C.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -22953,7 +22945,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>125643</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_RunCrossRoomTasksAndBeginUpdateMode_PlayModesNoCellar</Label>
+      <Label>RunCrossRoomTasksAndBeginUpdateMode_PlayModesNoCellar</Label>
       <Comment> Called in modes 5, $B, $C.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -27745,7 +27737,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>25123</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_CheckPassiveTileObjects</Label>
+      <Label>CheckPassiveTileObjects</Label>
       <Comment> Returns:&#xD;
  X: 0&#xD;
 &#xD;
@@ -28609,7 +28601,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>85848</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_GoToModeAFromCellar</Label>
+      <Label>GoToModeAFromCellar</Label>
       <Comment> Params:&#xD;
  A: destination room ID&#xD;
 </Comment>
@@ -28904,7 +28896,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>85857</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_EndPrepareMode</Label>
+      <Label>EndPrepareMode</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -29081,7 +29073,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>85853</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_GoToModeAFromCave</Label>
+      <Label>GoToModeAFromCave</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -29758,7 +29750,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>4135</Address>
       <AddressType>SaveRam</AddressType>
-      <Label>_MoveShot</Label>
+      <Label>MoveShot</Label>
       <Comment> Params:&#xD;
  A: direction&#xD;
  X: object index&#xD;
@@ -32427,7 +32419,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>4267</Address>
       <AddressType>SaveRam</AddressType>
-      <Label>_SetBoomerangSpeed</Label>
+      <Label>SetBoomerangSpeed</Label>
       <Comment> Params:&#xD;
  A: q-speed fraction&#xD;
 </Comment>
@@ -33069,7 +33061,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>24578</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_SetUpWhirlwind</Label>
+      <Label>SetUpWhirlwind</Label>
       <Comment> Params:&#xD;
  X: object index&#xD;
 &#xD;
@@ -34338,7 +34330,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>94778</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_CueTransferSubmenuRowUW</Label>
+      <Label>Submenu_CueTransferRowUW</Label>
       <Comment> If menu scroll value is negative, then we transferred everything.&#xD;
  So, return.&#xD;
 </Comment>
@@ -34497,7 +34489,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>95615</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_WriteSheetMapRowTransferRecord</Label>
+      <Label>Submenu_WriteSheetMapRowTransferRecord</Label>
       <Comment> The row is $10 tiles and bytes long.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -34566,7 +34558,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>93</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>_CurScanRoomId</Label>
+      <Label>CurScanRoomId</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -34645,7 +34637,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>95752</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_WriteScanningMapRoomMark</Label>
+      <Label>Submenu_WriteScanningMapRoomMark</Label>
       <Comment> Params:&#xD;
  Y: offset from the third element in dynamic transfer buf&#xD;
     to write at (between 1 and $10)&#xD;
@@ -37036,7 +37028,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>87040</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_WriteDoorFaceTileHorizontally</Label>
+      <Label>WriteDoorFaceTileHorizontally</Label>
       <Comment> Params:&#xD;
  [02:03]: address of door tiles for direction and face&#xD;
  [04]: count of tiles remaining&#xD;
@@ -37598,7 +37590,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>6100</Address>
       <AddressType>SaveRam</AddressType>
-      <Label>_AnimateAndDrawObjectWalking</Label>
+      <Label>AnimateAndDrawObjectWalking</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -38257,7 +38249,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>129548</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_AnimateAndDrawMetaObject</Label>
+      <Label>AnimateAndDrawMetaObject</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -39179,7 +39171,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>69466</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_IsQuestSecretMismatch</Label>
+      <Label>IsQuestSecretMismatch</Label>
       <Comment> Returns:&#xD;
  C: 1 if there is a mismatch between current quest&#xD;
     and quest number for the secret in the room&#xD;
@@ -40236,7 +40228,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>6853</Address>
       <AddressType>SaveRam</AddressType>
-      <Label>_CheckLinkCollisionPreInit</Label>
+      <Label>CheckLinkCollisionPreinit</Label>
       <Comment> If Link is halted or paralyzed, then return no collision.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -40524,7 +40516,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>7190</Address>
       <AddressType>SaveRam</AddressType>
-      <Label>_HandleMonsterWeaponCollision</Label>
+      <Label>HandleMonsterWeaponCollision</Label>
       <Comment> If the monster is invincible to this damage type, then&#xD;
  go play parry sound if needed, and return.&#xD;
 </Comment>
@@ -40759,7 +40751,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>7627</Address>
       <AddressType>SaveRam</AddressType>
-      <Label>_CheckMonsterSlenderWeaponCollision</Label>
+      <Label>CheckMonsterSlenderWeaponCollision</Label>
       <Comment> Params:&#xD;
  A: damage points&#xD;
  X: monster object slot&#xD;
@@ -40815,7 +40807,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>7633</Address>
       <AddressType>SaveRam</AddressType>
-      <Label>_CheckMonsterSlenderWeaponCollision2</Label>
+      <Label>CheckMonsterSlenderWeaponCollision2</Label>
       <Comment> Params:&#xD;
  X: monster object slot&#xD;
  [00]: weapon object slot&#xD;
@@ -40914,7 +40906,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>7594</Address>
       <AddressType>SaveRam</AddressType>
-      <Label>_ParryOrShove</Label>
+      <Label>ParryOrShove</Label>
       <Comment> For any weapon type:&#xD;
 &#xD;
  If the monster is a darknut and both are facing opposite directions,&#xD;
@@ -41082,7 +41074,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>7484</Address>
       <AddressType>SaveRam</AddressType>
-      <Label>_CheckMonsterStabbingCollision</Label>
+      <Label>CheckMonsterStabbingCollision</Label>
       <Comment> Params:&#xD;
  A: damage points&#xD;
  X: monster slot&#xD;
@@ -44739,10 +44731,8 @@ For example:&#xD;
     <CodeLabel>
       <Address>71578</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_CheckBossDeathReaction</Label>
-      <Comment> TODO: was _InhibitCommonHitReaction,&#xD;
-  but should it still be something else?&#xD;
-</Comment>
+      <Label>CheckBossHitReaction</Label>
+      <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -44773,7 +44763,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>71727</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_ShootFireball55</Label>
+      <Label>ShootFireball55</Label>
       <Comment> Params:&#xD;
  X: object index&#xD;
 </Comment>
@@ -45047,7 +45037,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>6575</Address>
       <AddressType>SaveRam</AddressType>
-      <Label>_Anim_EndWriteSprite</Label>
+      <Label>Anim_EndWriteSprite</Label>
       <Comment> Params:&#xD;
  A: Y coordinate&#xD;
  Y: sprite record offset&#xD;
@@ -48205,7 +48195,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>71184</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_L_Digdogger_Move</Label>
+      <Label>L_Digdogger_Move</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -48426,7 +48416,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>71256</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_L_DrawAsLittleDigdogger</Label>
+      <Label>L_Digdogger_DrawAsLittle</Label>
       <Comment> Save the original coordinates.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -48571,7 +48561,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>71047</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_L_Digdogger_AfterFlute</Label>
+      <Label>L_Digdogger_AfterFlute</Label>
       <Comment> Params:&#xD;
  Y: flute state&#xD;
 &#xD;
@@ -49047,7 +49037,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>6148</Address>
       <AddressType>SaveRam</AddressType>
-      <Label>_DrawObjectWithAnimAndSpecificSprites</Label>
+      <Label>DrawObjectWithAnimAndSpecificSprites</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -50818,7 +50808,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>73488</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_AlignAndSetRedWizzrobeY</Label>
+      <Label>RedWizzrobe_AlignAndSetY</Label>
       <Comment> Params:&#xD;
  A: Y coordinate, square ($10) aligned&#xD;
 </Comment>
@@ -51005,7 +50995,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>73518</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_GetWizzrobeCollidableTileForDir</Label>
+      <Label>Wizzrobe_GetCollidableTileForDir</Label>
       <Comment> Params:&#xD;
  X: object index&#xD;
  Y: 8-way direction&#xD;
@@ -51071,7 +51061,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>73547</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_GetWizzrobeBaseCollidableTile</Label>
+      <Label>Wizzrobe_GetBaseCollidableTile</Label>
       <Comment> Params:&#xD;
  X: object index&#xD;
 &#xD;
@@ -51102,7 +51092,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>73516</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_GetWizzrobeCollidableTile</Label>
+      <Label>Wizzrobe_GetCollidableTile</Label>
       <Comment> Params:&#xD;
  X: object index&#xD;
 &#xD;
@@ -51213,7 +51203,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>73474</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_BlueWizzrobe_AlignWithNearestSquare</Label>
+      <Label>BlueWizzrobe_AlignWithNearestSquare</Label>
       <Comment> If in the left half of a square, jump to the left edge.&#xD;
  Else jump to the next square.&#xD;
 </Comment>
@@ -51441,7 +51431,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>73307</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_L_BlueWizzrobe_TurnTowardLinkIfNeeded</Label>
+      <Label>L_BlueWizzrobe_TurnTowardLinkIfNeeded</Label>
       <Comment> Description:&#xD;
  When the counter is a multiple of $40, switch between facing&#xD;
  toward Link horizontally or vertically. All other times, return.&#xD;
@@ -51647,7 +51637,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>77493</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_DrawGanon</Label>
+      <Label>Ganon_DrawBody</Label>
       <Comment> Loop over four 16x16 images that make up Ganon.&#xD;
  There are 6 animation frames.&#xD;
 </Comment>
@@ -51853,7 +51843,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>7318</Address>
       <AddressType>SaveRam</AddressType>
-      <Label>_ResetShoveInfoAndInvincibilityTimer</Label>
+      <Label>ResetShoveInfoAndInvincibilityTimer</Label>
       <Comment> Params:&#xD;
  A: 0&#xD;
 </Comment>
@@ -51873,7 +51863,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>77619</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_L_Ganon_CheckArrowCollision</Label>
+      <Label>L12F33_CheckArrowCollision</Label>
       <Comment> If the silver arrow is not in the inventory, then return.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -51944,7 +51934,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>77685</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_AppendGanonPaletteRowTransferRecord_Triforce</Label>
+      <Label>Ganon_AppendPaletteRowTransferRecord_Triforce</Label>
       <Comment> Yellow and red colors at AF6A.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -51952,7 +51942,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>77677</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_AppendGanonPaletteRowTransferRecord_Brown</Label>
+      <Label>Ganon_AppendPaletteRowTransferRecord_Brown</Label>
       <Comment> Brown and white colors at AF64.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -51960,7 +51950,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>77681</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_AppendGanonPaletteRowTransferRecord_Blue</Label>
+      <Label>Ganon_AppendPaletteRowTransferRecord_Blue</Label>
       <Comment> Red and blue colors at AF67.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -52028,7 +52018,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>77727</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_DrawGanonAshes</Label>
+      <Label>Ganon_DrawAshes</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -52089,7 +52079,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>77291</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_L_Ganon_DrawBurst</Label>
+      <Label>Ganon_DrawBurst</Label>
       <Comment> If cloud distance &lt;&gt; 0, then decrement it once every 8 frames.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -52548,7 +52538,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>77020</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L12CDC_DrawGanonFrame0</Label>
+      <Label>Ganon_DrawBodyFrame0</Label>
       <Comment> When holding the Triforce of Courage, only draw Ganon&#xD;
  with animation frame 0.&#xD;
 </Comment>
@@ -54427,7 +54417,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>76575</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L12B1F_SerVertical</Label>
+      <Label>L12B1F_SetVertical</Label>
       <Comment> Load the vertical direction toward Link in order to test it for&#xD;
  room boundary and tile collision.&#xD;
 </Comment>
@@ -56392,7 +56382,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>127537</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_Link_EndMoveAndDraw</Label>
+      <Label>Link_EndMoveAndDraw</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -56400,7 +56390,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>127515</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_Link_EndMoveAndDraw_Bank1</Label>
+      <Label>Link_EndMoveAndDraw_Bank1</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -56408,7 +56398,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>127529</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_Link_EndMoveAndDraw_Bank4</Label>
+      <Label>Link_EndMoveAndDraw_Bank4</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -58729,7 +58719,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>94587</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_L_DisableSprite0Check</Label>
+      <Label>L1717B_DisableSprite0Check</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -62855,7 +62845,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>71146</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_L_Digdogger_TurnTowardLink</Label>
+      <Label>L_Digdogger_TurnTowardLink</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -62863,7 +62853,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>71164</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_L_Digdogger_Turn</Label>
+      <Label>L_Digdogger_Turn</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -63679,7 +63669,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>77129</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_L_DrawGanon</Label>
+      <Label>L_Ganon_DrawBody</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>

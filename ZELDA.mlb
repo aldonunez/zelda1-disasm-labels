@@ -27,7 +27,7 @@ R:0059:EmptyMonsterSlot
 R:005A:UndergroundExitType: 0: not at an underground exit\n 1: cave (OW), cellar (UW)\n 2: dungeon level
 R:005B:TargetMode
 R:005C:SwitchNameTablesReq:TODO: Or call it UseOtherNameTable?
-R:005D:_CurScanRoomId
+R:005D:CurScanRoomId
 R:005E:SubmenuScrollProgress: SubmenuScrollProgress begins at $2B. Each frame it will be\n decremented. It encodes a submenu row index in bits 1 to 7,\n and a flag in bit 0.\n\n When the flag is 1, a full row of black tiles will be transferred\n at the current row. Otherwise, one of various static visual\n elements will be transferred.\n\n For example:\n 1. In the first frame of scrolling, $2B indicates that a full row\n    of black tiles must be transferred to row $15.\n 2. In the second frame ($2A), submenu row will again be\n    $15, but something else will be transferred.\n 3. In the third frame ($29), a full row of black tiles will be\n    transferred to row $14.\n
 R:005F:OddBaseNameTableOverride
 R:0060:ChaseOtherTarget
@@ -35,7 +35,7 @@ R:0061:ChaseTargetX
 R:0062:ChaseTargetY
 R:0063:World_IsFillingHearts
 R:0064:LadderSlot: The object slot that holds the ladder. 0 if unused.
-R:0065:_UndergroundEntranceTile
+R:0065:UndergroundEntranceTile
 R:0066:SongScriptPtrLo
 R:0067:SongScriptPtrHi
 R:0069:EffectCounter
@@ -97,7 +97,7 @@ R:034C:ActiveMonsterShots
 R:034D:_RoomAllDead
 R:034E:RoomObjCount
 R:034F-035E:ObjType
-R:035F:_RoomObjTemplateType: TODO: Or RoomObjTemplate, or RoomMonsterTemplate,\n or RoomTemplateObjType\n
+R:035F:RoomObjTemplateType: TODO: Or RoomObjTemplate, or RoomMonsterTemplate,\n or RoomTemplateObjType\n
 R:0380:_ObjMovingLimit
 R:0394-03A7:ObjGridOffset: Used in movement like walking.\n When grid offset = 0, an object is at an intersection point in the tile grid.\n Otherwise, the object is between points along a line.\n
 R:03A8-03BB:_ObjPosFrac
@@ -190,7 +190,7 @@ R:052D:RoomTileObjY
 R:052E:SwordBlocked
 R:052F:MazeStep
 R:0530-055F:PlayAreaAttrs
-R:0560-05DF:_LevelKillCounts
+R:0560-05DF:LevelKillCounts
 R:05F0:CurNoteLowPeriodTrg
 R:05F2:SampleCounter
 R:05F3:SeaSfxCounter
@@ -766,7 +766,7 @@ P:4DB0:: This block is done. Increment the block index.\n
 P:4DB4-56B3:DemoSpritePatterns
 P:56B4-5ED3:DemoBackgroundPatterns
 P:6000:InitWhirlwind: Params:\n A: Y coordinate\n X: object index\n
-P:6002:_SetUpWhirlwind: Params:\n X: object index\n\n\n Set the whirlwind's Y to Link's, X to 0, and type $2E.\n
+P:6002:SetUpWhirlwind: Params:\n X: object index\n\n\n Set the whirlwind's Y to Link's, X to 0, and type $2E.\n
 P:6010-6017:WhirlwindPrevRoomIdList
 P:6018:UpdateWhirlwind_Full: Get Link's halted state.\n
 P:601D:: Add 2 to whirlwind X.\n
@@ -850,7 +850,7 @@ P:61F2:L61F2_ReplaceColors
 P:61FC:: Switch back to the current object slot.\n
 P:621B-621E:LinkToSquareOffsetsX
 P:621F-6222:LinkToSquareOffsetsY
-P:6223:_CheckPassiveTileObjects: Returns:\n X: 0\n\n\n If grid offset <> 0 or input direction = 0, return.\n
+P:6223:CheckPassiveTileObjects: Returns:\n X: 0\n\n\n If grid offset <> 0 or input direction = 0, return.\n
 P:622D:: Compare the collided tile with tiles $BC to $C3.\n These are tiles for gravestone and armos squares.\n
 P:622F:: [02] holds the collided tile.
 P:6236:L6236_NextTile
@@ -1535,7 +1535,7 @@ P:A41F:: Add DeathCount byte to [$CF:CE].
 P:A424:: TODO: Add byte at [[$CA:CB]] to [$CF:CE].
 P:A429:: Add byte QuestNumber to [$CF:CE].
 P:A42B:AddAToCFCE
-P:A437:_InitFileB: Clear the name (to all spaces).
+P:A437:FormatFileB: Clear the name (to all spaces).
 P:A43B:LA43B_ClearName
 P:A440:: Clear $28 bytes of the Items block in file.
 P:A444:LA444_ClearItems
@@ -2593,7 +2593,7 @@ P:10F3F:_CheckTileObjCollisionWithWeapon: Params:\n X: object index\n Y: weapon 
 P:10F4F:: Put the tile object's midpoint coordinates in [02] and [03].\n
 P:10F52:: 10 pixel collision threshold
 P:10F57-10F59:SecretQuestNumbers
-P:10F5A:_IsQuestSecretMismatch: Returns:\n C: 1 if there is a mismatch between current quest\n    and quest number for the secret in the room\n\n\n The quest secret is in the high two bits.\n
+P:10F5A:IsQuestSecretMismatch: Returns:\n C: 1 if there is a mismatch between current quest\n    and quest number for the secret in the room\n\n\n The quest secret is in the high two bits.\n
 P:10F63:: If it's 0, then return C=0.\n
 P:10F65:: Look up a quest number (0 or 1) indexed by quest secret (0 or 1).\n
 P:10F69:: If the save slot's quest number matches the room's\n secret quest number, then return C=0.\n
@@ -2850,7 +2850,7 @@ P:11575:L11575
 P:11579:: Set 8 turns for the next flying state.
 P:1157F-11582:DigdoggerCornerOffsetsX
 P:11583-11586:DigdoggerCornerOffsetsY
-P:11587:_L_Digdogger_AfterFlute: Params:\n Y: flute state\n\n If flute state = 2, go switch between big and little appearance.\n
+P:11587:L_Digdogger_AfterFlute: Params:\n Y: flute state\n\n If flute state = 2, go switch between big and little appearance.\n
 P:1158A:: Flute state = 1.\n\n If this is a child digdogger, then go turn and move as usual.\n
 P:1158F:: Set object timer to $40, and increase flute state to 2.\n Then go check collisions as a big digdogger.\n
 P:11599:L11599_SplitUp: If the timer = 0, then skip the block below, and go split up.\n
@@ -2869,12 +2869,12 @@ P:115D9:: Bottom of the loop.\n Decrement [00] until 0.\n
 P:115DD:: Restore the current object index in X register.
 P:115E2:: Destroy the big digdogger by resetting the object type.\n
 P:115E7:: Don't let the digdogger disappear until the next frame when\n the children can draw themselves. Go draw the big digdogger\n as a little one.\n\n This will work, even though the object type was reset. No\n other object data has not been touched. Also, the code block\n we'll jump to temporarily sets the object type.\n
-P:115EA:_L_Digdogger_TurnTowardLink
+P:115EA:L_Digdogger_TurnTowardLink
 P:115F0:UpdateDigdogger: If we have the magic clock, or the monster is stunned,\n then go check room boundaries and object collisions, and draw.\n
 P:115F7:: If the flute was used, then go start splitting up,\n or handling a child digdogger.\n
-P:115FC:_L_Digdogger_Turn
+P:115FC:L_Digdogger_Turn
 P:115FF:: If the object timer has expired, then set it to $10,\n and randomly choose to turn toward Link or randomly.\n
-P:11610:_L_Digdogger_Move
+P:11610:L_Digdogger_Move
 P:11613:L_Digdogger_DrawAndCheckCollisions: If this is a child, then finish updating this little digdogger.\n
 P:11621:L11621_CheckBigDigdoggerCollisions: Save the original coordinates.\n
 P:11627:: TODO:\n Reset [0478][X].\n
@@ -2883,7 +2883,7 @@ P:1162F:: Change the coordinates to one corner.\n
 P:1163F:: Check the room boundary and object collisions in this temporary location.\n
 P:11645:: Increase the loop index, and loop again until it = 4.\n
 P:1164F:: Restore the original coordinates.\n
-P:11658:_L_DrawAsLittleDigdogger: Save the original coordinates.\n
+P:11658:L_Digdogger_DrawAsLittle: Save the original coordinates.\n
 P:1165E:: Add 8 to Y and X.\n
 P:1166A:: Save the child flag and object type.\n
 P:11672:: Change object type to $18 (Little Digdogger),\n and child flag to 1, in order to draw as a little digdogger.\n
@@ -2931,7 +2931,7 @@ P:11777:: Bottom of the loop.\n Increment Y register until = 4.\n
 P:1177D:L1177D_DrawLittle: A little digdogger is easy to draw.\n
 P:11786:UpdateAquamentus
 P:11791:L11791
-P:1179A:_CheckBossDeathReaction: TODO: was _InhibitCommonHitReaction,\n  but should it still be something else?\n
+P:1179A:CheckBossHitReaction
 P:117A0-117A1:AquamentusSpeeds
 P:117A2:Aquamentus_Move: The monster uses grid offset to mean distance remaining.\n If there's more distance to cover, then go move.\n
 P:117A7:: Set a random distance to move of 7 or $F pixels.\n
@@ -2955,7 +2955,7 @@ P:1181B:: Every other screen frame, loop again.\n
 P:11820:: Add the displacement for this fireball to its Y coordinate.\n
 P:11828:L11828_NextLoopObject: Bottom of the loop.\n
 P:1182B:: Restore the boss's slot number.\n
-P:1182F:_ShootFireball55: Params:\n X: object index\n
+P:1182F:ShootFireball55: Params:\n X: object index\n
 P:11834:AquamentusTiles
 P:11840-11845:AquamentusSpriteOffsetsY
 P:11846-1184B:AquamentusSpriteOffsetsX
@@ -3204,7 +3204,7 @@ P:11E4A:L11E4A_CheckHorizontal: If facing direction has a horizontal component, 
 P:11E54:L11E54_Move
 P:11E57:L11E57_Exit
 P:11E58:BlueWizzrobe_AdvanceCounterAndTurnTowardLinkIfNeeded: Description:\n Increment the turn counter. Then turn toward Link\n when the turn counter is a multiple of $40.\n\n Increment the turn counter.\n
-P:11E5B:_L_BlueWizzrobe_TurnTowardLinkIfNeeded: Description:\n When the counter is a multiple of $40, switch between facing\n toward Link horizontally or vertically. All other times, return.\n
+P:11E5B:L_BlueWizzrobe_TurnTowardLinkIfNeeded: Description:\n When the counter is a multiple of $40, switch between facing\n toward Link horizontally or vertically. All other times, return.\n
 P:11E62:BlueWizzrobe_TurnTowardLink: If the multiple of $40 is even, then turn horizontally,\n else vertically.\n
 P:11E69:: If the monster's X >= Link's X, then choose left, else right.\n
 P:11E72:L11E72
@@ -3233,20 +3233,20 @@ P:11EF0:: Flip bit 6 of turn counter; so that we change the axis to turn toward.
 P:11EF8:: Reset the timer to note that the monster is teleporting.\n Align with the nearest square.\n
 P:11EFC:BlueWizzrobe_AlignWithNearestSquareAndRandomizeTimer: Set a random timer >= $70.\n
 P:11F00:L11F00
-P:11F02:_BlueWizzrobe_AlignWithNearestSquare: If in the left half of a square, jump to the left edge.\n Else jump to the next square.\n
+P:11F02:BlueWizzrobe_AlignWithNearestSquare: If in the left half of a square, jump to the left edge.\n Else jump to the next square.\n
 P:11F0B:: If in the top half of a square, jump to the top edge.\n Else jump to the next square.\n
-P:11F10:_AlignAndSetRedWizzrobeY: Params:\n A: Y coordinate, square ($10) aligned\n
+P:11F10:RedWizzrobe_AlignAndSetY: Params:\n A: Y coordinate, square ($10) aligned\n
 P:11F18-11F21:WizzrobeCollisionOffsetsX
 P:11F22-11F2B:WizzrobeCollisionOffsetsY
-P:11F2C:_GetWizzrobeCollidableTile: Params:\n X: object index\n\n Returns:\n C: 0 if walkable\n
-P:11F2E:_GetWizzrobeCollidableTileForDir: Params:\n X: object index\n Y: 8-way direction\n\n Returns:\n C: 0 if walkable\n\n Subtract 1 from direction to make an 8-way direction index.\n
+P:11F2C:Wizzrobe_GetCollidableTile: Params:\n X: object index\n\n Returns:\n C: 0 if walkable\n
+P:11F2E:Wizzrobe_GetCollidableTileForDir: Params:\n X: object index\n Y: 8-way direction\n\n Returns:\n C: 0 if walkable\n\n Subtract 1 from direction to make an 8-way direction index.\n
 P:11F2F:: Look up and add the collision offset to the monster's X coordinate.\n
 P:11F31:: Save the original X.
 P:11F38:: Look up and add the collision offset to the monster's Y coordinate.\n
 P:11F3A:: Save the original Y.
 P:11F44:: Restore the original Y.
 P:11F47:: Restore the original X.
-P:11F4B:_GetWizzrobeBaseCollidableTile: Params:\n X: object index\n\n Returns:\n C: 0 if walkable\n
+P:11F4B:Wizzrobe_GetBaseCollidableTile: Params:\n X: object index\n\n Returns:\n C: 0 if walkable\n
 P:11F51:: Return C=0 if walkable.\n
 P:11F54:: Store the last collided tile.\n
 P:11F58:BlueWizzrobe_TryShooting: Once every $20 frames, and when not fading, we'll try to shoot.\n Otherwise, return.\n
@@ -3704,7 +3704,7 @@ P:12AFA:L12AFA_TurnTowardLink: Find the horizontal direction toward Link and sto
 P:12B07:L12B07: Find the vertical direction toward Link and store it in [03].\n
 P:12B14:L12B14: If the horizontal direction toward Link is not allowed, then\n go check the vertical direction.\n
 P:12B1B:: If the horizontal direction toward Link is the same direction\n that Link is facing, then go test it for tile and room boundary collision.\n
-P:12B1F:L12B1F_SerVertical: Load the vertical direction toward Link in order to test it for\n room boundary and tile collision.\n
+P:12B1F:L12B1F_SetVertical: Load the vertical direction toward Link in order to test it for\n room boundary and tile collision.\n
 P:12B21:L12B21: Go test this direction for collisions with tiles or the room boundary.\n
 P:12B24:Lamnola_Move: This code is similar to 04:96EB Digdogger_Move.\n\n Change coordinates by the appropriate speed according to the direction.\n\n Start with a mask of $A1 in [02]:\n - low nibble represents the right direction\n - high nibble is used to set or clear carry as we go along\n
 P:12B28:: If direction has a right component (1), then add offset to X coordinate.\n
@@ -3781,7 +3781,7 @@ P:12CC5:L12CC5
 P:12CC6:Ganon_ScenePhase1: Description:\n Lift up the Triforce of Courage while the room is light.\n\n Lift the Triforce of Courage -- represented with a triforce piece.\n
 P:12CCB:: If Link's timer hasn't expired, then go draw Ganon.\n
 P:12CCF:: Once the timer expires:\n 1. unhalt Link\n 2. clear the item to lift\n 3. play level 9 song\n 4. go to scene phase 2: fighting / not holding triforce\n
-P:12CDC:L12CDC_DrawGanonFrame0: When holding the Triforce of Courage, only draw Ganon\n with animation frame 0.\n
+P:12CDC:Ganon_DrawBodyFrame0: When holding the Triforce of Courage, only draw Ganon\n with animation frame 0.\n
 P:12CE4:Ganon_ScenePhase2: Description:\n Fighting Ganon.\n\n If Ganon is dying, go handle it.\n
 P:12CEF:: Go handle the brown state specially.\n
 P:12CF3:: State = 0: Blue\n\n If timer = 0, then go move around and shoot.\n
@@ -3797,7 +3797,7 @@ P:12D2D-12D2E:GanonStartXs
 P:12D2F:Ganon_UpdateBrownState: Every other frame decrement the state.\n But every frame draw Ganon either translucent or opaque.\n
 P:12D36:: If the state becomes 0, then Ganon is blue again.\n Go switch his palette row to reflect it.\n
 P:12D3E:L12D3E_Draw: When state >= $30, draw Ganon opaque.\n When state goes below, draw him translucent.\n
-P:12D49:_L_DrawGanon
+P:12D49:L_Ganon_DrawBody
 P:12D4C:L12D4C
 P:12D4D:Ganon_Dying: Ganon is dying.\n Increment Ganon phase every frame.\n
 P:12D50:: If it just went from $FF to 0, then keep it at $FF.\n
@@ -3824,7 +3824,7 @@ P:12DD2:: If cloud distance < 6, then use frame image $C (medium).\n Else use fr
 P:12DDB:: Low density cloud frame image (tile $74)
 P:12DDD:L12DDD: No horizontal flipping.
 P:12DE4:: Restore the coordinates.\n
-P:12DEB:_L_Ganon_DrawBurst: If cloud distance <> 0, then decrement it once every 8 frames.\n
+P:12DEB:Ganon_DrawBurst: If cloud distance <> 0, then decrement it once every 8 frames.\n
 P:12DF9:L12DF9_DrawClouds: Draw the four clouds at diagonal corners.\n
 P:12E17:: Draw the top and bottom clouds.\n
 P:12E27:: Draw the left and right clouds.\n
@@ -3845,7 +3845,7 @@ P:12E91-12EA8:GanonFrameImages
 P:12EA9-12EAC:GanonSpriteOffsetsX
 P:12EAD-12EB0:GanonSpriteOffsetsY
 P:12EB1-12EB4:GanonSpriteHFlips
-P:12EB5:_DrawGanon: Loop over four 16x16 images that make up Ganon.\n There are 6 animation frames.\n
+P:12EB5:Ganon_DrawBody: Loop over four 16x16 images that make up Ganon.\n There are 6 animation frames.\n
 P:12EB7:L12EB7_LoopCorner: Add an offset to Ganon's X, and store the result in [00] -- the sprite's X.\n
 P:12EBF:: Add an offset to Ganon's Y, and store the result in [01] -- the sprite's Y.\n
 P:12EC7:: Each part has a horizontal flipping flag.\n
@@ -3864,7 +3864,7 @@ P:12F20:L12F20_CheckHarmed: If Ganon was harmed, then play the sound effect\n an
 P:12F2C:L12F2C_UndoDeath: Reset metastate, because Ganon cannot die this way.\n
 P:12F2F:: Reset shove info and invincibility timer, because Ganon\n doesn't react at all as a usual monster.\n
 P:12F32:L12F32_Exit
-P:12F33:_L_Ganon_CheckArrowCollision: If the silver arrow is not in the inventory, then return.\n
+P:12F33:L12F33_CheckArrowCollision: If the silver arrow is not in the inventory, then return.\n
 P:12F3A:: Reset the collision return value [06].\n
 P:12F3E:: If there's no arrow in flight, then return.\n
 P:12F47:: Check for collision with an arrow; and return if no collision.\n
@@ -3874,9 +3874,9 @@ P:12F51:: Now his body does flash.\n
 P:12F56:: Set initial cloud distance 8.\n
 P:12F5C-12F63:GanonColorTransferRecord
 P:12F64-12F6C:GanonColorSets
-P:12F6D:_AppendGanonPaletteRowTransferRecord_Brown: Brown and white colors at AF64.
-P:12F71:_AppendGanonPaletteRowTransferRecord_Blue: Red and blue colors at AF67.
-P:12F75:_AppendGanonPaletteRowTransferRecord_Triforce: Yellow and red colors at AF6A.
+P:12F6D:Ganon_AppendPaletteRowTransferRecord_Brown: Brown and white colors at AF64.
+P:12F71:Ganon_AppendPaletteRowTransferRecord_Blue: Red and blue colors at AF67.
+P:12F75:Ganon_AppendPaletteRowTransferRecord_Triforce: Yellow and red colors at AF6A.
 P:12F77:L12F77: Save the end index of the colors.
 P:12F79:: Get the length, to append to the dynamic transfer buf.\n
 P:12F7C:: Copy the 8 bytes of the palette row transfer record template.\n
@@ -3884,7 +3884,7 @@ P:12F7E:L12F7E_CopyBytes
 P:12F8D:: Restore the end index of the colors.
 P:12F8F:: Overwrite the last 3 colors in the record, with the ones\n ending at the index passed in.\n
 P:12F91:L12F91_OverwriteColors
-P:12F9F:_DrawGanonAshes
+P:12F9F:Ganon_DrawAshes
 P:12FA7:Ganon_ActivateRoomItem: If the room item was already active or taken, then return.\n
 P:12FB0:: Activate the room item, by setting its state to 0.\n
 P:12FB4:: Play "item appears" tune.\n
@@ -4471,7 +4471,7 @@ P:148F9:L148F9
 P:14903:L14903_StoreObjTemplate: Remember the object template type.\n
 P:14909:L14909_SkipObjects
 P:14913:L14913
-P:14929:_DrawLinkBetweenRooms
+P:14929:DrawLinkBetweenRooms
 P:1492C:: If mode is not $B nor $C (caves),
 P:14939:L14939
 P:1493B:: If coming out of a cave or dungeon, then ...
@@ -4785,9 +4785,9 @@ P:14F42:L14F42: Look for the current room in the cellar/shortcut room array.\n
 P:14F48:L14F48
 P:14F4E:: Add the value of the shortcut chosen to whatever index\n the current room has in the array.\n\n This yields the index of one of the three shortcut rooms\n after the current one.\n
 P:14F52:: Wrap around if needed. Go to that room by way of mode $A.\n
-P:14F58:_GoToModeAFromCellar: Params:\n A: destination room ID\n
-P:14F5D:_GoToModeAFromCave
-P:14F61:_EndPrepareMode
+P:14F58:GoToModeAFromCellar: Params:\n A: destination room ID\n
+P:14F5D:GoToModeAFromCave
+P:14F61:EndPrepareMode
 P:14F72:L14F72_Exit
 P:14F73:L14F73_CheckCaveEdge
 P:14F76:: If the player touched the edge of the screen and triggered\n a transition to another mode, then go set up the right mode.\n
@@ -4956,7 +4956,7 @@ P:1533D:: Shift the sound effect index to the low end of the byte.
 P:15345:: If the room has no boss sound effect, go turn off any that might be playing.
 P:15347:: Add the flag to repeat
 P:1534D:L1534D: Silence sample and tune1.
-P:15400:_WriteDoorFaceTileHorizontally: Params:\n [02:03]: address of door tiles for direction and face\n [04]: count of tiles remaining\n [07]: current index (0 to 3) of the tile to copy\n       to the dynamic transfer buf\n [09]: door direction index\n\n Returns:\n Z: 1 if wrote the last tile / [04] became 0\n [04]: original value - 1\n [07]: original value + 1\n\n The door face tile list at [02:03] has pairs of tiles arranged\n vertically. The point of this routine is to access them\n horizontally in order to transfer them to a nametable.\n\n\n For the direction index in [09], look up the base offset of the\n set of 4 indexes in HorizontalDoorFaceIndexes that point to\n the door face tiles at [02:03].\n
+P:15400:WriteDoorFaceTileHorizontally: Params:\n [02:03]: address of door tiles for direction and face\n [04]: count of tiles remaining\n [07]: current index (0 to 3) of the tile to copy\n       to the dynamic transfer buf\n [09]: door direction index\n\n Returns:\n Z: 1 if wrote the last tile / [04] became 0\n [04]: original value - 1\n [07]: original value + 1\n\n The door face tile list at [02:03] has pairs of tiles arranged\n vertically. The point of this routine is to access them\n horizontally in order to transfer them to a nametable.\n\n\n For the direction index in [09], look up the base offset of the\n set of 4 indexes in HorizontalDoorFaceIndexes that point to\n the door face tiles at [02:03].\n
 P:15405:: Add [07] to the base offset we got above. This yields one\n of four consecutive indexes into HorizontalDoorFaceIndexes.\n
 P:15406:: Current index of a tile, abstractly (0 to 3)
 P:15409:: With that index, look up the index to use with the door face\n list of tiles at [02:03].\n
@@ -5159,7 +5159,7 @@ P:16699:: Get the next room's ID.\n
 P:1669F:: Flip the door direction index.\n
 P:166A3:: Set the door flag for the opposite door in the next room.\n
 P:166AA:L166AA: Add the door to the opened door mask, reset door command,\n and lay out doors.\n
-P:166B1:_PrepareWriteHorizontalDoorTransferRecords: Params:\n [08]: 0 if closed\n\n Returns:\n X: current length of dynamic transfer buf\n [00]: door VRAM address high byte\n [01]: door VRAM address low byte\n [02:03]: address of door tiles for direction and face\n [05]: 2, the number of transfer records to write\n [06]: 2, the number of tiles in each record\n [07]: 0, the first index of a tile to transfer\n [09]: door direction index\n\n Note that this routine is called with triggered doors:\n doors that can change state. Their door type numbers are >= 4.\n\n If this routine were ever called with a fixed door\n ("open", "wall", or "false"), then it would produce non-sensical\n values for the door face.\n\n\n If triggered door type >= 5 (keys and shutter), play door sound.\n
+P:166B1:PrepareWriteHorizontalDoorTransferRecords: Params:\n [08]: 0 if closed\n\n Returns:\n X: current length of dynamic transfer buf\n [00]: door VRAM address high byte\n [01]: door VRAM address low byte\n [02:03]: address of door tiles for direction and face\n [05]: 2, the number of transfer records to write\n [06]: 2, the number of tiles in each record\n [07]: 0, the first index of a tile to transfer\n [09]: door direction index\n\n Note that this routine is called with triggered doors:\n doors that can change state. Their door type numbers are >= 4.\n\n If this routine were ever called with a fixed door\n ("open", "wall", or "false"), then it would produce non-sensical\n values for the door face.\n\n\n If triggered door type >= 5 (keys and shutter), play door sound.\n
 P:166BD:: Door sound
 P:166C3:L166C3: Calculate the door face index in three parts.\n\n First, turn door type 4 into 8, and 1 into 4\n (provisional face index in Y register).\n
 P:166C9:L166C9
@@ -5449,9 +5449,8 @@ P:17068:L17068
 P:1706A:L1706A
 P:17077-17079:LeavingRoomRelativePositions
 P:1707A:InitMode6
-P:1707D:: TODO: ?
 P:17082:: If in UW,
-P:17084:: TODO: then ?
+P:17084:: then clear the sprites that go above all the rest.
 P:17087:L17087
 P:17091:: TODO: get door attribute in direction we're facing
 P:17094:: If the door attribute is "false wall",\n then play the "found secret" tune.
@@ -5471,8 +5470,8 @@ P:170E1:CopyPlayAreaAttrsHalfToDynTransferBuf: Params:\n X: high PPU address\n A
 P:170F1:L170F1
 P:170FC:InitModeA
 P:17101-17116:InitModeA_JumpTable
-P:17117:_InitModeSubroom_Sub0
-P:17127:_DrawDynamicElementsBetweenRoomsAndAdvanceSubmode
+P:17117:InitModeSubroom_Sub0
+P:17127:DrawSpritesBetweenRoomsAndAdvanceSubmode
 P:1712C:InitMode9_TransferAttrs: Cellar NT attributes
 P:1712E:L1712E_SelectTransferBufAndAdvanceSubmode
 P:17130:InitModeSubroom_AdvanceSubmode
@@ -5482,7 +5481,7 @@ P:1713C:InitModeSubroom_AnimateFade
 P:17143:InitMode9_FadeToLight: Dark cellar -> light cellar cycle
 P:17147:InitModeA_Sub2: Light cellar -> dark cellar cycle
 P:1714B:InitModeA_Sub8: Dark cellar -> light level cycle
-P:1714F:_InitModeB_Sub1: Transfer the cave BG palette rows.\n
+P:1714F:InitModeB_Sub1: Transfer the cave BG palette rows.\n
 P:17153:InitModeA_Sub1
 P:17157:: Transfer the OW palette again, because it was changed\n for a cave.\n
 P:1715A:InitModeA_SubA_GoToMode4
@@ -5490,7 +5489,7 @@ P:17166:InitModeA_Sub6_FillTileAttrsAndTransferTopHalf
 P:1716B:InitModeB_Sub5_FillTileAttrsAndTransferTopHalf: An OW room that has the same NT attributes as a cave.
 P:1716D:L1716D
 P:17173:InitModeAOrB_TransferBottomHalfAttrs
-P:1717B:_L_DisableSprite0Check
+P:1717B:L1717B_DisableSprite0Check
 P:17180:InitMode_WalkCave: If reached the end of the walk, then go start updating.\n
 P:17185:: Move and draw facing up.\n
 P:17194:L17194
@@ -5520,7 +5519,7 @@ P:17213:L17213_Exit
 P:17214:L17214_IncHearts
 P:17218-17224:SubmenuTransferBufSelectorsUW
 P:17225-17239:SubmenuTransferBufSelectorsOW
-P:1723A:_CueTransferSubmenuRowUW: If menu scroll value is negative, then we transferred everything.\n So, return.\n
+P:1723A:Submenu_CueTransferRowUW: If menu scroll value is negative, then we transferred everything.\n So, return.\n
 P:1723E:: Shift right. The value in A is now (menu scroll value) / 2,\n and represents the current row of the submenu being processed.\n The bottom bit tells us (1) whether to transfer a full row of\n black tiles, or (0) a row of the map or other piece of the GUI.\n\n If the bottom bit is set, go prepare the full black row.\n
 P:17242:: Submenu rows $D to $15 are parts of the map.\n Submenu rows 0 to $C are fixed text and boxes.\n\n If submenu row < $D, cue a transfer of the static transfer\n buffer for this row.\n
 P:17249:L17249_SelectTransferBuf
@@ -5536,7 +5535,7 @@ P:1726D:: Low PPU address
 P:17272:: Repeating 1 byte $20 times
 P:17277:: Blank tile
 P:1727C:: End marker
-P:17282:_CueTransferSubmenuRowOW:\n\n If menu scroll value is negative, then we transferred everything.\n So, return.\n
+P:17282:Submenu_CueTransferRowOW:\n\n If menu scroll value is negative, then we transferred everything.\n So, return.\n
 P:17286:: Shift right. The value in A is now (menu scroll value) / 2,\n and represents the current row of the submenu being processed.\n The bottom bit tells us (1) whether to transfer a full row of\n black tiles, or (0) a row of the triforce or other piece of the GUI.\n\n If the bottom bit is set, go prepare the full black row.\n
 P:1728A:: There's nothing to do for row $15.\n If submenu row < $15, cue a transfer of a triforce or other\n transfer buffer for this row.\n
 P:17291:L17291_SelectTransferBufAndDecCounter
@@ -5584,7 +5583,7 @@ P:17356:: Save input directions.
 P:17357:: Mask input directions with the mask for the object's direction's axis.
 P:1735C:: Restore input directions.
 P:1735F:L1735F_SetLinkDirAndSpeed: Set object and input direction to value in A.\n Set Link_GoStraightWhenDiagInput to value X.\n
-P:17366:_InitLinkSpeed: Link gets a quarter speed (QSpeed) of $60 by default (1.5 pixels a frame).
+P:17366:InitLinkSpeed: Link gets a quarter speed (QSpeed) of $60 by default (1.5 pixels a frame).
 P:1736C:: If in UW, go use this speed.
 P:1736E:: In OW. If standing on mountain stairs, then\n use a lower quarter speed of $30.
 P:17379:L17379
@@ -5683,7 +5682,7 @@ P:1756D:: Go check the next direction.
 P:17570:L17570
 P:17573:: Adding offset and room ID yields next room ID.
 P:17577-1757E:MapRowMasks
-P:1757F:_WriteSheetMapRowTransferRecord: The row is $10 tiles and bytes long.
+P:1757F:Submenu_WriteSheetMapRowTransferRecord: The row is $10 tiles and bytes long.
 P:17581:: Get the submenu row by dividing (current menu scrolling value) by 2.\n
 P:17585:: Write an end marker at the end of the row data.\n
 P:1758A:: We'll transfer $10 bytes.
@@ -5710,7 +5709,7 @@ P:175FC:: then check the level 9 variables.
 P:175FE:L175FE: Sanitize the zero-based level number.
 P:17604:: Return the item value for the current level.
 P:17607:L17607_Exit
-P:17608:_WriteScanningMapRoomMark: Params:\n Y: offset from the third element in dynamic transfer buf\n    to write at (between 1 and $10)\n\n\n Save dynamic transfer buf offset.
+P:17608:Submenu_WriteScanningMapRoomMark: Params:\n Y: offset from the third element in dynamic transfer buf\n    to write at (between 1 and $10)\n\n\n Save dynamic transfer buf offset.
 P:1760A:: Call this to load the address of level block world flags.
 P:1760D:: Save current room ID.
 P:17610:: Temporarily set current room ID to the room ID we're scanning,\n in order to look up its information.\n
@@ -6212,7 +6211,7 @@ P:1EA2B:PatchAndCueLevelPalettesTransferAndAdvanceSubmode
 P:1EA30:: Get the color at byte 1 of row 4, 5, or 6 of menu palettes,\n according to save slot. This holds Link's color in that\n save slot.
 P:1EA33:: Put the value in byte 1 of row 4 of level palettes that will\n be transferred.
 P:1EA36:: Cue transfer of level palettes.
-P:1EA3D:_DrawDynamicElementsBetweenRooms
+P:1EA3D:DrawSpritesBetweenRooms
 P:1EA51:ResetPlayerState
 P:1EA59-1EA61:SpecialBossPaletteTransferBufSelectors
 P:1EA62-1EA6A:SpecialBossPaletteObjTypes
@@ -6238,9 +6237,9 @@ P:1EABA:: Go cue this transfer buf.
 P:1EABC:L1EABC_UseLevelPalette: Patch and cue palette row 7 transfer buf (6) with row 7\n of level palette.\n
 P:1EABE:L1EABE_PatchColors
 P:1EAC9:L1EAC9_SelectTransferBufAndFinishInitPlay
-P:1EACB:_RunCrossRoomTasksAndBeginUpdateMode_PlayModesNoCellar: Called in modes 5, $B, $C.\n
-P:1EAD3:_RunCrossRoomTasksAndBeginUpdateMode_EnterPlayModes: Called in modes 4, 5, 9, $B, $C.\n
-P:1EADD:_RunCrossRoomTasksAndBeginUpdateMode: Called in modes 4, 5, 6, 9, $B, $C.\n
+P:1EACB:RunCrossRoomTasksAndBeginUpdateMode_PlayModesNoCellar: Called in modes 5, $B, $C.\n
+P:1EAD3:RunCrossRoomTasksAndBeginUpdateMode_EnterPlayModes: Called in modes 4, 5, 9, $B, $C.\n
+P:1EADD:RunCrossRoomTasksAndBeginUpdateMode: Called in modes 4, 5, 6, 9, $B, $C.\n
 P:1EAE5:: Look for the current room in room history.\n
 P:1EAEB:L1EAEB_LoopHistory
 P:1EAF1:L1EAF1
@@ -6538,11 +6537,11 @@ P:1F205-1F208:LinkHeadTiles
 P:1F209-1F20C:LinkHeadMagicShieldTiles
 P:1F20D-1F212:LadderRoomsOW
 P:1F213:Link_EndMoveAndAnimate_Bank4
-P:1F21B:_Link_EndMoveAndDraw_Bank1
+P:1F21B:Link_EndMoveAndDraw_Bank1
 P:1F21E:L1F21E
 P:1F223:Link_EndMoveAndAnimate_Bank1
-P:1F229:_Link_EndMoveAndDraw_Bank4
-P:1F231:_Link_EndMoveAndDraw
+P:1F229:Link_EndMoveAndDraw_Bank4
+P:1F231:Link_EndMoveAndDraw
 P:1F238:Link_EndMoveAndAnimateBetweenRooms
 P:1F23A:: If in UW, then return.
 P:1F23C:Link_EndMoveAndAnimate: Switches bank: 5\n\n If teleporting by whirlwind, then return.\n
@@ -6861,7 +6860,7 @@ P:1F9FB:: Set [00] to cloud position (object X + X offset).\n
 P:1FA03:: Draw the cloud at this position.\n
 P:1FA06:: Restore cloud index.
 P:1FA08:: Loop while >= 0.\n
-P:1FA0C:_AnimateAndDrawMetaObject
+P:1FA0C:AnimateAndDrawMetaObject
 P:1FA0F:: If the metastate >= $10, go animate and draw the death sparkle.\n
 P:1FA16:: Animate and draw the spawning cloud.\n
 P:1FA1B:L1FA1B_CheckMetaObjTimer: If the object's timer has expire, then go to the next metastate\n and last 6 frames.\n
@@ -6876,14 +6875,14 @@ P:1FA3E:: If Link isn't idle, go animate object.
 P:1FA44:: If in mode 4, go animate object.
 P:1FA48:: If in mode $10, go animate object.
 P:1FA4D:: If there was no direction input button, skip animating Link.
-P:1FA4F:_AnimateObjectWalking: Params:\n X: object index\n\n Returns:\n Y: animation frame\n [00]: object X\n [01]: object Y\n [0F]: flip horizontal\n\n As the object walks, the animation counter rolls down.\n
+P:1FA4F:AnimateObjectWalking: Params:\n X: object index\n\n Returns:\n Y: animation frame\n [00]: object X\n [01]: object Y\n [0F]: flip horizontal\n\n As the object walks, the animation counter rolls down.\n
 P:1FA54:: Once the counter reaches 0, and if object is the player,\n animate Link's object state.\n
 P:1FA5B:L1FA5B: Roll over the counter (6 frames).\n
 P:1FA62:SetUpWalkingSprites: Set up sprite position in the descriptors.\n
 P:1FA65:: Set up horizontal flipping.\n
 P:1FA6B:: Facing up or down.\n\n\n Assume animation frame 3 (up).
 P:1FA71:: If down, then use animation frame 2 (down).
-P:1FA72:_SetObjFlipHorizontalForSpriteDescriptor: Use the movement frame as the value for horizontal flipping.\n\n Params:\n X: object index\n\n Returns:\n [0F]: flip horizontal, based on ObjMovementFrame\n
+P:1FA72:Anim_SetObjHFlipForSpriteDescriptor: Use the movement frame as the value for horizontal flipping.\n\n Params:\n X: object index\n\n Returns:\n [0F]: flip horizontal, based on ObjMovementFrame\n
 P:1FA78:SetUpHorizontalWalkingSprites: Facing left or right.\n\n\n Assume animation frame 0 (legs apart).
 P:1FA7F:: If walking frame 1, then animation frame 1 (legs together).
 P:1FA80:L1FA80
@@ -7201,7 +7200,7 @@ S:1013:GetOppositeDir: Params:\n A: direction\n\n Returns:\n A: opposite directi
 S:1015:L6885_Loop
 S:101F:Abs: Params:\n A: value\n\n Returns:\n A: absolute value\n
 S:1021:Negate: Params:\n A: value\n\n Returns:\n A: result\n
-S:1027:_MoveShot: Params:\n A: direction\n X: object index\n [0E]: 0 to change grid offset, else leave it as is\n\n Returns:\n [0E]: $80 if blocked\n [0F]: moving direction, or 0 if boundary was crossed\n\n\n If a boundary was crossed, go set [0E] to $80 instead of moving.\n
+S:1027:MoveShot: Params:\n A: direction\n X: object index\n [0E]: 0 to change grid offset, else leave it as is\n\n Returns:\n [0E]: $80 if blocked\n [0F]: moving direction, or 0 if boundary was crossed\n\n\n If a boundary was crossed, go set [0E] to $80 instead of moving.\n
 S:102C:: Move the object as if grid offset were 0.\n
 S:1039:: If [0E] is set, keep the original value in grid offset,\n or else add the new amount to it.\n\n TODO:\n But I'm not clear about where [0E] was last set.\n At least with a player's shot, [0E] was last written in\n 77E7 DrawObjectWithAnim to draw Link. It was set to\n animation index 0. But is that always the case?\n
 S:1045:L68B5_ReturnBlocked
@@ -7215,7 +7214,7 @@ S:1090:L6900_Turn: TODO: call it speed index or angle?\n Otherwise, go to the ne
 S:1097:: TODO: call it speed index or angle?\n If a speed index (angle) limit (0 or 8), we've gone all the way to an axis\n (0, 90, 180, 270 degrees). So return this speed index (angle).\n
 S:109D:: Subtract the lesser distance from the greater distance.\n If they still haven't crossed, then we can turn more.\n
 S:10A8:L6918_Return: TODO: call it speed index or angle?\n Return the speed index (angle) we found.\n
-S:10AB:_SetBoomerangSpeed: Params:\n A: q-speed fraction\n
+S:10AB:SetBoomerangSpeed: Params:\n A: q-speed fraction\n
 S:10AE:: If in major state $50, use this speed as is.\n
 S:10B6:: Else, in major state $40, go at half the speed.\n
 S:10B9:: Once we've traveled the target amount of time, set state $50 to go faster.\n In major state $40, ObjMovingLimit is a timer to change the state to $50.\n
@@ -7460,20 +7459,20 @@ S:1594-1612:ObjAnimations
 S:1613-16DE:ObjAnimFrameHeap
 S:16DF-17AA:ObjAnimAttrHeap
 S:17AB-17D3:SpriteOffsets
-S:17D4:_AnimateAndDrawObjectWalking
+S:17D4:AnimateAndDrawObjectWalking
 S:17DB:DrawObjectMirrored: Params:\n A: frame image\n X: object index\n [00]: object X\n [01]: object Y\n\n\n Set [0C] mirrored.
 S:17DF:DrawObjectNotMirrored: Params:\n A: frame image\n X: object index\n [00]: object X\n [01]: object Y\n [0F]: flip horizontally\n
 S:17E1:: Set [0C] not mirrored.
 S:17E3:: Set animation index = object type + 1.\n
 S:17E6:DrawObjectWithType: Params:\n A: frame\n X: object index/cycle sprite index\n Y: object type\n [00]: object X\n [01]: object Y\n [0C]: mirrored\n [0F]: flip horizontally\n\n Note:\n If the object is not mirrored, then it's horizontally flippable.\n\n The animation index of most objects is (object type + 1),\n to make up for the fact that Link uses two animation indexes.\n
-S:17E7:_DrawObjectWithAnim: Params:\n A: frame\n X: object index/cycle sprite index\n Y: animation index\n [00]: object X\n [01]: object Y\n [0C]: mirrored\n [0F]: flip horizontally\n\n Note:\n If the object is not mirrored, then it's horizontally flippable.\n But Link uses [0F] for flipping without checking [0C].\n\n\n [0D] holds frame.
+S:17E7:DrawObjectWithAnim: Params:\n A: frame\n X: object index/cycle sprite index\n Y: animation index\n [00]: object X\n [01]: object Y\n [0C]: mirrored\n [0F]: flip horizontally\n\n Note:\n If the object is not mirrored, then it's horizontally flippable.\n But Link uses [0F] for flipping without checking [0C].\n\n\n [0D] holds frame.
 S:17E9:: [0E] holds animation index.
 S:17EB:: [08] holds object index/cycle sprite index
 S:17ED:: Set the left and right sprite record offsets for CurSpriteIndex.\n
 S:17F9:: But if it's Link, then hardcode them to sprites $12 and $13.\n
 S:17FD:: Link's left sprite record offset
 S:1802:: Link's right sprite record offset
-S:1804:_DrawObjectWithAnimAndSpecificSprites
+S:1804:DrawObjectWithAnimAndSpecificSprites
 S:1809:: This object has 2 sides.
 S:180D:: The right side is 8 pixels away from the left.
 S:1815:: Add frame number.
@@ -7510,7 +7509,7 @@ S:18B2:: If there is a right sprite, then go process it.
 S:18B4:: Put the object index in X again.
 S:18B7-18DB:Anim_ItemFrameOffsets: Maps an item slot to the offset of its first frame in ItemFrameTiles heap.
 S:18DC-190B:Anim_ItemFrameTiles
-S:190C:_Anim_WriteStaticItemSpritesWithAttributes: A: sprite attributes\n X: cycle sprite index / object index\n Y: item slot\n [00]: X\n [01]: Y\n
+S:190C:Anim_WriteStaticItemSpritesWithAttributes: A: sprite attributes\n X: cycle sprite index / object index\n Y: item slot\n [00]: X\n [01]: Y\n
 S:1911:: Reset horizontal flipping.
 S:1913:: Reset frame.
 S:1915:Anim_WriteItemSprites: Params:\n X: cycle sprite index / object index\n Y: item slot\n [00]: X\n [01]: Y\n [04]: left sprite attributes\n [05]: right sprite attributes\n [0C]: frame image\n [0F]: flip horizontally\n\n Returns:\n [52]: ProcessedNarrowObj\n\n\n Save the item slot passed in Y.
@@ -7543,7 +7542,7 @@ S:1988:Anim_SetSpriteDescriptorAttributes: Params:\n A: sprite attributes for bo
 S:198D:Anim_WriteLevelPaletteSprite: Params:\n A: tile number\n X: object index\n
 S:1991:Anim_WriteSprite: Params:\n A: tile number\n X: object index\n [03]: sprite attributes\n
 S:19A5:Anim_WriteSpecificSprite: Params:\n A: tile number\n X: object index\n Y: sprite record offset\n [03]: sprite attributes\n
-S:19AF:_Anim_EndWriteSprite: Params:\n A: Y coordinate\n Y: sprite record offset\n [03]: sprite attributes\n
+S:19AF:Anim_EndWriteSprite: Params:\n A: Y coordinate\n Y: sprite record offset\n [03]: sprite attributes\n
 S:19BA:Person_DrawAndCheckCollisions_Common
 S:19BD:: If the person is flagged dead, then\n enable fireballs from the two flames, and reset the metastate.\n
 S:19CA:Person_Draw: Either way, draw the object.\n
@@ -7571,7 +7570,7 @@ S:1A4A-1AA6:ObjTypeToDamagePoints
 S:1AA7:CheckLinkCollision: Params:\n X: monster object index\n\n Returns:\n [00]: 0 for Link slot\n [06]: 1 if objects collide\n [09]: 0 for Link damage type (none)\n [0C]: 1 if objects collide\n [034B]: ShotCollidesWithLink\n\n TODO:\n Returns:\n Y: 0\n
 S:1AAA:: Reset variables to return.\n
 S:1AB9:: If Link is invincible, or we have the magic clock,\n or Link is stunned, or the monster is stunned;\n then return no collision.\n
-S:1AC5:_CheckLinkCollisionPreInit: If Link is halted or paralyzed, then return no collision.\n
+S:1AC5:CheckLinkCollisionPreinit: If Link is halted or paralyzed, then return no collision.\n
 S:1AD0:: If the object is a monster's shot/projectile, and it's not in a\n state that it can do damage; then return no collision.\n
 S:1ADF:: Store Link's midpoint coordinates in [04] and [05].\n
 S:1AED:: If both objects are 9 pixels apart or more, then return no collision.\n
@@ -7609,7 +7608,7 @@ S:1BF8:: ... and the monster is invincible to it,\n then play the parry sound.\n
 S:1C02:: Set the boomerang state to return fast to the thrower.\n
 S:1C07:: If the monster is invincible to the boomerang, then return.\n
 S:1C0E:: Still the boomerang.\n Reset [07] damage points, and set the monster's stun timer to $10 ($A0 frames).\n
-S:1C16:_HandleMonsterWeaponCollision: If the monster is invincible to this damage type, then\n go play parry sound if needed, and return.\n
+S:1C16:HandleMonsterWeaponCollision: If the monster is invincible to this damage type, then\n go play parry sound if needed, and return.\n
 S:1C1D:: If the monster is Blue Gohma or Red Gohma, then\n let it handle the collision.\n
 S:1C2B:L749B_CheckZolVire: If the monster is Zol or Vire, then\n   If not hit by the boomerang, then\n     Set monster's direction to the weapon's\n   Go deal damage\n
 S:1C3F:L74AF_CheckDarknut: If the monster is a red or blue darknut, and it and the weapon\n are facing opposite directions, then only play the parry sound.\n
@@ -7625,7 +7624,7 @@ S:1C76:L74E6_HandleMonsterDied: Handle the monster dying.\n
 S:1C79:: Increase the help drop counter, if not at max ($A).\n
 S:1C81:: If the help drop counter has reached the max, and damage type = bomb (8);\n then set [51] HelpDropValue in order to drop a bomb next time.\n
 S:1C8F:L74FF_SetDyingMetastate: Set the dying metastate, and reset some object info.\n
-S:1C96:_ResetShoveInfoAndInvincibilityTimer: Params:\n A: 0\n
+S:1C96:ResetShoveInfoAndInvincibilityTimer: Params:\n A: 0\n
 S:1C9D:CheckMonsterSwordShotOrMagicShotCollision: Params:\n X: monster slot\n Y: weapon slot\n [02]: monster mid X\n [03]: monster mid Y\n\n Returns:\n [00]: weapon slot\n\n [00] holds the weapon slot
 S:1C9F:: Set magic shot damage type ($10) in [09].\n
 S:1CA3:: If the shot is a sword shot that's spreading out, then return.\n
@@ -7659,7 +7658,7 @@ S:1D2B::Set sword damage type (1) in [09].\n
 S:1D2F:: If the sword is not fully extended, then return.\n
 S:1D36:: Look up and set the damage points for the sword type.\n
 S:1D39:: DASM.EXPR: SwordDamagePoints-1
-S:1D3C:_CheckMonsterStabbingCollision: Params:\n A: damage points\n X: monster slot\n Y: weapon slot\n [02]: monster mid X\n [03]: monster mid Y\n [09]: damage type\n\n Returns:\n [06]: 1 if objects collide\n\n [07] damage points
+S:1D3C:CheckMonsterStabbingCollision: Params:\n A: damage points\n X: monster slot\n Y: weapon slot\n [02]: monster mid X\n [03]: monster mid Y\n [09]: damage type\n\n Returns:\n [06]: 1 if objects collide\n\n [07] damage points
 S:1D3E:: If Link's direction is vertical, then set collision thresholds accordingly:\n [0D] := $C\n [0E] := $10\n
 S:1D4D:L75BD_Horizontal: Else switch it:\n [0D] := $10\n [0E] := $C\n
 S:1D58:: If no collision, then return.\n
@@ -7677,14 +7676,14 @@ S:1D89:: If no collision, return.\n
 S:1D8D:: $12 is the arrow and rod slot. But this routine will only\n be called if it's an arrow.\n\n If the weapon is an arrow and the monster is Pol's Voice;\n then set HP to 0, and deal damage, even if the collision\n checking routine above dealt some. This way it dies for sure.\n
 S:1D94:: Pol's Voice
 S:1DA0:: If the weapon is an arrow, set its state to spark ($20).\n
-S:1DAA:_ParryOrShove: For any weapon type:\n\n If the monster is a darknut and both are facing opposite directions,\n then go parry.\n
+S:1DAA:ParryOrShove: For any weapon type:\n\n If the monster is a darknut and both are facing opposite directions,\n then go parry.\n
 S:1DAD:: Red Darknut
 S:1DB1:: Blue Darknut
 S:1DC2:: Else shove the monster.\n
 S:1DC5:PlayParryTune
 S:1DCA:L763A_Exit
-S:1DCB:_CheckMonsterSlenderWeaponCollision: Params:\n A: damage points\n X: monster object slot\n [00]: weapon object slot\n [02]: monster object mid X\n [03]: monster object mid Y\n [09]: damage type\n [0D]: horizontal threshold\n\n Returns:\n [06]: 1 if objects collide\n [07]: damage points\n [0E]: vertical threshold\n
-S:1DD1:_CheckMonsterSlenderWeaponCollision2: Params:\n X: monster object slot\n [00]: weapon object slot\n [02]: monster object mid X\n [03]: monster object mid Y\n [07]: damage points\n [09]: damage type\n [0D]: horizontal threshold\n [0E]: vertical threshold\n\n Returns:\n [06]: 1 if objects collide\n
+S:1DCB:CheckMonsterSlenderWeaponCollision: Params:\n A: damage points\n X: monster object slot\n [00]: weapon object slot\n [02]: monster object mid X\n [03]: monster object mid Y\n [09]: damage type\n [0D]: horizontal threshold\n\n Returns:\n [06]: 1 if objects collide\n [07]: damage points\n [0E]: vertical threshold\n
+S:1DD1:CheckMonsterSlenderWeaponCollision2: Params:\n X: monster object slot\n [00]: weapon object slot\n [02]: monster object mid X\n [03]: monster object mid Y\n [07]: damage points\n [09]: damage type\n [0D]: horizontal threshold\n [0E]: vertical threshold\n\n Returns:\n [06]: 1 if objects collide\n
 S:1DD3:: If Link is facing vertically, then:\n [04] := (weapon X + 6)\n A    := (weapon Y + 8)\n\n TODO: Shouldn't it be based on the weapon's direction?\n
 S:1DEA:L765A_CheckHorizontal: Else Link is facing horizontally.\n [04] := (weapon X + 8)\n A    := (weapon Y + 6)\n\n TODO: Shouldn't it be based on the weapon's direction?\n
 S:1DF8:: The A register will be copied to [05] and used here.\n
