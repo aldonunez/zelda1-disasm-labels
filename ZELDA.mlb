@@ -263,7 +263,7 @@ R:066E:InvKeys
 R:066F:HeartValues
 R:0670:HeartPartial
 R:0671:InvTriforce
-R:0672:_LastBossDefeated
+R:0672:LastBossDefeated
 R:0674:InvBoomerang
 R:0675:InvMagicBoomerang
 R:0676:InvMagicShield
@@ -552,7 +552,7 @@ P:4801:CopyPriceListTemplate: Copy $11 bytes of the price list template text to 
 P:4803:L4803
 P:480D-4811:TextboxCharTransferRecTemplate
 P:4812-4814:TextboxLineAddrsLo
-P:4815:_UpdatePersonState_Textbox
+P:4815:UpdatePersonState_Textbox
 P:4818:: If the person's timer has not expired, then return.\n
 P:481C:: Set the timer to wait 6 frames after the next character about\n to be shown.\n
 P:4820:: Copy the 5 bytes of the textbox character transfer record template\n to the dynamic transfer buf.\n
@@ -571,7 +571,7 @@ P:485E:: Determine an index based on the high 2 bits of the character element:\n
 P:486A:L486A_ChangeLine: The index chooses the low VRAM address of the start\n of another line:\n   0: $C4: front of the second line\n   1: $E4: front of the third line\n   2: $A4: front of the first line\n\n Look up the low VRAM address and store it.\n
 P:4870:: If index = 2, then we've reached the end of the text,\n and low VRAM address is moved to the front of the first line.\n So, advance the state of the person object, and unhalt Link.\n
 P:4879:L4879_Exit
-P:487A:_UpdateCavePersonState_TalkOrShopOrDoorCharge: If the cave flags call for choosing an item, then\n go handle those kinds of caves.\n
+P:487A:UpdateCavePersonState_TalkOrShopOrDoorCharge: If the cave flags call for choosing an item, then\n go handle those kinds of caves.\n
 P:487D:: Cave flag: Choose/Pick up (1)
 P:4880:: Advance to the end state, where the person is still shown.\n
 P:4884:: If this is not the "door charge" old man, then return.\n The person only talks.\n
@@ -610,11 +610,11 @@ P:4921:: Blank textbox lines
 P:4926:: Set timer to $40 for when we delay in state 4.\n
 P:492A:ClearPricesCaveFlag: Remove the "show prices" cave flag to get rid of the generic rupee.\n
 P:4932:L4932_Exit
-P:4933:_UpdatePersonState_DelayThenHide
+P:4933:UpdatePersonState_DelayThenHide
 P:493A:L493A_Exit
 P:493B-493D:HintCaveTextSelectors0
 P:493E-4940:HintCaveTextSelectors1
-P:4941:_UpdateCavePersonState_HintOrMoneyGame: If "hint" cave flag is missing, then go handle the money game.\n
+P:4941:UpdateCavePersonState_HintOrMoneyGame: If "hint" cave flag is missing, then go handle the money game.\n
 P:4948:: If cave type = $75, then use 0 for base offset of\n the first set of text selectors, else 3 for the second.\n
 P:4953:L4953
 P:4954:: Add the base offset and the index of the item chosen\n to get the index of a text selector.\n
@@ -639,7 +639,7 @@ P:49DE:PostDebit: Params:\n A: amount\n\n Add the amount paid to the rupees to s
 P:49E6:PrependSignToPrice: Params:\n A: price\n Y: offset from first character after "X"\n\n If the amount is $14 or $32, then use "+", else "-".\n
 P:49F2:L49F2: Copy the character to the first element after the "X",\n offset by the parameter.\n
 P:49F6:UpdateCavePersonState_DoNothing
-P:49F7:_UpdatePersonState_CueTransferBlankPersonWares: Also blanks the third line of text.
+P:49F7:UpdatePersonState_CueTransferBlankPersonWares: Also blanks the third line of text.
 P:49FC:InitUnderworldPerson_Full: Point to the front of the first line in VRAM.\n
 P:4A07-4A1A:InitUnderworldPerson_Full_JumpTable
 P:4A1B-4A22:UnderworldPersonTextSelectorsA
@@ -650,8 +650,8 @@ P:4A37:: If this is the man that offers more bomb capacity, then\n go see if the
 P:4A40:InitUnderworldPersonLifeOrMoney_Full: The person goes at location ($78, $80).\n
 P:4A47:: Set text selector for "life or money".\n
 P:4A4C:: Point to the front of the first line in VRAM.\n
-P:4A52:_UnderworldPerson_DestroyIfTaken: Destroy this object if the secret/item was already taken.\n
-P:4A5E:_L_PlayCharacterSfx
+P:4A52:UnderworldPerson_DestroyIfTaken: Destroy this object if the secret/item was already taken.\n
+P:4A5E:L_PlayCharacterSfx
 P:4A61-4A68:UnderworldPersonTextSelectorsB
 P:4A69:InitUnderworldPersonB: The person goes at location ($78, $80).\n
 P:4A70:: Subtract $4B from the object type to get the old man's index.\n
@@ -674,20 +674,20 @@ P:4AD9:UpdateUnderworldPerson_Full: If level is not one of {3, 4, 6, 8, 9}, then
 P:4AE7:L4AE7
 P:4AEA:L4AEA_DrawAndCheckCollisions: Else simply draw, check collisions, and show the text.\n
 P:4AF2-4AF7:UpdateUnderworldPerson_Full_JumpTable
-P:4AF8:_UpdatePersonState_ResetCharOffset
-P:4AFF:_UpdatePersonState_DoNothing
+P:4AF8:UpdatePersonState_ResetCharOffset
+P:4AFF:UpdatePersonState_DoNothing
 P:4B00:Person_CheckCollisions
 P:4B03:: If the person died, then Link hit him. So, start shooting\n fireballs, then reset the metastate, so that he's not dead.\n
 P:4B10:L4B10
-P:4B11:UpdateUnderworldComplexPerson: In state 4, the person is shown every other frame.\n
+P:4B11:UpdateUnderworldPersonComplex: In state 4, the person is shown every other frame.\n
 P:4B1D:L4B1D
 P:4B20:: If this is the "more bombs" man, then show a rupee\n at ($78, $98) using room item object slot $13.\n
 P:4B36:L4B36_HandleState
-P:4B3B-4B44:UpdateUnderworldComplexPerson_JumpTable
-P:4B45:UpdateUnderworldComplexPersonState_Begin: If this is the "more bombs" man, then show the price of the offer.\n
+P:4B3B-4B44:UpdateUnderworldPersonComplex_JumpTable
+P:4B45:UpdateUnderworldPersonComplexState_Begin: If this is the "more bombs" man, then show the price of the offer.\n
 P:4B4C:: "-100"
 P:4B50:L4B50: Set a timer of $A frames before showing characters,\n and go to state 1.\n
-P:4B57:UpdateUnderworldComplexPersonState_SenseLink: If this is not the "more bombs" man, then return.\n
+P:4B57:UpdateUnderworldPersonComplexState_SenseLink: If this is not the "more bombs" man, then return.\n
 P:4B5E:: If Link's X <> $78, then return.\n
 P:4B64:: If the distance between Link's Y and the rupee's ($98) < 6,\n then go see if Link can pay for it.\n Else return.\n
 P:4B70:L4B70_Exit
@@ -696,7 +696,7 @@ P:4B7A:L4B7A: Post 100 rupees more to subtract.\n
 P:4B81:: Play the "key taken" sound effect.\n
 P:4B86:: Increase max bombs by 4, set the amount on hand to the max.\n
 P:4B92:: Go mark this offer taken.\n
-P:4B95:UpdateUnderworldComplexPersonState_DelayAndQuit: If the object timer has expired, then destroy this object.\n
+P:4B95:UpdateUnderworldPersonComplexState_DelayAndQuit: If the object timer has expired, then destroy this object.\n
 P:4B9C:L4B9C
 P:4B9D:Person_DrawAndCheckCollisions
 P:4BA6:UpdateUnderworldPersonLifeOrMoney_Full: In state 4, this person and the items are drawn every other frame.\n
@@ -734,7 +734,7 @@ P:4C6F:L4C6F
 P:4C74-4C7B:UpdateGrumble_Full_JumpTable
 P:4C7C:UpdateGrumble1: If there's no food in object slot $F, then return.\n
 P:4C84:: Else halt Link and play the "secret found" tune.\n
-P:4C8D:_L_Person_FlagItemTakenAndAdvanceState: Flag the secret/item of this room taken.\n
+P:4C8D:L_Person_FlagItemTakenAndAdvanceState: Flag the secret/item of this room taken.\n
 P:4C90:: Set object timer $40 for when we get to state 3.\n
 P:4C94:: Cue transfer record of the blank textbox lines,\n and go to the next state, where a transfer record is cued\n to clear cave/person wares.\n
 P:4C99:UpdateGrumble3
@@ -971,7 +971,7 @@ P:903B:UpdateMode0Demo_Sub0: If Start is not pressed,
 P:903F:: then return.
 P:9041::TODO: Else, store $10 in TransferredDemoPatterns. Why?
 P:9050:: Go to next submode.
-P:9058:: Queue transfer record for menu palettes.
+P:9058:: Cue transfer record for menu palettes.
 P:905C:L905C_Exit
 P:905D:UpdateMode0Demo_Sub2: Copy data from each save file A to save slot info.\n Most of the game will deal with save slot info.\n Format each inactive file A, to make sure it's clear.\n
 P:9069:L9069_LoopFormatSlot
@@ -1018,22 +1018,22 @@ P:94AD-94E6:DemoLineTextAddrs
 P:94E7:InitDemoSubphaseClearArtifacts
 P:94EA:L94EA_IncSubphase
 P:94EE-9511:TitlePaletteTransferRecord
-P:9512:InitDemoSubphaseQueueTitlePalette: Write a tile buf record for the title palette.
+P:9512:InitDemoSubphaseTransferTitlePalette: Write a tile buf record for the title palette.
 P:951A:L951A_CopyTitlePalette
 P:9523:: Reset variables used in this phase.
 P:952D:L952D_ClearVars
 P:9539:: Mark objects 1 to 10 disabled.
 P:953B:L953B_DisableObjects
 P:9542:: Go advance the DemoSubphase and return.
-P:9545:InitDemoSubphaseRequestTitleSong: Request the title song.
+P:9545:InitDemoSubphasePlayTitleSong: Request the title song.
 P:954A:: Select transfer buffer 8 (offset $10 in table):\n title nametables and attributes.
 P:954F-9572:StoryPaletteTransferRecord
-P:9573:InitDemoSubphaseQueueStoryPalette: Copy the transfer record for the story palette.
+P:9573:InitDemoSubphaseTransferStoryPalette: Copy the transfer record for the story palette.
 P:957B:L957B_CopyStoryPalette
 P:9584:: Reset variables used in this phase.
 P:9588:L9588_ClearVars
 P:9597:: Go to the next subphase and return.
-P:959A:InitDemoSubphaseQueueStoryTiles
+P:959A:InitDemoSubphaseTransferStoryTiles
 P:95A0:: Select transfer buffer 1 (offset 2 in table):\n Story nametables and attributes.
 P:95A2:EndInitDemo
 P:95AC:AnimateDemoPhase0Subphase0: Animate while we wait about 512 frames.\n
@@ -1068,7 +1068,7 @@ P:9647:: Switch the base nametable and reset scroll.
 P:964D:L964D_CheckLine: 7/8 of the lines,
 P:9652:: just return.
 P:9654:: But every 8 lines, we have to check for new text and objects.
-P:9657:: Queue a request to transfer a line.\n It's blank by default. Change it later.
+P:9657:: Append a request to transfer a line.\n It's blank by default. Change it later.
 P:965F:L965F_ClearLine
 P:9678:: The next line is 32 bytes farther.
 P:967E:: If crossed a page,
@@ -1151,7 +1151,7 @@ P:985B:TriforcePaletteTransferRecord
 P:9863:TriforceGlowingColors
 P:986B:AnimateDemoPhase0Subphase0Artifacts: Set up sprites for the title.\n Copy initial sprite data to Sprites area.
 P:986D:L986D_CopySprites
-P:9879:: When you reach the end of the glow cycle,\n Queue a transfer record for the trifoce palette.
+P:9879:: When you reach the end of the glow cycle,\n Append a transfer record for the triforce palette.
 P:9880:L9880_CopyTriforcePalette
 P:9889:: Patch the palette record with the color\n for the current point in the cycle.
 P:9892:: Restart the glow timer.
@@ -1947,7 +1947,7 @@ P:10052:: Normal sprites and palette row 6 (red)
 P:10057:: Up
 P:1005E:: If type <> $40, then never use horizontal mirroring. Dead code?\n
 P:10069:L10069: Frame image 0
-P:1006E:_UpdateCommonWanderer: Params:\n A: turn rate\n\n Set the turn rate. If being shoved, then shove and return.\n
+P:1006E:UpdateCommonWanderer: Params:\n A: turn rate\n\n Set the turn rate. If being shoved, then shove and return.\n
 P:10078:L10078: If we have the magic clock or the monster is stunned, then return.\n
 P:10094:Wanderer_TargetPlayer: If turn timer <> 0, then decrement it.\n
 P:1009C:L1009C
@@ -1984,7 +1984,7 @@ P:1016C:L1016C
 P:10173:: Whichever distance is longer determines which combination\n of distance and direction will be used.\n\n If the vertical distance is longer, then use index 0.\n Else use index 1 for horizontal distance and direction.\n
 P:1017C:L1017C: TODO:\n Reset the "wants to shoot" flag.\n
 P:10181:: TODO:\n If the distance chosen < $51, then\n set the "wants to shoot" flag to 1,\n and face in the chosen direction.\n
-P:10190:_L_SetInputDirectionAndTryShootingBoomerang: Set the input direction to the facing direction.\n
+P:10190:L_Walker_SetInputDirAndTryShootingBoomerang: Set the input direction to the facing direction.\n
 P:10195:: Goriya will throw a boomerang (object type $5C).\n
 P:10197:: If the monster is a blue goriya, go check the timer.\n
 P:1019E:: If it's not a red goriya either, then return.\n
@@ -2059,7 +2059,7 @@ P:102F6:L102F6_CheckBoundary: No shots can cross the room boundary.\n
 P:102FB:: Move the object, and check for a collision with Link.\n Go destroy the shot object, if there was a harmful collision.\n
 P:102FE:L102FE_CheckLinkCollision
 P:10301:: Not zero, if collided.
-P:10305:_L_DrawShot: If object type = arrow ($5B), then draw an arrow, and return.\n
+P:10305:L_DrawShot: If object type = arrow ($5B), then draw an arrow, and return.\n
 P:1030F:L1030F: If object type = sword shot or magic shot, then go draw, and return.\n
 P:1031A:L1031A_DrawOthers: Prepare to draw other shot types.\n
 P:1031D:: [0D] holds frame image 0
@@ -2168,7 +2168,7 @@ P:105B2:: Reset the grid offset, and go to state 2.\n
 P:105B9:L105B9_Exit
 P:105BA:L105BA_State0: State 0.\n\n Immediately go to state 1 with QSpeed $20 (half a pixel a second),\n and 5 frame timer.\n
 P:105C6:L105C6_State2: State 2.\n\n Set QSpeed $40 (1 pixel a second).\n
-P:105C8:_UpdateNormalZolOrGel: Params:\n A: qspeed\n
+P:105C8:UpdateNormalZolOrGel: Params:\n A: qspeed\n
 P:105CB:: If object timer >= 5, then return.\n
 P:105D1:: Turn rate $20
 P:105D9:: If the monster is between squares, or timer <> 0; then return.\n
@@ -2451,7 +2451,7 @@ P:10C51:L10C51_CalcFinalOffset: Add the base offset and the directional offset, 
 P:10C57:: If facing vertically, go draw mirrored.\n
 P:10C5D:: Else draw not mirrored.\n
 P:10C64:L10C64_DrawMirrored: Restore the frame image.
-P:10C65:_DrawObjectMirroredAndCheckCollisions: Params:\n A: frame image\n X: object index\n [00]: object X\n [01]: object Y\n
+P:10C65:L10C65_DrawObjectMirroredAndCheckCollisions: Params:\n A: frame image\n X: object index\n [00]: object X\n [01]: object Y\n
 P:10C6B:UpdateGhini: Pass in turn rate $FF to turn as often as possible.
 P:10C76:: If the monster is still alive, then return.\n
 P:10C7B:: For each object slot from $B to 1:\n If the object is a flying ghini ($22),\n then kill it by setting metastate to $11.\n
@@ -2466,7 +2466,7 @@ P:10C9A:: If right is a component of the direction, then go set horizontal\n fli
 P:10CA2:L10CA2_CheckHorizontalFlip: Set horizontal flipping if right is a direction component.\n This essentially the same test as above, but for when we jump\n from the "up" test.\n
 P:10CA8:L10CA8_SetHorizontalFlip
 P:10CAA:L10CAA_DrawAndCheckCollisions
-P:10CAC:_DrawObjectNotMirroredAndCheckLinkCollision: Params:\n A: frame image\n X: object index\n [00]: object X\n [01]: object Y\n [0F]: flip horizontally\n\n Returns:\n [00]: 0 for Link slot\n [06]: 1 if objects collide\n [09]: 0 for Link damage type (none)\n [0C]: 1 if objects collide\n [034B]: ShotCollidesWithLink\n
+P:10CAC:L10CAC_DrawObjectNotMirroredAndCheckLinkCollision: Params:\n A: frame image\n X: object index\n [00]: object X\n [01]: object Y\n [0F]: flip horizontally\n\n Returns:\n [00]: 0 for Link slot\n [06]: 1 if objects collide\n [09]: 0 for Link damage type (none)\n [0C]: 1 if objects collide\n [034B]: ShotCollidesWithLink\n
 P:10CB2-10CB8:SecretArmosRoomIds
 P:10CB9-10CBF:SecretArmosXs
 P:10CC0:InitArmosOrFlyingGhini: In UpdateObject, this object was flagged "initialized".\n But if it's still fading in (timer > 0), then flag it "uninitialized".\n
@@ -3118,7 +3118,7 @@ P:11C0E:L11C0E: If Y coordinate >= $A8, make the index 7 for up.\n
 P:11C14:L11C14: Set the vertical speed for the beginning of the jump.\n
 P:11C1A:: Look up the Y offset for the current direction.\n Add it to object Y to set the destination Y of the jump.\n
 P:11C23:: Turn the index into a direction again by adding 1.\n Store the facing direction.\n
-P:11C26:_L_DrawPolsVoiceAndCheckCollisions: Animation counter 8
+P:11C26:L_PolsVoice_DrawAndCheckCollisions: Animation counter 8
 P:11C31:: Pols Voice is invincible to everything but the sword,\n during normal collision detection.\n\n The arrow is a special case.\n
 P:11C3A:UpdatePolsVoiceState1_Jumping: Add acceleration $38 to low speed byte (vertical).\n
 P:11C43:: Add Carry to high speed byte (vertical).\n
@@ -3970,9 +3970,9 @@ P:131C4-131C9:UpdateCandle_JumpTable
 P:131CA:UpdateCandle_Begin
 P:131CF:: If it's not a dark room, return.
 P:131D1:: Start a fade-to-light cycle (reverse of $40).
-P:131D9:_L_Candle_IncState
+P:131D9:L_Candle_IncState
 P:131DC:UpdateCandle_Done
-P:131DD:_L_Candle_StopBrightening: Stop brightening the room, and go set the candle state to done.\n
+P:131DD:L_Candle_StopBrightening: Stop brightening the room, and go set the candle state to done.\n
 P:131E4:UpdateCandle_Brightening: Animating a brightening cycle.\n
 P:131E7:: If done fading, go stop brightening the room.
 P:131EA:IsDarkRoom_Bank4: Params:\n Y: room ID\n\n Returns:\n A: $80 if dark, else 0\n
@@ -6746,7 +6746,7 @@ P:1F709:L1F709
 P:1F70F:: Boomerang item slot
 P:1F714:L1F714_OffsetAndDrawArrow: Params:\n Y: reverse direction index that the weapon is facing\n\n\n [00] and [01] will hold sprite X and Y.\n Begin with the horizontal and vertical offsets.\n
 P:1F71E:: Arrow item slot
-P:1F720:_DrawArrowOrBoomerang: Add the weapon's true coordinates to offsets in [00] and [01].\n
+P:1F720:L_DrawArrowOrBoomerang: Add the weapon's true coordinates to offsets in [00] and [01].\n
 P:1F72E:: If state = $2x (spark), use palette row 5 to write sprites.\n Otherwise, use the sprite attributes we already calculated.\n
 P:1F73B:L1F73B_Draw
 P:1F73E:UpdateRodOrArrow: The rod uses states $3x. Arrow uses $1x and $2x.\n
@@ -7179,7 +7179,7 @@ S:0FB3:: If Y coordinate crosses (>=) right boundary, go reset target direction.
 S:0FB5:L6825_Exit
 S:0FB6:BoundByRoomWithA: Params:\n A: direction\n X: object index\n\n Returns:\n A: original direction, or 0 if boundary was crossed\n Y: direction of boundary that was crossed\n Z: 1 if boundary was crossed\n [0F]: original direction, or 0 if boundary was crossed\n
 S:0FB8:BoundByRoom: Params:\n X: object index\n [0F]: direction\n\n Returns:\n A: original direction, or 0 if boundary was crossed\n Y: direction of boundary that was crossed\n Z: 1 if boundary was crossed\n [0F]: original direction, or 0 if boundary was crossed\n
-S:0FC1:AddQSpeedToPositionFraction: Params:\n TODO:\n [010E]: _PositiveRelPosLimit\n [010F]: _NegativeRelPosLimit\n\n Returns:\n C: 1 if fractional position reached a whole pixel\n
+S:0FC1:AddQSpeedToPositionFraction: Params:\n [010E]: PositiveGridCellSize\n [010F]: NegativeGridCellSize\n\n Returns:\n C: 1 if fractional position reached a whole pixel\n
 S:0FCB:: Save carry flag.
 S:0FCC:: Don't let positions go past the limits\n If we're at a limit, then clear carry.
 S:0FD9:L6849_ClearCarry: Replace saved (pushed) carry flag with 0.
@@ -7187,7 +7187,7 @@ S:0FDC:: Restore carry flag to use in addition below.
 S:0FDD:: But save it again in order to return it at the end.
 S:0FDE:: Add only carry to the grid offset.\n Carry represents whether the fractional position reached\n a whole pixel (C=1).
 S:0FE6:: Return carry flag from speed addition, or 0 if we reached a limit.
-S:0FE8:SubQSpeedFromPositionFraction: Params:\n TODO:\n [010E]: _PositiveRelPosLimit\n [010F]: _NegativeRelPosLimit\n\n Returns:\n C: 0 if fractional position reached a whole pixel\n
+S:0FE8:SubQSpeedFromPositionFraction: Params:\n [010E]: PositiveGridCellSize\n [010F]: NegativeGridCellSize\n\n Returns:\n C: 0 if fractional position reached a whole pixel\n
 S:0FF2:: Save carry flag.
 S:0FF3:: Don't let positions go past the limits\n If we're at a limit, then set carry.
 S:1000:L6870_SetCarry: Replace saved (pushed) carry flag with 1.

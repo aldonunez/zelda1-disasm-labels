@@ -4536,7 +4536,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>38213</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>InitDemoSubphaseRequestTitleSong</Label>
+      <Label>InitDemoSubphasePlayTitleSong</Label>
       <Comment> Request the title song.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -4552,7 +4552,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>38162</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>InitDemoSubphaseQueueTitlePalette</Label>
+      <Label>InitDemoSubphaseTransferTitlePalette</Label>
       <Comment> Write a tile buf record for the title palette.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -4965,7 +4965,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> When you reach the end of the glow cycle,&#xD;
- Queue a transfer record for the trifoce palette.</Comment>
+ Append a transfer record for the triforce palette.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -5179,7 +5179,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>36952</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Queue transfer record for menu palettes.</Comment>
+      <Comment> Cue transfer record for menu palettes.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -5234,7 +5234,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>38259</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>InitDemoSubphaseQueueStoryPalette</Label>
+      <Label>InitDemoSubphaseTransferStoryPalette</Label>
       <Comment> Copy the transfer record for the story palette.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -5562,7 +5562,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>38487</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Queue a request to transfer a line.&#xD;
+      <Comment> Append a request to transfer a line.&#xD;
  It's blank by default. Change it later.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -20315,9 +20315,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <AddressType>SaveRam</AddressType>
       <Label>AddQSpeedToPositionFraction</Label>
       <Comment> Params:&#xD;
- TODO:&#xD;
- [010E]: _PositiveRelPosLimit&#xD;
- [010F]: _NegativeRelPosLimit&#xD;
+ [010E]: PositiveGridCellSize&#xD;
+ [010F]: NegativeGridCellSize&#xD;
 &#xD;
  Returns:&#xD;
  C: 1 if fractional position reached a whole pixel&#xD;
@@ -20330,9 +20329,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <AddressType>SaveRam</AddressType>
       <Label>SubQSpeedFromPositionFraction</Label>
       <Comment> Params:&#xD;
- TODO:&#xD;
- [010E]: _PositiveRelPosLimit&#xD;
- [010F]: _NegativeRelPosLimit&#xD;
+ [010E]: PositiveGridCellSize&#xD;
+ [010F]: NegativeGridCellSize&#xD;
 &#xD;
  Returns:&#xD;
  C: 0 if fractional position reached a whole pixel&#xD;
@@ -23371,7 +23369,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>78301</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_L_Candle_StopBrightening</Label>
+      <Label>L_Candle_StopBrightening</Label>
       <Comment> Stop brightening the room, and go set the candle state to done.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -31834,7 +31832,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>128800</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_DrawArrowOrBoomerang</Label>
+      <Label>L_DrawArrowOrBoomerang</Label>
       <Comment> Add the weapon's true coordinates to offsets in [00] and [01].&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -36668,7 +36666,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>1650</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>_LastBossDefeated</Label>
+      <Label>LastBossDefeated</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -41258,7 +41256,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>65936</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_L_SetInputDirectionAndTryShootingBoomerang</Label>
+      <Label>L_Walker_SetInputDirAndTryShootingBoomerang</Label>
       <Comment> Set the input direction to the facing direction.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -41955,7 +41953,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>66309</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_L_DrawShot</Label>
+      <Label>L_DrawShot</Label>
       <Comment> If object type = arrow ($5B), then draw an arrow, and return.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -42487,7 +42485,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>65646</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_UpdateCommonWanderer</Label>
+      <Label>UpdateCommonWanderer</Label>
       <Comment> Params:&#xD;
  A: turn rate&#xD;
 &#xD;
@@ -43320,7 +43318,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>68709</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_DrawObjectMirroredAndCheckCollisions</Label>
+      <Label>L10C65_DrawObjectMirroredAndCheckCollisions</Label>
       <Comment> Params:&#xD;
  A: frame image&#xD;
  X: object index&#xD;
@@ -43333,7 +43331,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>68780</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_DrawObjectNotMirroredAndCheckLinkCollision</Label>
+      <Label>L10CAC_DrawObjectNotMirroredAndCheckLinkCollision</Label>
       <Comment> Params:&#xD;
  A: frame image&#xD;
  X: object index&#xD;
@@ -44440,7 +44438,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>67016</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_UpdateNormalZolOrGel</Label>
+      <Label>UpdateNormalZolOrGel</Label>
       <Comment> Params:&#xD;
  A: qspeed&#xD;
 </Comment>
@@ -47627,7 +47625,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>72742</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_L_DrawPolsVoiceAndCheckCollisions</Label>
+      <Label>L_PolsVoice_DrawAndCheckCollisions</Label>
       <Comment> Animation counter 8</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -56267,7 +56265,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>19597</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_L_Person_FlagItemTakenAndAdvanceState</Label>
+      <Label>L_Person_FlagItemTakenAndAdvanceState</Label>
       <Comment> Flag the secret/item of this room taken.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -56374,7 +56372,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>18935</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_UpdatePersonState_CueTransferBlankPersonWares</Label>
+      <Label>UpdatePersonState_CueTransferBlankPersonWares</Label>
       <Comment> Also blanks the third line of text.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -56600,7 +56598,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>18453</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_UpdatePersonState_Textbox</Label>
+      <Label>UpdatePersonState_Textbox</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -56688,7 +56686,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>19026</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_UnderworldPerson_DestroyIfTaken</Label>
+      <Label>UnderworldPerson_DestroyIfTaken</Label>
       <Comment> Destroy this object if the secret/item was already taken.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -56855,7 +56853,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>19192</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_UpdatePersonState_ResetCharOffset</Label>
+      <Label>UpdatePersonState_ResetCharOffset</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -56863,7 +56861,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>19199</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_UpdatePersonState_DoNothing</Label>
+      <Label>UpdatePersonState_DoNothing</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -56871,7 +56869,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>19217</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>UpdateUnderworldComplexPerson</Label>
+      <Label>UpdateUnderworldPersonComplex</Label>
       <Comment> In state 4, the person is shown every other frame.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -56890,7 +56888,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>19269</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>UpdateUnderworldComplexPersonState_Begin</Label>
+      <Label>UpdateUnderworldPersonComplexState_Begin</Label>
       <Comment> If this is the "more bombs" man, then show the price of the offer.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -56917,7 +56915,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>19287</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>UpdateUnderworldComplexPersonState_SenseLink</Label>
+      <Label>UpdateUnderworldPersonComplexState_SenseLink</Label>
       <Comment> If this is not the "more bombs" man, then return.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -56926,7 +56924,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>19349</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>UpdateUnderworldComplexPersonState_DelayAndQuit</Label>
+      <Label>UpdateUnderworldPersonComplexState_DelayAndQuit</Label>
       <Comment> If the object timer has expired, then destroy this object.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -58006,7 +58004,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>18554</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_UpdateCavePersonState_TalkOrShopOrDoorCharge</Label>
+      <Label>UpdateCavePersonState_TalkOrShopOrDoorCharge</Label>
       <Comment> If the cave flags call for choosing an item, then&#xD;
  go handle those kinds of caves.&#xD;
 </Comment>
@@ -58061,7 +58059,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>18739</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_UpdatePersonState_DelayThenHide</Label>
+      <Label>UpdatePersonState_DelayThenHide</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -58345,7 +58343,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>18753</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_UpdateCavePersonState_HintOrMoneyGame</Label>
+      <Label>UpdateCavePersonState_HintOrMoneyGame</Label>
       <Comment> If "hint" cave flag is missing, then go handle the money game.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -60047,7 +60045,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>19038</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_L_PlayCharacterSfx</Label>
+      <Label>L_PlayCharacterSfx</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -60486,7 +60484,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>38298</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>InitDemoSubphaseQueueStoryTiles</Label>
+      <Label>InitDemoSubphaseTransferStoryTiles</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -63829,7 +63827,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>78297</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_L_Candle_IncState</Label>
+      <Label>L_Candle_IncState</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -67413,7 +67411,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>19259</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>UpdateUnderworldComplexPerson_JumpTable</Label>
+      <Label>UpdateUnderworldPersonComplex_JumpTable</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>10</Length>
