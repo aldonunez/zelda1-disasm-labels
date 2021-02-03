@@ -1931,8 +1931,8 @@ P:E7DB-EBDA:PatternBlockUWSPBoss9
 P:10000:PlayBossHitCryIfNeeded
 P:1000C:L1000C
 P:1000D:PlayBossDeathCryIfNeeded
-P:10015:InitMonsterShot: QSpeed $C0 (3 pixels a second)
-P:10019:_InitMonsterShot_Unknown54
+P:10015:InitMonsterShot: QSpeed $C0 (3 pixels a frame)
+P:10019:_InitMonsterShot_Unknown54: QSpeed $E0 (3.5 pixels a frame)
 P:1001B:L1001B
 P:10025:InitWalker: If the facing direction was already set, then return.\n
 P:10029:: Calculate horizontal distance and direction away from chase target.\n Store the distance in [00].\n
@@ -1999,7 +1999,7 @@ P:101C6:: Reset the "wants to shoot" flag.\n
 P:101CB:: Have the shot keep track of the monster.\n
 P:101CF:: Have the monster keep track of the shot.\n
 P:101D3:: Set the shot's state to $10, which is the flying state for them.\n
-P:101D8:: Fly at q-speed $A0 (2.5 pixels a second).\n
+P:101D8:: Fly at q-speed $A0 (2.5 pixels a frame).\n
 P:101DD:: For boomerangs, move up to $51 pixels (horizontally or vertically).\n
 P:101E2:: Make it autonomous (ready to update on its own).\n
 P:101E7:: The first animation frame lasts 3 screen frames.\n
@@ -2128,7 +2128,7 @@ P:104D4:: Every 8 screen frames, switch between frame image 0 and 1.\n
 P:104DD:L104DD
 P:104E1:UpdateZolState
 P:104E6-104EB:UpdateZolState_JumpTable
-P:104EC:UpdateZolState0_Wander: QSpeed $18 (0.375 pixels a second)
+P:104EC:UpdateZolState0_Wander: QSpeed $18 (0.375 pixels a frame)
 P:104F1:UpdateZolState1_Shove: Move straight and fast until blocked. Then go to state 2.\n
 P:104F8:L104F8
 P:104F9:UpdateZolState2_Split: We'll create two gels, but destroy the zol. So, increase\n the object count by 1 only.\n
@@ -2239,8 +2239,8 @@ P:1073C:InitBoulder
 P:1073F:InitTektite: Set a random starting direction.\n
 P:10749:: Multiply the direction value by 4 to set the object timer.\n
 P:1074E:InitLeever: Set red leever long timer to 5, for use in determining when\n to burst out of the ground.\n
-P:10755:InitSlowOctorockOrGhini: Assign QSpeed $20 (0.5 pixels a second).\n
-P:10759:InitFastOctorock: Assign QSpeed $30 (0.75 pixels a second).\n
+P:10755:InitSlowOctorockOrGhini: Assign QSpeed $20 (0.5 pixels a frame).\n
+P:10759:InitFastOctorock: Assign QSpeed $30 (0.75 pixels a frame).\n
 P:1075B:L1075B
 P:1075E:: Octorock spawn clouds last longer than other monsters.\n Set object timer to ((object slot + 1) * $10).\n
 P:1076A:: Reset movement frame.
@@ -2257,7 +2257,7 @@ P:107BF:UpdateMoblin: Set turn rate to $A0.\n
 P:107C7:: Arrow object type
 P:107CC:UpdateLynel
 P:107CF:: Sword shot object type
-P:107D1:L107D1: QSpeed $20 (.5 pixels a second)
+P:107D1:L107D1: QSpeed $20 (.5 pixels a frame)
 P:107D3:_TryShooting: Params:\n A: q-speed of the monster\n Y: shot object type\n\n [01] holds the q-speed of the monster
 P:107D5:: If the monster is not a blue walking OW monster, and shoot timer = 0,\n
 P:107D8:: Blue moblin
@@ -3077,8 +3077,8 @@ P:11AF3:: XOR'ing the low bit swaps the left and right frame numbers.\n\n So, if
 P:11AFB:Anim_SetSpriteDescriptorLevelPaletteRow: Returns:\n A: 3\n [04]: left sprite attributes\n [05]: right sprite attributes\n
 P:11B00:L11B00_Exit
 P:11B20:InitDarknut: Invincible to everything but sword and bomb.
-P:11B25:: If the darknut is red, then move at q-speed $20 (0.5 pixels a second).\n
-P:11B2E:: Else move a blue darknut at q-speed $28 (0.625 pixels a second).\n
+P:11B25:: If the darknut is red, then move at q-speed $20 (0.5 pixels a frame).\n
+P:11B2E:: Else move a blue darknut at q-speed $28 (0.625 pixels a frame).\n
 P:11B30:L11B30
 P:11B36:UpdateGibdo: Turn rate $80
 P:11B3E:: 8 screen frames an animation frame
@@ -4741,7 +4741,7 @@ P:14E40:: Switch to the boomerang slot.\n
 P:14E42:: If state in object slot <> 0 and high bit is clear, return.\n
 P:14E49:L14E49: Set state to $10 for boomerang.\n
 P:14E4D:: Set the farthest distance the boomerang can fly based on\n the type of boomerang.\n
-P:14E56:: Set up the boomerang.\n QSpeed = $C0 (3 pixels a second)\n\n TODO:\n Each turning animation frame lasts 3 screen frames.\n
+P:14E56:: Set up the boomerang.\n QSpeed = $C0 (3 pixels a frame)\n\n TODO:\n Each turning animation frame lasts 3 screen frames.\n
 P:14E63:: See PlaceWeaponForPlayerStateAndAnim for the reason\n that Link's animation counter is set to 1.\n
 P:14E68:: If there's an input direction, then use it as the weapon's direction.\n It might be diagonal, with horizontal and vertical components.\n Else use Link's facing direction.\n
 P:14E6F:L14E6F
@@ -4754,7 +4754,7 @@ P:14E85:: Boomerang/arrow sound effect
 P:14E8A:: Post a rupee to subtract.\n
 P:14E8D:: Arrows start in state $10.\n
 P:14E8F:WieldWeapon: Params:\n A: initial state\n
-P:14E91:: Set q-speed $C0 (3 pixels a second).\n
+P:14E91:: Set q-speed $C0 (3 pixels a frame).\n
 P:14E99:: If the direction is vertical, move the object right 3 pixels.\n
 P:14EA6:WieldNothing
 P:14EA7:WieldFood: Switch to the food slot.\n

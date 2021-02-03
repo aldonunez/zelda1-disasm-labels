@@ -29190,7 +29190,7 @@ For example:&#xD;
       <Address>85649</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Set q-speed $C0 (3 pixels a second).&#xD;
+      <Comment> Set q-speed $C0 (3 pixels a frame).&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -32035,7 +32035,7 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Set up the boomerang.&#xD;
- QSpeed = $C0 (3 pixels a second)&#xD;
+ QSpeed = $C0 (3 pixels a frame)&#xD;
 &#xD;
  TODO:&#xD;
  Each turning animation frame lasts 3 screen frames.&#xD;
@@ -38947,7 +38947,7 @@ For example:&#xD;
       <Address>67413</Address>
       <AddressType>PrgRom</AddressType>
       <Label>InitSlowOctorockOrGhini</Label>
-      <Comment> Assign QSpeed $20 (0.5 pixels a second).&#xD;
+      <Comment> Assign QSpeed $20 (0.5 pixels a frame).&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -38956,7 +38956,7 @@ For example:&#xD;
       <Address>67417</Address>
       <AddressType>PrgRom</AddressType>
       <Label>InitFastOctorock</Label>
-      <Comment> Assign QSpeed $30 (0.75 pixels a second).&#xD;
+      <Comment> Assign QSpeed $30 (0.75 pixels a frame).&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -41600,7 +41600,7 @@ For example:&#xD;
       <Address>66008</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Fly at q-speed $A0 (2.5 pixels a second).&#xD;
+      <Comment> Fly at q-speed $A0 (2.5 pixels a frame).&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -41751,7 +41751,7 @@ For example:&#xD;
       <Address>67537</Address>
       <AddressType>PrgRom</AddressType>
       <Label>L107D1</Label>
-      <Comment> QSpeed $20 (.5 pixels a second)</Comment>
+      <Comment> QSpeed $20 (.5 pixels a frame)</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -41909,7 +41909,7 @@ For example:&#xD;
       <Address>65557</Address>
       <AddressType>PrgRom</AddressType>
       <Label>InitMonsterShot</Label>
-      <Comment> QSpeed $C0 (3 pixels a second)</Comment>
+      <Comment> QSpeed $C0 (3 pixels a frame)</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -41917,7 +41917,7 @@ For example:&#xD;
       <Address>65561</Address>
       <AddressType>PrgRom</AddressType>
       <Label>_InitMonsterShot_Unknown54</Label>
-      <Comment />
+      <Comment> QSpeed $E0 (3.5 pixels a frame)</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -42551,7 +42551,7 @@ For example:&#xD;
       <Address>72485</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> If the darknut is red, then move at q-speed $20 (0.5 pixels a second).&#xD;
+      <Comment> If the darknut is red, then move at q-speed $20 (0.5 pixels a frame).&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -42560,7 +42560,7 @@ For example:&#xD;
       <Address>72494</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Else move a blue darknut at q-speed $28 (0.625 pixels a second).&#xD;
+      <Comment> Else move a blue darknut at q-speed $28 (0.625 pixels a frame).&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -44412,7 +44412,7 @@ For example:&#xD;
       <Address>66796</Address>
       <AddressType>PrgRom</AddressType>
       <Label>UpdateZolState0_Wander</Label>
-      <Comment> QSpeed $18 (0.375 pixels a second)</Comment>
+      <Comment> QSpeed $18 (0.375 pixels a frame)</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
