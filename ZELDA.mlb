@@ -148,8 +148,8 @@ R:04D9-04DA:GleeokPrimarySegmentLimits
 R:04DB-04DC:GleeokSecondarySegmentLimits
 R:04DD-04DE:GleeokTertiarySegmentLimits
 R:04E5:StatusBarMapTrigger
-R:04E6:_GleeokAnimationTimer
-R:04E7:_GleeokBodyAnimationFrame
+R:04E6:GleeokAnimationTimer
+R:04E7:GleeokBodyAnimationFrame
 R:04F0-04FC:ObjInvincibilityTimer
 R:0504:LeftAlignHalfWidthObj
 R:0505:ItemTypeToLift
@@ -840,7 +840,7 @@ P:61B1:TakePowerTriforce
 P:61B4:: Halt Link for $C0 frames.\n
 P:61BD-61C4:_UnknownPaletteTransferRecord
 P:61C5-61CD:_UnknownColorTriples
-P:61D6:_ReplaceAshesPaletteRow
+P:61D6:ReplaceAshesPaletteRow
 P:61DA:: Get the dynamic transfer buf length, so we write from were we last wrote.\n
 P:61DD:: Copy the palette row 7 transfer record to dynamic transfer buf (8 bytes).\n
 P:61DF:L61DF_CopyPaletteRecord
@@ -2075,7 +2075,7 @@ P:1034C:L1034C_BounceShot: Get the reverse direction index for the bounce direct
 P:10352:: Modify the coordinates according to the displacements for\n the bounce direction.\n
 P:10362:: Add 2 to the bounce distance.\n The absolute value of one of the displacements is 2.\n\n TODO: Name: ObjGridOffset\n
 P:1036B:: Go destroy the shot, if the bounce counter has reached the limit.\n Otherwise, go draw.\n
-P:10371:_CheckShotLinkCollision: Params:\n X: monster object index\n\n Returns:\n [00]: 0 for Link slot\n [06]: 1 if objects collide\n [09]: 0 for Link damage type (none)\n [0C]: 1 if objects collide\n [034B]: ShotCollidesWithLink\n\n TODO: Name: ObjGridOffset\n Reset bounce distance.\n
+P:10371:CheckShotLinkCollision: Params:\n X: monster object index\n\n Returns:\n [00]: 0 for Link slot\n [06]: 1 if objects collide\n [09]: 0 for Link damage type (none)\n [0C]: 1 if objects collide\n [034B]: ShotCollidesWithLink\n\n TODO: Name: ObjGridOffset\n Reset bounce distance.\n
 P:1037E:: If the shot hits Link, then start to bounce off of Link's shield.\n Set the bounce direction to Link's facing direction.\n Set state $30 to bounce.\n\n TODO: Name: ObjMovingLimit\n
 P:10387:L10387
 P:10388-1038F:FireballQSpeedsX
@@ -2126,12 +2126,12 @@ P:104C5:: Set 6 turns for the next state.
 P:104CB:UpdateZol
 P:104D4:: Every 8 screen frames, switch between frame image 0 and 1.\n
 P:104DD:L104DD
-P:104E1:_UpdateZolState
-P:104E6-104EB:_UpdateZolState_JumpTable
-P:104EC:_UpdateZolState0_Wander: QSpeed $18 (0.375 pixels a second)
-P:104F1:_UpdateZolState1_Shove: Move straight and fast until blocked. Then go to state 2.\n
+P:104E1:UpdateZolState
+P:104E6-104EB:UpdateZolState_JumpTable
+P:104EC:UpdateZolState0_Wander: QSpeed $18 (0.375 pixels a second)
+P:104F1:UpdateZolState1_Shove: Move straight and fast until blocked. Then go to state 2.\n
 P:104F8:L104F8
-P:104F9:_UpdateZolState2_Split: We'll create two gels, but destroy the zol. So, increase\n the object count by 1 only.\n
+P:104F9:UpdateZolState2_Split: We'll create two gels, but destroy the zol. So, increase\n the object count by 1 only.\n
 P:10502:: If the zol's direction is vertical, then set the first child gel's\n direction to left, else up.\n
 P:1050C:L1050C
 P:1050F:: Save the direction of the first gel.
@@ -2141,7 +2141,7 @@ P:10519:CreateChildGel: Child Gel object type
 P:1051B:: Use the shooting operation to create the gel object.\n
 P:10520:: Shots start in state $10. But Child Gel needs to start in state 0.\n
 P:10525:: Give the child the same grid offset as the parent.\n
-P:1052C:_CheckZolCollisions: If not in state 0, then return.\n
+P:1052C:Zol_CheckCollisions: If not in state 0, then return.\n
 P:10530:: Check collisions.\n\n If killed, or got hit but didn't get hurt (invincibility timer = 0),\n then return.\n
 P:1053D:: If vertically aligned with the square grid, then\n use a horizontal direction mask (3).\n\n Keep in mind that most objects are aligned vertically when\n the low nibble of their Y is $D.\n
 P:10549:L10549
@@ -2186,7 +2186,7 @@ P:10614:L10614_CheckRoomBoundary: If blocked by the room boundary, then return C
 P:1061A:: Move.\n
 P:1061D:: Mask the grid offset with $F (to a square length),\n and return C=0.\n
 P:10628:L10628_Exit
-P:10629:_CheckGelCollisions: TODO:\n CheckMonsterCollisions calls GetObjectMiddle which\n overwrites [02] and [03]. So, I don't know why these are set here.\n
+P:10629:Gel_CheckCollisions: TODO:\n CheckMonsterCollisions calls GetObjectMiddle which\n overwrites [02] and [03]. So, I don't know why these are set here.\n
 P:10634-10635:StatueRoomLayouts
 P:10636-10638:StatueFireballCounts
 P:10639-1063C:StatueFireballStartTimes
@@ -2355,9 +2355,9 @@ P:109EC:L109EC_DrawBoulder: Draw a boulder.\n
 P:109F1:: TODO: The movement frame determines the frame image.
 P:109F7:: If the boulder's Y < $F0, return.\n
 P:109FD:: Else the boulder is close enough to the bottom of the screen\n to destroy it.\n
-P:10A03:_GetJumperKind: Returns:\n Y: 0: blue tektite\n    1: red tektite\n    2: boulder\n
+P:10A03:Jumper_GetKind: Returns:\n Y: 0: blue tektite\n    1: red tektite\n    2: boulder\n
 P:10A10:L10A10_Exit
-P:10A11:_PointBoulderDownward
+P:10A11:Jumper_PointBoulderDownward
 P:10A20:L10A20_Exit
 P:10A21:Jumper_MoveY: Params:\n A: acceleration\n Y: max speed high byte\n\n [00] holds the acceleration
 P:10A23:: [02] holds the max speed high byte
@@ -2589,7 +2589,7 @@ P:10F34:RevealAndFlagSecretTileObj: Params:\n A: the first tile of tile object\n
 P:10F37:: Flag the secret found in this room.\n
 P:10F3A:: Secret found/taken
 P:10F3E:L10F3E_Exit
-P:10F3F:_CheckTileObjCollisionWithWeapon: Params:\n X: object index\n Y: weapon object index\n [00]: weapon object index\n\n Returns:\n A: 1 if objects collide\n\n Put the midpoint coordinate of the weapon in [04] and [05].\n
+P:10F3F:CheckTileObjWeaponCollision: Params:\n X: object index\n Y: weapon object index\n [00]: weapon object index\n\n Returns:\n A: 1 if objects collide\n\n Put the midpoint coordinate of the weapon in [04] and [05].\n
 P:10F4F:: Put the tile object's midpoint coordinates in [02] and [03].\n
 P:10F52:: 10 pixel collision threshold
 P:10F57-10F59:SecretQuestNumbers
@@ -2975,19 +2975,19 @@ P:11893:WriteBossSprite: Params:\n A: tile\n [00]: X\n [01]: Y\n [03]: sprite at
 P:1189B:: Restore the tile
 P:118A9:UpdateDodongo
 P:118BA-118BC:DodongoBloatedWaitTimes
-P:118BD:_UpdateDodongoState
-P:118C2-118C7:_UpdateDodongoState_JumpTable
-P:118C8:_UpdateDodongoState0_Move: If facing left, then push X offset 0 on the stack.\n Else push X offset -$10, and add $10 to X coordinate.\n\n We would like to use one set of coordinates only.\n But movement would break down, if we did; because\n Dodongo is so long.\n\n So, when not facing left, we temporarily shift the\n X coordinate to be closer to the other side of the monster.\n
+P:118BD:UpdateDodongoState
+P:118C2-118C7:UpdateDodongoState_JumpTable
+P:118C8:UpdateDodongoState0_Move: If facing left, then push X offset 0 on the stack.\n Else push X offset -$10, and add $10 to X coordinate.\n\n We would like to use one set of coordinates only.\n But movement would break down, if we did; because\n Dodongo is so long.\n\n So, when not facing left, we temporarily shift the\n X coordinate to be closer to the other side of the monster.\n
 P:118D9:L118D9_Move
 P:118DB:: Turn rate $20
 P:118E3:: Pop the offset and add it to the X coordinate.\n\n This brings the X coordinate back to the unique value\n that represents the position.\n
 P:118E9:: If X coordinate < $20, then face right.\n
 P:118F1:L118F1
-P:118F2:_UpdateDodongoState2_Stunned: Take action depending on the value of stun timer:\n 0:     set stun timer to $20 \n 1:     go back to state 0\n other: return\n
+P:118F2:UpdateDodongoState2_Stunned: Take action depending on the value of stun timer:\n 0:     set stun timer to $20 \n 1:     go back to state 0\n other: return\n
 P:118FF:L118FF
-P:11900:_UpdateDodongoState1_Bloated
-P:11906-1190F:_UpdateDodongoState1_Bloated_JumpTable
-P:11910:_UpdateDodongoState1_Bloated_Sub_Wait: Bloated timer =>\n 0:     fall thru to set a new timer and check bomb hits\n 1:     go advance the substate\n other: go decrement Bloated timer\n
+P:11900:UpdateDodongoState1_Bloated
+P:11906-1190F:UpdateDodongoState1_Bloated_JumpTable
+P:11910:UpdateDodongoState1_Bloated_Sub_Wait: Bloated timer =>\n 0:     fall thru to set a new timer and check bomb hits\n 1:     go advance the substate\n other: go decrement Bloated timer\n
 P:11918:: Set the bloated timer according to the substate.\n
 P:11921:: If substate <> 0, go decrement bloated timer.\n
 P:11925:: Deactivate the bomb in the first bomb slot ($10).\n
@@ -2995,11 +2995,11 @@ P:1192C:: Increment the number of bomb hits.\n
 P:11938:L11938_AdvanceSubstate: Advance the substate.\n
 P:1193B:: If new bloated substate < 2, then go decrement the bloated timer.\n
 P:11942:: New bloated substate >= 2.\n\n If bomb hits < 2, then set bloated substate 4,\n which will transition to state 0 (moving).\n\n Note that if the bomb hits >= 2, then:\n - If new substate = 2, then substate 2 will wait,\n   and then transition to substate 3.\n - If new substate = 3, then the next frame the monster will die.\n
-P:1194E:_L_Dodongo_DecrementBloatedTimer: Either way, decrement the bloated timer.\n
-P:11952:_UpdateDodongoState1_Bloated_Sub_Die
-P:11958:_UpdateDodongoState1_Bloated_Sub_End: Go to state 0.
+P:1194E:L_Dodongo_DecrementBloatedTimer: Either way, decrement the bloated timer.\n
+P:11952:UpdateDodongoState1_Bloated_Sub_Die
+P:11958:UpdateDodongoState1_Bloated_Sub_End: Go to state 0.
 P:1195B:: Reset bloated substate.
-P:1195F:_CheckDodongoCollisions: Check for collisions using a regular monster size.\n
+P:1195F:Dodongo_CheckCollisions: Check for collisions using a regular monster size.\n
 P:11962:: If harmed, then go die.\n
 P:11967:: If facing vertically, then return.\n
 P:1196D:: Save the X coordinate.\n Then add $10 to check the right-hand side.\n
@@ -3008,14 +3008,14 @@ P:1197B:: If not harmed, then return.\n
 P:11980:L11980_Die
 P:11983:: Drop a bomb from this fight.\n
 P:11989:L11989_Exit
-P:1198A:_CheckDodongoCollisionsStandardSize
+P:1198A:Dodongo_CheckCollisionsStandardSize
 P:11992:: If state <> 2 (stunned), then return.\n
 P:11998:: Take out the bit for the sword in the invincibility mask.\n Check for collision with Link's sword.\n
 P:119A5-119A9:DodongoMouthNegativeLimits0
 P:119AA-119AE:DodongoMouthPositiveLimits0
 P:119AF-119B3:DodongoMouthNegativeLimits1
 P:119B4-119B8:DodongoMouthPositiveLimits1
-P:119B9:_CheckBombHit: If state <> 0 (not moving), then return.\n
+P:119B9:Dodongo_CheckBombHit: If state <> 0 (not moving), then return.\n
 P:119BD:: If facing vertically, then store (X + 8) in [00].\n Else store (X + $10).\n
 P:119CA:L119CA
 P:119CC:: Store (Y + 8) in [01].\n
@@ -3052,7 +3052,7 @@ P:11A5C-11A65:DodongoFrameImages: Two sets of frame image numbers: 1 set for eac
 P:11A66-11A6F:DodongoFrameHFlips
 P:11A70-11A79:DodongoFrameImagesBloated
 P:11A7A-11A83:DodongoFrameHFlipsBloated
-P:11A84:_DrawDodongo
+P:11A84:Dodongo_Draw
 P:11A87:: Make a 5-way direction index out of the facing direction\n by shifting right once, and store it in [00].\n
 P:11A8C:: If state = 0, go handle animating the two frames of this state.\n
 P:11A90:: If state > 1, then the monster is stunned (state 2).\n So, go switch frames every $20 screen frames.\n
@@ -3120,7 +3120,7 @@ P:11C1A:: Look up the Y offset for the current direction.\n Add it to object Y t
 P:11C23:: Turn the index into a direction again by adding 1.\n Store the facing direction.\n
 P:11C26:_L_DrawPolsVoiceAndCheckCollisions: Animation counter 8
 P:11C31:: Pols Voice is invincible to everything but the sword,\n during normal collision detection.\n\n The arrow is a special case.\n
-P:11C3A:_UpdatePolsVoiceState1_Jumping: Add acceleration $38 to low speed byte (vertical).\n
+P:11C3A:UpdatePolsVoiceState1_Jumping: Add acceleration $38 to low speed byte (vertical).\n
 P:11C43:: Add Carry to high speed byte (vertical).\n
 P:11C4B:: Add high speed byte to Y coordinate.\n
 P:11C50:: If the speed is still negative, then return.\n
@@ -3185,7 +3185,7 @@ P:11DD0:L11DD0_Exit
 P:11DD1:DrawVire: Animation counter $A
 P:11DD6:: TODO: name: movement frame\n\n The movement frame is the fram image number, unless facing up.\n In this case, add 2 to the frame image.\n
 P:11DE3:UpdateBlueWizzrobe: Description:\n Blue Wizzrobe has two states: walking and teleporting.\n When walking, the object timer is set. When teleporting,\n the teleporting distance remaining is set.\n\n If we have the magic clock, then only go draw and check collisions.\n
-P:11DEE:_DrawWizzrobeAndCheckCollisionsIntermittently: If the teleporting distance remaining is even, then draw\n and check collisions, else return.\n\n This means that when 0, the monster is walking.\n So, draw and check collisions every frame.\n\n When not 0, the monster is teleporting, and must be drawn\n translucently -- every other frame.\n
+P:11DEE:Wizzrobe_DrawAndCheckCollisionsIntermittently: If the teleporting distance remaining is even, then draw\n and check collisions, else return.\n\n This means that when 0, the monster is walking.\n So, draw and check collisions every frame.\n\n When not 0, the monster is teleporting, and must be drawn\n translucently -- every other frame.\n
 P:11DF4:L11DF4_L_Wizzrobe_DrawAndCheckCollisions
 P:11DF7:BlueWizzrobe_WalkOrTeleport: If timer has not expired, then go walk.\n
 P:11DFB:: Timer = 0. Only teleporting now.\n\n If there is still distance to go while translucent, then\n decrement the distance remaining, and move.\n
@@ -3268,9 +3268,9 @@ P:11FC1-11FC8:UpdateRedWizzrobe_JumpTable
 P:11FC9-11FD8:RedWizzrobeOffsetsX
 P:11FD9-11FE8:RedWizzrobeOffsetsY
 P:11FE9-11FEC:RedWizzrobeDirections
-P:11FED:_UpdateRedWizzrobe_1: Handle state group 1 ($40 to $7F).\n\n If state = $7F, make it $4F.\n $7F is the first frame of state group ($40 to $7F).\n By doing this, we skip $30 frames.\n
+P:11FED:UpdateRedWizzrobe_1: Handle state group 1 ($40 to $7F).\n\n If state = $7F, make it $4F.\n $7F is the first frame of state group ($40 to $7F).\n By doing this, we skip $30 frames.\n
 P:11FF7:L11FF7: Increment the fade counter. Depending on the low bit,\n the monster will be drawn every other frame.\n
-P:11FFD:_UpdateRedWizzrobe_3: Handle state group 3 ($C0 to $FF).\n\n If state <> $FF, go fade as in state group 1.\n
+P:11FFD:UpdateRedWizzrobe_3: Handle state group 3 ($C0 to $FF).\n\n If state <> $FF, go fade as in state group 1.\n
 P:12002:: State $FF.\n\n Face in a random direction.\n
 P:12004:: Save the random value.
 P:1200D:: Restore the random value.
@@ -3282,9 +3282,9 @@ P:1201D:: Add 3 to help with the alignment calculation below.
 P:12025:: If Y coordinate >= $5D and < $C4, then the monster\n is not in a wall. So, check tile collision.\n
 P:12030:: If walkable, then return.\n Else increase state to 0, in order to check again next frame.\n
 P:12032:L12032
-P:12034:_UpdateRedWizzrobe_0
-P:12035:_UpdateRedWizzrobe_2: Handle state group 2 ($80 to $BF).\n\n If state = $B0, then shoot a magic shot $59.\n
-P:12040:_DrawWizzrobeAndCheckCollisions: Invincible to everything but sword and bomb.\n
+P:12034:UpdateRedWizzrobe_0
+P:12035:UpdateRedWizzrobe_2: Handle state group 2 ($80 to $BF).\n\n If state = $B0, then shoot a magic shot $59.\n
+P:12040:Wizzrobe_DrawAndCheckCollisions: Invincible to everything but sword and bomb.\n
 P:12048:: If invincibility timer = 0, then check collisions with weapons.\n
 P:12061:L12061: In this state, the monster can always harm Link,\n even if it can't be harmed.\n
 P:12064:: Every 4 frames switch between two frame images.\n
@@ -3356,7 +3356,7 @@ P:1220C:: If the random value for the next slot up < $E0,\n or there's an object
 P:12217:: TODO: Fireball object type $56
 P:1221C:L1221C_Draw
 P:1221F:L1221F_TurnTowardLink
-P:12225:_CheckManhandlaCollisions: Check collisions, but never let them interfere with movement.\n
+P:12225:Manhandla_CheckCollisions: Check collisions, but never let them interfere with movement.\n
 P:12227:: Save the direction
 P:1222A:: Save the timer
 P:1222E:: Restore the timer
@@ -3390,7 +3390,7 @@ P:122CE:L122CE_Up: If direction has an up component (8), then subtract offset fr
 P:122D0:: Bit 5 of mask $A1 sets Carry now.
 P:122DC:L122DC_IncFrameAccum: To the frame accumulator, add:\n - a random value between 0 and 3\n - [03] the effective high speed byte calculated for this screen frame\n
 P:122EC:: TODO:\n I don't see why this is needed.\n
-P:122EF:_DrawManhandla
+P:122EF:Manhandla_Draw
 P:122F2:: Push the "frame image and sprite attributes" value.\n
 P:122F6:: Bit 7 is the sprite attribute for vertical flipping, and can be\n passed along as is.\n
 P:122F8:: Use blue palette row.
@@ -3528,14 +3528,14 @@ P:12671:L12671
 P:12675-12686:Gleeok_StretchNeck_JumpTable
 P:12687:Gleeok_ExpandSegment: Randomly, 50% of the time, go move away from the next segment horizontally.\n
 P:1268B:: Else move away vertically.\n
-P:12696:_L_Gleeok_DecSegmentY
-P:1269A:_L_Gleeok_SetSegmentY
+P:12696:L_Gleeok_DecSegmentY
+P:1269A:L_Gleeok_SetSegmentY
 P:1269C:Gleeok_IgnoreSegment
 P:1269D:Gleeok_ContractSegmentY: Move toward the next segment vertically.\n
-P:126AA:_L_Gleeok_ExpandHorizontally: Move away from the next segment horizontally.\n
+P:126AA:L_Gleeok_ExpandHorizontally: Move away from the next segment horizontally.\n
 P:126B5:Gleeok_ContractSegmentX: Move toward the next segment horizontally.\n
-P:126BE:_L_Gleeok_DecSegmentX
-P:126C2:_L_Gleeok_SetSegmentX
+P:126BE:L_Gleeok_DecSegmentX
+P:126C2:L_Gleeok_SetSegmentX
 P:126C5:Gleeok_ContractSegment: Randomly, 50% of the time, go move toward the next segment horizontally.\n Else go move vertically.\n
 P:126CB:Gleeok_WriteHeadOrBaseSpriteAndCheckCollisions: Description:\n This block applies to heads and the bottom segment of a neck.\n These are drawn with sprites that come first in order, so that\n they are drawn above all other sprites, including Link.\n\n Params:\n A: tile number\n\n Normal sprite with level palette row
 P:126CD:: [03] holds sprite attributes
@@ -3592,12 +3592,12 @@ P:12809-1280E:GleeokBodyTiles0
 P:1280F-12814:GleeokBodyTiles1
 P:12815-1281A:GleeokBodyTiles2
 P:1281B-1281E:GleeokBodyBaseTileOffsets
-P:1281F:_L_Gleeok_DecAnimTimerAndDraw: Decrement animation timer, and go draw.\n
+P:1281F:L_Gleeok_DecAnimTimerAndDraw: Decrement animation timer, and go draw.\n
 P:12825:Gleeok_DrawBody: The animation timer controls when the animation frame changes.\n If it has not expired, then go decrement it and draw.\n
 P:1282A:: The animation timer has expired. There are two choices for arming it.\n\n When writhing after a hit, Gleeok animates faster.\n So, when the writhing counter <> 0, set a shorter time (6).\n Otherwise, set a longer time ($10).\n
 P:12836:L12836
 P:12839:: Cycle the animation frame from 0 to 3.\n
-P:12844:_L_Gleeok_WriteSprites: For each row, from 0 to 1, indexed by [06]:\n
+P:12844:L_Gleeok_WriteSprites: For each row, from 0 to 1, indexed by [06]:\n
 P:12848:: Get the base tile offset for the current animation frame.\n
 P:1284E:L1284E_LoopDrawRow: For each column from 0 to 2, indexed by [07]:\n
 P:12852:L12852_LoopDrawColumn: Point to the next rolling sprite record.\n
@@ -3762,7 +3762,7 @@ P:12C59:L12C59_Rotate
 P:12C61:: If Patra's state still = 0, then the last patra child has not\n shown up yet. In this case don't check collisions yet, only return.\n
 P:12C68:: If the monster died, then change to the dead dummy object.\n
 P:12C70:L12C70_Exit
-P:12C71:_DrawPatraChild
+P:12C71:PatraChild_Draw
 P:12C74:: 2 was returned from the routine above in A.\n Pass it as the animation counter value to the routine below.\n
 P:12C7D:UpdateGanon
 P:12C83-12C88:UpdateGanon_JumpTable
@@ -5066,9 +5066,9 @@ P:164EA-164ED:DirIndexToDoorSecondHalfOffsets
 P:164EE-164F1:DirIndexToDoorColumnCount
 P:164F2-164F5:DirIndexToDoorRowCountMinusOne
 P:164F6:LayOutDoors: Copies the right door face for the direction, type, and state\n of the door to the play area tile map.\n\n Also, clears door bits from CurOpenedDoors of doorways\n that are not true doors.\n
-P:164F8:_L_LayOutDoors_LoopDoors: For each door, indexed by X, from 3 (N) to 0:\n
+P:164F8:L_LayOutDoors_LoopDoors: For each door, indexed by X, from 3 (N) to 0:\n
 P:164FA:: For each half of a door, indexed by [06], from 1 to 0:\n\n [06] indicates whether we're handling the first half of\n the door: Left half for N/S, Top half for E/W.\n
-P:164FC:_L_LayOutDoors_LoopHalves
+P:164FC:L_LayOutDoors_LoopHalves
 P:164FD:: Save the current direction index (door index).
 P:164FE:: [0B] holds direction index.
 P:16503:: [02] holds the direction (bit) for the current door.
@@ -6913,7 +6913,7 @@ P:1FB9D:L1FB9D_Update: The object was already initialized.\n\n If meta-state <> 
 P:1FBA5:L1FBA5: This is a normal update.\n\n If object type >= $6A, then switch to bank 1,\n and go update a cave.\n
 P:1FBB1:L1FBB1_NormalObject: Else call the object update routine.\n
 P:1FBB4-1FC87:UpdateObject_JumpTable
-P:1FC88:_UpdateMetaObject
+P:1FC88:UpdateMetaObject
 P:1FC8B:: Go handle end metastates (4 and $14) specially.\n
 P:1FC94:DoNothing
 P:1FC95:UpdateMetaObjectEnd: Metastate = 4 or $14.\n\n If it's 4, go reset the metastate. The object is ready to update\n on its own.\n

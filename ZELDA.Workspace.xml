@@ -37514,7 +37514,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>25046</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_ReplaceAshesPaletteRow</Label>
+      <Label>ReplaceAshesPaletteRow</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -37530,7 +37530,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>91384</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_L_LayOutDoors_LoopDoors</Label>
+      <Label>L_LayOutDoors_LoopDoors</Label>
       <Comment> For each door, indexed by X, from 3 (N) to 0:&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -37539,7 +37539,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>91388</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_L_LayOutDoors_LoopHalves</Label>
+      <Label>L_LayOutDoors_LoopHalves</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -37924,7 +37924,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>130184</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_UpdateMetaObject</Label>
+      <Label>UpdateMetaObject</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -39579,7 +39579,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>69439</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_CheckTileObjCollisionWithWeapon</Label>
+      <Label>CheckTileObjWeaponCollision</Label>
       <Comment> Params:&#xD;
  X: object index&#xD;
  Y: weapon object index&#xD;
@@ -41935,7 +41935,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>66417</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_CheckShotLinkCollision</Label>
+      <Label>CheckShotLinkCollision</Label>
       <Comment> Params:&#xD;
  X: monster object index&#xD;
 &#xD;
@@ -43439,7 +43439,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>68099</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_GetJumperKind</Label>
+      <Label>Jumper_GetKind</Label>
       <Comment> Returns:&#xD;
  Y: 0: blue tektite&#xD;
     1: red tektite&#xD;
@@ -43495,7 +43495,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>68113</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_PointBoulderDownward</Label>
+      <Label>Jumper_PointBoulderDownward</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -44120,7 +44120,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>67113</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_CheckGelCollisions</Label>
+      <Label>Gel_CheckCollisions</Label>
       <Comment> TODO:&#xD;
  CheckMonsterCollisions calls GetObjectMiddle which&#xD;
  overwrites [02] and [03]. So, I don't know why these are set here.&#xD;
@@ -44405,7 +44405,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>66785</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_UpdateZolState</Label>
+      <Label>UpdateZolState</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -44413,7 +44413,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>66796</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_UpdateZolState0_Wander</Label>
+      <Label>UpdateZolState0_Wander</Label>
       <Comment> QSpeed $18 (0.375 pixels a second)</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -44421,7 +44421,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>66801</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_UpdateZolState1_Shove</Label>
+      <Label>UpdateZolState1_Shove</Label>
       <Comment> Move straight and fast until blocked. Then go to state 2.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -44430,7 +44430,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>66809</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_UpdateZolState2_Split</Label>
+      <Label>UpdateZolState2_Split</Label>
       <Comment> We'll create two gels, but destroy the zol. So, increase&#xD;
  the object count by 1 only.&#xD;
 </Comment>
@@ -44520,7 +44520,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>66860</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_CheckZolCollisions</Label>
+      <Label>Zol_CheckCollisions</Label>
       <Comment> If not in state 0, then return.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -45329,7 +45329,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>72324</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_DrawDodongo</Label>
+      <Label>Dodongo_Draw</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -45337,7 +45337,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>71869</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_UpdateDodongoState</Label>
+      <Label>UpdateDodongoState</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -45345,7 +45345,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>71880</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_UpdateDodongoState0_Move</Label>
+      <Label>UpdateDodongoState0_Move</Label>
       <Comment> If facing left, then push X offset 0 on the stack.&#xD;
  Else push X offset -$10, and add $10 to X coordinate.&#xD;
 &#xD;
@@ -45362,7 +45362,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>71936</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_UpdateDodongoState1_Bloated</Label>
+      <Label>UpdateDodongoState1_Bloated</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -45370,7 +45370,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>71922</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_UpdateDodongoState2_Stunned</Label>
+      <Label>UpdateDodongoState2_Stunned</Label>
       <Comment> Take action depending on the value of stun timer:&#xD;
  0:     set stun timer to $20 &#xD;
  1:     go back to state 0&#xD;
@@ -45411,7 +45411,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>71952</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_UpdateDodongoState1_Bloated_Sub_Wait</Label>
+      <Label>UpdateDodongoState1_Bloated_Sub_Wait</Label>
       <Comment> Bloated timer =&gt;&#xD;
  0:     fall thru to set a new timer and check bomb hits&#xD;
  1:     go advance the substate&#xD;
@@ -45423,7 +45423,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>72018</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_UpdateDodongoState1_Bloated_Sub_Die</Label>
+      <Label>UpdateDodongoState1_Bloated_Sub_Die</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -45431,7 +45431,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>72024</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_UpdateDodongoState1_Bloated_Sub_End</Label>
+      <Label>UpdateDodongoState1_Bloated_Sub_End</Label>
       <Comment> Go to state 0.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -45491,7 +45491,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>72014</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_L_Dodongo_DecrementBloatedTimer</Label>
+      <Label>L_Dodongo_DecrementBloatedTimer</Label>
       <Comment> Either way, decrement the bloated timer.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -45554,7 +45554,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>72074</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_CheckDodongoCollisionsStandardSize</Label>
+      <Label>Dodongo_CheckCollisionsStandardSize</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -45571,7 +45571,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>72031</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_CheckDodongoCollisions</Label>
+      <Label>Dodongo_CheckCollisions</Label>
       <Comment> Check for collisions using a regular monster size.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -45626,7 +45626,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>72121</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_CheckBombHit</Label>
+      <Label>Dodongo_CheckBombHit</Label>
       <Comment> If state &lt;&gt; 0 (not moving), then return.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -46887,7 +46887,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>74277</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_CheckManhandlaCollisions</Label>
+      <Label>Manhandla_CheckCollisions</Label>
       <Comment> Check collisions, but never let them interfere with movement.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -47148,7 +47148,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>74479</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_DrawManhandla</Label>
+      <Label>Manhandla_Draw</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -47954,7 +47954,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>72762</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_UpdatePolsVoiceState1_Jumping</Label>
+      <Label>UpdatePolsVoiceState1_Jumping</Label>
       <Comment> Add acceleration $38 to low speed byte (vertical).&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -49388,7 +49388,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>75844</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_L_Gleeok_WriteSprites</Label>
+      <Label>L_Gleeok_WriteSprites</Label>
       <Comment> For each row, from 0 to 1, indexed by [06]:&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -49492,7 +49492,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>75807</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_L_Gleeok_DecAnimTimerAndDraw</Label>
+      <Label>L_Gleeok_DecAnimTimerAndDraw</Label>
       <Comment> Decrement animation timer, and go draw.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -50530,7 +50530,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>75434</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_L_Gleeok_ExpandHorizontally</Label>
+      <Label>L_Gleeok_ExpandHorizontally</Label>
       <Comment> Move away from the next segment horizontally.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -50623,7 +50623,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>1254</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>_GleeokAnimationTimer</Label>
+      <Label>GleeokAnimationTimer</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -50631,7 +50631,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>1255</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>_GleeokBodyAnimationFrame</Label>
+      <Label>GleeokBodyAnimationFrame</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -50671,7 +50671,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>73780</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_UpdateRedWizzrobe_0</Label>
+      <Label>UpdateRedWizzrobe_0</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -50679,7 +50679,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>73709</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_UpdateRedWizzrobe_1</Label>
+      <Label>UpdateRedWizzrobe_1</Label>
       <Comment> Handle state group 1 ($40 to $7F).&#xD;
 &#xD;
  If state = $7F, make it $4F.&#xD;
@@ -50692,7 +50692,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>73781</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_UpdateRedWizzrobe_2</Label>
+      <Label>UpdateRedWizzrobe_2</Label>
       <Comment> Handle state group 2 ($80 to $BF).&#xD;
 &#xD;
  If state = $B0, then shoot a magic shot $59.&#xD;
@@ -50703,7 +50703,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>73725</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_UpdateRedWizzrobe_3</Label>
+      <Label>UpdateRedWizzrobe_3</Label>
       <Comment> Handle state group 3 ($C0 to $FF).&#xD;
 &#xD;
  If state &lt;&gt; $FF, go fade as in state group 1.&#xD;
@@ -50837,7 +50837,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>73792</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_DrawWizzrobeAndCheckCollisions</Label>
+      <Label>Wizzrobe_DrawAndCheckCollisions</Label>
       <Comment> Invincible to everything but sword and bomb.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -50963,7 +50963,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>73198</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_DrawWizzrobeAndCheckCollisionsIntermittently</Label>
+      <Label>Wizzrobe_DrawAndCheckCollisionsIntermittently</Label>
       <Comment> If the teleporting distance remaining is even, then draw&#xD;
  and check collisions, else return.&#xD;
 &#xD;
@@ -53367,7 +53367,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>76913</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_DrawPatraChild</Label>
+      <Label>PatraChild_Draw</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -63389,7 +63389,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>75414</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_L_Gleeok_DecSegmentY</Label>
+      <Label>L_Gleeok_DecSegmentY</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -63397,7 +63397,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>75418</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_L_Gleeok_SetSegmentY</Label>
+      <Label>L_Gleeok_SetSegmentY</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -63405,7 +63405,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>75454</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_L_Gleeok_DecSegmentX</Label>
+      <Label>L_Gleeok_DecSegmentX</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -63413,7 +63413,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>75458</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_L_Gleeok_SetSegmentX</Label>
+      <Label>L_Gleeok_SetSegmentX</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -67197,7 +67197,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>66790</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_UpdateZolState_JumpTable</Label>
+      <Label>UpdateZolState_JumpTable</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>6</Length>
@@ -67237,7 +67237,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>71874</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_UpdateDodongoState_JumpTable</Label>
+      <Label>UpdateDodongoState_JumpTable</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>6</Length>
@@ -67245,7 +67245,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>71942</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_UpdateDodongoState1_Bloated_JumpTable</Label>
+      <Label>UpdateDodongoState1_Bloated_JumpTable</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>10</Length>
