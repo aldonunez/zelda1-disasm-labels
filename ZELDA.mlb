@@ -1947,14 +1947,15 @@ P:10052:: Normal sprites and palette row 6 (red)
 P:10057:: Up
 P:1005E:: If type <> $40, then never use horizontal mirroring. Dead code?\n
 P:10069:L10069: Frame image 0
-P:1006E:UpdateCommonWanderer: Params:\n A: turn rate\n\n Set the turn rate. If being shoved, then shove and return.\n
+P:1006E:UpdateCommonWanderer: Params:\n A: turn rate\n\n Set the turn rate. If being shoved, then shove and return.\n\n DASM.EXPR: ObjTurnRate\n
 P:10078:L10078: If we have the magic clock or the monster is stunned, then return.\n
-P:10094:Wanderer_TargetPlayer: If turn timer <> 0, then decrement it.\n
+P:10094:Wanderer_TargetPlayer: If turn timer <> 0, then decrement it.\n\n DASM.EXPR: ObjTurnTimer\n
+P:10099:: DASM.EXPR: ObjTurnTimer
 P:1009C:L1009C
 P:100A3:L100A3_Exit
 P:100A4:L100A4: If speed = 0, or the object is between squares;\n then go set input direction to facing direction.\n
 P:100B0:: Set truncated grid offset.\n
-P:100B3:: If turn rate < a random value, or Link's state = $FF;\n then go turn if turn timer has expired.\n
+P:100B3:: If turn rate < a random value, or Link's state = $FF;\n then go turn if turn timer has expired.\n\n DASM.EXPR: ObjTurnRate\n
 P:100C0:: Get the absolute horizontal distance between\n the monster and the chase target.\n
 P:100CC:L100CC: If distance >= 9, then go check the vertical distance.\n
 P:100D0:L100D0_TurnVertically: Choose a vertical direction toward the chase target.\n Then go face in this direction, and flag to shoot.\n
@@ -1963,10 +1964,13 @@ P:100E8:L100E8: If distance >= 9, then go turn if turn timer has expired.\n
 P:100EC:L100EC_TurnHorizontally: Choose a horizontal direction toward the chase target.\n
 P:100F5:L100F5_SetDirTowardTarget: Set the monster's facing direction to the chosen direction\n toward the chase target.\n
 P:100F7:: Set turn timer to a random value.\n
+P:100F9:: DASM.EXPR: ObjTurnTimer
 P:100FC:: Set "wants to shoot" flag to 1.\n
+P:100FE:: DASM.EXPR: ObjWantsToShoot
 P:10101:: Go set input direction to facing direction.\n
 P:10104:L10104_TurnIfTime: Reset "wants to shoot" flag.\n
-P:10109:: If turn timer <> 0, then go set input direction to facing direction.\n
+P:10106:: DASM.EXPR: ObjWantsToShoot
+P:10109:: If turn timer <> 0, then go set input direction to facing direction.\n\n DASM.EXPR: ObjTurnTimer\n
 P:1010E:: Turn toward the chase target in a direction perpendicular to\n facing direction.\n\n If facing vertically, then go choose a horizontal direction\n toward the chase target.\n\n Else go choose a vertical direction toward the chase target.\n
 P:10116:L10116_SetInputDir
 P:10119:UpdateGoriya
@@ -1982,8 +1986,10 @@ P:10153:L10153
 P:1015A:: Store in [01] the absolute horizontal distance between\n the chase target and the walker.\n\n Store in [03] the horizontal direction from the walker to\n the chase target.\n
 P:1016C:L1016C
 P:10173:: Whichever distance is longer determines which combination\n of distance and direction will be used.\n\n If the vertical distance is longer, then use index 0.\n Else use index 1 for horizontal distance and direction.\n
-P:1017C:L1017C: TODO:\n Reset the "wants to shoot" flag.\n
-P:10181:: TODO:\n If the distance chosen < $51, then\n set the "wants to shoot" flag to 1,\n and face in the chosen direction.\n
+P:1017C:L1017C: Reset the "wants to shoot" flag.\n
+P:1017E:: DASM.EXPR: ObjWantsToShoot
+P:10181:: If the distance chosen < $51, then\n set the "wants to shoot" flag to 1,\n and face in the chosen direction.\n
+P:10188:: DASM.EXPR: ObjWantsToShoot
 P:10190:L_Walker_SetInputDirAndTryShootingBoomerang: Set the input direction to the facing direction.\n
 P:10195:: Goriya will throw a boomerang (object type $5C).\n
 P:10197:: If the monster is a blue goriya, go check the timer.\n
@@ -1996,8 +2002,11 @@ P:101B4:: If we have the magic clock, or the monster is stunned, then return.\n
 P:101BB:: Try to shoot. Return, if it failed.\n
 P:101C2:: Set monster's state to $80 for delaying after shooting.\n
 P:101C6:: Reset the "wants to shoot" flag.\n
+P:101C8:: DASM.EXPR: ObjWantsToShoot
 P:101CB:: Have the shot keep track of the monster.\n
+P:101CC:: DASM.EXPR: ObjRefId
 P:101CF:: Have the monster keep track of the shot.\n
+P:101D0:: DASM.EXPR: ObjRefId
 P:101D3:: Set the shot's state to $10, which is the flying state for them.\n
 P:101D8:: Fly at q-speed $A0 (2.5 pixels a frame).\n
 P:101DD:: For boomerangs, move up to $51 pixels (horizontally or vertically).\n
@@ -2015,8 +2024,8 @@ P:10225:: Link's (Y + 3) is aligned with the block's Y.\n Get the difference in 
 P:1022C:L1022C_TestDifference: If the difference in coordinates is negative, then Link is\n up or left of the block.\n\n In that case, increase Y register to index the correct opposite\n direction below. Also, negate the difference, so we test\n positive values.\n
 P:10232:L10232: If the distance >= $11, then go reset the push timer and return.\n
 P:10236:: At this point, Link is aligned with the block.\n\n If the input direction is not the required direction based on\n Link's placement; then go reset the push timer and return.\n
-P:1023E:: Link is truly pushing the block.\n\n Increase the push timer.\n
-P:10241:: If the push timer still < $10, return.\n
+P:1023E:: Link is truly pushing the block.\n\n Increase the push timer.\n\n DASM.EXPR: ObjPushTimer\n
+P:10241:: If the push timer still < $10, return.\n\n DASM.EXPR: ObjPushTimer\n
 P:10248:: Link has pushed enough.\n Set the block's direction to Link's, set state 1,\n and change tiles at the source to a floor tile.\n
 P:1024C:: Switch back to bank 4 when returning from the call below.
 P:1024E:: Floor tile tile
@@ -2024,6 +2033,7 @@ P:10253:DrawBlock
 P:10256:: Decrement sprite Y, to draw at the object's true Y.
 P:10258:: Frame image 0
 P:1025D:L1025D_ResetPushTimer: Reset the push timer.\n
+P:1025F:: DASM.EXPR: ObjPushTimer
 P:10262:L10262_Exit
 P:10263:UpdateBlock1Moving: Move in the block's direction, and draw.\n
 P:1026D:: If the block has not moved $10 pixels, then return.\n
@@ -2071,36 +2081,50 @@ P:10336:: [0D] frame image
 P:1033B:DestroyMonsterShot: Destroy fireballs directly. These are not kept track of.\n
 P:10346:DestroyCountedMonsterShot
 P:10349:L10349
-P:1034C:L1034C_BounceShot: Get the reverse direction index for the bounce direction.\n\n TODO: Name: ObjMovingLimit\n
+P:1034C:L1034C_BounceShot: Get the reverse direction index for the bounce direction.\n\n DASM.EXPR: Shot_ObjBounceDir\n
 P:10352:: Modify the coordinates according to the displacements for\n the bounce direction.\n
-P:10362:: Add 2 to the bounce distance.\n The absolute value of one of the displacements is 2.\n\n TODO: Name: ObjGridOffset\n
+P:10362:: Add 2 to the bounce distance.\n The absolute value of one of the displacements is 2.\n\n DASM.EXPR: Shot_ObjBounceDist\n
+P:10368:: DASM.EXPR: Shot_ObjBounceDist
 P:1036B:: Go destroy the shot, if the bounce counter has reached the limit.\n Otherwise, go draw.\n
-P:10371:CheckShotLinkCollision: Params:\n X: monster object index\n\n Returns:\n [00]: 0 for Link slot\n [06]: 1 if objects collide\n [09]: 0 for Link damage type (none)\n [0C]: 1 if objects collide\n [034B]: ShotCollidesWithLink\n\n TODO: Name: ObjGridOffset\n Reset bounce distance.\n
-P:1037E:: If the shot hits Link, then start to bounce off of Link's shield.\n Set the bounce direction to Link's facing direction.\n Set state $30 to bounce.\n\n TODO: Name: ObjMovingLimit\n
+P:10371:CheckShotLinkCollision: Params:\n X: monster object index\n\n Returns:\n [00]: 0 for Link slot\n [06]: 1 if objects collide\n [09]: 0 for Link damage type (none)\n [0C]: 1 if objects collide\n [034B]: ShotCollidesWithLink\n\n Reset bounce distance.\n
+P:10373:: DASM.EXPR: Shot_ObjBounceDist
+P:1037E:: If the shot hits Link, then start to bounce off of Link's shield.\n Set the bounce direction to Link's facing direction.\n Set state $30 to bounce.\n
+P:10380:: DASM.EXPR: Shot_ObjBounceDir
 P:10387:L10387
 P:10388-1038F:FireballQSpeedsX
 P:10390-10398:FireballQSpeedsY
 P:10399:UpdateFireball
-P:1039D:: State 0.\n\n Reset horizontal and vertical position fractions.\n
+P:1039D:: State 0.\n\n Reset horizontal and vertical position fractions.\n\n DASM.EXPR: Fireball_ObjPosFracX\n
+P:103A0:: DASM.EXPR: Fireball_ObjPosFracY
 P:103A3:: Link is the target. So, register A has 0 -- his object slot.\n
 P:103A6:: Remember the horizontal and vertical directions toward target.\n
+P:103A8:: DASM.EXPR: Fireball_ObjDirToTargetX
+P:103AD:: DASM.EXPR: Fireball_ObjDirToTargetY
 P:103B0:: Set the facing direction to the combination of the two.\n
 P:103B9:: Look up and set the horizontal and vertical q-speeds.\n
+P:103BC:: DASM.EXPR: Fireball_ObjQSpeedX
+P:103C2:: DASM.EXPR: Fireball_ObjQSpeedY
 P:103C5:: Set state to $10: monster shot active.\n Set object timer to $10, so it's seen but delays a little before moving.\n
 P:103CC:L103CC_State1: State 1.\n\n Fireballs are delayed and visible for a few frames before moving.\n If timer <> 0, go draw.\n
 P:103D0:: If the room boundary blocks the fireball, then destroy it.\n
 P:103D7:L103D7_DestroyMonster
-P:103DA:L103DA_Move: A movement routine is used that works along one axis.\n So, load its parameters, and call it for each axis individually.\n\n First, load the horizontal direction into [0F].\n
-P:103DF:: Load the horizontal q-speed and position fraction,\n move, then save the position fraction.\n
-P:103EB:: Second, load the vertical direction into [0F].\n
-P:103F0:: Load the vertical q-speed and position fraction,\n move, then save the position fraction.\n
+P:103DA:L103DA_Move: A movement routine is used that works along one axis.\n So, load its parameters, and call it for each axis individually.\n\n First, load the horizontal direction into [0F].\n\n DASM.EXPR: Fireball_ObjDirToTargetX\n
+P:103DF:: Load the horizontal q-speed and position fraction,\n move, then save the position fraction.\n\n DASM.EXPR: Fireball_ObjQSpeedX\n
+P:103E2:: DASM.EXPR: Fireball_ObjPosFracX
+P:103E8:: DASM.EXPR: Fireball_ObjPosFracX
+P:103EB:: Second, load the vertical direction into [0F].\n\n DASM.EXPR: Fireball_ObjDirToTargetY\n
+P:103F0:: Load the vertical q-speed and position fraction,\n move, then save the position fraction.\n\n DASM.EXPR: Fireball_ObjQSpeedY\n
+P:103F3:: DASM.EXPR: Fireball_ObjPosFracY
+P:103F9:: DASM.EXPR: Fireball_ObjPosFracY
 P:103FC:L103FC_CheckCollisionAndDraw: Check for collision with Link. If hit, then go destroy the fireball.\n
 P:10407:Fireball_MoveOneAxis: Params:\n A: q-speed\n Y: position fraction\n [0F]: movement direction\n\n Returns:\n A: position fraction\n\n Load the q-speed and position fraction from the parameters.\n
 P:10411:: Return the updated position fraction.\n
 P:10415:InitBubble: QSpeed $40 (1 pixel a frame)
 P:1041D:InitBlueKeese: Choose one of eight random directions.\n
+P:10431:: DASM.EXPR: Flyer_ObjSpeed
 P:10435:InitRedOrBlackKeese
 P:10438:: Red and black keeses are like blue ones, but faster.\n
+P:1043A:: DASM.EXPR: Flyer_ObjSpeed
 P:1043E:UpdateBubble: Turn rate $40
 P:10446:: If the bubble is not type $2B that temporarily blocks the sword;\n then subtract $2B from the type to get 1 or 2, which\n represent the blue and red palette rows in sprite attributes.\n
 P:10450:L10450_Flash: Else make it flash by cycling all the palette rows.\n
@@ -2114,15 +2138,17 @@ P:1046F:L1046F_BlockOrUnblock: Subtract $2C from the type to get the value for b
 P:10476:_AnimateAndDrawCommonObject: Params:\n A: new value for animation counter\n X: object index\n
 P:10481:UpdateKeese: If the magic clock is missing and Link is not lifting an item,\n then fly.\n
 P:1048F:L1048F
-P:10492:: Like peahats, keeses animate as fast as they move.\n But keese beat their wings at half the rate.\n
-P:104A1:ControlKeeseFlight
+P:10492:: Like peahats, keeses animate as fast as they move.\n But keese beat their wings at half the rate.\n\n DASM.EXPR: Flyer_ObjDistTraveled\n
+P:104A1:ControlKeeseFlight: DASM.EXPR: Flyer_ObjFlyingState
 P:104A7-104B2:ControlKeeseFlight_JumpTable
 P:104B3:Flyer_KeeseDecideState: Go to the next state randomly:\n Random >= $A0: 2\n Random >= $20: 3\n Else:          4\n\n Set up 6 turns.\n
 P:104B9:: If >= $A0, go to state 2.
 P:104BE:: If >= $20, go to state 3.
 P:104C0:: Else go to state 4.
 P:104C1:Flyer_SetStateAndTurns
+P:104C2:: DASM.EXPR: Flyer_ObjFlyingState
 P:104C5:: Set 6 turns for the next state.
+P:104C7:: DASM.EXPR: Flyer_ObjTurns
 P:104CB:UpdateZol
 P:104D4:: Every 8 screen frames, switch between frame image 0 and 1.\n
 P:104DD:L104DD
@@ -2167,10 +2193,11 @@ P:105A8:: Set Y coordinate to (((Y + 8) AND $F0) OR $D).\n
 P:105B2:: Reset the grid offset, and go to state 2.\n
 P:105B9:L105B9_Exit
 P:105BA:L105BA_State0: State 0.\n\n Immediately go to state 1 with QSpeed $20 (half a pixel a second),\n and 5 frame timer.\n
-P:105C6:L105C6_State2: State 2.\n\n Set QSpeed $40 (1 pixel a second).\n
+P:105C6:L105C6_State2: State 2.\n\n Set QSpeed $40 (1 pixel a frame).\n
 P:105C8:UpdateNormalZolOrGel: Params:\n A: qspeed\n
 P:105CB:: If object timer >= 5, then return.\n
 P:105D1:: Turn rate $20
+P:105D3:: DASM.EXPR: ObjTurnRate
 P:105D9:: If the monster is between squares, or timer <> 0; then return.\n
 P:105E0:: Choose a random index (0 to 3) to look up an amount of time.\n
 P:105E5:: If the monster is Zol, then go use this index as is.\n
@@ -2201,10 +2228,12 @@ P:1066C:: Restore the fireball pattern.
 P:1066F:: If we found a slot, but it < 6, return.\n
 P:10673:: Store the object slot in [0A].\n Store fireball pattern in [0B].\n
 P:10677:: Look for the number of fireballs to make (minus 1) by pattern number.\n
-P:1067B:L1067B_LoopFireball: For each fireball to make, indexed by X, (1 or 3 down to 0):\n\n Decrement the fireball timer at this index.\n
+P:1067B:L1067B_LoopFireball: For each fireball to make, indexed by X, (1 or 3 down to 0):\n\n Decrement the fireball timer at this index.\n\n DASM.EXPR: Statue_ObjFireballTimer\n
+P:10680:: DASM.EXPR: Statue_ObjFireballTimer
 P:10683:: If it was not 0, then this fireball index has to keep waiting\n to make a fireball. Go loop again.\n
 P:10686:: If the random value for this fireball index >= $F0, go loop again.\n This fireball index will wait another $100 frames.\n
 P:1068C:: Else choose one of four start times for the fireball based on\n the random value.\n
+P:10692:: DASM.EXPR: Statue_ObjFireballTimer
 P:10695:: The coordinate lists are divided into sets for each pattern.\n\n Look up the index of the base of the set for the pattern in use.\n Add it to the fireball index in X register to get the index of\n the coordinate we want within each coordinate list.\n\n\n Pattern
 P:1069D:: Save the fireball index.
 P:1069F:: Get Link's coordinates into [00] and [01].\n
@@ -2246,6 +2275,7 @@ P:1075E:: Octorock spawn clouds last longer than other monsters.\n Set object ti
 P:1076A:: Reset movement frame.
 P:10775:InitPeahat: Peahats do not use a spawn cloud. Also, go up at first.\n
 P:1077C:EndInitFlyer
+P:10786:: DASM.EXPR: Flyer_ObjSpeed
 P:1078A:InitPondFairy: Play "item taken" sound effect.\n
 P:1078F:: The fairy goes at location ($78, $7D).\n
 P:10797:L10797_Exit
@@ -2254,6 +2284,7 @@ P:107A0:: If zora died in the call above, then it happened while in\n states 2, 
 P:107AC:: Shoot a fireball; and set the timer so that it expires faster.\n
 P:107B5:L107B5_DestroyWhenDone: If state = 0, then destroy zora object.\n Also flag it inactive, so that the object update loop will try\n to make another one.\n
 P:107BF:UpdateMoblin: Set turn rate to $A0.\n
+P:107C1:: DASM.EXPR: ObjTurnRate
 P:107C7:: Arrow object type
 P:107CC:UpdateLynel
 P:107CF:: Sword shot object type
@@ -2270,6 +2301,7 @@ P:107F5:: Store shot object type in [00] to pass to shooting routine.
 P:107FA:: If not temporarily invincible,\n
 P:107FF:: then Y := shoot timer - 1\n
 P:10803:: If Y register < 0, then shoot timer is 0.\n So, if "wants to shoot" flag is set, then set shoot timer to $30.\n Else go set a non-zero speed and return.\n
+P:10805:: DASM.EXPR: ObjWantsToShoot
 P:1080C:L1080C_SetShootTimer: shoot timer := Y\n
 P:10810:: If new shoot timer = 0, go set a non-zero speed.\n
 P:10812:: shoot timer <> 0\n If shoot timer <> $10, then go set a zero speed.\n
@@ -2277,6 +2309,7 @@ P:10816:: If we have the magic clock, or the monster is stunned, then\n go set a
 P:1081D:: Shoot.\n
 P:10822:: If it failed, go set a non-zero speed.\n
 P:10824:: It succeeded, so reset "wants to shoot" flag and the speed.\n
+P:10826:: DASM.EXPR: ObjWantsToShoot
 P:10829:L10829_ZeroSpeed: Replace the speed that was pushed with 0.
 P:1082D:L1082D_SetSpeed: Set the speed to whatever was determined: 0 or the value passed in [01].\n
 P:10831:L10831_Exit
@@ -2288,7 +2321,7 @@ P:10844:: If the timer has not expired, then go draw,\n and see if the shooter's
 P:10848:: If the arrow is sparking, then go update the base arrow.\n
 P:10851:: If the arrow is not flying, then\n go handle it bouncing off of Link's shield.\n
 P:10855:: TODO: But is this necessary?\n Set the moving direction in [0F].\n Then go update the base arrow.\n
-P:1085C:L1085C_CheckShooter: If the shooter is gone, then reset the arrow's object timer;\n so that it flies right away.\n
+P:1085C:L1085C_CheckShooter: If the shooter is gone, then reset the arrow's object timer;\n so that it flies right away.\n\n DASM.EXPR: ObjRefId\n
 P:10869:L10869_UpdateBase
 P:1086C:: If the arrow is no longer flying, then\n go handle it sparking or bouncing.\n
 P:10878:: If [06] = 0, then there was no collision with Link that harmed him\n Either there was no collision at all, or it bounced off of the shield.\n So, return.\n
@@ -2319,24 +2352,29 @@ P:10911:: State = 0 and object timer expired. Time to jump.\n\n First, turn 1 st
 P:10914:: If the facing direction has no horizontal component, then\n find the horizontal direction toward the chase target.\n\n Then combine it with the facing direction.\n
 P:10923:L10923
 P:10928:L10928_SetStateJump: Set state 1 to jump.\n
-P:1092A:L1092A_SetUpJump: If reversal count >= 2, then\n 1. invert the horizontal component of facing direction,\n    to face away from the chase target\n 2. reset the reversal count to 0.\n\n This prevents a jumper from getting stuck in a corner.\n\n For example, if a tektite's direction is down and right,\n and jumps into the top right corner of the room:\n 1. The right room boundary is hit. So the direction is\n    automatically reversed to up and left.\n 2. The next frame, the top room boundary is hit.\n    The direction is reversed to down and right.\n\n As you can see, an endless loop has been made.\n
+P:1092A:L1092A_SetUpJump: If reversal count >= 2, then\n 1. invert the horizontal component of facing direction,\n    to face away from the chase target\n 2. reset the reversal count to 0.\n\n This prevents a jumper from getting stuck in a corner.\n\n For example, if a tektite's direction is down and right,\n and jumps into the top right corner of the room:\n 1. The right room boundary is hit. So the direction is\n    automatically reversed to up and left.\n 2. The next frame, the top room boundary is hit.\n    The direction is reversed to down and right.\n\n As you can see, an endless loop has been made.\n\n DASM.EXPR: Jumper_ObjReversalCount\n
+P:10939:: DASM.EXPR: Jumper_ObjReversalCount
 P:1093C:L1093C_FinishSetUpJump: If the object is a boulder, then make sure its facing direction\n has a down vertical component.\n
 P:1093F:: For the given direction, get the Y offset of the destination\n of the jump.\n\n Add it to the object's Y, and store this destination Y.\n
+P:10947:: DASM.EXPR: Jumper_ObjTargetY
 P:1094A:: Set the starting speed, depending on the object type.\n
+P:10950:: DASM.EXPR: Jumper_ObjSpeedWholeY
 P:10953:: Reset the vertical speed low byte.\n Then go animate, draw, and check collisions.\n
 P:10956:L10956_Animate
 P:10959:L10959_State1: State 1. Jumping.\n\n Keep the object inside the bounds of the room.\n
 P:1095C:: If the object was blocked at the room boundary, then\n increase boundary reversal count, and go set up another jump.\n
+P:10960:: DASM.EXPR: Jumper_ObjReversalCount
 P:10966:L10966
 P:10969:: This step in the jump succeeded. So, reset the reversal count.\n
+P:1096B:: DASM.EXPR: Jumper_ObjReversalCount
 P:1096E:: Get the base offset for the kind of jumper the object is.\n
 P:10974:: Get the acceleration by indexing with (base offset + direction).\n\n Note that the set of accelerations of Boulder (the third set)\n does not have $B elements like the tektites' sets.\n\n Boulder does not need the upward accelerations.\n So, the elements for those are used for the starting speeds\n at 04:88F2.\n
 P:1097B:: Max speed 2 pixels going down
 P:10980:: If the facing direction has a left component, then\n subtract 1 from the object's X.\n\n Else add 1.\n
 P:1098A:L1098A
-P:10990:: If going up (negative v-speed high byte), then\n go animate, draw, and check collisions.\n
+P:10990:: If going up (negative v-speed high byte), then\n go animate, draw, and check collisions.\n\n DASM.EXPR: Jumper_ObjSpeedWholeY\n
 P:10995:: Going down. We have to consider the target Y.\n\n If the absolute vertical distance to the target position >= 3,\n then go animate, draw, and check collisions.\n
-P:10998:: Target Y
+P:10998:: DASM.EXPR: Jumper_ObjTargetY
 P:109A2:: Distance < 3. Go to state 0.\n\n If the object is a boulder, then go reset timer, animate, draw.\n
 P:109AC:: Else calculate a timer value.\n\n t := (Random + $10)\n if t < $20 then\n   t := t - $40\n
 P:109B8:L109B8: If the object is a blue tektite, then go use this t.\n
@@ -2349,7 +2387,7 @@ P:109CE:: TODO: [0D] ?\n [0D] doesn't seem to be used.\n
 P:109D0:: If the monster is a boulder, then go animate, draw, check collision.\n
 P:109D7:: Draw a tektite.\n\n If state = 1, then go draw frame image 1, and check collisions.\n
 P:109DB:: If object timer < $21, go draw frame image 0, and check collisions.\n
-P:109E1:: Else cycle the animation counter, draw, and check collisions.\n\n TODO: name: movement frame\n The movement frame determines the frame image.\n
+P:109E1:: Else cycle the animation counter, draw, and check collisions.\n\n The movement frame determines the frame image.\n
 P:109E9:L109E9_DrawTektite
 P:109EC:L109EC_DrawBoulder: Draw a boulder.\n
 P:109F1:: TODO: The movement frame determines the frame image.
@@ -2361,18 +2399,23 @@ P:10A11:Jumper_PointBoulderDownward
 P:10A20:L10A20_Exit
 P:10A21:Jumper_MoveY: Params:\n A: acceleration\n Y: max speed high byte\n\n [00] holds the acceleration
 P:10A23:: [02] holds the max speed high byte
-P:10A25:: Add the high speed byte to the Y coordinate.\n
-P:10A2C:: Add the acceleration to the speed fraction (low byte).\n
+P:10A25:: Add the high speed byte to the Y coordinate.\n\n DASM.EXPR: Jumper_ObjSpeedWholeY\n
+P:10A2C:: Add the acceleration to the speed fraction (low byte).\n\n DASM.EXPR: Jumper_ObjSpeedFracY\n
 P:10A30:: [00] acceleration
-P:10A35:: Carry over to the high speed byte.\n
+P:10A32:: DASM.EXPR: Jumper_ObjSpeedFracY
+P:10A35:: Carry over to the high speed byte.\n\n DASM.EXPR: Jumper_ObjSpeedWholeY\n
+P:10A3A:: DASM.EXPR: Jumper_ObjSpeedWholeY
 P:10A3D:: *Signed comparison*:\n If the high speed byte < high max speed byte, then return.\n\n Note that this is not a general purpose signed comparison,\n which would be more complicated. But it works because\n the deviation from 0 of both values is small.\n
-P:10A41:: Limit the speed to the max speed.\n
+P:10A41:: Limit the speed to the max speed.\n\n DASM.EXPR: Jumper_ObjSpeedFracY\n
+P:10A4A:: DASM.EXPR: Jumper_ObjSpeedWholeY
 P:10A4D:Jumper_ResetVSpeedFrac
+P:10A4F:: DASM.EXPR: Jumper_ObjSpeedFracY
 P:10A52:L10A52_Exit
 P:10A53-10A58:BlueLeeverStateQSpeeds
 P:10A59-10A5E:BlueLeeverStateTimes
 P:10A5F-10A64:BlueLeeverStateAnimTimes
 P:10A65:UpdateBlueLeever: Turn rate $A0
+P:10A67:: DASM.EXPR: ObjTurnRate
 P:10A6D:UpdateBurrower: If object timer <> 0, then go animate, draw, and check for collisions.\n
 P:10A71:: If not zora or state <> 1, go cycle the state.\n
 P:10A7D:: Else is zora and state = 1.\n\n If zora's Y >= Link's Y, then set zora's frame image to\n 3 (back), else 2 (front).\n\n The frame image number is being assigned to ObjDir.\n
@@ -2384,7 +2427,7 @@ P:10AA1:L10AA1_Animate: Advance the animation counter; possibly setting a new\n 
 P:10AA6:Burrower_AnimateDrawAndCheckCollisions: Params:\n A: new value for animation counter, in case it rolls over\n X: object index\n\n Note:\n Advances the animation counter first.\n
 P:10AA9:: If state = 0, return.\n
 P:10AAD:: If is zora, and state >= 2 and < 5, then use frame image 2 or 3\n (front or back), which was stored in ObjDir above.\n
-P:10AC2:L10AC2_CalcFrameImage: Or else if is zora in state 1 or 5, then use one of\n the mound frame images:\n\n TODO: name: movement frame\n frame image := ((state - 1) * 2) + movement frame\n\n This yields 0/1 or 8/9, depending on the state.\n\n This formula is used for states 1 to 5 of non-zora burrowers.\n
+P:10AC2:L10AC2_CalcFrameImage: Or else if is zora in state 1 or 5, then use one of\n the mound frame images:\n\n frame image := ((state - 1) * 2) + movement frame\n\n This yields 0/1 or 8/9, depending on the state.\n\n This formula is used for states 1 to 5 of non-zora burrowers.\n
 P:10ACA:L10ACA_Draw
 P:10ACD:: If not zora and state <> 3, \n or zora and state <> 2, 3, 4;\n then return.\n
 P:10ADE:L10ADE_NoState3Collisions
@@ -2437,7 +2480,7 @@ P:10BEA:: Look up and set the speed, timer, and animation counter\n for the curr
 P:10BF6:L10BF6_RedLeever_AnimateAndCheckCollisions
 P:10BFF:UpdateOctorock: If the monster is a fast octorock, use turn rate $A0.\n Else use turn rate $70.\n
 P:10C04:: Blue octorock (fast and slow)
-P:10C0A:L10C0A
+P:10C0A:L10C0A: DASM.EXPR: ObjTurnRate
 P:10C10:: If the octorock is slow, then use q-speed $20.\n Else double it.\n
 P:10C1E:L10C1E_Shoot: Shoot a flying rock (object type $53).\n
 P:10C26:: If facing down, then use frame image offset 2.\n
@@ -2446,7 +2489,7 @@ P:10C37:L10C37_CheckHorizontal: If facing right, then set horizontal flipping, a
 P:10C3D:L10C3D: Else facing left. Use frame image offset 0, but no horizontal flipping.\n
 P:10C3F:L10C3F_SaveOffset: Save frame image offset for the direction.
 P:10C40:: Decrement the animation counter, and roll over if needed.\n
-P:10C4A:: There are actually 6 frame images divided into 2 sets.\n Each set depicts one animation frame. In each set there are\n 3 frame images: 1 for each direction (left, up, down).\n\n TODO: name: movement frame\n\n The movement frame will keep track of the base offset of\n the current set for the current animation frame: 0 or 3.\n\n So, XOR the movement frame with 3.\n
+P:10C4A:: There are actually 6 frame images divided into 2 sets.\n Each set depicts one animation frame. In each set there are\n 3 frame images: 1 for each direction (left, up, down).\n\n The movement frame will keep track of the base offset of\n the current set for the current animation frame: 0 or 3.\n\n So, XOR the movement frame with 3.\n
 P:10C51:L10C51_CalcFinalOffset: Add the base offset and the directional offset, and save the result.\n
 P:10C57:: If facing vertically, go draw mirrored.\n
 P:10C5D:: Else draw not mirrored.\n
@@ -2535,9 +2578,11 @@ P:10DEC:L10DEC_LoopHeart: If the current heart's state <> 0, then go move it.\n 
 P:10DF0:: The current heart's state = 0.\n\n If object slot = 2, then go make it appear. This is the first\n heart to show up.\n
 P:10DF4:: Object slot <> 2. If the state of the heart in slot 2 = 0, then\n go start over.\n\n TODO:\n Is it possible to jump from here? This looks like an infinite loop.\n
 P:10DF8:: Look up the starting angle of this heart with the index\n (object slot - 3). If the first heart has not reached this angle,\n then loop again.\n
+P:10DFD:: DASM.EXPR: ObjAngleWhole+2
 P:10E05:L10E05_SetUpHeart: Set up this heart. Set its state to 1.\n
 P:10E07:: TODO: ?\n
 P:10E0B:: Starting angle $18 (N).\n
+P:10E0D:: DASM.EXPR: ObjAngleWhole
 P:10E10:: This heart is right above the fairy. Set its X the same as the fairy's.\n
 P:10E14:: This heart is right above the fairy. Set its Y $1C pixels above the fairy.\n
 P:10E1B:L10E1B_MoveHeart: Decrease the angle by $00.60.\n
@@ -2625,8 +2670,8 @@ P:10FE8:: Normal sprites, palette row 4 (Link).
 P:10FEA:: Raft item slot
 P:10FEF:UpdateFlyingGhini: If we have the magic clock, then don't move.\n
 P:10FFA:L10FFA
-P:10FFD:: Get the low bit of the flying distance traveled.\n But this doesn't seem to be used.\n The following call clobbers the A register.\n
-P:11005:ControlFlyingGhiniFlight
+P:10FFD:: Get the low bit of the flying distance traveled.\n But this doesn't seem to be used.\n The following call clobbers the A register.\n\n DASM.EXPR: Flyer_ObjDistTraveled\n
+P:11005:ControlFlyingGhiniFlight: DASM.EXPR: Flyer_ObjFlyingState
 P:1100B-11016:ControlFlyingGhiniFlight_JumpTable
 P:11017:Flyer_GhiniDecideState: Go to the next state randomly:\n Random >= $A0: 2\n Random >= $08: 3\n Else:          4\n\n Set up 6 turns.\n
 P:1101D:: If >= $A0, go to state 2.
@@ -2638,17 +2683,19 @@ P:1102F:L1102F_L_DrawAndCheckCollisions
 P:11032:L11032: If we have the clock or the object is stunned, go draw\n and check for collisions.\n
 P:11039:: Else move around.\n
 P:1103F:L1103F_DrawAndCheckCollisions
-P:11042:: Take low bit of the flying distance traveled as the frame image.\n So, the faster it moves, the faster it animates.\n
-P:1104A:: In flying state 5, check for all collisions (so it can get hurt).\n In all other states, only check for collisions with Link.\n
+P:11042:: Take low bit of the flying distance traveled as the frame image.\n So, the faster it moves, the faster it animates.\n\n DASM.EXPR: Flyer_ObjDistTraveled\n
+P:1104A:: In flying state 5, check for all collisions (so it can get hurt).\n In all other states, only check for collisions with Link.\n\n DASM.EXPR: Flyer_ObjFlyingState\n
 P:11054:L11054
-P:11057:ControlPeahatFlight
+P:11057:ControlPeahatFlight: DASM.EXPR: Flyer_ObjFlyingState
 P:1105D-11068:ControlPeahatFlight_JumpTable
 P:11069:Flyer_PeahatDecideState: Go to the next state randomly:\n Random >= $B0: 2\n Random >= $20: 3\n Else:          4\n\n Set up 6 turns.\n
 P:1106F:: If >= $B0, go to state 2.
 P:11074:: If >= $20, go to state 3.
 P:11076:: Else go to state 4.
 P:11077:Flyer_SetFlyingStateAnd6Turns
+P:11078:: DASM.EXPR: Flyer_ObjFlyingState
 P:1107B:: Set 6 turns for the next state.
+P:1107D:: DASM.EXPR: Flyer_ObjTurns
 P:11081:PlaySecretFoundTune
 P:110A0-110AF:WallmasterDirsAndAttrsLeft
 P:110B0-110BF:WallmasterDirsAndAttrsRight
@@ -2676,10 +2723,11 @@ P:11147:: Link's minimum major coordinate (Y at top wall)
 P:11149:: Offset $20 for first vertical wall element in instruction block
 P:1114E:: Look up and set Y coordinate according to the index returned.\n
 P:11153:: Set X coordinate to initial minor value returned.\n
-P:11155:L11155_SetUpToShow
-P:11157:: Look up and set the facing direction for the first step.\n
+P:11155:L11155_SetUpToEmerge
+P:11157:: Look up and set the facing direction for the first step.\n\n DASM.EXPR: Wallmaster_ObjStep\n
 P:11161:: TODO: why object 1 timer?\n\n Set object slot 1's timer to $60, this monster's QSpeed to $18,\n and animation counter to 8.\n
 P:1116F:: Reset grid offset, tiles crossed, and movement frame.\n
+P:11174:: DASM.EXPR: Wallmaster_ObjTilesCrossed
 P:1117A:: Start Wallmaster state 1.\n
 P:1117D:L_Wallmaster_State1: If the monster has been shoved, then shove it and go draw.\n
 P:11184:L11184_DrawAndCheckCollisions
@@ -2687,15 +2735,15 @@ P:11187:L11187_CheckStunned: If we have the magic clock or the monster is stunne
 P:11190:: [0F] moving direction
 P:11195:: If grid offset <> $10 nor $F0 (so not square aligned), then\n go draw and check collisions.\n
 P:111A0:L111A0: Truncate grid offset.\n
-P:111A5:: Advance the step.\n
-P:111A8:: Set facing direction to the one for this new step.\n
-P:111B2:: Increase the count of tiles crossed.\n
-P:111B5:: If the monster has crossed less than 7 tiles, then\n go draw and check collisions.\n
-P:111BC:: It has reached the end of a trip.\n\n If Wallmaster did not capture Link, then go set state to 0 and return.\n
+P:111A5:: Advance the step.\n\n DASM.EXPR: Wallmaster_ObjStep\n
+P:111A8:: Set facing direction to the one for this new step.\n\n DASM.EXPR: Wallmaster_ObjStep
+P:111B2:: Increase the count of tiles crossed.\n\n DASM.EXPR: Wallmaster_ObjTilesCrossed
+P:111B5:: If the monster has crossed less than 7 tiles, then\n go draw and check collisions.\n\n DASM.EXPR: Wallmaster_ObjTilesCrossed
+P:111BC:: It has reached the end of a trip.\n\n If Wallmaster did not capture Link, then go set state to 0 and return.\n\n DASM.EXPR: ObjCaptureTimer
 P:111C1:: At the end of a trip where Link was captured:\n 1. hide the special sprites used by Wallmaster\n 2. go to mode 3 "unfurl" to go the level's entrance\n 3. reset Link's state, so he's idle\n
 P:111D0:L111D0_SetState
-P:111D3:L111D3_Wallmaster_DrawAndCheckCollisions: If Link was captured, then go draw Link and Wallmaster specially.\n
-P:111DB:: If after checking object collisions, Link was captured, then\n halt Link and keep him from being shoved.\n
+P:111D3:L111D3_Wallmaster_DrawAndCheckCollisions: If Link was captured, then go draw Link and Wallmaster specially.\n\n DASM.EXPR: ObjCaptureTimer\n
+P:111DB:: If after checking object collisions, Link was captured, then\n halt Link and keep him from being shoved.\n\n DASM.EXPR: ObjCaptureTimer
 P:111E8:L111E8: Remember the index of the first sprite that will be used to draw,\n because the drawing routine will cycle the sprites.\n
 P:111EB:: Save the sprite index
 P:111F5:: Restore the sprite index
@@ -2710,21 +2758,25 @@ P:11231:: Force animation frame 1: hand closed.\n
 P:11239:: Store the offsets of the sprites to show over Link\n ($10 and $11) in [00] and [01] for use in patching the right sprite.\n
 P:1123F:: Go patch up the sprites.\n
 P:11242:Wallmaster_PrepareToDraw: 8 screen frames an animation frame
-P:11247:: For the current step, look up the sprite flipping attributes.\n
+P:11247:: For the current step, look up the sprite flipping attributes.\n\n DASM.EXPR: Wallmaster_ObjStep
 P:1124F:: Combine them with palette row 5 (blue)
 P:11254:: If the sprite attributes for this step have horizontal flipping ($40),\n then mask it off, and turn on horizontal flipping with [0F].\n
 P:11261:L11261
-P:11262:Wallmaster_CalcStartPosition: Params:\n A: offset of first instruction for left wall (0)\n    or top wall ($20)\n Y: Link's minimum major coordinate\n [00]: Link's coordinate along minor axis\n [01]: Link's coordinate along major axis\n [02]: a decreasing direction along the wall (left or up)\n\n Returns:\n Y: index of initial major coordinate of Wallmaster\n [04]: initial minor coordinate of Wallmaster\n\n Store the initial offset for this axis.\n
+P:11262:Wallmaster_CalcStartPosition: Params:\n A: offset of first instruction for left wall (0)\n    or top wall ($20)\n Y: Link's minimum major coordinate\n [00]: Link's coordinate along minor axis\n [01]: Link's coordinate along major axis\n [02]: a decreasing direction along the wall (left or up)\n\n Returns:\n Y: index of initial major coordinate of Wallmaster\n [04]: initial minor coordinate of Wallmaster\n\n Store the initial offset for this axis.\n\n DASM.EXPR: Wallmaster_ObjStep\n
 P:11265:: [03] holds the Link's minimum major coordinate.
 P:11267:: If Link is still (input dir = 0), then use distance $24, else $32.\n
 P:11270:L11270: If Link is facing in the direction passed in (which decreases), then:\n 1. negate the distance\n 2. add 8 to the instruction offset to access\n    the opposite direction for the same wall\n
 P:11272:: [02] reference decreasing direction
+P:11277:: DASM.EXPR: Wallmaster_ObjStep
+P:1127D:: DASM.EXPR: Wallmaster_ObjStep
 P:11286:L11286: Add the distance and Link's minor coordinate to calculate\n Wallmaster's initial minor coordinate to store in [04].\n In general, the monster will be put in front of Link.\n
 P:11287:: [00] Link's minor coordinate
 P:11289:: [04] Wallmaster's initial minor coordinate
 P:1128B:: By default, will return index 0 to choose the minimum value\n for Wallmaster's initial major coordinate. This will be returned,\n if Link is at the wall with a smaller major coordinate.\n
 P:1128D:: If Link's major coordinate <> the minimum major coordinate, then\n he's on the farther wall. Add $10 to the instruction offset \n to access the block for the other direction along the same axis,\n and increment the index for the Wallmaster's initial major coordinate.\n
 P:1128F:: [03] Link's minimum major coordinate
+P:11293:: DASM.EXPR: Wallmaster_ObjStep
+P:11299:: DASM.EXPR: Wallmaster_ObjStep
 P:1129D:L1129D
 P:1129E:Wallmaster_PutSpritesBehindBgIfNeeded
 P:112A5:Wallmaster_PutSpriteBehindBgIfNeeded: Loop twice, from 1 to 0, in order to check the left and right\n extents of the sprite (X and X+8).\n
@@ -2751,7 +2803,7 @@ P:1133C:: If facing left, then flip horizontally.\n
 P:11341:: [0F] horizontal flipping
 P:11343:: Red sprite palette
 P:11348:: In the second quest, ropes always flash.\n So, set sprite attributes to all the cycled palette rows.\n
-P:11356:L11356_Draw: TODO: name: movement frame\n The frame image is based on the movement frame.\n
+P:11356:L11356_Draw: The frame image is based on the movement frame.\n
 P:1135F:L1135F_CheckVertical: If the absolute vertical distance between Link and the monster >= 8,\n then go draw.\n
 P:1136B:: Face left.\n
 P:1136F:: But, if Link is right of the monster, then face right.\n Either way, go increase speed and draw.\n
@@ -2764,7 +2816,7 @@ P:1138F:: Second quest.\n\n If shoot timer = 0 and Random < $F8, then return.\n
 P:1139A:L1139A_PrepareToShoot: Save the qspeed.
 P:1139D:: If temporarily invincible, then go reset shoot timer.\n
 P:113A4:: If shoot timer >= 1, then decrement and go set shoot timer.\n
-P:113AA:: If stalfos does not want to shoot, then go set the qspeed.\n
+P:113AA:: If stalfos does not want to shoot, then go set the qspeed.\n\n DASM.EXPR: ObjWantsToShoot
 P:113AF:: Else not temporarily invincible, and shoot timer = 0,\n and wants to shoot.\n\n Set shoot timer to $30.\n
 P:113B1:L113B1_SetShootTimer
 P:113B5:: If shoot timer = 0, then we're not shooting.\n Go set the qspeed.\n
@@ -2774,23 +2826,27 @@ P:113C9:: If failed, then go set the qspeed.\n
 P:113CB:: TODO:\n Else set timer to $80, and decrement [0437][X].\n
 P:113D2:L113D2_CheckResult: We jump here if shooting failed. Jump again to set the qspeed.\n
 P:113D4:: Shooting succeeded.\n Reset "wants to shoot" flag and the speed.\n
+P:113D6:: DASM.EXPR: ObjWantsToShoot
 P:113D9:L113D9_ZeroSpeed: Replace qspeed on the stack with 0.
 P:113DD:L113DD_SetSpeed: Pop and set the qspeed (0 or the speed for stalfos).
 P:113E1:L113E1_Exit
 P:113E2:InitMoldorm: Loop to make 10 moldrom segments, from 9 to 0, indexed by Y register.\n Object slots $A to 1 will be used.\n
 P:113E4:L113E4: Start at position ($80, $70).\n
 P:113EE:: Start with no direction, no deferred bounce direction,\n and ready to update.\n
+P:113F3:: DASM.EXPR: Moldorm_ObjBounceDir+1
 P:113FC:: Copy object attributes from the first monster slot.\n
 P:11402:: Copy HP from the first monster slot.\n
 P:11408:: Start with flying speed $80, and in flying state 2.\n
+P:1140A:: DASM.EXPR: Flyer_ObjSpeed+1
+P:1140F:: DASM.EXPR: Flyer_ObjFlyingState+1
 P:11412:: All segments are considered Moldorm.
 P:11417:: Bottom of the loop.\n
 P:1141A:: Choose a random 8-way direction for the head segments\n in slots 4 and 9.\n
-P:11424:: Also store the current direction as the old direction.
-P:11431:: Also store the current direction as the old direction.
+P:11424:: Also store the current direction as the old direction.\n DASM.EXPR: Moldorm_ObjOldDir+5
+P:11431:: Also store the current direction as the old direction.\n DASM.EXPR: Moldorm_ObjOldDir+10
 P:11434:: Set minimum number of turns 1 for flying states.\n\n By setting this, the first time that a flight control routine\n (Flyer_Chase, Flyer_Wander) is called and returns;\n that flying state will immediately end, and object timer\n will be left 0: ready for moldorm to decide a flying state\n randomly and set timer to $10.\n
-P:11436:: TODO: [042C][5]
-P:11439:: TODO: [042C][$A]
+P:11436:: DASM.EXPR: Flyer_ObjTurns+5
+P:11439:: DASM.EXPR: Flyer_ObjTurns+10
 P:1143C:: The maximum speed for Moldorm is $80.
 P:11441:: TODO: Why 8 instead of 10?
 P:11447:InitAquamentus: Aquamentus is invincible to boomerang and fire.\n
@@ -2799,7 +2855,9 @@ P:11451:: The monster goes at ($B0, $80).\n
 P:1145A:InitDigdogger1: TODO: ?\n
 P:1145F:: Set a random 8-way direction.\n
 P:11469:: Set low speed byte to $3F.\n This assumes that the high byte is 0 from when the room\n was reset; or will bet set during digdogger split-up.\n
+P:1146B:: DASM.EXPR: Digdogger_ObjSpeedFrac
 P:1146E:: Set low target speed byte to $80.\n This assumes that the high byte is 0 from when the room\n was reset; or will bet set during digdogger split-up.\n
+P:11470:: DASM.EXPR: Digdogger_ObjTargetSpeedFrac
 P:11473:: Set child count of 3.\n
 P:11479:InitDigdogger2
 P:1147C:: TODO:\n Change object type to $38 (Digdogger1).\n\n Probably to simplify a test.\n
@@ -2826,32 +2884,37 @@ P:114F1:: If the tail segment found is also a head, then\n the last segment has 
 P:114F9:: Else finish swapping the segments.\n Set the tail segment's type to the dead dummy object.\n
 P:114FE:: Reset the metastate of the current segment, so that it comes\n back to life.\n
 P:11501:L11501_Exit
-P:11502:ControlMoldormFlight
+P:11502:ControlMoldormFlight: DASM.EXPR: Flyer_ObjFlyingState
 P:11508-1150F:ControlMoldormFlight_JumpTable
 P:11510:Moldorm_Chase: If the segment is not a head (slot 5 or $A), then return.\n Only the head controls the movement direction.\n
 P:11518:L11518: Chase while flying, as usual.\n
 P:1151B:: If timer has not expired, then\n go see if it's time to propagate direction changes down the chain.\n
 P:1151F:Moldorm_ChangeFlyingState: Timer = 0. Choose a new flying state, and arm the timer.\n
 P:11522:: $10 screen frames
-P:11526:: If the next lower slot's direction <> 0, then\n go propagate direction changes down the chain.\n\n But you had to have propagated directions once for the\n next lower direction to be set. How does it happen?\n\n Within a flyer state, the flying routines turn the flyer\n and set the object timer to $10 several times. After any of\n those times will the test succeed.\n\n When a flying state ends, timer will be 0, triggering the code\n in this block to set the timer to $10, and try to propagate\n directions.\n\n But this is also the case the first time here.\n\n So, I believe that the point of this test is to delay moving\n the lower (not head) segments when starting out.\n\n TODO: Base operand is ObjDir-1
+P:11526:: If the next lower slot's direction <> 0, then\n go propagate direction changes down the chain.\n\n But you had to have propagated directions once for the\n next lower direction to be set. How does it happen?\n\n Within a flyer state, the flying routines turn the flyer\n and set the object timer to $10 several times. After any of\n those times will the test succeed.\n\n When a flying state ends, timer will be 0, triggering the code\n in this block to set the timer to $10, and try to propagate\n directions.\n\n But this is also the case the first time here.\n\n So, I believe that the point of this test is to delay moving\n the lower (not head) segments when starting out.\n\n DASM.EXPR: ObjDir-1
 P:1152B:Moldorm_Wander: If the segment is not a head (slot 5 or $A), then return.\n Only the head controls the movement direction.\n
 P:11533:L11533: Turn randomly while flying, as usual.\n
 P:11536:: After every turn, the common flyer routines set timer to $10.\n This can be used as a signal for moldorm to propagate\n direction changes down the chain.\n\n Between each turn, timer <> $10.\n\n At the end of the delay after the last turn, timer = 0.\n This is a signal that that flying state ended, and a new one\n must be chosen. Also, because a flying interval ended ($10 frames),\n we can propagate direction changes again; and start\n a new flying interval by setting timer to $10. This will make\n the next flying state delay that amount of time before turning\n the first time.\n\n Here and now, if timer has expired, then go decide a new flying state,\n arm the timer again, and shift directions down the chain.\n
 P:1153A:Moldorm_PropagateDirs: If timer <> $10 (rearmed in this frame), then return.\n
-P:11540:: Timer = $10.\n\n If deferred bounce direction <> 0, then\n assign it to facing direction, and reset deferred bounce direction.\n
+P:11540:: Timer = $10.\n\n If deferred bounce direction <> 0, then\n assign it to facing direction, and reset deferred bounce direction.\n\n DASM.EXPR: Moldorm_ObjBounceDir
+P:11549:: DASM.EXPR: Moldorm_ObjBounceDir
 P:1154C:L1154C_SkipBounce: Will loop 4 times, indexed by [00], once for each segment.\n
 P:11550:: Starting from the last slot of this moldorm chain (0 or 5):\n
-P:11558:L11558_Loop: Copy old direction from a higher slot to the lower one;\n and to the lower one's facing direction.\n
+P:11558:L11558_Loop: Copy old direction from a higher slot to the lower one;\n and to the lower one's facing direction.\n\n DASM.EXPR: Moldorm_ObjOldDir+2
+P:1155B:: DASM.EXPR: Moldorm_ObjOldDir+1
 P:11561:: Bottom of the loop.\n Increment segment index.\n Decrement loop counter.\n
 P:11566:: Copy current direction to old direction.\n
+P:11568:: DASM.EXPR: Moldorm_ObjOldDir
 P:1156B:L1156B_Exit
 P:1156C:Flyer_MoldormDecideState: TODO:\n Why not call it Moldorm_DecideFlyingState? Same for others.\n\n If Random >= $40, go to flying state 2, else 3.\n\n Set up 8 turns.\n
 P:11575:L11575
+P:11576:: DASM.EXPR: Flyer_ObjFlyingState
 P:11579:: Set 8 turns for the next flying state.
+P:1157B:: DASM.EXPR: Flyer_ObjTurns
 P:1157F-11582:DigdoggerCornerOffsetsX
 P:11583-11586:DigdoggerCornerOffsetsY
 P:11587:L_Digdogger_AfterFlute: Params:\n Y: flute state\n\n If flute state = 2, go switch between big and little appearance.\n
-P:1158A:: Flute state = 1.\n\n If this is a child digdogger, then go turn and move as usual.\n
+P:1158A:: Flute state = 1.\n\n If this is a child digdogger, then go turn and move as usual.\n\n DASM.EXPR: Digdogger_ObjIsChild
 P:1158F:: Set object timer to $40, and increase flute state to 2.\n Then go check collisions as a big digdogger.\n
 P:11599:L11599_SplitUp: If the timer = 0, then skip the block below, and go split up.\n
 P:1159D:: Every 8 frames, switch between behaving as a big and little digdogger.\n\n TODO:\n But is this possible, given the following?\n a. all object timers run concurrently\n b. all object updates are paused until the flute timer expires\n c. the flute timer lasts longer\n
@@ -2861,9 +2924,11 @@ P:115B4:: [00] is the loop counter
 P:115B6:: Replace the object count with the number of children.
 P:115B9:: Save the current object index in X register.
 P:115BB:L115BB_LoopMakeChild: Initialize a child digdogger (type $18) in the next object slot.\n
-P:115C4:: Start with a target speed of $0100.\n The low byte is still 0 from when room data was reset.\n
+P:115C4:: Start with a target speed of $0100.\n The low byte is still 0 from when room data was reset.\n\n DASM.EXPR: Digdogger_ObjTargetSpeedWhole
 P:115C7:: Flag this a child digdogger.\n
+P:115C9:: DASM.EXPR: Digdogger_ObjIsChild
 P:115CC:: The speed will increase.\n
+P:115CE:: DASM.EXPR: Digdogger_ObjSpeedFlag
 P:115D1:: Copy the parent's coordinates to the child.\n
 P:115D9:: Bottom of the loop.\n Decrement [00] until 0.\n
 P:115DD:: Restore the current object index in X register.
@@ -2875,36 +2940,50 @@ P:115F7:: If the flute was used, then go start splitting up,\n or handling a chi
 P:115FC:L_Digdogger_Turn
 P:115FF:: If the object timer has expired, then set it to $10,\n and randomly choose to turn toward Link or randomly.\n
 P:11610:L_Digdogger_Move
-P:11613:L_Digdogger_DrawAndCheckCollisions: If this is a child, then finish updating this little digdogger.\n
+P:11613:L_Digdogger_DrawAndCheckCollisions: If this is a child, then finish updating this little digdogger.\n\n DASM.EXPR: Digdogger_ObjIsChild
 P:11621:L11621_CheckBigDigdoggerCollisions: Save the original coordinates.\n
-P:11627:: TODO:\n Reset [0478][X].\n
-P:1162C:L1162C_LoopCornerCollision: Digdogger is big, but room boundary checks and\n object collision checks assume a 16x16 monster or smaller.\n Therefore, we have to check these things four times,\n in different corners of the boss.\n\n TODO:\n Loop 4 times, from 0 to 3, indexed by [0478][X].\n
+P:11627:: Reset the index of the current part.\n
+P:11629:: DASM.EXPR: Digdogger_ObjCurPart
+P:1162C:L1162C_LoopCornerCollision: Digdogger is big, but room boundary checks and\n object collision checks assume a 16x16 monster or smaller.\n Therefore, we have to check these things four times,\n in different corners of the boss.\n\n Loop 4 times, from 0 to 3.\n\n DASM.EXPR: Digdogger_ObjCurPart
 P:1162F:: Change the coordinates to one corner.\n
 P:1163F:: Check the room boundary and object collisions in this temporary location.\n
-P:11645:: Increase the loop index, and loop again until it = 4.\n
+P:11645:: Increase the loop index, and loop again until it = 4.\n\n DASM.EXPR: Digdogger_ObjCurPart
+P:11648:: DASM.EXPR: Digdogger_ObjCurPart
 P:1164F:: Restore the original coordinates.\n
 P:11658:L_Digdogger_DrawAsLittle: Save the original coordinates.\n
 P:1165E:: Add 8 to Y and X.\n
-P:1166A:: Save the child flag and object type.\n
+P:1166A:: Save the child flag and object type.\n\n DASM.EXPR: Digdogger_ObjIsChild
 P:11672:: Change object type to $18 (Little Digdogger),\n and child flag to 1, in order to draw as a little digdogger.\n
+P:11679:: DASM.EXPR: Digdogger_ObjIsChild
 P:1167F:: Restore the child flag and object type.\n
+P:11684:: DASM.EXPR: Digdogger_ObjIsChild
 P:11687:: Restore the original coordinates.\n
-P:1168E:Digdogger_ChangeSpeed
+P:1168E:Digdogger_ChangeSpeed: DASM.EXPR: Digdogger_ObjSpeedFlag
 P:11694-11697:Digdogger_ChangeSpeed_JumpTable
-P:11698:Digdogger_SpeedUp: Add 1 to 16-bit speed.\n
-P:116A0:L116A0: If the 16-bit speed has not reached the 16-bit target speed, then return.\n
-P:116B0:: Set speed flag to 1 meaning decelerate.\n
+P:11698:Digdogger_SpeedUp: Add 1 to 16-bit speed.\n\n DASM.EXPR: Digdogger_ObjSpeedFrac
+P:1169D:: DASM.EXPR: Digdogger_ObjSpeedWhole
+P:116A0:L116A0: If the 16-bit speed has not reached the 16-bit target speed, then return.\n\n DASM.EXPR: Digdogger_ObjSpeedFrac
+P:116A3:: DASM.EXPR: Digdogger_ObjTargetSpeedFrac
+P:116A8:: DASM.EXPR: Digdogger_ObjSpeedWhole
+P:116AB:: DASM.EXPR: Digdogger_ObjTargetSpeedWhole
+P:116B0:: Set speed flag to 1 meaning decelerate.\n\n DASM.EXPR: Digdogger_ObjSpeedFlag
 P:116B3:: Go set target speed to $0040 (or $0140 if this is a child).\n
-P:116B8:Digdogger_SlowDown: Subtract 1 from 16-bit speed.\n
-P:116C5:L116C5: If the 16-bit speed has not reached the 16-bit target speed, then return.\n
-P:116D5:: Set speed flag to 0 meaning accelerate.\n
+P:116B8:Digdogger_SlowDown: Subtract 1 from 16-bit speed.\n\n DASM.EXPR: Digdogger_ObjSpeedFrac
+P:116BB:: DASM.EXPR: Digdogger_ObjSpeedFrac
+P:116C5:L116C5: If the 16-bit speed has not reached the 16-bit target speed, then return.\n\n DASM.EXPR: Digdogger_ObjSpeedFrac
+P:116C8:: DASM.EXPR: Digdogger_ObjTargetSpeedFrac
+P:116CD:: DASM.EXPR: Digdogger_ObjSpeedWhole
+P:116D0:: DASM.EXPR: Digdogger_ObjTargetSpeedWhole
+P:116D5:: Set speed flag to 0 meaning accelerate.\n\n DASM.EXPR: Digdogger_ObjSpeedFlag
 P:116D8:: Set target speed to $0080.\n
-P:116DA:L116DA_SetTargetSpeed
-P:116E2:: But if this is a child, then make the target speed $0180.\n
+P:116DA:L116DA_SetTargetSpeed: DASM.EXPR: Digdogger_ObjTargetSpeedFrac
+P:116DF:: DASM.EXPR: Digdogger_ObjTargetSpeedWhole
+P:116E2:: But if this is a child, then make the target speed $0180.\n\n DASM.EXPR: Digdogger_ObjIsChild
+P:116E7:: DASM.EXPR: Digdogger_ObjTargetSpeedWhole
 P:116EA:L116EA_Exit
-P:116EB:Digdogger_Move: This calculation is the same one used in Manhandla to\n manifest the fractional speed over several frames.\n\n To summarize, the formula is:\n\n   (SA=speed accumulator, SH=speed high, SL=speed low)\n\n   SA := SA + (SL AND $E0)\n   [03] := SH + carry\n\n See 04:A28E Manhandla_Move.\n
+P:116EB:Digdogger_Move: This calculation is the same one used in Manhandla to\n manifest the fractional speed over several frames.\n\n To summarize, the formula is:\n\n   (SA=speed accumulator, SH=speed high, SL=speed low)\n\n   SA := SA + (SL AND $E0)\n   [03] := SH + carry\n\n See 04:A28E Manhandla_Move.\n\n DASM.EXPR: Digdogger_ObjSpeedFrac
 P:116F0:: Add the low speed byte to speed accumulator.
-P:116F7:: Assign (high speed byte + carry) to [03].\n
+P:116F7:: Assign (high speed byte + carry) to [03].\n\n DASM.EXPR: Digdogger_ObjSpeedWhole
 P:116FE:: Change coordinates by the speed amount/offset in [03]\n according to the direction.\n\n Start with a mask of $A1 in [02]:\n - low nibble represents the right direction\n - high nibble is used to set or clear carry as we go along\n
 P:11702:: If direction has a right component (1), then add offset to X coordinate.\n
 P:1170F:L1170F_Left: If direction has a left component (2), then subtract offset from X coordinate.\n
@@ -2918,7 +2997,7 @@ P:1173C-1173F:DigdoggerSpriteOffsetsX
 P:11740-11743:DigdoggerSpriteOffsetsY
 P:11744-11747:DigdoggerSpriteAttrs
 P:11748:Digdogger_Draw: 6 animation frames a screen frame
-P:1174D:: If this is a child digdogger, then go draw it.\n
+P:1174D:: If this is a child digdogger, then go draw it.\n\n DASM.EXPR: Digdogger_ObjIsChild
 P:11752:: For each part of the big digdogger, from 0 to 3,\n indexed by Y register:\n
 P:11754:L11754_LoopPart: Store in [00] the X coordinate offset for the current corner.\n
 P:1175C:: Store in [01] the Y coordinate offset for the current corner.\n
@@ -2947,12 +3026,16 @@ P:117EE:L117EE_Exit
 P:117EF:Aquamentus_Shoot: If the object timer <> 0, then\n go modify fireballs that might still be flying.\n
 P:117F3:: The boss's object timer has expired. Time to shoot fireballs.\n\n Set the timer to a random time, at least $70 frames.\n
 P:117F9:: Shoot the middle fireball. Its vertical displacement is 0.\n
+P:117FE:: DASM.EXPR: Aquamentus_ObjFireballOffset
 P:11801:: Shoot the lower fireball. Its vertical displacement is 1.\n
+P:11806:: DASM.EXPR: Aquamentus_ObjFireballOffset
 P:11809:: Shoot the upper fireball. Its vertical displacement is -1.\n
+P:1180E:: DASM.EXPR: Aquamentus_ObjFireballOffset
 P:11812:L11812_SpreadOutFireballs: Make the fireballs spread out.\n\n For each object slot from $B to 1:\n
 P:11814:L11814_LoopObject: If type <> $55, loop again.\n
 P:1181B:: Every other screen frame, loop again.\n
 P:11820:: Add the displacement for this fireball to its Y coordinate.\n
+P:11823:: DASM.EXPR: Aquamentus_ObjFireballOffset
 P:11828:L11828_NextLoopObject: Bottom of the loop.\n
 P:1182B:: Restore the boss's slot number.\n
 P:1182F:ShootFireball55: Params:\n X: object index\n
@@ -2980,25 +3063,29 @@ P:118C2-118C7:UpdateDodongoState_JumpTable
 P:118C8:UpdateDodongoState0_Move: If facing left, then push X offset 0 on the stack.\n Else push X offset -$10, and add $10 to X coordinate.\n\n We would like to use one set of coordinates only.\n But movement would break down, if we did; because\n Dodongo is so long.\n\n So, when not facing left, we temporarily shift the\n X coordinate to be closer to the other side of the monster.\n
 P:118D9:L118D9_Move
 P:118DB:: Turn rate $20
+P:118DD:: DASM.EXPR: ObjTurnRate
 P:118E3:: Pop the offset and add it to the X coordinate.\n\n This brings the X coordinate back to the unique value\n that represents the position.\n
 P:118E9:: If X coordinate < $20, then face right.\n
 P:118F1:L118F1
 P:118F2:UpdateDodongoState2_Stunned: Take action depending on the value of stun timer:\n 0:     set stun timer to $20 \n 1:     go back to state 0\n other: return\n
 P:118FF:L118FF
-P:11900:UpdateDodongoState1_Bloated
+P:11900:UpdateDodongoState1_Bloated: DASM.EXPR: Dodongo_ObjBloatedSubstate
 P:11906-1190F:UpdateDodongoState1_Bloated_JumpTable
-P:11910:UpdateDodongoState1_Bloated_Sub_Wait: Bloated timer =>\n 0:     fall thru to set a new timer and check bomb hits\n 1:     go advance the substate\n other: go decrement Bloated timer\n
+P:11910:UpdateDodongoState1_Bloated_Sub_Wait: Bloated timer =>\n 0:     fall thru to set a new timer and check bomb hits\n 1:     go advance the substate\n other: go decrement Bloated timer\n\n DASM.EXPR: Dodongo_ObjBloatedTimer\n
 P:11918:: Set the bloated timer according to the substate.\n
+P:1191E:: DASM.EXPR: Dodongo_ObjBloatedTimer
 P:11921:: If substate <> 0, go decrement bloated timer.\n
 P:11925:: Deactivate the bomb in the first bomb slot ($10).\n
-P:1192C:: Increment the number of bomb hits.\n
-P:11938:L11938_AdvanceSubstate: Advance the substate.\n
-P:1193B:: If new bloated substate < 2, then go decrement the bloated timer.\n
-P:11942:: New bloated substate >= 2.\n\n If bomb hits < 2, then set bloated substate 4,\n which will transition to state 0 (moving).\n\n Note that if the bomb hits >= 2, then:\n - If new substate = 2, then substate 2 will wait,\n   and then transition to substate 3.\n - If new substate = 3, then the next frame the monster will die.\n
-P:1194E:L_Dodongo_DecrementBloatedTimer: Either way, decrement the bloated timer.\n
+P:1192C:: Increment the number of bomb hits.\n\n DASM.EXPR: Dodongo_ObjBombHits
+P:11932:: DASM.EXPR: Dodongo_ObjBombHits
+P:11938:L11938_AdvanceSubstate: Advance the substate.\n\n DASM.EXPR: Dodongo_ObjBloatedSubstate
+P:1193B:: If new bloated substate < 2, then go decrement the bloated timer.\n\n DASM.EXPR: Dodongo_ObjBloatedSubstate
+P:11942:: New bloated substate >= 2.\n\n If bomb hits < 2, then set bloated substate 4,\n which will transition to state 0 (moving).\n\n Note that if the bomb hits >= 2, then:\n - If new substate = 2, then substate 2 will wait,\n   and then transition to substate 3.\n - If new substate = 3, then the next frame the monster will die.\n\n DASM.EXPR: Dodongo_ObjBombHits
+P:1194B:: DASM.EXPR: Dodongo_ObjBloatedSubstate
+P:1194E:L_Dodongo_DecrementBloatedTimer: Either way, decrement the bloated timer.\n\n DASM.EXPR: Dodongo_ObjBloatedTimer
 P:11952:UpdateDodongoState1_Bloated_Sub_Die
 P:11958:UpdateDodongoState1_Bloated_Sub_End: Go to state 0.
-P:1195B:: Reset bloated substate.
+P:1195B:: Reset bloated substate.\n DASM.EXPR: Dodongo_ObjBloatedSubstate
 P:1195F:Dodongo_CheckCollisions: Check for collisions using a regular monster size.\n
 P:11962:: If harmed, then go die.\n
 P:11967:: If facing vertically, then return.\n
@@ -3035,6 +3122,7 @@ P:11A16:: Add $A to the index to look into the second set for vertical limits.\n
 P:11A1B:: Bottom of the loop.\n\n Load the vertical distance for the next iteration.\n Decrement loop counter.\n
 P:11A21:: If we get here, then the bomb was within range of the mouth.\n Go to state 1 (bloated).\n
 P:11A23:: Deactivate the bomb, and reset the bloated substate.\n
+P:11A2A:: DASM.EXPR: Dodongo_ObjBloatedSubstate
 P:11A2D:L11A2D_Exit
 P:11A2E-11A2F:DodongoBombPositiveLimits
 P:11A30-11A31:DodongoBombNegativeLimits
@@ -3056,7 +3144,7 @@ P:11A84:Dodongo_Draw
 P:11A87:: Make a 5-way direction index out of the facing direction\n by shifting right once, and store it in [00].\n
 P:11A8C:: If state = 0, go handle animating the two frames of this state.\n
 P:11A90:: If state > 1, then the monster is stunned (state 2).\n So, go switch frames every $20 screen frames.\n
-P:11A95:: State = 1. Bloated.\n\n In substate 0, go animate as usual for walking.\n
+P:11A95:: State = 1. Bloated.\n\n In substate 0, go animate as usual for walking.\n\n DASM.EXPR: Dodongo_ObjBloatedSubstate\n
 P:11A9A:: If in bloated substates 2 or 3 (last wait or die), then\n go fade the boss; so that some frames are not drawn.\n
 P:11AA2:: State 1, substate 1\n\n Add $14 to the frame image index to index into the bloated\n frame images and H-flips.\n
 P:11AAB:L11AAB_DrawFaded: In bloated substates 2 and 3:\n Every two screen frames, don't draw for two frames. Return.\n
@@ -3088,8 +3176,8 @@ P:11B53:: Darknuts are never stunned.\n
 P:11B57:: 8 screen frames an animation frame
 P:11B5C:: If facing left, then enable horizontal flipping.\n
 P:11B64:L11B64: Shift right 2, yielding: 2 up, 1 down, 0 horizontal\n This is the base frame image.\n
-P:11B66:: TODO: name: movement frame\n If movement frame = 1, add 3 to frame image to access\n the second animation frame's images.\n
-P:11B6E:: TODO: name: movement frame\n Also if movement frame = 1, and facing up, then flip horizontally.\n\n Down has two frame images, but up only has one. By flipping\n horizontally, you get two frame images.\n
+P:11B66:: If movement frame = 1, add 3 to frame image to access\n the second animation frame's images.\n
+P:11B6E:: Also if movement frame = 1, and facing up, then flip horizontally.\n\n Down has two frame images, but up only has one. By flipping\n horizontally, you get two frame images.\n
 P:11B76:L11B76
 P:11B7A-11B83:PolsVoiceWalkSpeedsX
 P:11B84-11B8D:PolsVoiceWalkSpeedsY
@@ -3101,11 +3189,11 @@ P:11BA6:L11BA6: If we have the magic clock, or is stunned, then\n go draw and ch
 P:11BAD:: Every odd screen frame, go straight to drawing\n and checking collisions.\n
 P:11BB2:: Otherwise move horizontally.\n
 P:11BB5:: If state <> 0, then the monster is jumping.\n Go handle vertical movement.\n
-P:11BBF:L11BBF_State0: State 0. Walking.\n\n If grid offset = 0, then no more distance to cover.\n So, go change to state 1 -- jumping.\n\n MULTI: [0394]\n
-P:11BC4:: Decrement grid offset / distance remaining.\n\n MULTI: [0394]\n
+P:11BBF:L11BBF_State0: State 0. Walking.\n\n If grid offset = 0, then no more distance to cover.\n So, go change to state 1 -- jumping.\n\n DASM.EXPR: ObjRemDistance\n
+P:11BC4:: Decrement grid offset / distance remaining.\n\n DASM.EXPR: ObjRemDistance\n
 P:11BC7:: Move vertically.\n Add the Y offset for the current direction to the Y coordinate.\n
 P:11BCF:L11BCF_CheckWalkability: If the square the monster is over is walkable, then\n go draw and check object collisions.\n
-P:11BD4:: If the unwalkable tile is a block, or >= $F4 (water, screen edge bricks),\n then go change to state 1.\n
+P:11BD4:: If the unwalkable tile is a block, or >= $F4 (water, screen edge bricks),\n then go change to state 1.\n\n DASM.EXPR: PolsVoice_ObjLastTile
 P:11BE1:: Else blocked by something else.\n\n If facing horizontally, then go flip the direction, move, and draw.\n
 P:11BE7:: Else facing vertically. Flip the direction.\n Go draw.\n
 P:11BF0:L11BF0_FlipHorizontally: Facing horizontally. Flip the direction.\n Move two pixels, and go draw.\n
@@ -3116,20 +3204,26 @@ P:11C03:: Subtract 1 from facing direction to make an index.\n
 P:11C06:: If Y coordinate < $78, make the index 3 for down.\n
 P:11C0E:L11C0E: If Y coordinate >= $A8, make the index 7 for up.\n
 P:11C14:L11C14: Set the vertical speed for the beginning of the jump.\n
+P:11C17:: DASM.EXPR: PolsVoice_ObjSpeedWhole
 P:11C1A:: Look up the Y offset for the current direction.\n Add it to object Y to set the destination Y of the jump.\n
+P:11C20:: DASM.EXPR: PolsVoice_ObjTargetY
 P:11C23:: Turn the index into a direction again by adding 1.\n Store the facing direction.\n
 P:11C26:L_PolsVoice_DrawAndCheckCollisions: Animation counter 8
 P:11C31:: Pols Voice is invincible to everything but the sword,\n during normal collision detection.\n\n The arrow is a special case.\n
-P:11C3A:UpdatePolsVoiceState1_Jumping: Add acceleration $38 to low speed byte (vertical).\n
-P:11C43:: Add Carry to high speed byte (vertical).\n
+P:11C3A:UpdatePolsVoiceState1_Jumping: Add acceleration $38 to low speed byte (vertical).\n\n DASM.EXPR: PolsVoice_ObjSpeedFrac\n
+P:11C40:: DASM.EXPR: PolsVoice_ObjSpeedFrac
+P:11C43:: Add Carry to high speed byte (vertical).\n\n DASM.EXPR: PolsVoice_ObjSpeedWhole
+P:11C48:: DASM.EXPR: PolsVoice_ObjSpeedWhole
 P:11C4B:: Add high speed byte to Y coordinate.\n
-P:11C50:: If the speed is still negative, then return.\n
+P:11C50:: If the speed is still negative, then return.\n\n DASM.EXPR: PolsVoice_ObjSpeedWhole
 P:11C55:: If Y coordinate still < target Y, then return.\n
+P:11C57:: DASM.EXPR: PolsVoice_ObjTargetY
 P:11C5C:: Else reached the destination. Go to state 0.\n
-P:11C60:: Reset 16-bit vertical speed.\n
+P:11C60:: Reset 16-bit vertical speed.\n\n DASM.EXPR: PolsVoice_ObjSpeedFrac
+P:11C63:: DASM.EXPR: PolsVoice_ObjSpeedWhole
 P:11C66:: Choose a random direction to face in.\n
 P:11C70:: Randomly set distance-to-move to $30 or $70.\n
-P:11C76:: MULTI: [0394]
+P:11C76:: DASM.EXPR: ObjRemDistance
 P:11C79:: Align the monster with a square horizontally.\n\n If in the left half of a square, align with that square.\n If in the right half, align with the next square.\n
 P:11C82:: Align the monster with a square vertically.\n\n If in the top half of a square, align with that square.\n If in the bottom half, align with the next square.\n
 P:11C89:: Make sure the lower nibble of Y is $D as usual.\n
@@ -3143,22 +3237,24 @@ P:11CA7:: Restore the original coordinates.\n
 P:11CAD:L11CAD_Exit
 P:11CAE:PolsVoice_GetCollidingTile: Returns:\n C: 0 if walkable\n [041F][X]: tile\n\n Use offset 0 from the hotspot.\n\n TODO: But where is [0F] set?\n
 P:11CB6:: Return C=0 if walkable.\n
-P:11CB9:: Remember the tile that the monster is over.\n
+P:11CB9:: Remember the tile that the monster is over.\n\n DASM.EXPR: PolsVoice_ObjLastTile
 P:11CBD:PolsVoice_MoveX: Returns:\n Y: facing direction - 1 (so, 0 to 7)\n\n Add the X offset for the current direction to the X coordinate.\n
-P:11CC9:UpdateLikeLike: If the monster captured Link, then go handle it.\n
+P:11CC9:UpdateLikeLike: If the monster captured Link, then go handle it.\n\n DASM.EXPR: ObjCaptureTimer\n
 P:11CCE:: Turn rate $80
 P:11CD3:: Like-like has a 4 animation frame cycle unlike most monsters\n which have 2.\n
 P:11CE7:L11CE7_Draw: Draw.\n
 P:11CF0:: Check collisions. If Link was not captured, then return.\n
+P:11CF3:: DASM.EXPR: ObjCaptureTimer
 P:11CF8:: The monster captured Link.\n Put the monster at the same location as him.\n
-P:11D00:: TODO:\n Reset Link's timer, metastate? , and shove info.\n
+P:11D00:: Reset Link's timer, metastate, and shove info.\n
 P:11D0B:: Restart the monster's movement frame cycle: frame 0, counter 4\n
 P:11D13:: Now Link can't move.\n
 P:11D16:L11D16_Exit
 P:11D17:L11D17_HandleCaptured: Animate up to frame 3. Then stay there.\n
-P:11D2A:L11D2A_IncCaptureTime: Increment capture time.\n
-P:11D2D:: Once capture time >= $60 screen frames, remove the magic shield.\n
+P:11D2A:L11D2A_IncCaptureTime: Increment capture time.\n\n DASM.EXPR: ObjCaptureTimer\n
+P:11D2D:: Once capture time >= $60 screen frames, remove the magic shield.\n\n DASM.EXPR: ObjCaptureTimer\n
 P:11D39:: Set a value above $60 over and over.\n
+P:11D3B:: DASM.EXPR: ObjCaptureTimer
 P:11D3E:L11D3E_DrawAfterCapture: In this state, we have to draw Like-like over Link.\n So, don't use the usual sprite writing code that cycles sprites.\n
 P:11D47:: Check object collisions.\n If this monster hasn't died, then return.\n
 P:11D4F:: But once it has died, then let Link move again.\n
@@ -3183,12 +3279,13 @@ P:11DC4:: If it was killed, then return.\n
 P:11DC9:: If temporarily invincible, then it was harmed.\n Advance the state to split up.\n
 P:11DD0:L11DD0_Exit
 P:11DD1:DrawVire: Animation counter $A
-P:11DD6:: TODO: name: movement frame\n\n The movement frame is the fram image number, unless facing up.\n In this case, add 2 to the frame image.\n
+P:11DD6:: The movement frame is the fram image number, unless facing up.\n In this case, add 2 to the frame image.\n
 P:11DE3:UpdateBlueWizzrobe: Description:\n Blue Wizzrobe has two states: walking and teleporting.\n When walking, the object timer is set. When teleporting,\n the teleporting distance remaining is set.\n\n If we have the magic clock, then only go draw and check collisions.\n
-P:11DEE:Wizzrobe_DrawAndCheckCollisionsIntermittently: If the teleporting distance remaining is even, then draw\n and check collisions, else return.\n\n This means that when 0, the monster is walking.\n So, draw and check collisions every frame.\n\n When not 0, the monster is teleporting, and must be drawn\n translucently -- every other frame.\n
+P:11DEE:Wizzrobe_DrawAndCheckCollisionsIntermittently: If the teleporting distance remaining is even, then draw\n and check collisions, else return.\n\n This means that when 0, the monster is walking.\n So, draw and check collisions every frame.\n\n When not 0, the monster is teleporting, and must be drawn\n translucently -- every other frame.\n\n DASM.EXPR: ObjRemDistance\n
 P:11DF4:L11DF4_L_Wizzrobe_DrawAndCheckCollisions
 P:11DF7:BlueWizzrobe_WalkOrTeleport: If timer has not expired, then go walk.\n
-P:11DFB:: Timer = 0. Only teleporting now.\n\n If there is still distance to go while translucent, then\n decrement the distance remaining, and move.\n
+P:11DFB:: Timer = 0. Only teleporting now.\n\n If there is still distance to go while translucent, then\n decrement the distance remaining, and move.\n\n DASM.EXPR: ObjRemDistance\n
+P:11E00:: DASM.EXPR: ObjRemDistance
 P:11E06:L11E06_WalkAgain: Distance remaining = 0. Still teleporting.\n
 P:11E0C:L11E0C_Walk: Timer:\n   >= $10: Turn if needed and move every other frame\n   > 1:    Do nothing\n   = 1:    Choose a place to teleport to.\n\n Notice that walking is slower than teleporting; and there is\n a pause of $10 frames at the end.\n
 P:11E17:L11E17_Exit
@@ -3196,16 +3293,16 @@ P:11E18:L11E18_GoEveryOtherFrame: Every other frame, advance the turn counter, t
 P:11E1D:BlueWizzrobe_TurnSometimesAndMoveAndCheckTile
 P:11E20:BlueWizzrobe_MoveAndCheckTile
 P:11E26:: If walkable, then return.\n
-P:11E28:: Go handle a wall, if the tile is not a block nor water.\n
-P:11E35:L11E35_HitBlockOrWater: If the monster was already teleporting, then return,\n so that it moves again next frame.\n
+P:11E28:: Go handle a wall, if the tile is not a block nor water.\n\n DASM.EXPR: Wizzrobe_ObjLastTile
+P:11E35:L11E35_HitBlockOrWater: If the monster was already teleporting, then return,\n so that it moves again next frame.\n\n DASM.EXPR: ObjRemDistance\n
 P:11E3A:: Else go start teleporting thru this obstacle.\n
 P:11E3D:L11E3D_HitWall: The monster hit a wall.\n If facing direction has a vertical component, then flip it.\n
 P:11E4A:L11E4A_CheckHorizontal: If facing direction has a horizontal component, then flip it.\n
 P:11E54:L11E54_Move
 P:11E57:L11E57_Exit
-P:11E58:BlueWizzrobe_AdvanceCounterAndTurnTowardLinkIfNeeded: Description:\n Increment the turn counter. Then turn toward Link\n when the turn counter is a multiple of $40.\n\n Increment the turn counter.\n
-P:11E5B:L_BlueWizzrobe_TurnTowardLinkIfNeeded: Description:\n When the counter is a multiple of $40, switch between facing\n toward Link horizontally or vertically. All other times, return.\n
-P:11E62:BlueWizzrobe_TurnTowardLink: If the multiple of $40 is even, then turn horizontally,\n else vertically.\n
+P:11E58:BlueWizzrobe_AdvanceCounterAndTurnTowardLinkIfNeeded: Description:\n Increment the turn counter. Then turn toward Link\n when the turn counter is a multiple of $40.\n\n Increment the turn counter.\n\n DASM.EXPR: BlueWizzrobe_ObjTurnCounter\n
+P:11E5B:L_BlueWizzrobe_TurnTowardLinkIfNeeded: Description:\n When the counter is a multiple of $40, switch between facing\n toward Link horizontally or vertically. All other times, return.\n\n DASM.EXPR: BlueWizzrobe_ObjTurnCounter\n
+P:11E62:BlueWizzrobe_TurnTowardLink: If the multiple of $40 is even, then turn horizontally,\n else vertically.\n\n DASM.EXPR: BlueWizzrobe_ObjTurnCounter\n
 P:11E69:: If the monster's X >= Link's X, then choose left, else right.\n
 P:11E72:L11E72
 P:11E75:L11E75_TurnVertically: If the monster's Y >= Link's Y, then choose up, else down.\n
@@ -3229,7 +3326,9 @@ P:11EE1:: Restore the original X.
 P:11EE4:: If not walkable, then all we can do is align with the nearest square.\n
 P:11EE6:: Set the random diagonal direction.\n
 P:11EEB:L11EEB_BeginTeleporting: Will move $20 pixels horizontally and vertically.\n
-P:11EF0:: Flip bit 6 of turn counter; so that we change the axis to turn toward.\n
+P:11EED:: DASM.EXPR: ObjRemDistance
+P:11EF0:: Flip bit 6 of turn counter; so that we change the axis to turn toward.\n\n DASM.EXPR: BlueWizzrobe_ObjTurnCounter
+P:11EF5:: DASM.EXPR: BlueWizzrobe_ObjTurnCounter
 P:11EF8:: Reset the timer to note that the monster is teleporting.\n Align with the nearest square.\n
 P:11EFC:BlueWizzrobe_AlignWithNearestSquareAndRandomizeTimer: Set a random timer >= $70.\n
 P:11F00:L11F00
@@ -3248,8 +3347,8 @@ P:11F44:: Restore the original Y.
 P:11F47:: Restore the original X.
 P:11F4B:Wizzrobe_GetBaseCollidableTile: Params:\n X: object index\n\n Returns:\n C: 0 if walkable\n
 P:11F51:: Return C=0 if walkable.\n
-P:11F54:: Store the last collided tile.\n
-P:11F58:BlueWizzrobe_TryShooting: Once every $20 frames, and when not fading, we'll try to shoot.\n Otherwise, return.\n
+P:11F54:: Store the last collided tile.\n\n DASM.EXPR: Wizzrobe_ObjLastTile
+P:11F58:BlueWizzrobe_TryShooting: Once every $20 frames, and when not fading, we'll try to shoot.\n Otherwise, return.\n\n DASM.EXPR: ObjRemDistance\n
 P:11F63:: If Link and the monster are not within the same square row,\n then go see about the same square column.\n
 P:11F71:: If the monster is to the right of Link, then choose left.\n Else choose right.\n
 P:11F7A:L11F7A: If the direction chosen = the monster's facing direction,\n then go shoot.\n
@@ -3262,14 +3361,14 @@ P:11F9A:ShootMagicShot: Params:\n A: shot object type\n
 P:11F9C:: If we have the magic clock, then return.\n
 P:11FA1:: Else play the magic sound, shoot, and return.\n
 P:11FA9:UpdateRedWizzrobe: If we have the magic clock, then go check collisions and draw.\n
-P:11FB1:L11FB1: Else increase animation counter and decrease state every frame.\n
+P:11FB1:L11FB1: Else increase animation counter and decrease state every frame.\n\n DASM.EXPR: RedWizzrobe_ObjAnimCounter\n
 P:11FB6:: Shift the state right 6 times to get the index (0 to 3) of a state routine.\n
 P:11FC1-11FC8:UpdateRedWizzrobe_JumpTable
 P:11FC9-11FD8:RedWizzrobeOffsetsX
 P:11FD9-11FE8:RedWizzrobeOffsetsY
 P:11FE9-11FEC:RedWizzrobeDirections
 P:11FED:UpdateRedWizzrobe_1: Handle state group 1 ($40 to $7F).\n\n If state = $7F, make it $4F.\n $7F is the first frame of state group ($40 to $7F).\n By doing this, we skip $30 frames.\n
-P:11FF7:L11FF7: Increment the fade counter. Depending on the low bit,\n the monster will be drawn every other frame.\n
+P:11FF7:L11FF7: Increment the fade counter. Depending on the low bit,\n the monster will be drawn every other frame.\n\n DASM.EXPR: RedWizzrobe_ObjFadeCounter\n
 P:11FFD:UpdateRedWizzrobe_3: Handle state group 3 ($C0 to $FF).\n\n If state <> $FF, go fade as in state group 1.\n
 P:12002:: State $FF.\n\n Face in a random direction.\n
 P:12004:: Save the random value.
@@ -3287,7 +3386,7 @@ P:12035:UpdateRedWizzrobe_2: Handle state group 2 ($80 to $BF).\n\n If state = $
 P:12040:Wizzrobe_DrawAndCheckCollisions: Invincible to everything but sword and bomb.\n
 P:12048:: If invincibility timer = 0, then check collisions with weapons.\n
 P:12061:L12061: In this state, the monster can always harm Link,\n even if it can't be harmed.\n
-P:12064:: Every 4 frames switch between two frame images.\n
+P:12064:: Every 4 frames switch between two frame images.\n\n DASM.EXPR: RedWizzrobe_ObjAnimCounter
 P:1206B:: Save the frame image number.
 P:1206F:: If facing up, then go add 2 to frame image number, and draw mirrored.\n
 P:12075:: If facing left, then flip horizontally.\n
@@ -3298,20 +3397,42 @@ P:12087-1208C:GleeokSegmentYs
 P:1208D:InitGleeok: TODO: ?\n
 P:12092:: Loop 6 times to initialize each segment of 4 necks.\n
 P:12094:L12094: Set the X of the current segment of each neck to $7C.\n
+P:12096:: DASM.EXPR: Gleeok_NeckXs0
+P:12099:: DASM.EXPR: Gleeok_NeckXs1
+P:1209C:: DASM.EXPR: Gleeok_NeckXs2
+P:1209F:: DASM.EXPR: Gleeok_NeckXs3
 P:120A2:: I don't think this one is needed.
 P:120A4:: Look up and set the Y of the current segment of each neck.\n
+P:120A7:: DASM.EXPR: Gleeok_NeckYs0
+P:120AA:: DASM.EXPR: Gleeok_NeckYs1
+P:120AD:: DASM.EXPR: Gleeok_NeckYs2
+P:120B0:: DASM.EXPR: Gleeok_NeckYs3
 P:120B3:: I don't think this one is needed.
 P:120B5:: Set HP of each neck to $A0.\n\n Because there's only one HP value for each neck,\n it's stored right in the object slot -- unlike coordinates.\n\n Also, note that even though these aren't independent objects\n in the object slots -- because object type = 0 -- the values in\n these object slots will be useful during collision detection.\n
 P:120BA:: Reset metastate and unintialized flag, so that this neck is ready to go.\n
 P:120BF:: TODO: Is this a mistake? (+2)
 P:120C2:: Invincible to everything but the sword.\n
 P:120C7:: Bottom of the loop.\n
-P:120CA:: Set speed flags to $FF (non-0/decelerate):\n * neck 0 X\n * neck 1 Y\n * neck 2 X\n * neck 3 Y\n\n Leave the other other speed flags 0 (accelerate).\n
+P:120CA:: Set speed flags to $FF (non-0/decelerate):\n * neck 0 X\n * neck 1 Y\n * neck 2 X\n * neck 3 Y\n\n Leave the other other speed flags 0 (accelerate).\n\n DASM.EXPR: Gleook_HeadInfo0+GLEEOK_SPEEDX
+P:120CD:: DASM.EXPR: Gleook_HeadInfo1+GLEEOK_SPEEDY
+P:120D0:: DASM.EXPR: Gleook_HeadInfo2+GLEEOK_SPEEDX
+P:120D3:: DASM.EXPR: Gleook_HeadInfo3+GLEEOK_SPEEDY
 P:120D6:: Set the V-direction counter of all necks to 3.\n
+P:120D8:: DASM.EXPR: Gleook_HeadInfo0+GLEEOK_DIRCOUNTERV
+P:120DB:: DASM.EXPR: Gleook_HeadInfo1+GLEEOK_DIRCOUNTERV
+P:120DE:: DASM.EXPR: Gleook_HeadInfo2+GLEEOK_DIRCOUNTERV
+P:120E1:: DASM.EXPR: Gleook_HeadInfo3+GLEEOK_DIRCOUNTERV
 P:120E4:: Set the H-direction counter of all necks to 6.\n
+P:120E5:: DASM.EXPR: Gleook_HeadInfo0+GLEEOK_DIRCOUNTERH
+P:120E8:: DASM.EXPR: Gleook_HeadInfo1+GLEEOK_DIRCOUNTERH
+P:120EB:: DASM.EXPR: Gleook_HeadInfo2+GLEEOK_DIRCOUNTERH
+P:120EE:: DASM.EXPR: Gleook_HeadInfo3+GLEEOK_DIRCOUNTERH
 P:120F1:: Set neck 1 head delay timer to 12.\n
+P:120F2:: DASM.EXPR: Gleook_HeadInfo1+GLEEOK_DELAY
 P:120F5:: Set neck 2 head delay timer to 24.\n
-P:120F9:: Set neck 3 head delay timer to 36.\n
+P:120F6:: DASM.EXPR: Gleook_HeadInfo2+GLEEOK_DELAY
+P:120F9:: Set neck 3 head delay timer to 36.\n\n DASM.EXPR: Gleook_HeadInfo1+GLEEOK_DELAY
+P:120FC:: DASM.EXPR: Gleook_HeadInfo3+GLEEOK_DELAY
 P:120FF:: Leave neck 0 head delay timer as 0.\n
 P:12100-12104:ManhandlaBaseFrameImagesAndAttrs
 P:12105-12106:ManhandlaSegmentOffsetsX
@@ -3323,34 +3444,42 @@ P:1211D:L1211D: Copy the direction from the base segment.\n
 P:12122:: All segments are considered Manhandla.\n
 P:12127:: Set the segment invincible to fire and boomerang.\n
 P:1212C:: Look up and store the base frame image and sprite attributes byte.\n\n While updating, the low bit will be flipped on and off\n for each animation frame.\n
+P:1212F:: DASM.EXPR: Manhandla_ObjFrame+1
 P:12132:: All segments start out autonomous, and can update immediately.\n
 P:1213A:: Copy object attributes and HP from the base segment.\n
 P:12146:: Look up the offset of this segment. Add it to the position of\n the base segment.\n\n The position of the base segment in slot 5 is calculated first.\n Its base position is the spawn position.\n
 P:12158:: Set low speed byte $80.\n
+P:1215A:: DASM.EXPR: Manhandla_ObjSpeedFrac+1
 P:12161:InitGohma: TODO: ?\n
 P:12166:: Invincible to everything but arrows.\n
-P:1216B:: Set shoot timer to 1, so that Gohma doesn't shoot right away.\n
+P:1216B:: Set shoot timer to 1, so that Gohma doesn't shoot right away.\n\n DASM.EXPR: Gohma_ObjShootTimer
 P:1216E:: Start at location ($80, $70).\n
 P:12179:InitGleeokHead
 P:1217C:: Set flying speed $BF and maximum $E0.\n
+P:12183:: DASM.EXPR: Flyer_ObjSpeed
 P:12187:UpdateManhandla: If this segment is not the base, then skip turning and speeding up.\n
-P:1218B:: If no segment just died, then skip increasing the speed.\n
+P:1218B:: If no segment just died, then skip increasing the speed.\n\n DASM.EXPR: Manhandla_SegmentJustDied
 P:12190:: For each segment from 4 to 0, indexed by Y register:\n
-P:12192:L12192_LoopSegment: Add $80 to the low speed byte of this segment.\n\n MULTI: 041F+1\n
-P:1219B:: Carry to the high speed byte of this segment.\n\n MULTI: 042C+1\n
+P:12192:L12192_LoopSegment: Add $80 to the low speed byte of this segment.\n\n DASM.EXPR: Manhandla_ObjSpeedFrac+1\n
+P:1219B:: Carry to the high speed byte of this segment.\n\n DASM.EXPR: Manhandla_ObjSpeedWhole+1
+P:121A0:: DASM.EXPR: Manhandla_ObjSpeedWhole+1
 P:121A6:: Reset the "a segment just died" flag.\n
-P:121AB:L121AB_BounceIfNeeded: If there's a bounce direction, then assign it to the facing\n direction of all segments.\n
+P:121A8:: DASM.EXPR: Manhandla_SegmentJustDied
+P:121AB:L121AB_BounceIfNeeded: If there's a bounce direction, then assign it to the facing\n direction of all segments.\n\n DASM.EXPR: Manhandla_BounceDir\n
 P:121B3:L121B3_TurnIfNeeded: If object timer = 0, then\n 1. set timer to $10\n 2. randomly choose to turn toward Link or turn randomly\n 3. assign the base's direction to all segments and bounce direction\n
 P:121C4:L121C4_CopyDirToHands
+P:121C6:: DASM.EXPR: Manhandla_BounceDir
 P:121CC:L121CC_MoveBase: If this segment is the base, then remember the\n facing direction before moving.\n\n This is a continuation of the code above,\n which is also only for the base.\n
 P:121D5:L121D5
 P:121DB:: If the direction changed after moving, then\n copy it to the bounce direction.\n
-P:121E5:L121E5: Store in [00] the animation frame that you get from the frame accumulator:\n frame := ((accumulator AND $10) >> 4\n
-P:121F0:: Copy the animation frame bit into the "frame image and\n sprite attributes" byte.\n
+P:121E2:: DASM.EXPR: Manhandla_BounceDir
+P:121E5:L121E5: Store in [00] the animation frame that you get from the frame accumulator:\n frame := ((accumulator AND $10) >> 4\n\n DASM.EXPR: Manhandla_ObjFrameAccum\n
+P:121F0:: Copy the animation frame bit into the "frame image and\n sprite attributes" byte.\n\n DASM.EXPR: Manhandla_ObjFrame
+P:121F7:: DASM.EXPR: Manhandla_ObjFrame
 P:121FA:: If this segment is the base, then go draw.\n
-P:121FE:: If the old and new "frame image and sprite attributes" variables\n are the same, then go draw.\n
-P:12201:: This begins with value 0, because all room data was reset on entry.
-P:12206:: Copy the new value to the old variable, so that they're the same.\n
+P:121FE:: If the old and new "frame image and sprite attributes" variables\n are the same, then go draw.\n\n The previous frame value begins with value 0, because all\n room data was reset on entry.\n\n DASM.EXPR: Manhandla_ObjFrame
+P:12201:: DASM.EXPR: Manhandla_ObjPrevFrame
+P:12206:: Copy the new value to the old variable, so that they're the same.\n\n DASM.EXPR: Manhandla_ObjPrevFrame
 P:12209:: If animation frame = 1, then go draw.\n\n The low bit of "frame image and sprite attributes" byte\n represents the animation frame.\n
 P:1220C:: If the random value for the next slot up < $E0,\n or there's an object in slot 7; then go draw.\n\n The second condition keeps the number of fireballs <= 4.\n
 P:12217:: TODO: Fireball object type $56
@@ -3372,14 +3501,16 @@ P:12261:L12261
 P:12264:: Decrease by 1, to account for the current dead one.\n
 P:12266:: If the count >= 0 (signed comparison), then\n go change this hand object to the dead dummy.\n
 P:1226A:L1226A: The last hand died. So, kill the base.\n\n Change the base segment's object type to the dead dummy.\n Immediately set metastate to $10, instead of waiting for\n the dead dummy object's update routine to do it.\n Also set its timer to $10.\n
-P:12279:L12279_FlagHandDied: Set the "segment just died" flag.\n
+P:12279:L12279_FlagHandDied: Set the "segment just died" flag.\n\n DASM.EXPR: Manhandla_SegmentJustDied\n
 P:1227C:L1227C_Exit
 P:1227D:L1227D_MakeDeadDummy: Dead dummy object type
 P:12285:Manhandla_SetAllSegmentsDirection: Params:\n A: direction\n
 P:12287:L12287
-P:1228E:Manhandla_Move: Implement a way of manifesting the fractional part of the speed\n in the movement.\n\n Let's say the 16-bit speed is $0140. If we only took the high\n byte to add to the coordinates, then the effective speed would\n be 1 pixel a second instead of 1.25.\n\n By keeping a speed accumulator, we can turn speed $0140\n into 1.25 pixels a frame over four frames, using this calculation:\n\n   (SA=speed accumulator, SH=speed high, SL=speed low)\n\n   SA := SA + (SL AND $E0)\n   [03] := SH + carry\n\n AND'ing the low speed byte with $E0 isn't strictly needed.\n
+P:1228E:Manhandla_Move: Implement a way of manifesting the fractional part of the speed\n in the movement.\n\n Let's say the 16-bit speed is $0140. If we only took the high\n byte to add to the coordinates, then the effective speed would\n be 1 pixel a second instead of 1.25.\n\n By keeping a speed accumulator, we can turn speed $0140\n into 1.25 pixels a frame over four frames, using this calculation:\n\n   (SA=speed accumulator, SH=speed high, SL=speed low)\n\n   SA := SA + (SL AND $E0)\n   [03] := SH + carry\n\n AND'ing the low speed byte with $E0 isn't strictly needed.\n\n DASM.EXPR: Manhandla_ObjSpeedFrac\n
 P:12293:: Add the low speed byte to speed accumulator.
-P:1229A:: Assign (high speed byte + carry) to [03].\n
+P:12294:: DASM.EXPR: Manhandla_ObjSpeedAccum
+P:12297:: DASM.EXPR: Manhandla_ObjSpeedAccum
+P:1229A:: Assign (high speed byte + carry) to [03].\n\n DASM.EXPR: Manhandla_ObjSpeedWhole
 P:122A1:: Change coordinates by the speed amount/offset in [03]\n according to the direction.\n\n Start with a mask of $A1 in [02]:\n - low nibble represents the right direction\n - high nibble is used to set or clear carry as we go along\n
 P:122A5:: If direction has a right component (1), then add offset to X coordinate.\n
 P:122B2:L122B2_Left: If direction has a left component (2), then subtract offset from X coordinate.\n
@@ -3389,9 +3520,11 @@ P:122C2:: Bit 6 of mask $A1 clears Carry now.
 P:122CE:L122CE_Up: If direction has an up component (8), then subtract offset from Y coordinate.\n
 P:122D0:: Bit 5 of mask $A1 sets Carry now.
 P:122DC:L122DC_IncFrameAccum: To the frame accumulator, add:\n - a random value between 0 and 3\n - [03] the effective high speed byte calculated for this screen frame\n
+P:122E3:: DASM.EXPR: Manhandla_ObjFrameAccum
+P:122E6:: DASM.EXPR: Manhandla_ObjFrameAccum
 P:122EC:: TODO:\n I don't see why this is needed.\n
 P:122EF:Manhandla_Draw
-P:122F2:: Push the "frame image and sprite attributes" value.\n
+P:122F2:: Push the "frame image and sprite attributes" value.\n\n DASM.EXPR: Manhandla_ObjFrame
 P:122F6:: Bit 7 is the sprite attribute for vertical flipping, and can be\n passed along as is.\n
 P:122F8:: Use blue palette row.
 P:122FD:: Get the "frame image and sprite attributes" value again.
@@ -3399,34 +3532,46 @@ P:122FF:: If bit 6 is set, then enable horizontal flipping in [0F].\n
 P:12305:L12305: Pop the "frame image and sprite attributes" value.
 P:12306:: If the low nibble = 2 or 3, then go draw not mirrored.\n These are the 2 frame images of the horizontal hands.\n\n Else draw the base and vertical hands mirrored.\n
 P:12313:L12313
-P:12316:UpdateGohma: If flagged not to continue straight, then choose a random facing direction.\n
+P:12316:UpdateGohma: If flagged not to continue straight, then choose a random facing direction.\n\n DASM.EXPR: Gohma_ObjGoStraight\n
 P:1231B:: If Random:\n   >= $B0: right\n   >= $60: left\n   Else:   down\n
 P:12329:L12329_ChangeDir
-P:1232B:: Now we can go straight without changing direction for some time.\n
+P:1232B:: Now we can go straight without changing direction for some time.\n\n DASM.EXPR: Gohma_ObjGoStraight
 P:1232E:: Go animate the eye.\n
-P:12331:L12331_Move: Add $80 to the movement accumulator.\n
+P:12331:L12331_Move: Add $80 to the movement accumulator.\n\n DASM.EXPR: Gohma_ObjMoveAccum\n
+P:12337:: DASM.EXPR: Gohma_ObjMoveAccum
 P:1233A:: If movement accumulator didn't overflow, then go animate the eye.\n
-P:1233C:: Increase the distance traveled, and move 1.\n
+P:1233C:: Increase the distance traveled, and move 1.\n\n DASM.EXPR: Gohma_ObjDistTraveled
 P:1233F:: Set a direction mask in [02], starting with right (1).\n
 P:12343:: If Gohma's facing direction has a right component, then add 1 to X.\n
 P:1234B:L1234B: If Gohma's facing direction has a left component, then subtract 1 from X.\n
 P:12353:L12353: If Gohma's facing direction has a down component, then add 1 to Y.\n
 P:1235B:L1235B: If Gohma's facing direction has an up component, then subtract 1 from Y.\n
-P:12363:L12363: If Gohma has not traveled $20 pixels, then go animate the eye.\n
+P:12363:L12363: If Gohma has not traveled $20 pixels, then go animate the eye.\n\n DASM.EXPR: Gohma_ObjDistTraveled\n
 P:1236A:: Gohma has traveled $20 pixels. Reset the distance traveled.\n Reverse the facing direction, and increase the number of sprints.\n
+P:1236C:: DASM.EXPR: Gohma_ObjDistTraveled
+P:12372:: DASM.EXPR: Gohma_ObjSprints
+P:12375:: DASM.EXPR: Gohma_ObjSprints
 P:12378:: If the previous number of sprints was odd, then flag that Gohma\n should randomly change direction.\n
-P:12380:L12380_AnimateEye: Animate the eye.\n\n First, if the counter for when to open the eye next = 0, then\n set it to a random value at least $C0; and set the timer for\n keeping the eye open to $80.\n\n Note that $C0 is not a number of frames, because it's changed\n every other frame.\n
+P:1237D:: DASM.EXPR: Gohma_ObjGoStraight
+P:12380:L12380_AnimateEye: Animate the eye.\n\n First, if the counter for when to open the eye next = 0, then\n set it to a random value at least $C0; and set the timer for\n keeping the eye open to $80.\n\n Note that $C0 is not a number of frames, because it's changed\n every other frame.\n\n DASM.EXPR: Gohma_ObjNextOpenEyeCounter\n
+P:12387:: DASM.EXPR: Gohma_ObjEyeOpenTimer
+P:1238E:: DASM.EXPR: Gohma_ObjNextOpenEyeCounter
 P:12391:L12391_DecNextOpenEyeCounter: Decrement the next-open-eye counter.\n
-P:12399:L12399: If open eye timer = 0, then the eye is closed.\n Go animate it differently.\n
-P:1239E:: Else decrement the open eye timer.\n
+P:12396:: DASM.EXPR: Gohma_ObjNextOpenEyeCounter
+P:12399:L12399: If open eye timer = 0, then the eye is closed.\n Go animate it differently.\n\n DASM.EXPR: Gohma_ObjEyeOpenTimer\n
+P:1239E:: Else decrement the open eye timer.\n\n DASM.EXPR: Gohma_ObjEyeOpenTimer
 P:123A1:: If open eye timer >= $70 and < $10, then the eye is fully open.\n So, set its frame image to 2. Else use 3 for a half open eye.\n
 P:123AC:L123AC
-P:123AD:L123AD_SetEyeStateAndShoot
-P:123B0:L123B0_ShootAnimateCollide: Decrement the shoot timer.\n
+P:123AD:L123AD_SetEyeStateAndShoot: DASM.EXPR: Gohma_ObjEyeState
+P:123B0:L123B0_ShootAnimateCollide: Decrement the shoot timer.\n\n DASM.EXPR: Gohma_ObjShootTimer\n
 P:123B3:: If it became 0, then set it to $41, and shoot fireball $56.\n
-P:123BF:L123BF_AnimateAndCheckCollisions: Pass the frame image for the eye.\n
-P:123C8:L123C8_AnimateClosedEye: Here the eye is closed. So animate it this way.\n Increment the animation counter, and if <> 8, then\n go shoot, draw, and check collisions.\n
+P:123B7:: DASM.EXPR: Gohma_ObjShootTimer
+P:123BF:L123BF_AnimateAndCheckCollisions: Pass the frame image for the eye.\n\n DASM.EXPR: Gohma_ObjEyeState\n
+P:123C8:L123C8_AnimateClosedEye: Here the eye is closed. So animate it this way.\n Increment the animation counter, and if <> 8, then\n go shoot, draw, and check collisions.\n\n DASM.EXPR: Gohma_ObjEyeAnimCounter\n
+P:123CB:: DASM.EXPR: Gohma_ObjEyeAnimCounter
 P:123D2:: Roll over the eye animation counter to 0.\n Clear bit 1 and invert bit 0 to switch between frame images 0 and 1.\n
+P:123D4:: DASM.EXPR: Gohma_ObjEyeAnimCounter
+P:123D7:: DASM.EXPR: Gohma_ObjEyeState
 P:123DE:: Go set eye state/frame image, shoot, draw, and check collisions\n
 P:123E1-123E2:GohmaLegOffsetsX
 P:123E3:Gohma_AnimateAndDraw: Params:\n A: eye frame image\n\n Draw the eye with the frame image passed in.\n
@@ -3448,7 +3593,7 @@ P:12438:: Loop counter
 P:1243C:: Restore the boss's X coordinate.\n
 P:12440:Gohma_HandleWeaponCollision: TODO:\n If hit by an arrow, then set the arrow to spark\n
 P:1244E:L1244E_CheckHitEye: If it did not hit part 3 nor 4, then go play the parry sound effect.\n
-P:12458:L12458_CheckEyeOpen: If the state of the eye is not 3, then go parry.\n
+P:12458:L12458_CheckEyeOpen: If the state of the eye is not 3, then go parry.\n\n DASM.EXPR: Gohma_ObjEyeState\n
 P:1245F:: If the direction of the arrow is not up, then go parry.\n
 P:12466:: TODO:\n
 P:1246B:: Deal damage and cry out.\n
@@ -3469,16 +3614,18 @@ P:124D6-124D9:GleeokNeckMiscAddrsLo
 P:124DA-124DD:GleeokNeckMiscAddrsHi
 P:124DE:UpdateGleeok
 P:124E1:: Calculate the index of the last neck of this kind of gleeok.\n Subtract $42 (Gleeok1) from ObjType[1].\n
-P:124E7:: TODO:\n For each neck, counting down, indexed by [04D7]:\n
+P:124E7:: For each neck, counting down:\n
 P:124EA:L124EA_LoopNeck: If the bit for this neck is in the dead neck mask,\n then go loop again.\n
 P:124F8:L124F8: Get the addresses of this neck's segment data arrays.\n
 P:124FB:L124FB_LoadNeckBytes: Load neck data.\n\n For each segment from 5 to 0, indexed by Y register:\n - load coordinates into object slots 6 to 1\n - load miscellany into an array at [0413]\n
+P:12507:: DASM.EXPR: Gleeok_ObjHeadInfo
 P:1250D:: Each screen frame, one neck is chosen to move and try to shoot.\n
 P:1251D:: The head is in object slot 5. Set it for when we want to shoot,\n so that it looks like the fireball came from the head.\n
 P:1251F:: If Random < $20, and there's no object (fireball) in slot $B,\n then shoot fireball $56.\n
 P:1252F:L1252F_DrawAndCheckCollisions: This is run for all necks.\n
 P:12532:: Store the neck data.\n
 P:12535:L12535_SaveNeckBytes
+P:1253F:: DASM.EXPR: Gleeok_ObjHeadInfo
 P:12547:L12547_NextLoopNeck: Bottom of the neck loop.\n Decrement the neck index until it < 0.\n
 P:1254D:Gleeok_FetchNeckAddrs: Returns:\n X: neck index\n Y: 5 -- the last segment index\n [00:01]: address of segment X array\n [02:03]: address of segment Y array\n [04:05]: address of segment miscellaneous array\n
 P:1256E:: Start loading data from segment 5.
@@ -3552,6 +3699,7 @@ P:126F7:: The segment is not a head nor bottom. So, we can use a\n standard rout
 P:126FA:Gleeok_CheckCollisions: If this segment is not the head nor the bottom of the neck,\n then loop again to process the next segment.\n\n This kind of segment is only drawn, and is not checked\n for object collisions.\n
 P:12705:L12705
 P:12708:: If this segment was harmed, then set the writhing counter,\n and the animation counter to its lower value.\n
+P:12712:: DASM.EXPR: Gleeok_WrithingCounter
 P:12715:L12715
 P:12718:: If this is the bottom segment, then go reset metastate and loop again.\n Gleeok can writhe when it's hit here, but it can't die.\n
 P:1271F:: If this neck has not died, then go loop again.\n
@@ -3570,22 +3718,34 @@ P:12767:: Loop over the four bits in the copy of the dead neck mask.\n Count the
 P:1276B:L1276B
 P:12774:: Compare the number of dead necks to the original number\n (object type - $41).\n
 P:1277C:: If they're equal, then go handle the whole boss dying.\n
-P:1277E:: TODO:\n Else reset object metastate of the segment, and return.\n
+P:1277E:: Else reset object metastate of the segment, and return.\n
 P:12781:L12781_ResetMetastate
 P:12784:L12784_NextLoopSegment: Bottom of the segment loop.\n Decrement segment object slot.\n\n If >= 1, then go draw the next segment and check collisions.\n Else return.\n
 P:1278C:L1278C_BossDied: The whole gleeok died, because the last neck died.\n\n First, hide the first $10 sprites: the attached heads.\n
 P:12792:: We want a death spark. So, set the metastate of the first\n monster slot to $11.\n
 P:12797:: Reset the object type of slots 2 to $A.\n\n Beware a left over fireball in slot $B!\n
 P:12799:L12799_DestroyFireballs
-P:127A4:Gleeok_MoveHead: Don't do anything until the head's initial timer expires.\n
+P:127A4:Gleeok_MoveHead: Don't do anything until the head's initial timer expires.\n\n DASM.EXPR: Gleeok_ObjHeadDelay\n
 P:127A9:: Add 1 or -1 to X as needed.\n
+P:127AB:: DASM.EXPR: Gleeok_ObjHeadSpeedX
 P:127B3:: Add 1 or -1 to Y as needed.\n
-P:127BD:: Increment the counter to change directions.\n If it's still < 4, then return.\n
+P:127B5:: DASM.EXPR: Gleeok_ObjHeadSpeedY
+P:127BD:: Increment the counter to change directions.\n If it's still < 4, then return.\n\n DASM.EXPR: Gleeok_ObjHeadDirChangeCounter
+P:127C0:: DASM.EXPR: Gleeok_ObjHeadDirChangeCounter
 P:127C7:: The counter reached 4. So, reset it.\n Then check the individual direction counters.\n
-P:127CC:: Increment the horizontal direction counter.\n If >= $C, then reset the counter, and flip direction.\n
-P:127E3:L127E3_CheckVertical: Increment the vertical direction counter.\n If >= 6, then reset the counter, and flip direction.\n
+P:127C9:: DASM.EXPR: Gleeok_ObjHeadDirChangeCounter
+P:127CC:: Increment the horizontal direction counter.\n If >= $C, then reset the counter, and flip direction.\n\n DASM.EXPR: Gleeok_ObjHeadDirCounterH
+P:127CF:: DASM.EXPR: Gleeok_ObjHeadDirCounterH
+P:127D8:: DASM.EXPR: Gleeok_ObjHeadDirCounterH
+P:127DB:: DASM.EXPR: Gleeok_ObjHeadSpeedX
+P:127E0:: DASM.EXPR: Gleeok_ObjHeadSpeedX
+P:127E3:L127E3_CheckVertical: Increment the vertical direction counter.\n If >= 6, then reset the counter, and flip direction.\n\n DASM.EXPR: Gleeok_ObjHeadDirCounterV\n
+P:127E6:: DASM.EXPR: Gleeok_ObjHeadDirCounterV
+P:127EF:: DASM.EXPR: Gleeok_ObjHeadDirCounterV
+P:127F2:: DASM.EXPR: Gleeok_ObjHeadSpeedY
+P:127F7:: DASM.EXPR: Gleeok_ObjHeadSpeedY
 P:127FA:L127FA_Exit
-P:127FB:L127FB_Gleeok_DecHeadTimer
+P:127FB:L127FB_Gleeok_DecHeadTimer: DASM.EXPR: Gleeok_ObjHeadDelay
 P:127FF:Gleeok_ChangeCoordinateBySpeedFlag: Params:\n A: a value to change\n Y: 0 => increment, 1 => decrement\n\n Returns:\n A: original value +/- 1\n
 P:12805:L12805_Subtract
 P:12809-1280E:GleeokBodyTiles0
@@ -3595,6 +3755,8 @@ P:1281B-1281E:GleeokBodyBaseTileOffsets
 P:1281F:L_Gleeok_DecAnimTimerAndDraw: Decrement animation timer, and go draw.\n
 P:12825:Gleeok_DrawBody: The animation timer controls when the animation frame changes.\n If it has not expired, then go decrement it and draw.\n
 P:1282A:: The animation timer has expired. There are two choices for arming it.\n\n When writhing after a hit, Gleeok animates faster.\n So, when the writhing counter <> 0, set a shorter time (6).\n Otherwise, set a longer time ($10).\n
+P:1282C:: DASM.EXPR: Gleeok_WrithingCounter
+P:12831:: DASM.EXPR: Gleeok_WrithingCounter
 P:12836:L12836
 P:12839:: Cycle the animation frame from 0 to 3.\n
 P:12844:L_Gleeok_WriteSprites: For each row, from 0 to 1, indexed by [06]:\n
@@ -3612,8 +3774,8 @@ P:1288C:: Bottom of the row loop.\n Increment the row until it = 2.\n
 P:128C0-128C4:GuardFireXs
 P:128C5-128C9:GuardFireYs
 P:128CA:InitZelda: Make Zelda and 4 flames that guard her, in object slots 5 to 1.\n
-P:128CC:L128CC: Look up and set the location of each object.\n\n MULTI: A8C0-1\n
-P:128D1:: MULTI: A8C5-1\n
+P:128CC:L128CC: Look up and set the location of each object.\n\n DASM.EXPR: GuardFireXs-1\n
+P:128D1:: DASM.EXPR: GuardFireYs-1
 P:128D6:: Guard fire object type
 P:128DE:: Replace the type of the object in slot 1 with $37: Zelda.\n
 P:128E4:InitLamnola: Make $A segments.\n
@@ -3622,10 +3784,13 @@ P:128F5:: Each segment is flagged initialized and ready to update.\n
 P:128FB:: This Lamnola that's making additional segments is in slot 1.\n Copy its object attributes, HP, and type to the others.\n
 P:12910:: TODO:\n Only the heads in slots 5 and $A have a direction and [0380][X] set.\n
 P:1291C:: Remember the object type, and set speed to (object type - $39):\n 1 or 2.\n
+P:1291F:: DASM.EXPR: Lamnola_Type
+P:12925:: DASM.EXPR: Lamnola_Speed
 P:12928:: TODO:\n Do the heads not count?\n
 P:1292E:InitPatra: Invincible to everything but sword.\n
 P:12933:: Start at location ($80, $70) and facing up.\n
 P:1293F:: Set flying speed $1F, and maximum $40.\n
+P:12941:: DASM.EXPR: Flyer_ObjSpeed
 P:12949:: TODO: set [0601] to $40\n
 P:1294C:: Set object timer to $FF. When it runs out, the maneuver will be switched.\n
 P:12950:: Patra type $47 goes with Patra Child type $25.\n Patra type $48 goes with Patra Child type $26.\n
@@ -3659,7 +3824,7 @@ P:129FF:L129FF
 P:12A02:L12A02_DrawAndCheckCollisions
 P:12A04:: Save the X coordinate.
 P:12A05:: Each segment is a full 16x16 object. But, it's drawn as a narrow,\n half-width object. So, center it by temporarily adding 4 to X.\n
-P:12A0A:: The speed is 1 or 2. By swapping them, you get sprite attributes\n to store in [03].\n
+P:12A0A:: The speed is 1 or 2. By swapping them, you get sprite attributes\n to store in [03].\n\n DASM.EXPR: Lamnola_Speed
 P:12A11:: If the segment is a head, then use tile $9E, else $A0.\n
 P:12A1D:L12A1D_Draw
 P:12A20:: Restore the X coordinate.
@@ -3670,6 +3835,7 @@ P:12A31:: Otherwise, the segment is dead.\n
 P:12A34:: Set the current segment's HP to the initial value in anticipation\n of bringing this segment back to life.\n
 P:12A39:: Find the tail of the lamnola that the current segment belongs to.\n\n From the lowest slot, look for one that has the original lamnola\n object type.\n\n The goal is to swap the current dead segment with the tail segment.\n
 P:12A41:L12A41_FindTail
+P:12A45:: DASM.EXPR: Lamnola_Type
 P:12A4A:: Set the timer for the dead dummy object that will replace the tail.\n
 P:12A4F:: Copy the current dead segment's invincibility timer, X, and Y\n to the tail segment.\n
 P:12A5F:: If the tail segment found is a head, then the whole lamnola died.\n So, return and leave it dead.\n
@@ -3708,16 +3874,22 @@ P:12B1F:L12B1F_SetVertical: Load the vertical direction toward Link in order to 
 P:12B21:L12B21: Go test this direction for collisions with tiles or the room boundary.\n
 P:12B24:Lamnola_Move: This code is similar to 04:96EB Digdogger_Move.\n\n Change coordinates by the appropriate speed according to the direction.\n\n Start with a mask of $A1 in [02]:\n - low nibble represents the right direction\n - high nibble is used to set or clear carry as we go along\n
 P:12B28:: If direction has a right component (1), then add offset to X coordinate.\n
+P:12B31:: DASM.EXPR: Lamnola_Speed
 P:12B36:L12B36_Left: If direction has a left component (2), then subtract offset from X coordinate.\n
 P:12B38:: Bit 7 of mask $A1 sets Carry now.
+P:12B40:: DASM.EXPR: Lamnola_Speed
 P:12B45:L12B45_Down: If direction has a down component (4), then add offset to Y coordinate.\n
 P:12B47:: Bit 6 of mask $A1 clears Carry now.
+P:12B4F:: DASM.EXPR: Lamnola_Speed
 P:12B54:L12B54_Up: If direction has an up component (8), then subtract offset from Y coordinate.\n
 P:12B56:: Bit 5 of mask $A1 sets Carry now.
+P:12B5E:: DASM.EXPR: Lamnola_Speed
 P:12B63:L12B63_Exit
 P:12B64:PatraManeuverTime: TODO:\n Was this intended to be an array of two elements?\n
 P:12B66:UpdatePatra
 P:12B69:: Reset flying distance traveled, so that we know what offset to\n apply to the children.\n
+P:12B6B:: DASM.EXPR: Flyer_ObjOffsetX
+P:12B6E:: DASM.EXPR: Flyer_ObjOffsetY
 P:12B74:: 2 animation frames a screen frame
 P:12B79:: Loop over the object slots of the 8 children.\n If any are found, then go check for collision with Link only.\n
 P:12B7B:L12B7B_LoopChildren
@@ -3726,12 +3898,17 @@ P:12B82:: Patra Child 2 object type
 P:12B89:: If there are no children, then Link can harm Patra.\n
 P:12B95:L12B95_CheckLinkCollision: Else there are child patras left.\n Link cannot harm Patra, but it can harm Link.\n
 P:12B98:L12B98_TryChangeManeuver: If timer = 0 and the angle of patra child in slot 3 = 0, then\n flip the maneuver index.\n
+P:12B9A:: DASM.EXPR: ObjAngleWhole+3
+P:12B9F:: DASM.EXPR: Patra_ObjManeuverIndex
+P:12BA4:: DASM.EXPR: Patra_ObjManeuverIndex
 P:12BA8:: TODO:\n for this to make sense, Y must be 0 or 1. But where is is set?\n
 P:12BAD:L12BAD_Exit
-P:12BAE:ControlPatraFlight
+P:12BAE:ControlPatraFlight: DASM.EXPR: Flyer_ObjFlyingState
 P:12BB4-12BBB:ControlPatraFlight_JumpTable
 P:12BBC:Flyer_PatraDecideState: Go to the next state randomly:\n Random >= $40: 2\n Else:          3\n\n Set up 8 turns.\n
 P:12BC5:L12BC5
+P:12BC6:: DASM.EXPR: Flyer_ObjFlyingState
+P:12BCB:: DASM.EXPR: Flyer_ObjTurns
 P:12BCF-12BD5:PatraChildStartAngles
 P:12BD6:PatraChild1RotationCosineBits
 P:12BD7:PatraChild2RotationBits
@@ -3741,21 +3918,24 @@ P:12BDE:: State = 0.\n\n If the current object slot is 2, then go initialize the
 P:12BE2:: The patra child in slot 2 is the last one to be updated.\n So all other patra children will see slot 2's state = 0, and return.\n\n This means that in the first frame, slot 2 is the only one to be\n shown.\n
 P:12BE6:: In subsequent frames, patra children in slots >= 3 will reach\n here to wait to be shown at the top position (N) one at a time.\n
 P:12BE7:: Subtract 3 from the object slot to get the angle where the\n patra child in object slot 2 should be for the current one to appear.\n
-P:12BEB:: If the patra child in slot 2 has not reached the required angle,\n then return.\n
+P:12BEB:: If the patra child in slot 2 has not reached the required angle,\n then return.\n\n DASM.EXPR: ObjAngleWhole+2
 P:12BF3:L12BF3_Ready: Once the patra child in the last slot (9) reaches here, advance\n the patra parent's state.\n
 P:12BF9:L12BF9: Go to state 1 to orbit.\n
 P:12BFB:: TODO: ?\n
 P:12BFF:: Set angle $18 (N).\n
+P:12C01:: DASM.EXPR: ObjAngleWhole
 P:12C04:: This location is right above Patra.\n Set X coordinate to Patra's.\n
 P:12C08:: If patra child type = $25, then the radius of its orbit is $2C.\n Else use radius $18. Store the chosen value in [00].\n
 P:12C13:L12C13
 P:12C15:: This location is right above Patra.\n Set Y coordinate to (Patra's Y - [00]).\n
 P:12C1C:L12C1C_Exit
 P:12C1D:PatraChild_State1: Add Patra's distance traveled since the last frame to this child's coordinates.\n
+P:12C20:: DASM.EXPR: Flyer_ObjOffsetX+1
+P:12C28:: DASM.EXPR: Flyer_ObjOffsetY+1
 P:12C2D:: Reset [0B]. The high byte of the amount to subtract is 0.\n
 P:12C31:: If the monster is type $25 Patra Child1, then decrease the\n monster's angle by $70, else by $60 to go slower.\n
 P:12C3C:L12C3C
-P:12C3F:: Load Patra's maneuver index.\n It determines which counts of bits are looked up below.\n
+P:12C3F:: Load Patra's maneuver index.\n It determines which counts of bits are looked up below.\n\n DASM.EXPR: Patra_ObjManeuverIndex+1
 P:12C42:: If the monster is Patra Child 1 ($25), then look up two separate\n counts of bits to use for Y and X increment calculations in rotation.\n This leads to a large circle (6,6) and a wobbling ring (5,6).\n
 P:12C55:L12C55_UsePatraChild2Bits: Else it's Patra Child 2 ($26). Look up one value that will be used\n for both Y and X increment calculations in rotation. This leads to\n a small circle (5) and a large circle (6).\n
 P:12C59:L12C59_Rotate
@@ -3764,7 +3944,7 @@ P:12C68:: If the monster died, then change to the dead dummy object.\n
 P:12C70:L12C70_Exit
 P:12C71:PatraChild_Draw
 P:12C74:: 2 was returned from the routine above in A.\n Pass it as the animation counter value to the routine below.\n
-P:12C7D:UpdateGanon
+P:12C7D:UpdateGanon: DASM.EXPR: Ganon_ScenePhase
 P:12C83-12C88:UpdateGanon_JumpTable
 P:12C89:Ganon_ScenePhase0: Description:\n Lift up the Triforce of Courage while the room is dark.\n\n Lift the Triforce of Courage -- represented with a triforce piece.\n
 P:12C8E:: If Link's timer has not expired, then go do nothing until the last frame.\n
@@ -3775,21 +3955,25 @@ P:12C99:: Turn off the room brightening flag, because we're controlling it\n her
 P:12C9E:: On the first frame of the fade-to-light cycle, play the\n Triforce/Ganon song.\n
 P:12CAA:L12CAA_CheckFadeCycle: If the fade cycle has not ended, then go draw Ganon.\n
 P:12CB3:: Set Link's timer to $C0 for the next scene phase.\n
-P:12CB7:: Set scene phase 1, and go draw Ganon.\n
+P:12CB7:: Set scene phase 1, and go draw Ganon.\n\n DASM.EXPR: Ganon_ScenePhase
 P:12CBC:L12CBC: TODO: Find out the sample. Add it to comment below, and to label.\n\n If timer = 1, then\n
 P:12CC5:L12CC5
 P:12CC6:Ganon_ScenePhase1: Description:\n Lift up the Triforce of Courage while the room is light.\n\n Lift the Triforce of Courage -- represented with a triforce piece.\n
 P:12CCB:: If Link's timer hasn't expired, then go draw Ganon.\n
 P:12CCF:: Once the timer expires:\n 1. unhalt Link\n 2. clear the item to lift\n 3. play level 9 song\n 4. go to scene phase 2: fighting / not holding triforce\n
+P:12CD9:: DASM.EXPR: Ganon_ScenePhase
 P:12CDC:Ganon_DrawBodyFrame0: When holding the Triforce of Courage, only draw Ganon\n with animation frame 0.\n
-P:12CE4:Ganon_ScenePhase2: Description:\n Fighting Ganon.\n\n If Ganon is dying, go handle it.\n
+P:12CDE:: DASM.EXPR: Ganon_ObjAnimationFrame
+P:12CE4:Ganon_ScenePhase2: Description:\n Fighting Ganon.\n\n If Ganon is dying, go handle it.\n\n DASM.EXPR: Ganon_ObjPhase\n
 P:12CEF:: Go handle the brown state specially.\n
 P:12CF3:: State = 0: Blue\n\n If timer = 0, then go move around and shoot.\n
 P:12CF7:: If timer > 1, then Ganon is blue and visible. Only draw.\n Collisions were checked already.\n\n Else timer = 1. Fall thru and randomize Ganon's location,\n in anticipation of moving around when timer becomes 0 next frame.\n
 P:12CFB:Ganon_RandomizeLocation: Description:\n Put Ganon at Y=$A0, and a random X of $30 or $B0.\n
-P:12D0A:Ganon_MoveAndShoot: Change the animation frame every screen frame; so that\n when Ganon is hit, he appears in a random pose.\n
-P:12D0D:: The animation cycle has 6 frames.\n
-P:12D19:L12D19_Move: Move like a blue wizzrobe teleporting.\n\n MULTI: [0394][X]\n
+P:12D0A:Ganon_MoveAndShoot: Change the animation frame every screen frame; so that\n when Ganon is hit, he appears in a random pose.\n\n DASM.EXPR: Ganon_ObjAnimationFrame\n
+P:12D0D:: The animation cycle has 6 frames.\n\n DASM.EXPR: Ganon_ObjAnimationFrame
+P:12D16:: DASM.EXPR: Ganon_ObjAnimationFrame
+P:12D19:L12D19_Move: Move like a blue wizzrobe teleporting.\n
+P:12D1B:: DASM.EXPR: ObjRemDistance
 P:12D21:: Shoot every $40 frames.\n
 P:12D27:: Fireball
 P:12D2C:L12D2C_Exit
@@ -3799,15 +3983,16 @@ P:12D36:: If the state becomes 0, then Ganon is blue again.\n Go switch his pale
 P:12D3E:L12D3E_Draw: When state >= $30, draw Ganon opaque.\n When state goes below, draw him translucent.\n
 P:12D49:L_Ganon_DrawBody
 P:12D4C:L12D4C
-P:12D4D:Ganon_Dying: Ganon is dying.\n Increment Ganon phase every frame.\n
-P:12D50:: If it just went from $FF to 0, then keep it at $FF.\n
+P:12D4D:Ganon_Dying: Ganon is dying.\n Increment Ganon phase every frame.\n\n DASM.EXPR: Ganon_ObjPhase\n
+P:12D50:: If it just went from $FF to 0, then keep it at $FF.\n\n DASM.EXPR: Ganon_ObjPhase
+P:12D57:: DASM.EXPR: Ganon_ObjPhase
 P:12D5A:L12D5A: If Ganon phase < $50, then go draw only.\n
 P:12D5E:: If > $50, then go handle ashes only.\n
 P:12D60:: Otherwise Ganon phase = $50.\n Set up the burst and ashes.\n
 P:12D63:: Ganon is now a pile of ashes at offset (7, 8) from where he was.\n
 P:12D75:: Ganon/Triforce song
 P:12D7A:L12D7A_HandleAshes
-P:12D7D:: Keep drawing the burst artifacts while Ganon phase < $A0.\n
+P:12D7D:: Keep drawing the burst artifacts while Ganon phase < $A0.\n\n DASM.EXPR: Ganon_ObjPhase
 P:12D84:: If > $A0, then there's nothing left to do, except return.\n
 P:12D86:: Otherwise Ganon phase = $A0.\n Activate the room item (triforce of power).\n
 P:12D89:: Put it at Ganon's ashes' location.\n
@@ -3821,10 +4006,12 @@ P:12DB3:L12DB3_LoopRay: Start each piece at offset (4, 4) from Ganon's location.
 P:12DC2:: Set the direction.\n
 P:12DCC:Ganon_DrawCloud: Params:\n [00]: X\n [01]: Y\n\n Save the coordinates.\n
 P:12DD2:: If cloud distance < 6, then use frame image $C (medium).\n Else use frame image $D (low).\n
+P:12DD4:: DASM.EXPR: Ganon_ObjCloudDist
 P:12DDB:: Low density cloud frame image (tile $74)
 P:12DDD:L12DDD: No horizontal flipping.
 P:12DE4:: Restore the coordinates.\n
-P:12DEB:Ganon_DrawBurst: If cloud distance <> 0, then decrement it once every 8 frames.\n
+P:12DEB:Ganon_DrawBurst: If cloud distance <> 0, then decrement it once every 8 frames.\n\n DASM.EXPR: Ganon_ObjCloudDist\n
+P:12DF6:: DASM.EXPR: Ganon_ObjCloudDist
 P:12DF9:L12DF9_DrawClouds: Draw the four clouds at diagonal corners.\n
 P:12E17:: Draw the top and bottom clouds.\n
 P:12E27:: Draw the left and right clouds.\n
@@ -3838,9 +4025,13 @@ P:12E54:: The frame counter will make the sprite flash.\n The array has the hori
 P:12E63:: Bottom of the loop.\n Increment object slot while <= 9.\n
 P:12E68:: Restore the object index.\n
 P:12E6D:Ganon_GetCurCloudLeft: Returns:\n [00]: X coordinate\n
+P:12E70:: DASM.EXPR: Ganon_ObjCloudDist
 P:12E76:Ganon_GetCurCloudRight: Returns:\n [00]: X coordinate\n
+P:12E79:: DASM.EXPR: Ganon_ObjCloudDist
 P:12E7F:Ganon_GetCurCloudTop: Returns:\n [01]: Y coordinate\n
+P:12E82:: DASM.EXPR: Ganon_ObjCloudDist
 P:12E88:Ganon_GetCurCloudBottom: Returns:\n [01]: Y coordinate\n
+P:12E8B:: DASM.EXPR: Ganon_ObjCloudDist
 P:12E91-12EA8:GanonFrameImages
 P:12EA9-12EAC:GanonSpriteOffsetsX
 P:12EAD-12EB0:GanonSpriteOffsetsY
@@ -3850,7 +4041,7 @@ P:12EB7:L12EB7_LoopCorner: Add an offset to Ganon's X, and store the result in [
 P:12EBF:: Add an offset to Ganon's Y, and store the result in [01] -- the sprite's Y.\n
 P:12EC7:: Each part has a horizontal flipping flag.\n
 P:12ECC:: Save and copy the loop index (the current part) to [07].\n
-P:12ED0:: Multiply the animation frame by 4, because of the 4 parts\n that make it up.\n
+P:12ED0:: Multiply the animation frame by 4, because of the 4 parts\n that make it up.\n\n DASM.EXPR: Ganon_ObjAnimationFrame
 P:12ED5:: Add [07] -- the index of the current part.\n\n Now you have an index into the frame image table, for the\n current image part of the current animation frame.\n
 P:12EDE:: Restore the loop index.
 P:12EDF:: Bottom of the part loop.\n
@@ -3869,9 +4060,10 @@ P:12F3A:: Reset the collision return value [06].\n
 P:12F3E:: If there's no arrow in flight, then return.\n
 P:12F47:: Check for collision with an arrow; and return if no collision.\n
 P:12F4A:: [06] collision result
-P:12F4E:: Set the Ganon phase to "dying".\n
+P:12F4E:: Set the Ganon phase to "dying".\n\n DASM.EXPR: Ganon_ObjPhase
 P:12F51:: Now his body does flash.\n
 P:12F56:: Set initial cloud distance 8.\n
+P:12F58:: DASM.EXPR: Ganon_ObjCloudDist
 P:12F5C-12F63:GanonColorTransferRecord
 P:12F64-12F6C:GanonColorSets
 P:12F6D:Ganon_AppendPaletteRowTransferRecord_Brown: Brown and white colors at AF64.
@@ -3902,7 +4094,7 @@ P:1303A-1303D:DropItemSetBaseOffsets: Multiples of $A to index the base of each 
 P:1303E-13041:DropItemRates: Top drop an item, a random value must be less than the\n element for the monster group.\n
 P:13042-13069:DropItemTable: ID's for items dropped by monsters.\n WorldKillCycle addresses the column.\n\n Monsters are arranged in groups that determine the row.\n There are four rows.\n
 P:1306A:SetUpDroppedItem: Reset [01] which holds the row number of the drop item table.\n
-P:1306E:: Compare dead object's type to array of 7 that don't drop items.\n If found, go destroy the monster.\n
+P:1306E:: Compare dead object's type to array of 7 that don't drop items.\n If found, go destroy the monster.\n\n DASM.EXPR: Item_ObjMonsterType
 P:13073:L13073_FindNoDropType
 P:13076:: If found, go destroy the monster.
 P:1307B:: Look for object type in array of 6. These use drop item table row 0.\n
@@ -3928,15 +4120,17 @@ P:130D1:L130D1_SetHelpItem: [00] Item ID
 P:130D3:: The player has been helped with a dropped item. Reset the\n help drop variables.\n
 P:130DB:L130DB_RandomlyCancel: If the random value >= drop item rate for the monster's group,\n then go destroy the monster.\n
 P:130E4:L130E4_Commit: Set ObjItemLifetime to $FF.\n
+P:130E6:: DASM.EXPR: Item_ObjItemLifetime
 P:130E9:: Set ObjItemId.\n
+P:130EB:: DASM.EXPR: Item_ObjItemId
 P:130ED:: If the item is a fairy, we have to finish setting it up.\n
 P:130F4:L130F4
 P:130F5:L130F5_DestroyMonster
 P:130F8-130FB:ItemTakerObjSlots
 P:130FC:UpdateItem: Every other frame, decrement the item lifetime.\n
-P:13101:: MULTI: ObjItemLifetime
-P:13104:L13104: If lifetime reached 0, go destroy the object.\n\n\n MULTI: ObjItemLifetime
-P:13109:: Draw the item. Fairies are animated separately.\n\n\n MULTI: ObjState/ObjItemType\n
+P:13101:: DASM.EXPR: Item_ObjItemLifetime
+P:13104:L13104: If lifetime reached 0, go destroy the object.\n\n DASM.EXPR: Item_ObjItemLifetime\n
+P:13109:: Draw the item. Fairies are animated separately.\n\n DASM.EXPR: Item_ObjItemId
 P:13115:L13115_AnimateFairy
 P:13118:L13118: If the player is halted, then return.\n
 P:13120:: In addition to Link, there are 3 objects that can pick up items: \n * arrow\n * sword\n * boomerang\n\n For each weapon that's active, substitute it's location for\n Link's and try taking the item. Have Link himself check last.\n
@@ -3947,16 +4141,16 @@ P:1312C:: TODO: (use ItemTakerObjSlots-1)
 P:13139:: If Link is checking directly, go try to take the item.
 P:1313B:: If the object whose place Link is taking is not active, then\n don't try to take the item.\n
 P:13141:L13141_TryToTake: Try to take the item.\n
-P:13144:: MULTI: ObjItemType
+P:13144:: DASM.EXPR: Item_ObjItemId
 P:1314B:L1314B_SkipTaking: Restore Link's location.\n
 P:13151:: Reload object index in X.
-P:13154:: If item object's item type is invalid, then the item was taken.\n So, go destroy this object.\n\n\n MULTI: ObjItemType
+P:13154:: If item object's item type is invalid, then the item was taken.\n So, go destroy this object.\n\n DASM.EXPR: Item_ObjItemId
 P:1315A:: Decrease the index [0D].
 P:1315C:: If there are more object slots to check from, go try the next one.
 P:1315E:L1315E_Exit
 P:1315F:DestroyMonster_Bank4: Params:\n X: object index\n
 P:13179:_ShootIfWanted: Params:\n A: shot object type\n X: shooter object index\n\n Returns:\n C: 1 if succeeded\n Y: shot slot\n\n Description:\n The shot starts in state $10.\n
-P:1317B:: If the monster does not want to shoot, then return C=0.\n
+P:1317B:: If the monster does not want to shoot, then return C=0.\n\n DASM.EXPR: ObjWantsToShoot
 P:13180:_ShootLimited: Params:\n [00]: shot object type\n\n Returns:\n C: 1 if succeeded\n Y: shot slot\n\n Description:\n The shot starts in state $10.\n\n If no slot is found, return C=0.\n
 P:13185:: If the object type to shoot is a true shot (projectile),\n and we're at the limit of active shots (4), then return C=0.\n
 P:13192:: Else increase the number of active shots.\n
@@ -3980,44 +4174,53 @@ P:131F3:L131F3
 P:131F4:SetUpFairyObject: Play "fairy appears" tune. It's also "object taken".\n
 P:131FC:: Face up at first.\n
 P:13200:: Set flying speed fraction to $7F.\n
+P:13202:: DASM.EXPR: Flyer_ObjSpeed
 P:13205:: Set maximum speed fraction to $A0.\n
 P:1320B:ResetFlyerState
-P:1320D:: TODO: Names\n
+P:1320D:: DASM.EXPR: Flyer_ObjSpeedFrac
+P:13210:: DASM.EXPR: Flyer_ObjTurns
+P:13213:: DASM.EXPR: Flyer_ObjDistTraveled
+P:13216:: DASM.EXPR: Flyer_ObjFlyingState
 P:1321D:UpdateFairyObject: Params:\n X: object index\n
 P:13223:_DrawFairy
 P:13229:: Every 4 frames, switch between the two sprite frames.\n
-P:13235:ControlFairyFlight
+P:13235:ControlFairyFlight: DASM.EXPR: Flyer_ObjFlyingState
 P:1323B-13242:ControlFairyFlight_JumpTable
 P:13243:Flyer_FairyDecideState: Set up 6 turns, and go to state 3.\n
+P:13245:: DASM.EXPR: Flyer_ObjFlyingState
+P:1324A:: DASM.EXPR: Flyer_ObjTurns
 P:1324D:Flyer_DoNothing
 P:1324E-13255:Directions8
 P:13256:Flyer_Delay: Delay until ObjTimer[X] expires. Then go to flying state 0.\n
+P:1325C:: DASM.EXPR: Flyer_ObjFlyingState
 P:1325F:L1325F
-P:13260:Flyer_SlowDown: Decrease speed each frame.\n When it goes below a threshold ($20), go to flying state 5.\n
-P:13266:Flyer_SpeedUp: TODO:\n Increase speed each frame.\n When it reaches a threshold [04D1], go to flying state 1.\n
-P:13269:L13269
-P:13270:: TODO:\n ([041F][X] & $E0) = 0\n Set a random timer between $40 and $7F.\n
+P:13260:Flyer_SlowDown: Decrease speed each frame.\n When it goes below a threshold ($20), go to flying state 5.\n\n DASM.EXPR: Flyer_ObjSpeed\n
+P:13266:Flyer_SpeedUp: Increase speed each frame.\n When it reaches a threshold, go to flying state 1.\n\n DASM.EXPR: Flyer_ObjSpeed\n
+P:13269:L13269: DASM.EXPR: Flyer_ObjSpeed
+P:13270:: (whole_speed & $E0) = 0\n Set a random timer between $40 and $7F.\n
 P:13278:: Go to flying state 5.\n
-P:1327A:Flyer_SetFlyingState
+P:1327A:Flyer_SetFlyingState: DASM.EXPR: Flyer_ObjFlyingState
 P:1327D:L1327D
 P:1327E:Flyer_CompareMaxSpeed
-P:13281:: TODO: If ([041F][X] & $E0) < [04D1], return.
+P:13281:: If (whole_speed & $E0) < threshold, return.
 P:13283:: Else go to flying state 1, and return.
-P:13288:MoveFlyer: Add (flying speed AND $E0) to flying position fraction.\n
+P:13288:MoveFlyer: Add (flying speed AND $E0) to flying position fraction.\n\n DASM.EXPR: Flyer_ObjSpeed\n
+P:1328E:: DASM.EXPR: Flyer_ObjSpeedFrac
+P:13291:: DASM.EXPR: Flyer_ObjSpeedFrac
 P:13294:: If the fraction isn't whole yet, then return.
 P:13296:: Because this object can move in 8 directions,\n test the object's direction with each cardinal direction,\n to modify the coordinates accordingly.\n\n Test right.\n
 P:1329E:: Right is not a component? Go check next direction.
-P:132A2:: TODO: [046B]
+P:132A2:: DASM.EXPR: Flyer_ObjOffsetX
 P:132A5:L132A5_Left: Test left.\n
 P:132A9:: Left is not a component? Go check next direction.
-P:132AD:: TODO: [046B]
+P:132AD:: DASM.EXPR: Flyer_ObjOffsetX
 P:132B0:L132B0_Down: Test down.\n
 P:132B4:: Down is not a component? Go check next direction.
-P:132B8:: TODO: [0478]
+P:132B8:: DASM.EXPR: Flyer_ObjOffsetY
 P:132BB:L132BB_Up: Test up.\n
 P:132BF:: Up is not a component? Go finish up.
-P:132C3:: TODO: [0478]
-P:132C6:L132C6_End: Increase the distance traveled; and keep the object within\n the bounds of the room.\n
+P:132C3:: DASM.EXPR: Flyer_ObjOffsetY
+P:132C6:L132C6_End: Increase the distance traveled; and keep the object within\n the bounds of the room.\n\n DASM.EXPR: Flyer_ObjDistTraveled\n
 P:132CC:L132CC_Exit
 P:132CD:_BoundFlyer: Returns:\n A: original facing or the opposite\n [0F]: 0 if blocked\n
 P:132D4:: Check vertical boundaries, if object is not a boulder.\n
@@ -4028,10 +4231,11 @@ P:132F3:: Apply the new direction.\n
 P:132F8:L132F8_Exit
 P:132F9:L132F9_DeferBounce: If the object is segment 5 or $A of moldorm (a head), then\n assign the new direction to the deferred bounce direction.\n
 P:13301:L13301
+P:13304:: DASM.EXPR: Moldorm_ObjBounceDir
 P:13307:L13307_Exit
 P:13308:Flyer_Chase: Description:\n Turn towards the player a number of times.\n Then go to state 1. After each turn delay $10 frames.\n\n\n Delay until timer = 0.\n
 P:1330A:: If timer is not expired, then return.
-P:1330C:: Decrease the turn counter.\n Once there are no more turns, go to flying state 1.\n
+P:1330C:: Decrease the turn counter.\n Once there are no more turns, go to flying state 1.\n\n DASM.EXPR: Flyer_ObjTurns
 P:13311:L13311_SetFlyingState1
 P:13316:L13316_SetDelayAndTurn: Set a delay of $10 frames.\n
 P:1331A:TurnTowardsPlayer8: Build a direction in [00] towards the player.\n\n First, calculate a horizontal component:\n\n If   observed player X = object X, [00] := 0 (none)\n elif observed player X > object X, [00] := 1 (right)\n else                               [00] := 2 (left)\n
@@ -4056,7 +4260,7 @@ P:1336A:L1336A_SetDir8ForIndex: Apply the new direction.\n
 P:1336F:L1336F_Exit
 P:13370:L13370_TestDir: If (test direction OR target direction) < 7, then allow this turn.\n Else go try the next test direction.\n\n For 3/5 of the arrangements of angles between Link and\n objects; this test yields a turn towards Link. The rest of\n the time, the object will keep going in its original direction\n or turn away from Link.\n
 P:13378:Flyer_Wander: Description:\n Delay and turn randomly a number of times.\n The go to state 1. After each turn, delay $10 frames.\n\n\n Delay until timer = 0.\n
-P:1337C:: Decrease the turn counter.\n Once there are no more turns, go to flying state 1.\n
+P:1337C:: Decrease the turn counter.\n Once there are no more turns, go to flying state 1.\n\n DASM.EXPR: Flyer_ObjTurns
 P:13384:L13384: Set a delay of $10 frames.\n
 P:13388:TurnRandomlyDir8: Turn according to a random value:\n >= $A0: don't turn\n >= $50: turn right\n Else:   turn left\n
 P:13398:L13398_SetDir
@@ -4066,20 +4270,20 @@ P:133A1:L133A1
 P:133AB:: If not found, then use index 0.
 P:133AC:L133AC_Exit
 P:133AD-133BC:PatraSines
-P:133BD:RotateObjectLocation: Params:\n A: high bits of cosine to use in calculating Y increment\n Y: high bits of sine to use in calculating X increment\n\n Returns:\n A: new Y coordinate of object\n\n [06] holds the number of high bits of cosine to use
+P:133BD:RotateObjectLocation: Params:\n A: high bits of cosine to use in calculating Y increment\n Y: high bits of sine to use in calculating X increment\n X: object index\n\n Returns:\n A: new Y coordinate of object\n\n [06] holds the number of high bits of cosine to use
 P:133BF:: [05] holds the number of high bits of sine to use
-P:133C1:: First, rotate the X coordinate.\n\n Look up the sine for the current angle, and store it in [00].\n
+P:133C1:: First, rotate the X coordinate.\n\n Look up the sine for the current angle, and store it in [00].\n\n DASM.EXPR: ObjAngleWhole\n
 P:133CC:: Mutliply q-speed by [00].\n\n Q-speed has the default value $20 set when entering the room.\n
-P:133D4:: The absolute X increment for the current angle is now in [02:03].\n\n If angle >= $10, then the monster is in the top half of circle going left.\n
+P:133D4:: The absolute X increment for the current angle is now in [02:03].\n\n If angle >= $10, then the monster is in the top half of circle going left.\n\n DASM.EXPR: ObjAngleWhole\n
 P:133D7:: TODO: Why AND with $18?
 P:133DD:: Subtract the product's fraction from the X coordinate fraction.\n
 P:133E6:: And subtract the product's whole part from the X coordinate with carry.\n
 P:133ED:L133ED_AddToX: Else angle < $10. So, the monster is in the bottom half of circle going right.\n Add the product's fraction to the X coordinate fraction.\n
 P:133F6:: And add the product's whole part to the X coordinate with carry.\n
 P:133FA:L133FA_SetXRotateY
-P:133FC:: Now rotate the Y coordinate.\n\n Look up the cosine for the current angle, and store it in [00].\n The cosine corresponds to the sine offset by a quarter circle (8).\n
+P:133FC:: Now rotate the Y coordinate.\n\n Look up the cosine for the current angle, and store it in [00].\n The cosine corresponds to the sine offset by a quarter circle (8).\n\n DASM.EXPR: ObjAngleWhole
 P:1340A:: Multiply q-speed by [00].\n
-P:13412:: The absolute Y increment for the current angle is now in [02:03].\n\n If (angle - 8) >= $10, then the monster is in the right half of circle going up.\n
+P:13412:: The absolute Y increment for the current angle is now in [02:03].\n\n If (angle - 8) >= $10, then the monster is in the right half of circle going up.\n\n DASM.EXPR: ObjAngleWhole
 P:1341E:: Subtract the product's fraction from the Y coordinate fraction.\n
 P:13427:: And subtract the product's whole part from the Y coordinate.\n
 P:1342C:L1342C_AddToY: Else (angle - 8) < $10. So, the monster is in the left half of circle going down.\n Add the product's fraction to the Y coordinate fraction.\n
@@ -4088,8 +4292,11 @@ P:1343A:ShiftMultiply: Params:\n A: multiplicand\n Y: number of high bits of [00
 P:13442:L13442_Loop
 P:13455:L13455_Next
 P:13459:DecreaseObjectAngle: Params:\n A: low amount byte\n X: object index\n [0B]: high amount byte\n\n Subtract the low amount byte from low angle byte.\n
-P:13464:: Subtract the high amount byte from high angle byte with borrow.\n
+P:1345B:: DASM.EXPR: ObjAngleFrac
+P:13461:: DASM.EXPR: ObjAngleFrac
+P:13464:: Subtract the high amount byte from high angle byte with borrow.\n\n DASM.EXPR: ObjAngleWhole\n
 P:13469:: Cap the high byte at $1F.\n
+P:1346B:: DASM.EXPR: ObjAngleWhole
 P:14000:UpdateMenuAndMeters
 P:14006:UpdateMenu
 P:1400C:: Update menu in UW.\n
@@ -6918,6 +7125,7 @@ P:1FC8B:: Go handle end metastates (4 and $14) specially.\n
 P:1FC94:DoNothing
 P:1FC95:UpdateMetaObjectEnd: Metastate = 4 or $14.\n\n If it's 4, go reset the metastate. The object is ready to update\n on its own.\n
 P:1FC9C:: Metastate = $14\n\n Copy the object type, so that it can be used in setting up\n a dropped item.\n
+P:1FC9F:: TODO: DASM.EXPR: Item_ObjMonsterType
 P:1FCA2:: Certain objects don't advance the world kill cycle.\n
 P:1FCA6:: Child Gel
 P:1FCAA:: Red Keese

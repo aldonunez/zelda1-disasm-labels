@@ -1371,6 +1371,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <AddressType>PrgRom</AddressType>
       <Label>UpdateLikeLike</Label>
       <Comment> If the monster captured Link, then go handle it.&#xD;
+&#xD;
+ DASM.EXPR: ObjCaptureTimer&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -1523,6 +1525,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <AddressType>PrgRom</AddressType>
       <Label>UpdateGohma</Label>
       <Comment> If flagged not to continue straight, then choose a random facing direction.&#xD;
+&#xD;
+ DASM.EXPR: Gohma_ObjGoStraight&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -1582,7 +1586,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>76925</Address>
       <AddressType>PrgRom</AddressType>
       <Label>UpdateGanon</Label>
-      <Comment />
+      <Comment> DASM.EXPR: Ganon_ScenePhase</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -23937,8 +23941,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label>L13104</Label>
       <Comment> If lifetime reached 0, go destroy the object.&#xD;
 &#xD;
-&#xD;
- MULTI: ObjItemLifetime</Comment>
+ DASM.EXPR: Item_ObjItemLifetime&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -24543,9 +24547,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label />
       <Comment> Draw the item. Fairies are animated separately.&#xD;
 &#xD;
-&#xD;
- MULTI: ObjState/ObjItemType&#xD;
-</Comment>
+ DASM.EXPR: Item_ObjItemId</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -24649,8 +24651,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Comment> If item object's item type is invalid, then the item was taken.&#xD;
  So, go destroy this object.&#xD;
 &#xD;
-&#xD;
- MULTI: ObjItemType</Comment>
+ DASM.EXPR: Item_ObjItemId</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -24701,7 +24702,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>78081</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> MULTI: ObjItemLifetime</Comment>
+      <Comment> DASM.EXPR: Item_ObjItemLifetime</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -24709,7 +24710,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>78148</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> MULTI: ObjItemType</Comment>
+      <Comment> DASM.EXPR: Item_ObjItemId</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -24736,6 +24737,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <AddressType>PrgRom</AddressType>
       <Label>MoveFlyer</Label>
       <Comment> Add (flying speed AND $E0) to flying position fraction.&#xD;
+&#xD;
+ DASM.EXPR: Flyer_ObjSpeed&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -24789,8 +24792,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>78448</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO:&#xD;
- ([041F][X] &amp; $E0) = 0&#xD;
+      <Comment> (whole_speed &amp; $E0) = 0&#xD;
  Set a random timer between $40 and $7F.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -24823,7 +24825,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>78465</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: If ([041F][X] &amp; $E0) &lt; [04D1], return.</Comment>
+      <Comment> If (whole_speed &amp; $E0) &lt; threshold, return.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -24889,6 +24891,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label>L132C6_End</Label>
       <Comment> Increase the distance traveled; and keep the object within&#xD;
  the bounds of the room.&#xD;
+&#xD;
+ DASM.EXPR: Flyer_ObjDistTraveled&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -24929,7 +24933,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>78389</Address>
       <AddressType>PrgRom</AddressType>
       <Label>ControlFairyFlight</Label>
-      <Comment />
+      <Comment> DASM.EXPR: Flyer_ObjFlyingState</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -24946,9 +24950,10 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>78438</Address>
       <AddressType>PrgRom</AddressType>
       <Label>Flyer_SpeedUp</Label>
-      <Comment> TODO:&#xD;
- Increase speed each frame.&#xD;
- When it reaches a threshold [04D1], go to flying state 1.&#xD;
+      <Comment> Increase speed each frame.&#xD;
+ When it reaches a threshold, go to flying state 1.&#xD;
+&#xD;
+ DASM.EXPR: Flyer_ObjSpeed&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -24959,6 +24964,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label>Flyer_SlowDown</Label>
       <Comment> Decrease speed each frame.&#xD;
  When it goes below a threshold ($20), go to flying state 5.&#xD;
+&#xD;
+ DASM.EXPR: Flyer_ObjSpeed&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -25201,7 +25208,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label />
       <Comment> Decrease the turn counter.&#xD;
  Once there are no more turns, go to flying state 1.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Flyer_ObjTurns</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -25219,7 +25227,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label />
       <Comment> Decrease the turn counter.&#xD;
  Once there are no more turns, go to flying state 1.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Flyer_ObjTurns</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -25711,7 +25720,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>78498</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: [046B]</Comment>
+      <Comment> DASM.EXPR: Flyer_ObjOffsetX</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -25719,7 +25728,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>78509</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: [046B]</Comment>
+      <Comment> DASM.EXPR: Flyer_ObjOffsetX</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -25727,7 +25736,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>78520</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: [0478]</Comment>
+      <Comment> DASM.EXPR: Flyer_ObjOffsetY</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -25735,7 +25744,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>78531</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: [0478]</Comment>
+      <Comment> DASM.EXPR: Flyer_ObjOffsetY</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -25743,7 +25752,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>69719</Address>
       <AddressType>PrgRom</AddressType>
       <Label>ControlPeahatFlight</Label>
-      <Comment />
+      <Comment> DASM.EXPR: Flyer_ObjFlyingState</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -25818,7 +25827,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>66721</Address>
       <AddressType>PrgRom</AddressType>
       <Label>ControlKeeseFlight</Label>
-      <Comment />
+      <Comment> DASM.EXPR: Flyer_ObjFlyingState</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -35941,6 +35950,8 @@ For example:&#xD;
       <Comment> For each fireball to make, indexed by X, (1 or 3 down to 0):&#xD;
 &#xD;
  Decrement the fireball timer at this index.&#xD;
+&#xD;
+ DASM.EXPR: Statue_ObjFireballTimer&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -36867,6 +36878,8 @@ For example:&#xD;
       <Comment> Link is truly pushing the block.&#xD;
 &#xD;
  Increase the push timer.&#xD;
+&#xD;
+ DASM.EXPR: ObjPushTimer&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -36876,6 +36889,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> If the push timer still &lt; $10, return.&#xD;
+&#xD;
+ DASM.EXPR: ObjPushTimer&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -38413,7 +38428,8 @@ For example:&#xD;
       <Label />
       <Comment> Compare dead object's type to array of 7 that don't drop items.&#xD;
  If found, go destroy the monster.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Item_ObjMonsterType</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -38706,8 +38722,7 @@ For example:&#xD;
       <Address>78349</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Names&#xD;
-</Comment>
+      <Comment> DASM.EXPR: Flyer_ObjSpeedFrac</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -38974,7 +38989,7 @@ For example:&#xD;
       <Address>69637</Address>
       <AddressType>PrgRom</AddressType>
       <Label>ControlFlyingGhiniFlight</Label>
-      <Comment />
+      <Comment> DASM.EXPR: Flyer_ObjFlyingState</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -39553,6 +39568,8 @@ For example:&#xD;
       <Comment> Get the low bit of the flying distance traveled.&#xD;
  But this doesn't seem to be used.&#xD;
  The following call clobbers the A register.&#xD;
+&#xD;
+ DASM.EXPR: Flyer_ObjDistTraveled&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -40135,6 +40152,8 @@ For example:&#xD;
       <Label />
       <Comment> Take low bit of the flying distance traveled as the frame image.&#xD;
  So, the faster it moves, the faster it animates.&#xD;
+&#xD;
+ DASM.EXPR: Flyer_ObjDistTraveled&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -40145,6 +40164,8 @@ For example:&#xD;
       <Label />
       <Comment> In flying state 5, check for all collisions (so it can get hurt).&#xD;
  In all other states, only check for collisions with Link.&#xD;
+&#xD;
+ DASM.EXPR: Flyer_ObjFlyingState&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -40200,6 +40221,8 @@ For example:&#xD;
       <Label />
       <Comment> Like peahats, keeses animate as fast as they move.&#xD;
  But keese beat their wings at half the rate.&#xD;
+&#xD;
+ DASM.EXPR: Flyer_ObjDistTraveled&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -41333,8 +41356,7 @@ For example:&#xD;
       <Address>65916</Address>
       <AddressType>PrgRom</AddressType>
       <Label>L1017C</Label>
-      <Comment> TODO:&#xD;
- Reset the "wants to shoot" flag.&#xD;
+      <Comment> Reset the "wants to shoot" flag.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -41343,8 +41365,7 @@ For example:&#xD;
       <Address>65921</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO:&#xD;
- If the distance chosen &lt; $51, then&#xD;
+      <Comment> If the distance chosen &lt; $51, then&#xD;
  set the "wants to shoot" flag to 1,&#xD;
  and face in the chosen direction.&#xD;
 </Comment>
@@ -41465,7 +41486,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> If the monster does not want to shoot, then return C=0.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: ObjWantsToShoot</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -41944,7 +41966,6 @@ For example:&#xD;
  [0C]: 1 if objects collide&#xD;
  [034B]: ShotCollidesWithLink&#xD;
 &#xD;
- TODO: Name: ObjGridOffset&#xD;
  Reset bounce distance.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -41993,7 +42014,7 @@ For example:&#xD;
       <Label>L1034C_BounceShot</Label>
       <Comment> Get the reverse direction index for the bounce direction.&#xD;
 &#xD;
- TODO: Name: ObjMovingLimit&#xD;
+ DASM.EXPR: Shot_ObjBounceDir&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -42112,7 +42133,7 @@ For example:&#xD;
       <Comment> Add 2 to the bounce distance.&#xD;
  The absolute value of one of the displacements is 2.&#xD;
 &#xD;
- TODO: Name: ObjGridOffset&#xD;
+ DASM.EXPR: Shot_ObjBounceDist&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -42144,8 +42165,6 @@ For example:&#xD;
       <Comment> If the shot hits Link, then start to bounce off of Link's shield.&#xD;
  Set the bounce direction to Link's facing direction.&#xD;
  Set state $30 to bounce.&#xD;
-&#xD;
- TODO: Name: ObjMovingLimit&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -42163,6 +42182,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label>Wanderer_TargetPlayer</Label>
       <Comment> If turn timer &lt;&gt; 0, then decrement it.&#xD;
+&#xD;
+ DASM.EXPR: ObjTurnTimer&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -42200,6 +42221,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> If turn timer &lt;&gt; 0, then go set input direction to facing direction.&#xD;
+&#xD;
+ DASM.EXPR: ObjTurnTimer&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -42244,6 +42267,8 @@ For example:&#xD;
       <Label />
       <Comment> If turn rate &lt; a random value, or Link's state = $FF;&#xD;
  then go turn if turn timer has expired.&#xD;
+&#xD;
+ DASM.EXPR: ObjTurnRate&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -42437,8 +42462,6 @@ For example:&#xD;
  Each set depicts one animation frame. In each set there are&#xD;
  3 frame images: 1 for each direction (left, up, down).&#xD;
 &#xD;
- TODO: name: movement frame&#xD;
-&#xD;
  The movement frame will keep track of the base offset of&#xD;
  the current set for the current animation frame: 0 or 3.&#xD;
 &#xD;
@@ -42490,6 +42513,8 @@ For example:&#xD;
  A: turn rate&#xD;
 &#xD;
  Set the turn rate. If being shoved, then shove and return.&#xD;
+&#xD;
+ DASM.EXPR: ObjTurnRate&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -42605,8 +42630,7 @@ For example:&#xD;
       <Address>72550</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: name: movement frame&#xD;
- If movement frame = 1, add 3 to frame image to access&#xD;
+      <Comment> If movement frame = 1, add 3 to frame image to access&#xD;
  the second animation frame's images.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -42616,8 +42640,7 @@ For example:&#xD;
       <Address>72558</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: name: movement frame&#xD;
- Also if movement frame = 1, and facing up, then flip horizontally.&#xD;
+      <Comment> Also if movement frame = 1, and facing up, then flip horizontally.&#xD;
 &#xD;
  Down has two frame images, but up only has one. By flipping&#xD;
  horizontally, you get two frame images.&#xD;
@@ -42745,7 +42768,6 @@ For example:&#xD;
       <Comment> Or else if is zora in state 1 or 5, then use one of&#xD;
  the mound frame images:&#xD;
 &#xD;
- TODO: name: movement frame&#xD;
  frame image := ((state - 1) * 2) + movement frame&#xD;
 &#xD;
  This yields 0/1 or 8/9, depending on the state.&#xD;
@@ -43428,7 +43450,6 @@ For example:&#xD;
       <Label />
       <Comment> Else cycle the animation counter, draw, and check collisions.&#xD;
 &#xD;
- TODO: name: movement frame&#xD;
  The movement frame determines the frame image.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -43486,6 +43507,8 @@ For example:&#xD;
     The direction is reversed to down and right.&#xD;
 &#xD;
  As you can see, an endless loop has been made.&#xD;
+&#xD;
+ DASM.EXPR: Jumper_ObjReversalCount&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -43592,6 +43615,8 @@ For example:&#xD;
       <Label />
       <Comment> If going up (negative v-speed high byte), then&#xD;
  go animate, draw, and check collisions.&#xD;
+&#xD;
+ DASM.EXPR: Jumper_ObjSpeedWholeY&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -43621,6 +43646,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Add the high speed byte to the Y coordinate.&#xD;
+&#xD;
+ DASM.EXPR: Jumper_ObjSpeedWholeY&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -43630,6 +43657,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Add the acceleration to the speed fraction (low byte).&#xD;
+&#xD;
+ DASM.EXPR: Jumper_ObjSpeedFracY&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -43647,6 +43676,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Carry over to the high speed byte.&#xD;
+&#xD;
+ DASM.EXPR: Jumper_ObjSpeedWholeY&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -43670,6 +43701,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Limit the speed to the max speed.&#xD;
+&#xD;
+ DASM.EXPR: Jumper_ObjSpeedFracY&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -43745,7 +43778,7 @@ For example:&#xD;
       <Address>67992</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Target Y</Comment>
+      <Comment> DASM.EXPR: Jumper_ObjTargetY</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -43983,7 +44016,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> If stalfos does not want to shoot, then go set the qspeed.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: ObjWantsToShoot</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -44216,7 +44250,7 @@ For example:&#xD;
       <Label>L105C6_State2</Label>
       <Comment> State 2.&#xD;
 &#xD;
- Set QSpeed $40 (1 pixel a second).&#xD;
+ Set QSpeed $40 (1 pixel a frame).&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -45229,8 +45263,7 @@ For example:&#xD;
       <Address>70486</Address>
       <AddressType>PrgRom</AddressType>
       <Label>L11356_Draw</Label>
-      <Comment> TODO: name: movement frame&#xD;
- The frame image is based on the movement frame.&#xD;
+      <Comment> The frame image is based on the movement frame.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -45361,7 +45394,7 @@ For example:&#xD;
       <Address>71936</Address>
       <AddressType>PrgRom</AddressType>
       <Label>UpdateDodongoState1_Bloated</Label>
-      <Comment />
+      <Comment> DASM.EXPR: Dodongo_ObjBloatedSubstate</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -45414,6 +45447,8 @@ For example:&#xD;
  0:     fall thru to set a new timer and check bomb hits&#xD;
  1:     go advance the substate&#xD;
  other: go decrement Bloated timer&#xD;
+&#xD;
+ DASM.EXPR: Dodongo_ObjBloatedTimer&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -45438,7 +45473,8 @@ For example:&#xD;
       <Address>72027</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Reset bloated substate.</Comment>
+      <Comment> Reset bloated substate.&#xD;
+ DASM.EXPR: Dodongo_ObjBloatedSubstate</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -45447,7 +45483,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label>L11938_AdvanceSubstate</Label>
       <Comment> Advance the substate.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Dodongo_ObjBloatedSubstate</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -45491,7 +45528,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label>L_Dodongo_DecrementBloatedTimer</Label>
       <Comment> Either way, decrement the bloated timer.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Dodongo_ObjBloatedTimer</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -45500,7 +45538,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Increment the number of bomb hits.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Dodongo_ObjBombHits</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -45509,7 +45548,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> If new bloated substate &lt; 2, then go decrement the bloated timer.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Dodongo_ObjBloatedSubstate</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -45526,7 +45566,8 @@ For example:&#xD;
  - If new substate = 2, then substate 2 will wait,&#xD;
    and then transition to substate 3.&#xD;
  - If new substate = 3, then the next frame the monster will die.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Dodongo_ObjBombHits</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -45963,6 +46004,8 @@ For example:&#xD;
       <Comment> State = 1. Bloated.&#xD;
 &#xD;
  In substate 0, go animate as usual for walking.&#xD;
+&#xD;
+ DASM.EXPR: Dodongo_ObjBloatedSubstate&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -46267,9 +46310,7 @@ For example:&#xD;
       <Address>73174</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: name: movement frame&#xD;
-&#xD;
- The movement frame is the fram image number, unless facing up.&#xD;
+      <Comment> The movement frame is the fram image number, unless facing up.&#xD;
  In this case, add 2 to the frame image.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -46341,7 +46382,7 @@ For example:&#xD;
       <Address>70914</Address>
       <AddressType>PrgRom</AddressType>
       <Label>ControlMoldormFlight</Label>
-      <Comment />
+      <Comment> DASM.EXPR: Flyer_ObjFlyingState</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -46441,7 +46482,8 @@ For example:&#xD;
       <Address>70692</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Also store the current direction as the old direction.</Comment>
+      <Comment> Also store the current direction as the old direction.&#xD;
+ DASM.EXPR: Moldorm_ObjOldDir+5</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -46449,7 +46491,8 @@ For example:&#xD;
       <Address>70705</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Also store the current direction as the old direction.</Comment>
+      <Comment> Also store the current direction as the old direction.&#xD;
+ DASM.EXPR: Moldorm_ObjOldDir+10</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -46687,7 +46730,7 @@ For example:&#xD;
  So, I believe that the point of this test is to delay moving&#xD;
  the lower (not head) segments when starting out.&#xD;
 &#xD;
- TODO: Base operand is ObjDir-1</Comment>
+ DASM.EXPR: ObjDir-1</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -46730,7 +46773,8 @@ For example:&#xD;
 &#xD;
  If deferred bounce direction &lt;&gt; 0, then&#xD;
  assign it to facing direction, and reset deferred bounce direction.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Moldorm_ObjBounceDir</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -46758,7 +46802,8 @@ For example:&#xD;
       <Label>L11558_Loop</Label>
       <Comment> Copy old direction from a higher slot to the lower one;&#xD;
  and to the lower one's facing direction.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Moldorm_ObjOldDir+2</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -46852,7 +46897,7 @@ For example:&#xD;
       <Address>70710</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: [042C][5]</Comment>
+      <Comment> DASM.EXPR: Flyer_ObjTurns+5</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -46860,7 +46905,7 @@ For example:&#xD;
       <Address>70713</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: [042C][$A]</Comment>
+      <Comment> DASM.EXPR: Flyer_ObjTurns+10</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -47010,7 +47055,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> If no segment just died, then skip increasing the speed.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Manhandla_SegmentJustDied</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -47029,7 +47075,7 @@ For example:&#xD;
       <Label>L12192_LoopSegment</Label>
       <Comment> Add $80 to the low speed byte of this segment.&#xD;
 &#xD;
- MULTI: 041F+1&#xD;
+ DASM.EXPR: Manhandla_ObjSpeedFrac+1&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -47040,8 +47086,7 @@ For example:&#xD;
       <Label />
       <Comment> Carry to the high speed byte of this segment.&#xD;
 &#xD;
- MULTI: 042C+1&#xD;
-</Comment>
+ DASM.EXPR: Manhandla_ObjSpeedWhole+1</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -47070,6 +47115,8 @@ For example:&#xD;
       <Label>L121AB_BounceIfNeeded</Label>
       <Comment> If there's a bounce direction, then assign it to the facing&#xD;
  direction of all segments.&#xD;
+&#xD;
+ DASM.EXPR: Manhandla_BounceDir&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -47119,6 +47166,8 @@ For example:&#xD;
    [03] := SH + carry&#xD;
 &#xD;
  AND'ing the low speed byte with $E0 isn't strictly needed.&#xD;
+&#xD;
+ DASM.EXPR: Manhandla_ObjSpeedFrac&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -47139,6 +47188,8 @@ For example:&#xD;
       <Label>L121E5</Label>
       <Comment> Store in [00] the animation frame that you get from the frame accumulator:&#xD;
  frame := ((accumulator AND $10) &gt;&gt; 4&#xD;
+&#xD;
+ DASM.EXPR: Manhandla_ObjFrameAccum&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -47165,7 +47216,8 @@ For example:&#xD;
       <Label />
       <Comment> Copy the animation frame bit into the "frame image and&#xD;
  sprite attributes" byte.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Manhandla_ObjFrame</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -47184,7 +47236,11 @@ For example:&#xD;
       <Label />
       <Comment> If the old and new "frame image and sprite attributes" variables&#xD;
  are the same, then go draw.&#xD;
-</Comment>
+&#xD;
+ The previous frame value begins with value 0, because all&#xD;
+ room data was reset on entry.&#xD;
+&#xD;
+ DASM.EXPR: Manhandla_ObjFrame</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -47193,7 +47249,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Copy the new value to the old variable, so that they're the same.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Manhandla_ObjPrevFrame</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -47233,7 +47290,7 @@ For example:&#xD;
       <Address>74241</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> This begins with value 0, because all room data was reset on entry.</Comment>
+      <Comment> DASM.EXPR: Manhandla_ObjPrevFrame</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -47359,6 +47416,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label>L12279_FlagHandDied</Label>
       <Comment> Set the "segment just died" flag.&#xD;
+&#xD;
+ DASM.EXPR: Manhandla_SegmentJustDied&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -47384,7 +47443,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Assign (high speed byte + carry) to [03].&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Manhandla_ObjSpeedWhole</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -47488,7 +47548,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Push the "frame image and sprite attributes" value.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Manhandla_ObjFrame</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -47701,7 +47762,7 @@ For example:&#xD;
  If grid offset = 0, then no more distance to cover.&#xD;
  So, go change to state 1 -- jumping.&#xD;
 &#xD;
- MULTI: [0394]&#xD;
+ DASM.EXPR: ObjRemDistance&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -47730,7 +47791,7 @@ For example:&#xD;
       <Label />
       <Comment> Decrement grid offset / distance remaining.&#xD;
 &#xD;
- MULTI: [0394]&#xD;
+ DASM.EXPR: ObjRemDistance&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -47740,7 +47801,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Remember the tile that the monster is over.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: PolsVoice_ObjLastTile</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -47840,7 +47902,8 @@ For example:&#xD;
       <Label />
       <Comment> If the unwalkable tile is a block, or &gt;= $F4 (water, screen edge bricks),&#xD;
  then go change to state 1.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: PolsVoice_ObjLastTile</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -47954,6 +48017,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label>UpdatePolsVoiceState1_Jumping</Label>
       <Comment> Add acceleration $38 to low speed byte (vertical).&#xD;
+&#xD;
+ DASM.EXPR: PolsVoice_ObjSpeedFrac&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -47963,7 +48028,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Add Carry to high speed byte (vertical).&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: PolsVoice_ObjSpeedWhole</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -47981,7 +48047,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> If the speed is still negative, then return.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: PolsVoice_ObjSpeedWhole</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -48008,7 +48075,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Reset 16-bit vertical speed.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: PolsVoice_ObjSpeedFrac</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -48067,7 +48135,7 @@ For example:&#xD;
       <Address>72822</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> MULTI: [0394]</Comment>
+      <Comment> DASM.EXPR: ObjRemDistance</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -48186,7 +48254,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label>Digdogger_SlowDown</Label>
       <Comment> Subtract 1 from 16-bit speed.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Digdogger_ObjSpeedFrac</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -48213,7 +48282,8 @@ For example:&#xD;
    [03] := SH + carry&#xD;
 &#xD;
  See 04:A28E Manhandla_Move.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Digdogger_ObjSpeedFrac</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -48230,7 +48300,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Assign (high speed byte + carry) to [03].&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Digdogger_ObjSpeedWhole</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -48321,7 +48392,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label>L_Digdogger_DrawAndCheckCollisions</Label>
       <Comment> If this is a child, then finish updating this little digdogger.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Digdogger_ObjIsChild</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -48347,8 +48419,7 @@ For example:&#xD;
       <Address>71207</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO:&#xD;
- Reset [0478][X].&#xD;
+      <Comment> Reset the index of the current part.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -48362,9 +48433,9 @@ For example:&#xD;
  Therefore, we have to check these things four times,&#xD;
  in different corners of the boss.&#xD;
 &#xD;
- TODO:&#xD;
- Loop 4 times, from 0 to 3, indexed by [0478][X].&#xD;
-</Comment>
+ Loop 4 times, from 0 to 3.&#xD;
+&#xD;
+ DASM.EXPR: Digdogger_ObjCurPart</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -48407,7 +48478,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Increase the loop index, and loop again until it = 4.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Digdogger_ObjCurPart</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -48443,7 +48515,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Save the child flag and object type.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Digdogger_ObjIsChild</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -48481,7 +48554,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label>Digdogger_SpeedUp</Label>
       <Comment> Add 1 to 16-bit speed.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Digdogger_ObjSpeedFrac</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -48489,7 +48563,7 @@ For example:&#xD;
       <Address>71310</Address>
       <AddressType>PrgRom</AddressType>
       <Label>Digdogger_ChangeSpeed</Label>
-      <Comment />
+      <Comment> DASM.EXPR: Digdogger_ObjSpeedFlag</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -48498,7 +48572,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label>L116A0</Label>
       <Comment> If the 16-bit speed has not reached the 16-bit target speed, then return.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Digdogger_ObjSpeedFrac</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -48507,7 +48582,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Set speed flag to 1 meaning decelerate.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Digdogger_ObjSpeedFlag</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -48525,7 +48601,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label>L116C5</Label>
       <Comment> If the 16-bit speed has not reached the 16-bit target speed, then return.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Digdogger_ObjSpeedFrac</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -48534,7 +48611,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Set speed flag to 0 meaning accelerate.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Digdogger_ObjSpeedFlag</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -48552,7 +48630,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> But if this is a child, then make the target speed $0180.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Digdogger_ObjIsChild</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -48575,7 +48654,8 @@ For example:&#xD;
       <Comment> Flute state = 1.&#xD;
 &#xD;
  If this is a child digdogger, then go turn and move as usual.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Digdogger_ObjIsChild</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -48686,7 +48766,8 @@ For example:&#xD;
       <Label />
       <Comment> Start with a target speed of $0100.&#xD;
  The low byte is still 0 from when room data was reset.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Digdogger_ObjTargetSpeedWhole</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -48741,7 +48822,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> If this is a child digdogger, then go draw it.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Digdogger_ObjIsChild</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -48935,8 +49017,7 @@ For example:&#xD;
       <Address>72960</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO:&#xD;
- Reset Link's timer, metastate? , and shove info.&#xD;
+      <Comment> Reset Link's timer, metastate, and shove info.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -48973,6 +49054,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label>L11D2A_IncCaptureTime</Label>
       <Comment> Increment capture time.&#xD;
+&#xD;
+ DASM.EXPR: ObjCaptureTimer&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -48982,6 +49065,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Once capture time &gt;= $60 screen frames, remove the magic shield.&#xD;
+&#xD;
+ DASM.EXPR: ObjCaptureTimer&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -49207,7 +49292,8 @@ For example:&#xD;
  * neck 3 Y&#xD;
 &#xD;
  Leave the other other speed flags 0 (accelerate).&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Gleook_HeadInfo0+GLEEOK_SPEEDX</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -49252,7 +49338,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Set neck 3 head delay timer to 36.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Gleook_HeadInfo1+GLEEOK_DELAY</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -49705,8 +49792,7 @@ For example:&#xD;
       <Address>74983</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO:&#xD;
- For each neck, counting down, indexed by [04D7]:&#xD;
+      <Comment> For each neck, counting down:&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -49773,6 +49859,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label>Gleeok_MoveHead</Label>
       <Comment> Don't do anything until the head's initial timer expires.&#xD;
+&#xD;
+ DASM.EXPR: Gleeok_ObjHeadDelay&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -49823,7 +49911,8 @@ For example:&#xD;
       <Label />
       <Comment> Increment the counter to change directions.&#xD;
  If it's still &lt; 4, then return.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Gleeok_ObjHeadDirChangeCounter</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -49843,7 +49932,8 @@ For example:&#xD;
       <Label />
       <Comment> Increment the horizontal direction counter.&#xD;
  If &gt;= $C, then reset the counter, and flip direction.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Gleeok_ObjHeadDirCounterH</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -49853,6 +49943,8 @@ For example:&#xD;
       <Label>L127E3_CheckVertical</Label>
       <Comment> Increment the vertical direction counter.&#xD;
  If &gt;= 6, then reset the counter, and flip direction.&#xD;
+&#xD;
+ DASM.EXPR: Gleeok_ObjHeadDirCounterV&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -50000,8 +50092,7 @@ For example:&#xD;
       <Address>75646</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO:&#xD;
- Else reset object metastate of the segment, and return.&#xD;
+      <Comment> Else reset object metastate of the segment, and return.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -50856,7 +50947,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Every 4 frames switch between two frame images.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: RedWizzrobe_ObjAnimCounter</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -50917,6 +51009,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label>L11FB1</Label>
       <Comment> Else increase animation counter and decrease state every frame.&#xD;
+&#xD;
+ DASM.EXPR: RedWizzrobe_ObjAnimCounter&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -50954,6 +51048,8 @@ For example:&#xD;
       <Label>L11FF7</Label>
       <Comment> Increment the fade counter. Depending on the low bit,&#xD;
  the monster will be drawn every other frame.&#xD;
+&#xD;
+ DASM.EXPR: RedWizzrobe_ObjFadeCounter&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -50970,6 +51066,8 @@ For example:&#xD;
 &#xD;
  When not 0, the monster is teleporting, and must be drawn&#xD;
  translucently -- every other frame.&#xD;
+&#xD;
+ DASM.EXPR: ObjRemDistance&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -51083,7 +51181,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Store the last collided tile.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Wizzrobe_ObjLastTile</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -51116,6 +51215,8 @@ For example:&#xD;
       <Label>BlueWizzrobe_TryShooting</Label>
       <Comment> Once every $20 frames, and when not fading, we'll try to shoot.&#xD;
  Otherwise, return.&#xD;
+&#xD;
+ DASM.EXPR: ObjRemDistance&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -51232,7 +51333,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Flip bit 6 of turn counter; so that we change the axis to turn toward.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: BlueWizzrobe_ObjTurnCounter</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -51433,6 +51535,8 @@ For example:&#xD;
       <Comment> Description:&#xD;
  When the counter is a multiple of $40, switch between facing&#xD;
  toward Link horizontally or vertically. All other times, return.&#xD;
+&#xD;
+ DASM.EXPR: BlueWizzrobe_ObjTurnCounter&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -51446,6 +51550,8 @@ For example:&#xD;
  when the turn counter is a multiple of $40.&#xD;
 &#xD;
  Increment the turn counter.&#xD;
+&#xD;
+ DASM.EXPR: BlueWizzrobe_ObjTurnCounter&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -51464,7 +51570,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Go handle a wall, if the tile is not a block nor water.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Wizzrobe_ObjLastTile</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -51474,6 +51581,8 @@ For example:&#xD;
       <Label>L11E35_HitBlockOrWater</Label>
       <Comment> If the monster was already teleporting, then return,&#xD;
  so that it moves again next frame.&#xD;
+&#xD;
+ DASM.EXPR: ObjRemDistance&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -51499,6 +51608,8 @@ For example:&#xD;
       <Label>BlueWizzrobe_TurnTowardLink</Label>
       <Comment> If the multiple of $40 is even, then turn horizontally,&#xD;
  else vertically.&#xD;
+&#xD;
+ DASM.EXPR: BlueWizzrobe_ObjTurnCounter&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -51511,6 +51622,8 @@ For example:&#xD;
 &#xD;
  If there is still distance to go while translucent, then&#xD;
  decrement the distance remaining, and move.&#xD;
+&#xD;
+ DASM.EXPR: ObjRemDistance&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -51628,6 +51741,8 @@ For example:&#xD;
  Fighting Ganon.&#xD;
 &#xD;
  If Ganon is dying, go handle it.&#xD;
+&#xD;
+ DASM.EXPR: Ganon_ObjPhase&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -51724,7 +51839,8 @@ For example:&#xD;
       <Label />
       <Comment> Multiply the animation frame by 4, because of the 4 parts&#xD;
  that make it up.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Ganon_ObjAnimationFrame</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -51899,7 +52015,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Set the Ganon phase to "dying".&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Ganon_ObjPhase</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -52079,6 +52196,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label>Ganon_DrawBurst</Label>
       <Comment> If cloud distance &lt;&gt; 0, then decrement it once every 8 frames.&#xD;
+&#xD;
+ DASM.EXPR: Ganon_ObjCloudDist&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -52265,6 +52384,8 @@ For example:&#xD;
       <Label>Ganon_Dying</Label>
       <Comment> Ganon is dying.&#xD;
  Increment Ganon phase every frame.&#xD;
+&#xD;
+ DASM.EXPR: Ganon_ObjPhase&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -52274,7 +52395,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> If it just went from $FF to 0, then keep it at $FF.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Ganon_ObjPhase</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -52328,7 +52450,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Keep drawing the burst artifacts while Ganon phase &lt; $A0.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Ganon_ObjPhase</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -52483,6 +52606,8 @@ For example:&#xD;
       <Label>Ganon_MoveAndShoot</Label>
       <Comment> Change the animation frame every screen frame; so that&#xD;
  when Ganon is hit, he appears in a random pose.&#xD;
+&#xD;
+ DASM.EXPR: Ganon_ObjAnimationFrame&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -52492,7 +52617,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> The animation cycle has 6 frames.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Ganon_ObjAnimationFrame</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -52518,8 +52644,6 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label>L12D19_Move</Label>
       <Comment> Move like a blue wizzrobe teleporting.&#xD;
-&#xD;
- MULTI: [0394][X]&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -52637,7 +52761,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Set scene phase 1, and go draw Ganon.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Ganon_ScenePhase</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -52673,7 +52798,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Set shoot timer to 1, so that Gohma doesn't shoot right away.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Gohma_ObjShootTimer</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -52694,7 +52820,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Now we can go straight without changing direction for some time.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Gohma_ObjGoStraight</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -52712,6 +52839,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label>L12331_Move</Label>
       <Comment> Add $80 to the movement accumulator.&#xD;
+&#xD;
+ DASM.EXPR: Gohma_ObjMoveAccum&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -52730,7 +52859,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Increase the distance traveled, and move 1.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Gohma_ObjDistTraveled</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -52784,6 +52914,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label>L12363</Label>
       <Comment> If Gohma has not traveled $20 pixels, then go animate the eye.&#xD;
+&#xD;
+ DASM.EXPR: Gohma_ObjDistTraveled&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -52810,6 +52942,8 @@ For example:&#xD;
 &#xD;
  Note that $C0 is not a number of frames, because it's changed&#xD;
  every other frame.&#xD;
+&#xD;
+ DASM.EXPR: Gohma_ObjNextOpenEyeCounter&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -52829,6 +52963,8 @@ For example:&#xD;
       <Label>L12399</Label>
       <Comment> If open eye timer = 0, then the eye is closed.&#xD;
  Go animate it differently.&#xD;
+&#xD;
+ DASM.EXPR: Gohma_ObjEyeOpenTimer&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -52838,7 +52974,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Else decrement the open eye timer.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Gohma_ObjEyeOpenTimer</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -52857,6 +52994,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label>L123B0_ShootAnimateCollide</Label>
       <Comment> Decrement the shoot timer.&#xD;
+&#xD;
+ DASM.EXPR: Gohma_ObjShootTimer&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -52896,6 +53035,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label>L123BF_AnimateAndCheckCollisions</Label>
       <Comment> Pass the frame image for the eye.&#xD;
+&#xD;
+ DASM.EXPR: Gohma_ObjEyeState&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -52907,6 +53048,8 @@ For example:&#xD;
       <Comment> Here the eye is closed. So animate it this way.&#xD;
  Increment the animation counter, and if &lt;&gt; 8, then&#xD;
  go shoot, draw, and check collisions.&#xD;
+&#xD;
+ DASM.EXPR: Gohma_ObjEyeAnimCounter&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -53101,6 +53244,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label>L12458_CheckEyeOpen</Label>
       <Comment> If the state of the eye is not 3, then go parry.&#xD;
+&#xD;
+ DASM.EXPR: Gohma_ObjEyeState&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -53146,7 +53291,7 @@ For example:&#xD;
       <Address>76718</Address>
       <AddressType>PrgRom</AddressType>
       <Label>ControlPatraFlight</Label>
-      <Comment />
+      <Comment> DASM.EXPR: Flyer_ObjFlyingState</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -53396,7 +53541,8 @@ For example:&#xD;
       <Label />
       <Comment> If the patra child in slot 2 has not reached the required angle,&#xD;
  then return.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: ObjAngleWhole+2</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -53526,7 +53672,8 @@ For example:&#xD;
       <Label />
       <Comment> Load Patra's maneuver index.&#xD;
  It determines which counts of bits are looked up below.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Patra_ObjManeuverIndex+1</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -53571,6 +53718,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Subtract the high amount byte from high angle byte with borrow.&#xD;
+&#xD;
+ DASM.EXPR: ObjAngleWhole&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -53591,6 +53740,7 @@ For example:&#xD;
       <Comment> Params:&#xD;
  A: high bits of cosine to use in calculating Y increment&#xD;
  Y: high bits of sine to use in calculating X increment&#xD;
+ X: object index&#xD;
 &#xD;
  Returns:&#xD;
  A: new Y coordinate of object&#xD;
@@ -53614,6 +53764,8 @@ For example:&#xD;
       <Comment> First, rotate the X coordinate.&#xD;
 &#xD;
  Look up the sine for the current angle, and store it in [00].&#xD;
+&#xD;
+ DASM.EXPR: ObjAngleWhole&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -53659,6 +53811,8 @@ For example:&#xD;
       <Comment> The absolute X increment for the current angle is now in [02:03].&#xD;
 &#xD;
  If angle &gt;= $10, then the monster is in the top half of circle going left.&#xD;
+&#xD;
+ DASM.EXPR: ObjAngleWhole&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -53670,7 +53824,8 @@ For example:&#xD;
       <Comment> The absolute Y increment for the current angle is now in [02:03].&#xD;
 &#xD;
  If (angle - 8) &gt;= $10, then the monster is in the right half of circle going up.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: ObjAngleWhole</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -53719,7 +53874,8 @@ For example:&#xD;
 &#xD;
  Look up the cosine for the current angle, and store it in [00].&#xD;
  The cosine corresponds to the sine offset by a quarter circle (8).&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: ObjAngleWhole</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -53998,7 +54154,8 @@ For example:&#xD;
       <Label />
       <Comment> The speed is 1 or 2. By swapping them, you get sprite attributes&#xD;
  to store in [03].&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Lamnola_Speed</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -54541,6 +54698,8 @@ For example:&#xD;
  [04]: initial minor coordinate of Wallmaster&#xD;
 &#xD;
  Store the initial offset for this axis.&#xD;
+&#xD;
+ DASM.EXPR: Wallmaster_ObjStep&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -54737,6 +54896,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Look up and set the facing direction for the first step.&#xD;
+&#xD;
+ DASM.EXPR: Wallmaster_ObjStep&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -54776,6 +54937,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label>L111D3_Wallmaster_DrawAndCheckCollisions</Label>
       <Comment> If Link was captured, then go draw Link and Wallmaster specially.&#xD;
+&#xD;
+ DASM.EXPR: ObjCaptureTimer&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -54822,6 +54985,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Advance the step.&#xD;
+&#xD;
+ DASM.EXPR: Wallmaster_ObjStep&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -54831,7 +54996,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Set facing direction to the one for this new step.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Wallmaster_ObjStep</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -54840,7 +55006,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Increase the count of tiles crossed.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Wallmaster_ObjTilesCrossed</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -54850,7 +55017,8 @@ For example:&#xD;
       <Label />
       <Comment> If the monster has crossed less than 7 tiles, then&#xD;
  go draw and check collisions.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Wallmaster_ObjTilesCrossed</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -54861,7 +55029,8 @@ For example:&#xD;
       <Comment> It has reached the end of a trip.&#xD;
 &#xD;
  If Wallmaster did not capture Link, then go set state to 0 and return.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: ObjCaptureTimer</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -54883,7 +55052,8 @@ For example:&#xD;
       <Label />
       <Comment> If after checking object collisions, Link was captured, then&#xD;
  halt Link and keep him from being shoved.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: ObjCaptureTimer</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -54972,7 +55142,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> For the current step, look up the sprite flipping attributes.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Wallmaster_ObjStep</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -55424,6 +55595,8 @@ For example:&#xD;
       <Comment> State 0.&#xD;
 &#xD;
  Reset horizontal and vertical position fractions.&#xD;
+&#xD;
+ DASM.EXPR: Fireball_ObjPosFracX&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -55492,6 +55665,8 @@ For example:&#xD;
  So, load its parameters, and call it for each axis individually.&#xD;
 &#xD;
  First, load the horizontal direction into [0F].&#xD;
+&#xD;
+ DASM.EXPR: Fireball_ObjDirToTargetX&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -55501,6 +55676,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Second, load the vertical direction into [0F].&#xD;
+&#xD;
+ DASM.EXPR: Fireball_ObjDirToTargetY&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -55520,6 +55697,8 @@ For example:&#xD;
       <Label />
       <Comment> Load the horizontal q-speed and position fraction,&#xD;
  move, then save the position fraction.&#xD;
+&#xD;
+ DASM.EXPR: Fireball_ObjQSpeedX&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -55530,6 +55709,8 @@ For example:&#xD;
       <Label />
       <Comment> Load the vertical q-speed and position fraction,&#xD;
  move, then save the position fraction.&#xD;
+&#xD;
+ DASM.EXPR: Fireball_ObjQSpeedY&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -55633,6 +55814,8 @@ For example:&#xD;
       <Label>L1085C_CheckShooter</Label>
       <Comment> If the shooter is gone, then reset the arrow's object timer;&#xD;
  so that it flies right away.&#xD;
+&#xD;
+ DASM.EXPR: ObjRefId&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -57241,7 +57424,7 @@ For example:&#xD;
       <Label>L128CC</Label>
       <Comment> Look up and set the location of each object.&#xD;
 &#xD;
- MULTI: A8C0-1&#xD;
+ DASM.EXPR: GuardFireXs-1&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -57250,8 +57433,7 @@ For example:&#xD;
       <Address>75985</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> MULTI: A8C5-1&#xD;
-</Comment>
+      <Comment> DASM.EXPR: GuardFireYs-1</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -62460,8 +62642,8 @@ For example:&#xD;
       <Address>68618</Address>
       <AddressType>PrgRom</AddressType>
       <Label>L10C0A</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Comment> DASM.EXPR: ObjTurnRate</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -62691,7 +62873,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>69973</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L11155_SetUpToShow</Label>
+      <Label>L11155_SetUpToEmerge</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -62860,7 +63042,7 @@ For example:&#xD;
       <Address>71386</Address>
       <AddressType>PrgRom</AddressType>
       <Label>L116DA_SetTargetSpeed</Label>
-      <Comment />
+      <Comment> DASM.EXPR: Digdogger_ObjTargetSpeedFrac</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -63252,7 +63434,7 @@ For example:&#xD;
       <Address>74669</Address>
       <AddressType>PrgRom</AddressType>
       <Label>L123AD_SetEyeStateAndShoot</Label>
-      <Comment />
+      <Comment> DASM.EXPR: Gohma_ObjEyeState</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -63484,7 +63666,7 @@ For example:&#xD;
       <Address>75771</Address>
       <AddressType>PrgRom</AddressType>
       <Label>L127FB_Gleeok_DecHeadTimer</Label>
-      <Comment />
+      <Comment> DASM.EXPR: Gleeok_ObjHeadDelay</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -63852,15 +64034,15 @@ For example:&#xD;
       <Address>78441</Address>
       <AddressType>PrgRom</AddressType>
       <Label>L13269</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Comment> DASM.EXPR: Flyer_ObjSpeed</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>78458</Address>
       <AddressType>PrgRom</AddressType>
       <Label>Flyer_SetFlyingState</Label>
-      <Comment />
+      <Comment> DASM.EXPR: Flyer_ObjFlyingState</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -70575,6 +70757,1670 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Door sound</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>65689</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: ObjTurnTimer</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>65785</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: ObjTurnTimer</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>65798</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: ObjWantsToShoot</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>65918</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: ObjWantsToShoot</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>65928</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: ObjWantsToShoot</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>65992</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: ObjWantsToShoot</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66000</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: ObjRefId</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>65996</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: ObjRefId</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>65790</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: ObjWantsToShoot</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66143</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: ObjPushTimer</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66408</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Shot_ObjBounceDist</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66419</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Shot_ObjBounceDist</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66432</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Shot_ObjBounceDir</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66464</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Fireball_ObjPosFracY</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66472</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Fireball_ObjDirToTargetX</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66477</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Fireball_ObjDirToTargetY</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66492</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Fireball_ObjQSpeedX</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66498</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Fireball_ObjQSpeedY</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66530</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Fireball_ObjPosFracX</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66536</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Fireball_ObjPosFracX</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66547</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Fireball_ObjPosFracY</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66553</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Fireball_ObjPosFracY</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66609</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Flyer_ObjSpeed</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66618</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Flyer_ObjSpeed</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66754</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Flyer_ObjFlyingState</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>66759</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Flyer_ObjTurns</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>67027</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: ObjTurnRate</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>67200</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Statue_ObjFireballTimer</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>67218</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Statue_ObjFireballTimer</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>67462</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Flyer_ObjSpeed</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>67521</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: ObjTurnRate</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>67589</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: ObjWantsToShoot</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>67622</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: ObjWantsToShoot</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>67897</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Jumper_ObjReversalCount</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>67911</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Jumper_ObjTargetY</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>67920</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Jumper_ObjSpeedWholeY</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>67936</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Jumper_ObjReversalCount</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>67947</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Jumper_ObjReversalCount</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>68146</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Jumper_ObjSpeedFracY</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>68154</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Jumper_ObjSpeedWholeY</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>68170</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Jumper_ObjSpeedWholeY</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>68175</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Jumper_ObjSpeedFracY</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>68199</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: ObjTurnRate</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69117</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: ObjAngleWhole+2</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69133</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: ObjAngleWhole</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78955</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: ObjAngleWhole</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78939</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: ObjAngleFrac</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78945</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: ObjAngleFrac</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69752</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Flyer_ObjFlyingState</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69757</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Flyer_ObjTurns</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70004</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Wallmaster_ObjTilesCrossed</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70263</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Wallmaster_ObjStep</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70269</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Wallmaster_ObjStep</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70291</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Wallmaster_ObjStep</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70297</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Wallmaster_ObjStep</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70614</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: ObjWantsToShoot</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70643</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Moldorm_ObjBounceDir+1</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70666</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Flyer_ObjSpeed+1</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70671</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Flyer_ObjFlyingState+1</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70763</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Digdogger_ObjSpeedFrac</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70768</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Digdogger_ObjTargetSpeedFrac</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>70985</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Moldorm_ObjBounceDir</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71003</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Moldorm_ObjOldDir+1</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71016</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Moldorm_ObjOldDir</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71030</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Flyer_ObjFlyingState</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71035</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Flyer_ObjTurns</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71113</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Digdogger_ObjIsChild</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71118</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Digdogger_ObjSpeedFlag</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71209</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Digdogger_ObjCurPart</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71240</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Digdogger_ObjCurPart</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71289</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Digdogger_ObjIsChild</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71300</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Digdogger_ObjIsChild</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71325</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Digdogger_ObjSpeedWhole</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71336</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Digdogger_ObjSpeedWhole</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71331</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Digdogger_ObjTargetSpeedFrac</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71339</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Digdogger_ObjTargetSpeedWhole</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71355</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Digdogger_ObjSpeedFrac</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71368</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Digdogger_ObjTargetSpeedFrac</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71373</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Digdogger_ObjSpeedWhole</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71376</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Digdogger_ObjTargetSpeedWhole</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71391</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Digdogger_ObjTargetSpeedWhole</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71399</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Digdogger_ObjTargetSpeedWhole</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71678</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Aquamentus_ObjFireballOffset</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71686</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Aquamentus_ObjFireballOffset</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71694</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Aquamentus_ObjFireballOffset</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71715</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Aquamentus_ObjFireballOffset</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71901</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: ObjTurnRate</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71966</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Dodongo_ObjBloatedTimer</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71986</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Dodongo_ObjBombHits</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>72011</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Dodongo_ObjBloatedSubstate</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>72234</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Dodongo_ObjBloatedSubstate</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>72727</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: PolsVoice_ObjSpeedWhole</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>72736</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: PolsVoice_ObjTargetY</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>72768</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: PolsVoice_ObjSpeedFrac</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>72776</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: PolsVoice_ObjSpeedWhole</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>72791</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: PolsVoice_ObjTargetY</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>72803</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: PolsVoice_ObjSpeedWhole</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>72947</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: ObjCaptureTimer</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73019</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: ObjCaptureTimer</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73216</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: ObjRemDistance</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73453</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: ObjRemDistance</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73461</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: BlueWizzrobe_ObjTurnCounter</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74031</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Manhandla_ObjFrame+1</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74074</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Manhandla_ObjSpeedFrac+1</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74115</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Flyer_ObjSpeed</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74144</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Manhandla_ObjSpeedWhole+1</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74152</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Manhandla_SegmentJustDied</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74182</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Manhandla_BounceDir</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74210</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Manhandla_BounceDir</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74231</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Manhandla_ObjFrame</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74388</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Manhandla_ObjSpeedAccum</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74391</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Manhandla_ObjSpeedAccum</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74467</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Manhandla_ObjFrameAccum</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74470</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Manhandla_ObjFrameAccum</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74551</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gohma_ObjMoveAccum</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74604</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gohma_ObjDistTraveled</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74610</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gohma_ObjSprints</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74613</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gohma_ObjSprints</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74621</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gohma_ObjGoStraight</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74631</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gohma_ObjEyeOpenTimer</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74638</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gohma_ObjNextOpenEyeCounter</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74646</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gohma_ObjNextOpenEyeCounter</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74679</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gohma_ObjShootTimer</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74699</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gohma_ObjEyeAnimCounter</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74708</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gohma_ObjEyeAnimCounter</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74711</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gohma_ObjEyeState</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76063</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Lamnola_Type</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76069</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Lamnola_Speed</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76097</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Flyer_ObjSpeed</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76357</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Lamnola_Type</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76593</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Lamnola_Speed</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76608</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Lamnola_Speed</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76623</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Lamnola_Speed</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76638</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Lamnola_Speed</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76651</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Flyer_ObjOffsetX</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76654</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Flyer_ObjOffsetY</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76698</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: ObjAngleWhole+3</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76703</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Patra_ObjManeuverIndex</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76708</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Patra_ObjManeuverIndex</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76742</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Flyer_ObjFlyingState</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76747</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Flyer_ObjTurns</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76801</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: ObjAngleWhole</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77017</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Ganon_ScenePhase</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77022</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Ganon_ObjAnimationFrame</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77078</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Ganon_ObjAnimationFrame</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77083</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: ObjRemDistance</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77143</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Ganon_ObjPhase</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77268</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Ganon_ObjCloudDist</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77424</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Ganon_ObjCloudDist</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77433</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Ganon_ObjCloudDist</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77442</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Ganon_ObjCloudDist</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77451</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Ganon_ObjCloudDist</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77656</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Ganon_ObjCloudDist</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>130207</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO: DASM.EXPR: Item_ObjMonsterType</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78054</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Item_ObjItemLifetime</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78059</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Item_ObjItemId</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78338</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Flyer_ObjSpeed</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78352</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Flyer_ObjTurns</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78355</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Flyer_ObjDistTraveled</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78358</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Flyer_ObjFlyingState</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78405</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Flyer_ObjFlyingState</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78410</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Flyer_ObjTurns</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78428</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Flyer_ObjFlyingState</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78478</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Flyer_ObjSpeedFrac</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78481</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Flyer_ObjSpeedFrac</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>78596</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Moldorm_ObjBounceDir</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75015</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleeok_ObjHeadInfo</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75071</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleeok_ObjHeadInfo</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75538</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleeok_WrithingCounter</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75691</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleeok_ObjHeadSpeedX</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75701</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleeok_ObjHeadSpeedY</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75712</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleeok_ObjHeadDirChangeCounter</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75721</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleeok_ObjHeadDirChangeCounter</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75727</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleeok_ObjHeadDirCounterH</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75736</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleeok_ObjHeadDirCounterH</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75739</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleeok_ObjHeadSpeedX</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75744</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleeok_ObjHeadSpeedX</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75750</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleeok_ObjHeadDirCounterV</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75759</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleeok_ObjHeadDirCounterV</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75762</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleeok_ObjHeadSpeedY</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75767</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleeok_ObjHeadSpeedY</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75820</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleeok_WrithingCounter</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>75825</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleeok_WrithingCounter</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73878</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleeok_NeckXs0</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73881</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleeok_NeckXs1</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73884</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleeok_NeckXs2</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73887</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleeok_NeckXs3</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73895</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleeok_NeckYs0</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73898</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleeok_NeckYs1</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73901</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleeok_NeckYs2</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73904</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleeok_NeckYs3</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73933</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleook_HeadInfo1+GLEEOK_SPEEDY</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73936</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleook_HeadInfo2+GLEEOK_SPEEDX</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73939</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleook_HeadInfo3+GLEEOK_SPEEDY</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73944</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleook_HeadInfo0+GLEEOK_DIRCOUNTERV</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73947</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleook_HeadInfo1+GLEEOK_DIRCOUNTERV</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73950</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleook_HeadInfo2+GLEEOK_DIRCOUNTERV</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73953</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleook_HeadInfo3+GLEEOK_DIRCOUNTERV</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73957</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleook_HeadInfo0+GLEEOK_DIRCOUNTERH</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73960</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleook_HeadInfo1+GLEEOK_DIRCOUNTERH</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73963</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleook_HeadInfo2+GLEEOK_DIRCOUNTERH</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73966</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleook_HeadInfo3+GLEEOK_DIRCOUNTERH</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73970</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleook_HeadInfo1+GLEEOK_DELAY</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73974</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleook_HeadInfo2+GLEEOK_DELAY</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>73980</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Gleook_HeadInfo3+GLEEOK_DELAY</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76832</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Flyer_ObjOffsetX+1</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76840</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Flyer_ObjOffsetY+1</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>77302</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Ganon_ObjCloudDist</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
