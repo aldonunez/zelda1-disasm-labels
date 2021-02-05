@@ -6525,7 +6525,9 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  If the lifetime timer of the item &gt;= $F0, then return;&#xD;
  so that the player can't pick it up right away.&#xD;
 &#xD;
- MULTI: ObjPosFrac [03A8][X] is used to count down the life of the item.</Comment>
+ [03A8][X] is used to count down the life of the item.&#xD;
+ DASM.EXPR: Item_ObjItemLifetime&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -23734,7 +23736,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label />
       <Comment> Pass RoomItemId, also known as [98][$13] and ObjDir[$13],&#xD;
  to try to take the item.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: ObjRoomItemId</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -27900,7 +27903,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>126694</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>SetShoveInfoPass0</Label>
+      <Label>SetShoveInfoWith0</Label>
       <Comment> Params:&#xD;
  A: 0&#xD;
 &#xD;
@@ -37901,7 +37904,8 @@ For example:&#xD;
       <Address>6676</Address>
       <AddressType>SaveRam</AddressType>
       <Label />
-      <Comment> Get the object slot of this goriya's boomerang.</Comment>
+      <Comment> Get the object slot of this goriya's boomerang.&#xD;
+ DASM.EXPR: ObjRefId</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -72729,6 +72733,14 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> DASM.EXPR: PersonTextIndex</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>6697</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: ObjCaptureTimer</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
