@@ -56627,6 +56627,8 @@ For example:&#xD;
       <Label>L482B_WriteChar</Label>
       <Comment> Replace the low byte of the VRAM address with the one&#xD;
  where the next character should be written.&#xD;
+&#xD;
+ DASM.EXPR: PersonTextPtr&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -56636,7 +56638,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Increment the low VRAM address for the next character.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: PersonTextPtr</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -56654,7 +56657,8 @@ For example:&#xD;
       <Label />
       <Comment> Use the person text selector to look up the address of the&#xD;
  text for the textbox. Store the address in [00:01].&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: PersonTextSelector</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -56663,7 +56667,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Load the person text current character index.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: PersonTextIndex</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -56673,7 +56678,8 @@ For example:&#xD;
       <Label />
       <Comment> Increment the index variable to point to the next character&#xD;
  for next time.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: PersonTextIndex</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -57789,9 +57795,8 @@ For example:&#xD;
       <Address>17986</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO:&#xD;
- Get the top 2 bits of item descriptor 1, shift them right twice,&#xD;
- and combine them with [00] into [0413].&#xD;
+      <Comment> Get the top 2 bits of item descriptor 1, shift them right twice,&#xD;
+ and combine them with [00] into CaveFlags.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -57940,9 +57945,7 @@ For example:&#xD;
       <Address>18256</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Loop over the wares to draw, from 2 to 0.&#xD;
-&#xD;
- MULTI: [0421]&#xD;
+      <Comment> Loop over the wares to draw, from 2 to 0, indexed by [0421].&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -57971,8 +57974,7 @@ For example:&#xD;
       <Label />
       <Comment> If the item is nothing ($3F), then loop gain.&#xD;
 &#xD;
- MULTI: [0422][X]&#xD;
-</Comment>
+ DASM.EXPR: CaveItemIds</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -58008,6 +58010,8 @@ For example:&#xD;
       <Label>DrawCaveItems</Label>
       <Comment> If the cave flags do not call for showing items, then&#xD;
  go see about showing prices.&#xD;
+&#xD;
+ DASM.EXPR: CaveFlags&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -58017,6 +58021,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label>L4774_ShowPriceRupee</Label>
       <Comment> If the cave flags do not call for showing prices, then return.&#xD;
+&#xD;
+ DASM.EXPR: CaveFlags&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -58036,6 +58042,8 @@ For example:&#xD;
       <Label>UpdateCavePersonState_TransferPrices</Label>
       <Comment> If the cave flags do not call for showing prices, then&#xD;
  advance the state and return.&#xD;
+&#xD;
+ DASM.EXPR: CaveFlags&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -58088,6 +58096,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label>L47A2_LoopPrice</Label>
       <Comment> Get the price of the current item.&#xD;
+&#xD;
+ DASM.EXPR: CavePrices&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -58133,7 +58143,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Move the dash closer to the number.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: CaveCurPriceOffset</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -58161,7 +58172,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Add 4 to the base offset for the next string.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: CaveCurPriceOffset</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -58170,7 +58182,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Bottom of the price loop. Increment the index of the item until = 3.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: CaveCurPriceIndex</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -58189,6 +58202,8 @@ For example:&#xD;
       <Label>UpdateCavePersonState_TalkOrShopOrDoorCharge</Label>
       <Comment> If the cave flags call for choosing an item, then&#xD;
  go handle those kinds of caves.&#xD;
+&#xD;
+ DASM.EXPR: CaveFlags&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -58292,7 +58307,7 @@ For example:&#xD;
       <Label>L489F_LoopWare</Label>
       <Comment> If this item is nothing, then loop again.&#xD;
 &#xD;
- MULTI: [0422][X]&#xD;
+ DASM.EXPR: CaveItemIds&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -58338,6 +58353,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label>L48BF_PickedUp</Label>
       <Comment> Store the index of the item chosen.&#xD;
+&#xD;
+ DASM.EXPR: CaveChosenIndex&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -58348,7 +58365,8 @@ For example:&#xD;
       <Label />
       <Comment> If hint and money game cave flags are missing, then&#xD;
  go take an item given away, or buy it.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: CaveFlags</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -58394,7 +58412,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Pass the price to pay for the hint.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: CavePrices</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -58424,7 +58443,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Pass the price to pay for the item.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: CavePrices</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -58435,6 +58455,8 @@ For example:&#xD;
       <Comment> This is a shop, or something is being given away.&#xD;
 &#xD;
  If "pay" cave flag is missing, then go try to take the item.&#xD;
+&#xD;
+ DASM.EXPR: CaveFlags&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -58445,6 +58467,8 @@ For example:&#xD;
       <Label>L48F5_TryToTake</Label>
       <Comment> If "heart requirement" cave flag is missing, then&#xD;
  go to take the item without further ado.&#xD;
+&#xD;
+ DASM.EXPR: CaveFlags&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -58518,6 +58542,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label>ClearPricesCaveFlag</Label>
       <Comment> Remove the "show prices" cave flag to get rid of the generic rupee.&#xD;
+&#xD;
+ DASM.EXPR: CaveFlags&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -58527,6 +58553,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label>UpdateCavePersonState_HintOrMoneyGame</Label>
       <Comment> If "hint" cave flag is missing, then go handle the money game.&#xD;
+&#xD;
+ DASM.EXPR: CaveFlags&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -58547,7 +58575,8 @@ For example:&#xD;
       <Label />
       <Comment> Add the base offset and the index of the item chosen&#xD;
  to get the index of a text selector.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: CaveChosenIndex</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -58650,7 +58679,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Post the middle amount in [0431] to add.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: CavePrices+1</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -58666,8 +58696,7 @@ For example:&#xD;
       <Address>18846</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO:&#xD;
- Copy amounts in [0448][Y] for money game to [0430][Y].&#xD;
+      <Comment> Copy amounts in [0448][Y] for money game to prices [0430][Y].&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -58738,7 +58767,8 @@ For example:&#xD;
       <Label />
       <Comment> If the amount chosen = 20 or 50, then add it;&#xD;
  else subtract it.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: CaveChosenIndex</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -58827,8 +58857,7 @@ For example:&#xD;
       <Address>18057</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO:&#xD;
- The 3 amounts are now in [046F] to [0471].&#xD;
+      <Comment> The 3 amounts are now in [046F] to [0471].&#xD;
  Reference these amounts using the permutation of indexes&#xD;
  in [046C] to [046E]; and copy them to [0448] to [044A].&#xD;
 </Comment>
@@ -58839,8 +58868,7 @@ For example:&#xD;
       <Address>18706</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> MULTI: [0422][X]&#xD;
-</Comment>
+      <Comment> DASM.EXPR: CaveItemIds</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -60220,8 +60248,8 @@ For example:&#xD;
       <Address>18848</Address>
       <AddressType>PrgRom</AddressType>
       <Label>L49A0</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Comment> DASM.EXPR: MoneyGameAmounts</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -72421,6 +72449,286 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> DASM.EXPR: Ganon_ObjCloudDist</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>17926</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: PersonTextSelector</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>17948</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: CaveItemIds</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>17958</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: CavePrices</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>17992</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: CaveFlags</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18065</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: MoneyGameAmounts</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18073</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: PersonTextIndex</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18079</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: PersonTextPtr</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18359</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: CaveFlags</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>74136</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Manhandla_ObjSpeedFrac+1</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18332</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: CaveCurPriceIndex</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18335</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: CaveCurPriceOffset</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18399</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: CaveCurPriceOffset</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18405</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: CaveCurPriceIndex</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18541</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: PersonTextPtr</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18640</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: CavePrices</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18666</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: CavePrices</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18714</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: CaveItemIds</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18735</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: CaveFlags</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18779</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: PersonTextSelector</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18785</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: PersonTextPtr</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18790</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: PersonTextIndex</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18851</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: CavePrices</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18866</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: MoneyGameAmounts+0</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18874</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: MoneyGameAmounts+1</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18882</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: MoneyGameAmounts+2</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18891</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: MoneyGameAmounts</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18943</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: PersonTextPtr</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>18996</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: PersonTextSelector</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19017</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: PersonTextSelector</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19023</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: PersonTextPtr</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19066</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: PersonTextSelector</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19097</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: PersonTextSelector</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19133</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: PersonTextSelector</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19139</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: PersonTextPtr</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>19194</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: PersonTextIndex</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
