@@ -992,6 +992,7 @@ P:807F-877E:CommonSpritePatterns
 P:877F-8E7E:CommonBackgroundPatterns
 P:8E7F-8F5E:CommonMiscPatterns
 P:9000:InitDemo_RunTasks
+P:9003:: DASM.EXPR: DemoPhase
 P:900E-9013:InitDemo_RunTasks_Phase0_JumpTable
 P:9014:InitDemo_Phase1
 P:901A-901F:InitDemo_RunTasks_Phase1_JumpTable
@@ -1035,7 +1036,7 @@ P:90BC:L90BC_CopyNames: Copy the name from file A to save slot info.
 P:90BE:L90BE_LoopNameByte
 P:90C6:: Go to the next game mode (Menu).
 P:90C8:: We're set to initialize the mode.
-P:90CF:AnimateDemo
+P:90CF:AnimateDemo: DASM.EXPR: DemoPhase
 P:90DA-90DD:AnimateDemo_Phase0_JumpTable
 P:90DE:AnimateDemo_Phase1
 P:90E4-90ED:AnimateDemo_Phase1_JumpTable
@@ -1055,7 +1056,9 @@ P:94EE-9511:TitlePaletteTransferRecord
 P:9512:InitDemoSubphaseTransferTitlePalette: Write a tile buf record for the title palette.
 P:951A:L951A_CopyTitlePalette
 P:9523:: Reset variables used in this phase.
-P:952D:L952D_ClearVars
+P:952D:L952D_ClearVars: DASM.EXPR: TriforceGlowTimer
+P:9530:: DASM.EXPR: InitializedWaterfallAnimation
+P:9533:: DASM.EXPR: DemoPhase0Subphase1Cycle
 P:9539:: Mark objects 1 to 10 disabled.
 P:953B:L953B_DisableObjects
 P:9542:: Go advance the DemoSubphase and return.
@@ -1076,13 +1079,12 @@ P:95BA:: Go advance the demo subphase and return.
 P:95BD:L95BD_SkipTimer
 P:95C1:AnimateDemoPhase1Subphase0: Increase CurVScroll every odd frame.
 P:95C9:: Have we scrolled to the bottom of nametable 2?
-P:95CF:: TODO: Set [$0415]
 P:95D2:: The bottom of NT 2 is also the top of NT 0.\n So, reset CurVScroll and the base NT.
 P:95D8:L95D8_CheckVScroll: Scrolling hasn't ended until we've scrolled to the bottom,\n wrapped around, and scrolled 8 more lines.
 P:95EB:L95EB_Exit
 P:95EC:AnimateDemoPhase1Subphase1
 P:95F4:: Go to the next subphase.
-P:95F7:L95F7: TODO: Why these values? Why set them every frame?
+P:95F7:L95F7
 P:960C:AnimateDemoPhase1Subphase2
 P:9619:: Every even frame, just return.
 P:961B:: Decrement the Y coordinate of every object.
@@ -1134,7 +1136,7 @@ P:9729:L9729_Exit
 P:972A:DisableFallenObjects: For objects 1..10, indexed by X:\n
 P:972C:L972C_Loop: Once an object has fallen off the top of the screen,\n disable it.
 P:972E:: The Y coordinate where we consider an object\n completely off the screen is $F0.
-P:9732:: TODO: Set the corresponding ObjState to $FF.
+P:9732:: Set the corresponding state to disabled.
 P:9736:L9736_Next
 P:973A:ProcessDemoLineItems
 P:9740:: If attribute $20 is present, then instantiate a new object.
@@ -1142,10 +1144,13 @@ P:9745:L9745_MakeObject: Look for the first disabled object.
 P:9747:L9747_FindDisabled
 P:974F:L974F_SetUpObject
 P:9752:: Allocate an object for the item on the left.
+P:9755:: DASM.EXPR: DemoItemIds
 P:9758:: Start at the bottom of the screen.
+P:9765:: DASM.EXPR: DemoItemIds
 P:9768:: Link gets a special item ID.
 P:976A:: Go center the object horizontally, if it is Link.
 P:976C:: Allocate another object for the item on the right.
+P:9770:: DASM.EXPR: DemoItemIds
 P:9787:: Special case: The triforce must be centered.\n But it shows up in both column lists.\n Two objects were instantiated, but they'll overlap.
 P:978F:: TODO: $430?
 P:9792:L9792_IncRow
@@ -1154,7 +1159,7 @@ P:979D:Demo_AnimateObjects: For each object 1..10, indexed by X:\n
 P:979F:L979F_LoopObject
 P:97A1:: If the object is disabled, then skip it.
 P:97A3:: Save the index.
-P:97A5:: Animate the fairy specially.\n
+P:97A5:: Animate the fairy specially.\n\n DASM.EXPR: DemoItemIds
 P:97B2:L97B2_AnimateNormal: Animate normal items (type < $30).\n
 P:97BC:L97BC_AnimateFinal: At the end of the list of items are special items for Link\n and the sheet of paper.\n
 P:97BF:L97BF_PopAndNextObject: Restore the index.
@@ -1163,7 +1168,7 @@ P:97D8:AnimateStationaryFairy
 P:97DE:: Rely on the fact that 2 represents normal sprite\n attributes with palette 6.\n Shift the value to make it 4.
 P:97DF:: Every 4 frames, switch between 2 animation frames.
 P:97E3:: Put frame in [$0C].
-P:97EA:AnimateDemoStoryFinalItems: The demo story ending objects use special item types.\n The bottom nibble of the item type is an index into two\n tables. Each row has 6 bytes, one for each sprite of the\n item type.
+P:97EA:AnimateDemoStoryFinalItems: The demo story ending objects use special item types.\n The bottom nibble of the item type is an index into two\n tables. Each row has 6 bytes, one for each sprite of the\n item type.\n\n DASM.EXPR: DemoItemIds\n
 P:97F6:: Y gets offset of each row: (low_nibble & $0F) * 6
 P:97F7:: Put ObjY,ObjX in [$00, $01].
 P:9801:: For 6 sprites, counted by [$02]:
@@ -1180,29 +1185,41 @@ P:982B:: Decrement count.
 P:9830:AnimateDemoPhase1Subphase3: Delay about 256 frames.
 P:983C:AnimateDemoPhase1Subphase4: Delay 56 frames.
 P:9846:: Go to phase 0 again, and initialize it.
+P:984D:: DASM.EXPR: DemoPhase
 P:9854:AnimateDemoPhase1End_AnimateObjects
 P:985B:TriforcePaletteTransferRecord
 P:9863:TriforceGlowingColors
 P:986B:AnimateDemoPhase0Subphase0Artifacts: Set up sprites for the title.\n Copy initial sprite data to Sprites area.
-P:986D:L986D_CopySprites
-P:9879:: When you reach the end of the glow cycle,\n Append a transfer record for the triforce palette.
+P:986D:L986D_CopySprites: DASM.EXPR: InitialTitleSprites-1
+P:9870:: DASM.EXPR: Sprites-1
+P:9879:: When you reach the end of the glow cycle,\n Append a transfer record for the triforce palette.\n\n DASM.EXPR: TriforceGlowTimer
 P:9880:L9880_CopyTriforcePalette
 P:9889:: Patch the palette record with the color\n for the current point in the cycle.
 P:9892:: Restart the glow timer.
+P:9894:: DASM.EXPR: TriforceGlowTimer
 P:9897:: Advance the glow cycle.
 P:989D:: When the glow cycle finishes,
-P:98A1:: delay a twice as long for one step of the cycle.
+P:98A1:: delay twice as long for one step of the cycle.
+P:98A3:: DASM.EXPR: TriforceGlowTimer
 P:98A6:: Restart the glow cycle.
-P:98AB:L98AB_DecGlowCycle
+P:98AB:L98AB_DecGlowTimer: DASM.EXPR: TriforceGlowTimer
 P:98AF-98B2:WaterfallWaveTiles
 P:98B3-98B6:WaterfallCrestTiles
 P:98B7-98BA:WaterfallSpriteXs
 P:98BB-98BD:WaterfallWaveSpriteOffsets
-P:98C3:UpdateWaterfallAnimation
+P:98C3:UpdateWaterfallAnimation: DASM.EXPR: InitializedWaterfallAnimation
 P:98C8:: Initialize animation values.
+P:98CA:: DASM.EXPR: TitleWaveYs+0
+P:98CF:: DASM.EXPR: TitleWaveYs+1
+P:98D4:: DASM.EXPR: TitleWaveYs+2
+P:98D7:: TODO: Are these used?\n
+P:98E6:: DASM.EXPR: InitializedWaterfallAnimation
 P:98E9:L98E9_UpdateSprites
 P:98EB:L98EB
-P:98F5:UpdateSpritesForWaterfallWave: Add 2 to current waterfall wave Y.\n But keep it in the range $B2..$E3.
+P:98F5:UpdateSpritesForWaterfallWave: Add 2 to current waterfall wave Y.\n But keep it in the range $B2..$E3.\n\n DASM.EXPR: TitleWaveYs\n
+P:98F8:: DASM.EXPR: TitleWaveYs
+P:98FB:: DASM.EXPR: TitleWaveYs
+P:9904:: DASM.EXPR: TitleWaveYs
 P:9907:L9907: Keep a copy of the new value in [$05].
 P:9909:: Depending on the Y coordinate of the wave,\n modify the animation state.\n\n < $B9, use tile offset 0\n < $C2, use tile offset 8\n else, use tile offset $10
 P:9917:L9917_SetOffset
@@ -1227,13 +1244,14 @@ P:9B69:DemoPhase0Subphase1Delays
 P:9B79:AnimateDemoPhase0Subphase1: When subphase timer expires,
 P:9B7C:: go update animation only.
 P:9B7E:: Calculate the address to the palette to transfer.\n Addr = DemoPhase0Subphase1Palettes + (DemoPhase0Subphase1Palettes * $20)
+P:9B82:: DASM.EXPR: DemoPhase0Subphase1Cycle
 P:9B98:: Set up the header of the transfer record.
 P:9BA7:: Put an end marker at the end.
 P:9BAE:L9BAE_CopyPalette: Copy the chosen palette into the transfer record.
-P:9BB6:: Advance the subphase cycle.
-P:9BB9:: Set the timer to the delay for the current point in the cycle.
+P:9BB6:: Advance the subphase cycle.\n\n DASM.EXPR: DemoPhase0Subphase1Cycle
+P:9BB9:: Set the timer to the delay for the current point in the cycle.\n\n DASM.EXPR: DemoPhase0Subphase1Cycle
 P:9BC4:: If we reached the end of the cycle,
-P:9BC6:: Advance to the next demo phase.
+P:9BC6:: Advance to the next demo phase.\n\n DASM.EXPR: DemoPhase
 P:9BC9:: Reset the demo subphase.
 P:9BCE:: We have to initialize the new demo phase.
 P:9BD0:L9BD0_UpdateAnimation

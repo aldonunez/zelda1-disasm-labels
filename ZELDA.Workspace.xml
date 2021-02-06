@@ -4664,7 +4664,10 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <AddressType>PrgRom</AddressType>
       <Label>UpdateSpritesForWaterfallWave</Label>
       <Comment> Add 2 to current waterfall wave Y.&#xD;
- But keep it in the range $B2..$E3.</Comment>
+ But keep it in the range $B2..$E3.&#xD;
+&#xD;
+ DASM.EXPR: TitleWaveYs&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -4884,7 +4887,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>39107</Address>
       <AddressType>PrgRom</AddressType>
       <Label>UpdateWaterfallAnimation</Label>
-      <Comment />
+      <Comment> DASM.EXPR: InitializedWaterfallAnimation</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -4892,7 +4895,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>37071</Address>
       <AddressType>PrgRom</AddressType>
       <Label>AnimateDemo</Label>
-      <Comment />
+      <Comment> DASM.EXPR: DemoPhase</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -4936,7 +4939,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>39073</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> delay a twice as long for one step of the cycle.</Comment>
+      <Comment> delay twice as long for one step of the cycle.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -4969,7 +4972,9 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> When you reach the end of the glow cycle,&#xD;
- Append a transfer record for the triforce palette.</Comment>
+ Append a transfer record for the triforce palette.&#xD;
+&#xD;
+ DASM.EXPR: TriforceGlowTimer</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -5035,7 +5040,9 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>39878</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Advance to the next demo phase.</Comment>
+      <Comment> Advance to the next demo phase.&#xD;
+&#xD;
+ DASM.EXPR: DemoPhase</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -5094,7 +5101,9 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>39862</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Advance the subphase cycle.</Comment>
+      <Comment> Advance the subphase cycle.&#xD;
+&#xD;
+ DASM.EXPR: DemoPhase0Subphase1Cycle</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -5102,7 +5111,9 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>39865</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Set the timer to the delay for the current point in the cycle.</Comment>
+      <Comment> Set the timer to the delay for the current point in the cycle.&#xD;
+&#xD;
+ DASM.EXPR: DemoPhase0Subphase1Cycle</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -5318,10 +5329,10 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>38351</Address>
+      <Address>38192</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Set [$0415]</Comment>
+      <Comment> DASM.EXPR: InitializedWaterfallAnimation</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -5346,7 +5357,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>38391</Address>
       <AddressType>PrgRom</AddressType>
       <Label>L95F7</Label>
-      <Comment> TODO: Why these values? Why set them every frame?</Comment>
+      <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -5380,7 +5391,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>38706</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Set the corresponding ObjState to $FF.</Comment>
+      <Comment> Set the corresponding state to disabled.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -6874,7 +6885,10 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Comment> The demo story ending objects use special item types.&#xD;
  The bottom nibble of the item type is an index into two&#xD;
  tables. Each row has 6 bytes, one for each sprite of the&#xD;
- item type.</Comment>
+ item type.&#xD;
+&#xD;
+ DASM.EXPR: DemoItemIds&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -24768,7 +24782,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Animate the fairy specially.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: DemoItemIds</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -60667,7 +60682,7 @@ For example:&#xD;
       <Address>38189</Address>
       <AddressType>PrgRom</AddressType>
       <Label>L952D_ClearVars</Label>
-      <Comment />
+      <Comment> DASM.EXPR: TriforceGlowTimer</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -60859,7 +60874,7 @@ For example:&#xD;
       <Address>39021</Address>
       <AddressType>PrgRom</AddressType>
       <Label>L986D_CopySprites</Label>
-      <Comment />
+      <Comment> DASM.EXPR: InitialTitleSprites-1</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -60874,8 +60889,8 @@ For example:&#xD;
     <CodeLabel>
       <Address>39083</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L98AB_DecGlowCycle</Label>
-      <Comment />
+      <Label>L98AB_DecGlowTimer</Label>
+      <Comment> DASM.EXPR: TriforceGlowTimer</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -72741,6 +72756,151 @@ For example:&#xD;
       <AddressType>SaveRam</AddressType>
       <Label />
       <Comment> DASM.EXPR: ObjCaptureTimer</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>36867</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: DemoPhase</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>38195</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: DemoPhase0Subphase1Cycle</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>38741</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: DemoItemIds</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>38757</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: DemoItemIds</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>38768</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: DemoItemIds</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>38989</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: DemoPhase</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>39024</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Sprites-1</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>39060</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: TriforceGlowTimer</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>39075</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: TriforceGlowTimer</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>39114</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: TitleWaveYs+0</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>39119</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: TitleWaveYs+1</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>39124</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: TitleWaveYs+2</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>39142</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: InitializedWaterfallAnimation</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>39160</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: TitleWaveYs</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>39163</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: TitleWaveYs</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>39172</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: TitleWaveYs</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>39810</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: DemoPhase0Subphase1Cycle</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>39127</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> TODO: Are these used?&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
