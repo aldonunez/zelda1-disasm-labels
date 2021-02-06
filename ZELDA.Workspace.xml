@@ -856,7 +856,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>43689</Address>
       <AddressType>PrgRom</AddressType>
       <Label>UpdateMode13WinGame_Sub1</Label>
-      <Comment />
+      <Comment> DASM.EXPR: EndingFlashLongTimer</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -61760,6 +61760,8 @@ For example:&#xD;
       <Label>LA9AB</Label>
       <Comment> Replace the low byte of the VRAM address with the one&#xD;
  where the next character should be written.&#xD;
+&#xD;
+ DASM.EXPR: TextboxCharPtr&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -61867,6 +61869,8 @@ For example:&#xD;
       <Label>UpdatePeaceTextbox</Label>
       <Comment> Only emit a character once every 8 frames --&#xD;
  when (counter [0412] MOD 8) = 4.&#xD;
+&#xD;
+ DASM.EXPR: PeaceCharDelayCounter&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -61884,6 +61888,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label>LAB69</Label>
       <Comment> Point to the next character in the string.&#xD;
+&#xD;
+ DASM.EXPR: PeaceCharIndex&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -69455,7 +69461,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Increment the low VRAM address for the next character.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: TextboxCharPtr</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -69524,7 +69531,8 @@ For example:&#xD;
       <Label />
       <Comment> Increment the index variable to point to the next character&#xD;
  for the next time.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: TextboxCharIndex</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -69533,7 +69541,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Load the person text current character index.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: TextboxCharIndex</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -69734,7 +69743,8 @@ For example:&#xD;
       <Label />
       <Comment> Load a character from the string and copy it to&#xD;
  the transfer record until we read character $FF.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: PeaceCharIndex</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -69783,7 +69793,8 @@ For example:&#xD;
       <Comment> Characters stop emitting when the long timer is $10.&#xD;
  So, keep showing Link and Zelda until it reaches 4.&#xD;
  Then hide them and wait until it reaches 0.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: EndingFlashLongTimer</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -73119,6 +73130,62 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> DASM.EXPR: $C0</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43340</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: TextboxCharPtr</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43345</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: TextboxCharIndex</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43495</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: TextboxCharPtr</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43611</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: EndingFlashLongTimer</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43839</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: PeaceCharDelayCounter</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43527</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: PeaceCharDelayCounter</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>43530</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: PeaceCharIndex</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
