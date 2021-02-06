@@ -758,7 +758,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>42463</Address>
       <AddressType>PrgRom</AddressType>
       <Label>UpdateMode1Menu_Sub1</Label>
-      <Comment> TODO: Turn off music2.</Comment>
+      <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -6953,7 +6953,19 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>3569</Address>
       <AddressType>SaveRam</AddressType>
       <Label>FetchFileAAddressSet</Label>
-      <Comment> Calculate the end of the address set for current file.</Comment>
+      <Comment> TODO: [08:09]&#xD;
+&#xD;
+ Returns:&#xD;
+ [00:01]: items pointer&#xD;
+ [02:03]: world flags pointer&#xD;
+ [04:05]: name pointer&#xD;
+ [06:07]: IsSaveSlotActive pointer&#xD;
+ [08:09]:&#xD;
+ [0A:0B]: death count pointer&#xD;
+ [0C:0D]: quest pointer&#xD;
+ [0E:0F]: profile/save-slot world flags pointer&#xD;
+&#xD;
+ DASM.SIDE: Calculate the end of the address set for current file.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -6977,7 +6989,10 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>41735</Address>
       <AddressType>PrgRom</AddressType>
       <Label>CalculateFileAChecksum</Label>
-      <Comment> Reset the sum.</Comment>
+      <Comment> Returns:&#xD;
+ [0F:0E]: checksum&#xD;
+&#xD;
+ DASM.SIDE: Reset the sum.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -6993,7 +7008,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>41761</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Put $0180 in [$01:00].</Comment>
+      <Comment> Will count $180 with [01:00].</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -7001,7 +7016,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>41769</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Add $180 bytes from [[$02:03]] to [$0F:0E].</Comment>
+      <Comment> Add World Flags ($180 bytes) to [$0F:0E].</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -7154,7 +7169,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>41839</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Put $0180 in [$01:00].</Comment>
+      <Comment> Will count $180 with [01:00].</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -7162,7 +7177,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>41847</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Reset $180 bytes at [[$02:03]].</Comment>
+      <Comment> Reset World Flags ($180 bytes) at [$02:03].</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -7260,7 +7275,10 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>41953</Address>
       <AddressType>PrgRom</AddressType>
       <Label>CalculateFileBChecksum</Label>
-      <Comment> Reset the sum.</Comment>
+      <Comment> Returns:&#xD;
+ [CF:CE]: checksum&#xD;
+&#xD;
+ DASM.SIDE: Reset the sum.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -7268,7 +7286,18 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>40234</Address>
       <AddressType>PrgRom</AddressType>
       <Label>FetchFileBAddressSet</Label>
-      <Comment> Calculate the end of the address set for current file.</Comment>
+      <Comment> TODO: [C8:C9]&#xD;
+&#xD;
+ Returns:&#xD;
+ [C0:C1]: items pointer&#xD;
+ [C2:C3]: world flags pointer&#xD;
+ [C4:C5]: name pointer&#xD;
+ [C6:C7]: IsSaveSlotActive pointer&#xD;
+ [C8:C9]:&#xD;
+ [CA:CB]: death count pointer&#xD;
+ [CC:CD]: quest pointer&#xD;
+&#xD;
+ DASM.SIDE: Calculate the end of the address set for current file.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -7333,7 +7362,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>41979</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Put $0180 in [$C1:C0].</Comment>
+      <Comment> Will count $180 with [C1:C0].</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -7341,7 +7370,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>41987</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Add $180 bytes from [[$C2:C3]] to [$CF:CE].</Comment>
+      <Comment> Add World Flags ($180 bytes) to [CF:CE].</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -7501,7 +7530,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>42939</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Copy $180 bytes file B to file A.&#xD;
+      <Comment> Copy World Flags ($180 bytes) file B to file A.&#xD;
  It counts up from what's in [$0E:0F] ($067F) to $07FF.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -7912,7 +7941,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>42057</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Put $180 at [$C1:C0].</Comment>
+      <Comment> Will count $180 with [C1:C0].</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -7920,7 +7949,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>42065</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Clear $180 bytes at [[$C2:C3]].</Comment>
+      <Comment> Clear $180 bytes of World flags.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -8024,7 +8053,9 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>43020</Address>
       <AddressType>PrgRom</AddressType>
       <Label>FetchProfileNameAddress</Label>
-      <Comment />
+      <Comment> Returns:&#xD;
+ [0C:0D]: save slot name pointer&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -8048,7 +8079,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>42765</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Copy $180 bytes from profile to file B.</Comment>
+      <Comment> Copy World Flags ($180 bytes) from profile to file B.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -9159,10 +9190,10 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>42510</Address>
+      <Address>42697</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: ?</Comment>
+      <Comment> DASM.EXPR: $C0</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -9223,7 +9254,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label>ModeE_ResetVariables</Label>
       <Comment> Assumes that zero is passed in A.&#xD;
 &#xD;
- Reset CharBoardIndex [$041F].</Comment>
+ DASM.EXPR: CharBoardIndex&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -9793,7 +9825,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>41227</Address>
       <AddressType>PrgRom</AddressType>
       <Label>ModeE_HandleAOrB</Label>
-      <Comment> InitializedNameField [$0420]</Comment>
+      <Comment> DASM.EXPR: InitializedNameField</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -9931,7 +9963,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>41538</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Reset InitializedNameField [$0420].</Comment>
+      <Comment> DASM.EXPR: InitializedNameField</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -9981,7 +10013,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>40929</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Reset InitializedNameField [$0420].</Comment>
+      <Comment> DASM.EXPR: InitializedNameField</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -10064,7 +10096,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>41294</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> CharBoardIndex in [$041F] will index into character map.</Comment>
+      <Comment> CharBoardIndex in [$041F] will index into character map.&#xD;
+ DASM.EXPR: CharBoardIndex</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -10088,7 +10121,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>41291</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Get NameCharOffset at [$0421].</Comment>
+      <Comment> DASM.EXPR: NameCharOffset</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -10112,7 +10145,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>41313</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Increment NameCharOffset [$0421].</Comment>
+      <Comment> Increment NameCharOffset [$0421].&#xD;
+ DASM.EXPR: NameCharOffset</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -10128,7 +10162,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>41316</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Increment the low VRAM address where next char will go.</Comment>
+      <Comment> Increment the low VRAM address where next char will go.&#xD;
+ DASM.EXPR: NameInputCharBuf+1</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -10148,7 +10183,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
 &#xD;
  Keep in mind that [0423] is the second byte of the transfer&#xD;
  record header.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: NameInputCharBuf+1</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -10168,7 +10204,9 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Comment> The VRAM address now points outside the name field.&#xD;
  So, wrap around to the beginning of the name field.&#xD;
 &#xD;
- For example, $20D6 -&gt; $20CE.</Comment>
+ For example, $20D6 -&gt; $20CE.&#xD;
+&#xD;
+ DASM.EXPR: NameInputCharBuf+1</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -10185,7 +10223,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>41342</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> NameCharOffset [$0421].</Comment>
+      <Comment> DASM.EXPR: NameCharOffset</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -10252,7 +10290,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>41252</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Copy a byte of transfer header for current slot to [$0422][Y].</Comment>
+      <Comment> Copy a byte of transfer header for current slot to [$0422][Y].&#xD;
+ DASM.EXPR: NameInputCharBuf</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -10285,7 +10324,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>41259</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Set InitializedNameField [$0420] to mark the name field initialized.</Comment>
+      <Comment> Set InitializedNameField [$0420] to mark the name field initialized.&#xD;
+ DASM.EXPR: InitializedNameField</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -10307,7 +10347,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>41541</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Reset NameCharOffset [$0420].</Comment>
+      <Comment> DASM.EXPR: NameCharOffset</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -10315,7 +10355,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>40932</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Reset NameCharOffset [$0421].</Comment>
+      <Comment> DASM.EXPR: NameCharOffset</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -10382,7 +10422,9 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label />
       <Comment> Pressed Right.&#xD;
 &#xD;
- Increase CharBoardIndex [$041F] to put cursor at character to the right.</Comment>
+ Increase CharBoardIndex [$041F] to put cursor at character to the right.&#xD;
+&#xD;
+ DASM.EXPR: CharBoardIndex</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -10392,7 +10434,9 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label />
       <Comment> Pressed Left.&#xD;
 &#xD;
- Decrease CharBoardIndex [$041F] to put cursor at character to the left.</Comment>
+ Decrease CharBoardIndex [$041F] to put cursor at character to the left.&#xD;
+&#xD;
+ DASM.EXPR: CharBoardIndex</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -10402,7 +10446,9 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label />
       <Comment> Pressed Down.&#xD;
 &#xD;
- Increase CharBoardIndex [$041F] by $B (one row down).</Comment>
+ Increase CharBoardIndex [$041F] by $B (one row down).&#xD;
+&#xD;
+ DASM.EXPR: CharBoardIndex</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -10412,7 +10458,9 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label />
       <Comment> Pressed Up.&#xD;
 &#xD;
- Decrease CharBoardIndex [$041F] by $B (one row up).</Comment>
+ Decrease CharBoardIndex [$041F] by $B (one row up).&#xD;
+&#xD;
+ DASM.EXPR: CharBoardIndex</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -10586,7 +10634,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>41076</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> then reset CharBoardIndex [$041F].</Comment>
+      <Comment> then reset CharBoardIndex.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -10634,7 +10682,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>41116</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> then set CharBoardIndex [$041F] to the last index.</Comment>
+      <Comment> then set CharBoardIndex to the last index.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -10666,7 +10714,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>41147</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Wrapped around. So, move CharBoardIndex [$041F] to top row.</Comment>
+      <Comment> Wrapped around. So, move to top row.&#xD;
+ DASM.EXPR: CharBoardIndex</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -10690,7 +10739,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>41182</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Wrapped around. So, move CharBoardIndex [$041F] to bottom row.</Comment>
+      <Comment> Wrapped around. So, move to bottom row.&#xD;
+ DASM.EXPR: CharBoardIndex</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -10738,7 +10788,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>40708</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Reset [$0425].</Comment>
+      <Comment> Reset SaveFileNameIndex.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -10746,7 +10796,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>40711</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Reset [$0423].</Comment>
+      <Comment> Reset SaveSlotNameIndex.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -10762,7 +10812,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>40729</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Reset FileBReadyToSave [$0426].</Comment>
+      <Comment> DASM.EXPR: $0426</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -10794,7 +10844,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>40825</Address>
       <AddressType>PrgRom</AddressType>
       <Label>L9F79_NextChar</Label>
-      <Comment> TODO: Point to the next char in save slot info name.</Comment>
+      <Comment> Point to the next char in save slot info name.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -10802,7 +10852,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>40828</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Point to the next char in save file B name.</Comment>
+      <Comment> Point to the next char in save file B name.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -10898,7 +10948,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>40865</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Reset FileBReadyToSave [$0426].</Comment>
+      <Comment> DASM.EXPR: $0426</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -11009,10 +11059,10 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>40823</Address>
+      <Address>40841</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Set IsSaveSlotActive in file B.</Comment>
+      <Comment> SaveFileNameIndex</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -11049,10 +11099,10 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>40841</Address>
+      <Address>40844</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: [$0425]</Comment>
+      <Comment> DASM.EXPR: $0426</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -11060,15 +11110,15 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>40752</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: [$0425] (and [$0423])</Comment>
+      <Comment> SaveFileNameIndex</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>40831</Address>
+      <Address>41078</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: [$0425]</Comment>
+      <Comment> DASM.EXPR: CharBoardIndex</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -26208,7 +26258,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label>ObjShoveDir</Label>
       <Comment />
       <Flags>None</Flags>
-      <Length>12</Length>
+      <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>94912</Address>
@@ -61050,8 +61100,8 @@ For example:&#xD;
       <Address>40863</Address>
       <AddressType>PrgRom</AddressType>
       <Label>L9F9F</Label>
-      <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Comment> Reset FileBReadyToSave [$0426].</Comment>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -61186,7 +61236,7 @@ For example:&#xD;
       <Address>41279</Address>
       <AddressType>PrgRom</AddressType>
       <Label>LA13F_CopyHeader</Label>
-      <Comment />
+      <Comment> DASM.EXPR: NameInputCharBuf</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -61338,7 +61388,7 @@ For example:&#xD;
       <Address>41971</Address>
       <AddressType>PrgRom</AddressType>
       <Label>LA3F3_SumItems</Label>
-      <Comment />
+      <Comment> DASM.EXPR: $C0</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -61370,7 +61420,7 @@ For example:&#xD;
       <Address>42052</Address>
       <AddressType>PrgRom</AddressType>
       <Label>LA444_ClearItems</Label>
-      <Comment />
+      <Comment> DASM.EXPR: $C0</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -61562,7 +61612,7 @@ For example:&#xD;
       <Address>42882</Address>
       <AddressType>PrgRom</AddressType>
       <Label>LA782_CopyItems</Label>
-      <Comment />
+      <Comment> DASM.EXPR: $C0</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -72901,6 +72951,174 @@ For example:&#xD;
       <Label />
       <Comment> TODO: Are these used?&#xD;
 </Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>40250</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: $C0</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>40770</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: $C0</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>40775</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: $C0</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>40781</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: $C0</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>40818</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: $0426</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>40727</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Reset FileBReadyToSave [$0426].</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>40821</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Set IsSaveSlotActive in file B.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>41118</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: CharBoardIndex</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>41134</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: CharBoardIndex</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>41153</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: CharBoardIndex</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>41169</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: CharBoardIndex</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>41188</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: CharBoardIndex</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>41241</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: NameCharOffset</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>41334</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: NameInputCharBuf+1</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>41536</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Reset InitializedNameField and NameCharOffset.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>42063</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: $C0</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>42081</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: $C0</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>42083</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: $C0</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>42004</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: $C0</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>42006</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: $C0</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>41985</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: $C0</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>

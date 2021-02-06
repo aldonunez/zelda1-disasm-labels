@@ -50,7 +50,7 @@ R:0084-0097:ObjY
 R:0098-00AA:ObjDir
 R:00AB:RoomItemId
 R:00AC-00BF:ObjState
-R:00C0-00CB:ObjShoveDir
+R:00C0:ObjShoveDir
 R:00D3-00DE:ObjShoveDistance
 R:00E0:Paused
 R:00E1:MenuState: else start scrolling the menu.
@@ -1258,10 +1258,11 @@ P:9BD0:L9BD0_UpdateAnimation
 P:9D00-9D0D:SaveFileBAddressSets
 P:9D0E-9D1B:SaveFileBAddressSet1
 P:9D1C-9D29:SaveFileBAddressSet2
-P:9D2A:FetchFileBAddressSet: Calculate the end of the address set for current file.
+P:9D2A:FetchFileBAddressSet: TODO: [C8:C9]\n\n Returns:\n [C0:C1]: items pointer\n [C2:C3]: world flags pointer\n [C4:C5]: name pointer\n [C6:C7]: IsSaveSlotActive pointer\n [C8:C9]:\n [CA:CB]: death count pointer\n [CC:CD]: quest pointer\n\n DASM.SIDE: Calculate the end of the address set for current file.
 P:9D2E:L9D2E_AddE
 P:9D35:: Copy the file address set (14 bytes) for the current\n save file to [$C0] to make it easier to work with.
 P:9D37:L9D37_CopyAddresses
+P:9D3A:: DASM.EXPR: $C0
 P:9D41-9D5D:ModeFTitleTransferBuf
 P:9D5E-9D6F:ModeFTitlePatchRegister
 P:9D70-9D7A:ModeFSaveSlotTemplatePatchRegister
@@ -1323,23 +1324,27 @@ P:9EF0:UpdateModeERegister: If didn't press Start,
 P:9EF6:: or didn't select "End" option,
 P:9EFC:L9EFC_GoIdle: then go handle idle time.
 P:9EFF:L9EFF_ChoseEnd: Pressed Start over "End" option.\n\n Silence tune channel 1.
-P:9F04:: TODO: Reset [$0425].
-P:9F07:: TODO: Reset [$0423].
+P:9F04:: Reset SaveFileNameIndex.
+P:9F07:: Reset SaveSlotNameIndex.
 P:9F0A:: Reset CurSaveSlot.
 P:9F0C:: X holds the current slot number
 P:9F0D:L9F0D_LoopSaveSlot
 P:9F0F:: Mark save file B committed.
-P:9F19:: TODO: Reset FileBReadyToSave [$0426].
+P:9F17:: Reset FileBReadyToSave [$0426].
+P:9F19:: DASM.EXPR: $0426
 P:9F1C:: Reset checksum for current save file B.
 P:9F23:: Save current save slot number.
 P:9F28:: Restore save slot number.
 P:9F2A:L9F2A_CopyName: Copy next character from save slot info to file B.
-P:9F30:: TODO: [$0425] (and [$0423])
+P:9F30:: SaveFileNameIndex
 P:9F37:: If we copied a space, then go advance offsets and check things.
 P:9F3C:: If the save slot is active, then go advance offsets and check things.
 P:9F3E:: The save slot is not active.\n\n Initialize file B hearts value to 3 heart containers and 2 hearts.
+P:9F42:: DASM.EXPR: $C0
 P:9F44:: Initialize file B heart partial to full.
+P:9F47:: DASM.EXPR: $C0
 P:9F49:: Initialize file B's max bombs to 8.
+P:9F4D:: DASM.EXPR: $C0
 P:9F4F:: Save the current save slot number.
 P:9F51:: Multiply it by 8 to get offset to current name in save slot info.
 P:9F55:: Compare the name to "ZELDA".
@@ -1350,20 +1355,21 @@ P:9F65:: Pop and push the slot number, so we can get it into X.
 P:9F68:: Set second quest in file B.
 P:9F6E:L9F6E_FlagBReady: Restore save slot number.
 P:9F70:: Set FileBReadyToSave [$0426].
-P:9F77:: Set IsSaveSlotActive in file B.
-P:9F79:L9F79_NextChar: TODO: Point to the next char in save slot info name.
-P:9F7C:: TODO: Point to the next char in save file B name.
-P:9F7F:: TODO: [$0425]
+P:9F72:: DASM.EXPR: $0426
+P:9F75:: Set IsSaveSlotActive in file B.
+P:9F79:L9F79_NextChar: Point to the next char in save slot info name.
+P:9F7C:: Point to the next char in save file B name.
 P:9F84:: If we haven't copied 8 characters from save slot info name, then go copy the next one.
 P:9F86:: Make X refer to the next slot.
 P:9F87:: Reset the offset to the next save file B char.
-P:9F89:: TODO: [$0425]
+P:9F89:: SaveFileNameIndex
+P:9F8C:: DASM.EXPR: $0426
 P:9F8F:: If FileBReadyToSave [$0426] is set, then calculate and store the file B checksum, and mark file B uncommitted.
 P:9F94:L9F94: Advance the slot number.
 P:9F9A:: If haven't processed 3 slots,
 P:9F9C:: then go process the next one.
-P:9F9F:L9F9F
-P:9FA1:: Reset FileBReadyToSave [$0426].
+P:9F9F:L9F9F: Reset FileBReadyToSave [$0426].
+P:9FA1:: DASM.EXPR: $0426
 P:9FA4:: Reset CurSaveSlot.
 P:9FA9:: Make sure we stay updating.
 P:9FAD:: Go to mode 0 submode 1.
@@ -1377,9 +1383,9 @@ P:9FCB:: Then go handle other buttons and idle time.
 P:9FCE:L9FCE: Start was pressed.\n
 P:9FD2:: If a slot was chosen, then go delete it.
 P:9FD4:: "End" was chosen. So, go to mode $E.
-P:9FDE:ModeE_ResetVariables: Assumes that zero is passed in A.\n\n Reset CharBoardIndex [$041F].
-P:9FE1:: Reset InitializedNameField [$0420].
-P:9FE4:: Reset NameCharOffset [$0421].
+P:9FDE:ModeE_ResetVariables: Assumes that zero is passed in A.\n\n DASM.EXPR: CharBoardIndex\n
+P:9FE1:: DASM.EXPR: InitializedNameField
+P:9FE4:: DASM.EXPR: NameCharOffset
 P:9FE8:DeleteSlot
 P:9FEA:: TODO: ?
 P:9FF2:: Copy the appropriate transfer buf of a blank name for\n current slot to dynamic transfer buf.
@@ -1402,35 +1408,41 @@ P:A03E:: Once the repeat timer reaches zero, handle the direction button again.
 P:A040:: Otherwise, only count down the timer.
 P:A044:LA044_ChooseRepeatDelay: If this is the first button press, then wait $10 frames\n to repeat; otherwise wait 8 frames.
 P:A04D:LA04D
-P:A058:: Pressed Right.\n\n Increase CharBoardIndex [$041F] to put cursor at character to the right.
+P:A058:: Pressed Right.\n\n Increase CharBoardIndex [$041F] to put cursor at character to the right.\n\n DASM.EXPR: CharBoardIndex
 P:A05B:: Move the char board cursor right one spot.
 P:A064:: If still on the board, then go finish.
 P:A066:: Otherwise, move the cursor to the left end.
 P:A06A:: Cycle down.
 P:A072:: If wrapped around to the top,
-P:A074:: then reset CharBoardIndex [$041F].
+P:A074:: then reset CharBoardIndex.
+P:A076:: DASM.EXPR: CharBoardIndex
 P:A079:LA079: Go finish.
 P:A07C:LA07C_Left
-P:A080:: Pressed Left.\n\n Decrease CharBoardIndex [$041F] to put cursor at character to the left.
+P:A080:: Pressed Left.\n\n Decrease CharBoardIndex [$041F] to put cursor at character to the left.\n\n DASM.EXPR: CharBoardIndex
 P:A083:: Move the char board cursor left one spot.
 P:A08C:: If still on the board, then go finish.
 P:A08E:: Otherwise, move the cursor to the right end.
 P:A092:: Cycle up.
 P:A09A:: If wrapped around to the bottom,
-P:A09C:: then set CharBoardIndex [$041F] to the last index.
+P:A09C:: then set CharBoardIndex to the last index.
+P:A09E:: DASM.EXPR: CharBoardIndex
 P:A0A1:LA0A1: Go finish.
 P:A0A4:LA0A4_Down
-P:A0A8:: Pressed Down.\n\n Increase CharBoardIndex [$041F] by $B (one row down).
+P:A0A8:: Pressed Down.\n\n Increase CharBoardIndex [$041F] by $B (one row down).\n\n DASM.EXPR: CharBoardIndex
+P:A0AE:: DASM.EXPR: CharBoardIndex
 P:A0B1:: Cycle down.
 P:A0B9:: If didn't wrap around, then go finish.
-P:A0BB:: Wrapped around. So, move CharBoardIndex [$041F] to top row.
+P:A0BB:: Wrapped around. So, move to top row.\n DASM.EXPR: CharBoardIndex
+P:A0C1:: DASM.EXPR: CharBoardIndex
 P:A0C4:LA0C4_Finish: Go finish.
 P:A0C7:LA0C7_Up
 P:A0C9:: If no single direction was pressed, then return.
-P:A0CB:: Pressed Up.\n\n Decrease CharBoardIndex [$041F] by $B (one row up).
+P:A0CB:: Pressed Up.\n\n Decrease CharBoardIndex [$041F] by $B (one row up).\n\n DASM.EXPR: CharBoardIndex
+P:A0D1:: DASM.EXPR: CharBoardIndex
 P:A0D4:: Cycle up.
 P:A0DC:: If didn't wrap around, then go finish.
-P:A0DE:: Wrapped around. So, move CharBoardIndex [$041F] to bottom row.
+P:A0DE:: Wrapped around. So, move to bottom row.\n DASM.EXPR: CharBoardIndex
+P:A0E4:: DASM.EXPR: CharBoardIndex
 P:A0E7:LA0E7_FinishInput
 P:A0EC:: Request "selection changed" tune (same as rupee taken).
 P:A0EF:LA0EF_Exit
@@ -1443,35 +1455,37 @@ P:A100:: Set cursor Y to wrapped around position.
 P:A106:: Return ModeE_WrappedAroundBoardY [$042A]=1.
 P:A107:LA107_ReturnValue
 P:A10A:LA10A_Exit
-P:A10B:ModeE_HandleAOrB: InitializedNameField [$0420]
+P:A10B:ModeE_HandleAOrB: DASM.EXPR: InitializedNameField
 P:A10E:: If InitializedNameField [$0420] is set, then skip initializing\n the name field.
 P:A114:: If at the "End" option, then return.
 P:A116:: Set NameCharOffset [$0421] to the offset of first char\n in the current slot's name.
+P:A119:: DASM.EXPR: NameCharOffset
 P:A11C:: Get the offset of the end of the initial name character\n transfer record header for the current slot.
 P:A11F:: Each transfer record header is 3 bytes.
 P:A121:LA121_CopyHeaderTemplate
-P:A124:: Copy a byte of transfer header for current slot to [$0422][Y].
-P:A12B:: Set InitializedNameField [$0420] to mark the name field initialized.
+P:A124:: Copy a byte of transfer header for current slot to [$0422][Y].\n DASM.EXPR: NameInputCharBuf
+P:A12B:: Set InitializedNameField [$0420] to mark the name field initialized.\n DASM.EXPR: InitializedNameField
 P:A12E:LA12E_CheckAB: At this point:\n - NameCharOffset [$0421] holds the offset of the first character in the save slot info name for the current slot.\n   - This will be changed as the player inputs characters.\n - [$0422] to [$0424] hold a transfer record header. The VRAM address points to the beginning of the appropriate name field in the nametable.\n   - This will be changed as the player inputs characters.\n - InitializedNameField [$0420] is set to 1.\n
 P:A132:: If neither A nor B was pressed, then go finish.
 P:A134:: A or B was pressed.\n
 P:A136:: If B was pressed, then go move the name cursor only.
 P:A138:: A was pressed.\n\n Request to play the character click tune (same as bomb set).
 P:A13D:: Copy our char transfer record header (in [$0422-0424]) to dynamic transfer buf.
-P:A13F:LA13F_CopyHeader
+P:A13F:LA13F_CopyHeader: DASM.EXPR: NameInputCharBuf
 P:A148:: Write the end marker to dynamic transfer buf.
-P:A14B:: Get NameCharOffset at [$0421].
-P:A14E:: CharBoardIndex in [$041F] will index into character map.
+P:A14B:: DASM.EXPR: NameCharOffset
+P:A14E:: CharBoardIndex in [$041F] will index into character map.\n DASM.EXPR: CharBoardIndex
 P:A151:: Get the character that's highlighted.
 P:A154:: Write the chosen character to dynamic transfer buf.
 P:A157:: Set the character in the name.
 P:A15A:LA15A_MoveCursor: Move name cursor right 8 pixels.
-P:A161:: Increment NameCharOffset [$0421].
-P:A164:: Increment the low VRAM address where next char will go.
-P:A167:: If VRAM address still points inside the name field,\n then go finish.\n\n The idea is that each name field in nametable begins at\n an address ending in $E. For example, slot 0 has a name\n at VRAM addresses $20CE to $20D5.\n\n Once the $E becomes a 6, we've gone past the end of\n the name field.\n\n Keep in mind that [0423] is the second byte of the transfer\n record header.\n
-P:A170:: The VRAM address now points outside the name field.\n So, wrap around to the beginning of the name field.\n\n For example, $20D6 -> $20CE.
+P:A161:: Increment NameCharOffset [$0421].\n DASM.EXPR: NameCharOffset
+P:A164:: Increment the low VRAM address where next char will go.\n DASM.EXPR: NameInputCharBuf+1
+P:A167:: If VRAM address still points inside the name field,\n then go finish.\n\n The idea is that each name field in nametable begins at\n an address ending in $E. For example, slot 0 has a name\n at VRAM addresses $20CE to $20D5.\n\n Once the $E becomes a 6, we've gone past the end of\n the name field.\n\n Keep in mind that [0423] is the second byte of the transfer\n record header.\n\n DASM.EXPR: NameInputCharBuf+1
+P:A170:: The VRAM address now points outside the name field.\n So, wrap around to the beginning of the name field.\n\n For example, $20D6 -> $20CE.\n\n DASM.EXPR: NameInputCharBuf+1
+P:A176:: DASM.EXPR: NameInputCharBuf+1
 P:A179:: It also means that we went past the end of the save slot\n info name. Set the offset to the beginning of the name.
-P:A17E:: NameCharOffset [$0421].
+P:A17E:: DASM.EXPR: NameCharOffset
 P:A181:: If the name cursor has gone past the end of the field,\n then wrap around.
 P:A18B:LA18B_Exit: Go set the name cursor sprite X.
 P:A18E:ModeEandF_SetUpCursorSprites: Copy almost 3 sprite records ($B bytes) to byte 1 of\n Sprites block. Only sprite 0 byte 0 is missing.\n These are the cursor sprites.
@@ -1515,8 +1529,9 @@ P:A22E:: If we're past the "End" option,
 P:A232:: then wrap around.
 P:A236:LA236: It seems that this should be Sprites+4.
 P:A239:: Name cursor X is $70.
-P:A242:: Reset InitializedNameField [$0420].
-P:A245:: Reset NameCharOffset [$0420].
+P:A240:: Reset InitializedNameField and NameCharOffset.
+P:A242:: DASM.EXPR: InitializedNameField
+P:A245:: DASM.EXPR: NameCharOffset
 P:A24C:: If selection is "End" option, then return.
 P:A251:: If the slot is not active, then cycle again.
 P:A253:LA253_Exit
@@ -1540,13 +1555,13 @@ P:A2F4:: If not, then format the file.
 P:A2F6:LA2F6_FormatA
 P:A2FC:LA2FC_NextSlot: Advance to the next save slot.
 P:A304:: After checking every file, go to the next submode.
-P:A307:CalculateFileAChecksum: Reset the sum.
+P:A307:CalculateFileAChecksum: Returns:\n [0F:0E]: checksum\n\n DASM.SIDE: Reset the sum.
 P:A30D:: Sum the name (8 bytes).
 P:A30F:LA30F_SumName
 P:A317:: Add the Items block ($28 bytes) to [$0F:0E].
 P:A319:LA319_SumItems
-P:A321:: TODO: Put $0180 in [$01:00].
-P:A329:: TODO: Add $180 bytes from [[$02:03]] to [$0F:0E].
+P:A321:: Will count $180 with [01:00].
+P:A329:: Add World Flags ($180 bytes) to [$0F:0E].
 P:A32B:LA32B_SumWorldFlags
 P:A336:LA336
 P:A340:: IsSaveSlotActive
@@ -1559,8 +1574,8 @@ P:A35F:: Make the name 8 spaces.
 P:A361:LA361_ClearName
 P:A366:: Reset the file's Items block.
 P:A36A:LA36A_ClearItems
-P:A36F:: TODO: Put $0180 in [$01:00].
-P:A377:: TODO: Reset $180 bytes at [[$02:03]].
+P:A36F:: Will count $180 with [01:00].
+P:A377:: Reset World Flags ($180 bytes) at [$02:03].
 P:A379:LA379_ClearWorldFlags
 P:A383:LA383
 P:A38F:: Reset the file's IsSaveSlotActive.
@@ -1573,15 +1588,18 @@ P:A3AF:: Store the static markers in the save file.
 P:A3B9:: Store the checksum in the save file.
 P:A3C8:CalculateAndStoreFileBChecksumUncommitted
 P:A3CD:: Now file B is valid, but uncommitted.
-P:A3E1:CalculateFileBChecksum: Reset the sum.
+P:A3E1:CalculateFileBChecksum: Returns:\n [CF:CE]: checksum\n\n DASM.SIDE: Reset the sum.
 P:A3E7:: Sum the name (8 bytes).
 P:A3E9:LA3E9_SumName
 P:A3F1:: Sum the $28 bytes of the file's Items block with [$CF:CE].
-P:A3F3:LA3F3_SumItems
-P:A3FB:: TODO: Put $0180 in [$C1:C0].
-P:A403:: TODO: Add $180 bytes from [[$C2:C3]] to [$CF:CE].
+P:A3F3:LA3F3_SumItems: DASM.EXPR: $C0
+P:A3FB:: Will count $180 with [C1:C0].
+P:A401:: DASM.EXPR: $C0
+P:A403:: Add World Flags ($180 bytes) to [CF:CE].
 P:A405:LA405_SumWorldFlags
 P:A410:LA410
+P:A414:: DASM.EXPR: $C0
+P:A416:: DASM.EXPR: $C0
 P:A41A:: Add IsSaveSlotActive byte to [$CF:CE].
 P:A41F:: Add DeathCount byte to [$CF:CE].
 P:A424:: TODO: Add byte at [[$CA:CB]] to [$CF:CE].
@@ -1590,11 +1608,14 @@ P:A42B:AddAToCFCE
 P:A437:FormatFileB: Clear the name (to all spaces).
 P:A43B:LA43B_ClearName
 P:A440:: Clear $28 bytes of the Items block in file.
-P:A444:LA444_ClearItems
-P:A449:: TODO: Put $180 at [$C1:C0].
-P:A451:: TODO: Clear $180 bytes at [[$C2:C3]].
+P:A444:LA444_ClearItems: DASM.EXPR: $C0
+P:A449:: Will count $180 with [C1:C0].
+P:A44F:: DASM.EXPR: $C0
+P:A451:: Clear $180 bytes of World flags.
 P:A453:LA453_ClearWorldFlags
 P:A45D:LA45D
+P:A461:: DASM.EXPR: $C0
+P:A463:: DASM.EXPR: $C0
 P:A467:: Clear individual bytes.
 P:A469:: IsSaveSlotActive
 P:A46B:: TODO: ?
@@ -1667,7 +1688,7 @@ P:A5CE:: Set the sprite Y for current option.
 P:A5D1:: The base Y of Link sprites is $58.
 P:A5D5:: The X coordinate of Link sprites is $30.
 P:A5DC:LA5DC_Exit
-P:A5DF:UpdateMode1Menu_Sub1: TODO: Turn off music2.
+P:A5DF:UpdateMode1Menu_Sub1
 P:A5E6:: Begin in OW.
 P:A5E8:: Reset item index.
 P:A5F2:: If not a save slot,
@@ -1675,7 +1696,6 @@ P:A5F4:: Go to the mode for each option (register, eliminate).
 P:A5FE:LA5FE_ChoseSlot: The player chose a save slot.\n
 P:A604:: Copy Items block from file A to profile.
 P:A606:LA606_CopyItems
-P:A60E:: TODO: ?
 P:A613:: Reset player state.
 P:A615:: Reset clock item.
 P:A618:: Copy WorldFlags block from file A to profile.\n
@@ -1715,6 +1735,7 @@ P:A6B8:UpdateModeDSave_Sub0: Initialize file B, and copy profile to it.\n Calcul
 P:A6C1:: TODO: I think this is called only for $067F put in [$0E:0F].
 P:A6C4:: Copy Items block ($28 bytes) from profile to file B.
 P:A6C6:LA6C6_CopyItems
+P:A6C9:: DASM.EXPR: $C0
 P:A6D0:: Copy death count from profile to file B.
 P:A6D7:: We're saving, so make sure the current slot is active.
 P:A6DD:: Also set the slot active in the save slot info.
@@ -1723,7 +1744,7 @@ P:A6EA:: Copy name from save slot info to file B.
 P:A6EC:LA6EC_CopyName
 P:A6F3:: Put in [$0A] a full hearts value for the profile's heart containers.
 P:A705:: Completely fill the hearts.
-P:A70D:: TODO: Copy $180 bytes from profile to file B.
+P:A70D:: Copy World Flags ($180 bytes) from profile to file B.
 P:A70F:LA70F_CopyWorldFlags
 P:A719:LA719
 P:A71F:LA71F
@@ -1737,7 +1758,7 @@ P:A766:: Reset the save file markers.
 P:A76E:: Reset the checksum.
 P:A77D:: TODO: This puts $067F in [$0E:0F].
 P:A780:: Copy Items block ($28 bytes) from file B to file A.
-P:A782:LA782_CopyItems
+P:A782:LA782_CopyItems: DASM.EXPR: $C0
 P:A789:: Copy these individual bytes from file B to file A.
 P:A78B:: IsSaveSlotActive
 P:A78F:: TODO: ?
@@ -1751,7 +1772,7 @@ P:A7AA:: Finish copying death count from file A to save slot info.
 P:A7AE:: Finish copying IsSaveSlotActive  from file A to save slot info.
 P:A7B2:: Copy the name from file B to file A.
 P:A7B4:LA7B4_CopyName
-P:A7BB:: TODO: Copy $180 bytes file B to file A.\n It counts up from what's in [$0E:0F] ($067F) to $07FF.
+P:A7BB:: Copy World Flags ($180 bytes) file B to file A.\n It counts up from what's in [$0E:0F] ($067F) to $07FF.
 P:A7BD:LA7BD_CopyWorldFlags
 P:A7C7:LA7C7
 P:A7CD:LA7CD
@@ -1760,7 +1781,7 @@ P:A7E1:: Write the save file markers.
 P:A7EB:: Copy the checksum from file B to file A.
 P:A7FD:: File B has been committed.
 P:A803:UpdateModeDSave_Sub2: Go to mode 0 submode 1. Keep it updating.
-P:A80C:FetchProfileNameAddress
+P:A80C:FetchProfileNameAddress: Returns:\n [0C:0D]: save slot name pointer\n
 P:A819:StoreSaveSlotHearts
 P:A825:: TODO: Copy HeartsValue and HeartsPartial to set B.
 P:A827:LA827_CopyHearts
@@ -7372,7 +7393,7 @@ S:0DC3-0DC6:ReverseDirections
 S:0DC7-0DD4:SaveFileAAddressSets
 S:0DD5-0DE2:SaveFileAAddressSet1
 S:0DE3-0DF0:SaveFileAAddressSet2
-S:0DF1:FetchFileAAddressSet: Calculate the end of the address set for current file.
+S:0DF1:FetchFileAAddressSet: TODO: [08:09]\n\n Returns:\n [00:01]: items pointer\n [02:03]: world flags pointer\n [04:05]: name pointer\n [06:07]: IsSaveSlotActive pointer\n [08:09]:\n [0A:0B]: death count pointer\n [0C:0D]: quest pointer\n [0E:0F]: profile/save-slot world flags pointer\n\n DASM.SIDE: Calculate the end of the address set for current file.
 S:0DFC:: Copy the save file address set (14 bytes) for the current\n save file to [$00] to make it easier to work with.
 S:0E07:: Put the address of the profile's whole\n WorldFlags block in [$0E:0F].
 S:0E10:PlayBoomerangSfx: Params:\n Y: 2\n
