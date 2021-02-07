@@ -102,7 +102,7 @@ R:035F:RoomObjTemplateType: TODO: Or RoomObjTemplate, or RoomMonsterTemplate,\n 
 R:0380:_ObjMovingLimit
 R:0394-03A7:ObjGridOffset: Used in movement like walking.\n When grid offset = 0, an object is at an intersection point in the tile grid.\n Otherwise, the object is between points along a line.\n
 R:03A8-03BB:_ObjPosFrac
-R:03BC-03CF:_ObjQSpeedFrac
+R:03BC-03CF:ObjQSpeedFrac
 R:03D0-03E3:ObjAnimCounter
 R:03E4-03F7:ObjAnimFrame
 R:03F8-0404:ObjInputDir: At the beginning of a frame, this will be set to 0 to 2 directions.\n
