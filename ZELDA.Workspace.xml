@@ -25712,7 +25712,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>78541</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_BoundFlyer</Label>
+      <Label>BoundFlyer</Label>
       <Comment> Returns:&#xD;
  A: original facing or the opposite&#xD;
  [0F]: 0 if blocked&#xD;
@@ -33146,7 +33146,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>24837</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_DrawWhirlwind</Label>
+      <Label>DrawWhirlwind</Label>
       <Comment> Frames last 1 screen frame.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -36494,7 +36494,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>84986</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_CheckHasLivingMonsters</Label>
+      <Label>CheckHasLivingMonsters</Label>
       <Comment> Look for monsters in slots $C to 1 that are not bubbles.&#xD;
  If one is found, return.&#xD;
 &#xD;
@@ -37277,7 +37277,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>91778</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_L_ResetDoorCmdAndLayOutDoors</Label>
+      <Label>L_ResetDoorCmdAndLayOutDoors</Label>
       <Comment> Reset door command</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -37362,7 +37362,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>91776</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_L_SetOpenedDoorMaskAndResetCmdAndLayOutDoors</Label>
+      <Label>L_SetOpenedDoorMaskAndResetCmdAndLayOutDoors</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -41463,7 +41463,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>78208</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_ShootLimited</Label>
+      <Label>ShootLimited</Label>
       <Comment> Params:&#xD;
  [00]: shot object type&#xD;
 &#xD;
@@ -41538,7 +41538,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>78229</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_Shoot</Label>
+      <Label>Shoot</Label>
       <Comment> Params:&#xD;
  [00]: shot object type&#xD;
  [59]: EmptyMonsterSlot&#xD;
@@ -43948,7 +43948,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>66678</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_AnimateAndDrawCommonObject</Label>
+      <Label>AnimateAndDrawCommonObject</Label>
       <Comment> Params:&#xD;
  A: new value for animation counter&#xD;
  X: object index&#xD;
@@ -50652,7 +50652,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>74938</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_Flyer_GleeokHeadDecideState</Label>
+      <Label>Flyer_GleeokHeadDecideState</Label>
       <Comment> Go to the next flying state randomly:&#xD;
  Random &lt; $D0: 2&#xD;
  Else:         3&#xD;
@@ -56020,7 +56020,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>78371</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_DrawFairy</Label>
+      <Label>DrawFairy</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -57195,7 +57195,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>19403</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_DrawLifeOrMoneyItems</Label>
+      <Label>DrawLifeOrMoneyItems</Label>
       <Comment> Loop over each item to draw, from 1 to 0.&#xD;
 </Comment>
       <Flags>None</Flags>

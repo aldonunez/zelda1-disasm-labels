@@ -736,7 +736,7 @@ P:4BB8:L4BB8
 P:4BBD-4BC6:UpdateUnderworldPersonLifeOrMoney_Full_JumpTable
 P:4BC7-4BC8:LifeOrMoneyItemXs
 P:4BC9-4BCA:LifeOrMoneyItemTypes
-P:4BCB:_DrawLifeOrMoneyItems: Loop over each item to draw, from 1 to 0.\n
+P:4BCB:DrawLifeOrMoneyItems: Loop over each item to draw, from 1 to 0.\n
 P:4BCD:L4BCD_LoopWare: Save loop index.
 P:4BCF:: Look up and set the X coordinate of the item.\n
 P:4BD4:: Set Y=$98, and look up the item type.\n
@@ -830,7 +830,7 @@ P:60E8:: Return if we can't find an empty monster slot.\n
 P:60ED:: An empty slot was found. Flag that summoned the whirlwind.\n Switch to the empty slot, and go set up a whirlwind object.\n
 P:60F5:AdvanceTeleportingLevelIndex: If Link is facing an increasing direction (right or down), then\n increase the index. Otherwise, decrease it.\n
 P:6104:L6104_Exit
-P:6105:_DrawWhirlwind: Frames last 1 screen frame.\n
+P:6105:DrawWhirlwind: Frames last 1 screen frame.\n
 P:610A:: The whirlwind flashes by using a palette row based on the\n screen frame counter.\n
 P:6111:: Flip horizontally based on movement frame, which is\n switched based on animation counter.\n
 P:6114:: Whirlwind has only 1 animation frame image.
@@ -2213,7 +2213,7 @@ P:10463:: If not type $2B (flashing), then go block or unblock the sword\n depen
 P:1046A:: Else the flashing bubble blocks the sword temporarily.\n Set a long timer to $10 ($A0 frames) for this purpose.\n
 P:1046E:L1046E_Exit
 P:1046F:L1046F_BlockOrUnblock: Subtract $2C from the type to get the value for blocking: 0 or 1\n
-P:10476:_AnimateAndDrawCommonObject: Params:\n A: new value for animation counter\n X: object index\n
+P:10476:AnimateAndDrawCommonObject: Params:\n A: new value for animation counter\n X: object index\n
 P:10481:UpdateKeese: If the magic clock is missing and Link is not lifting an item,\n then fly.\n
 P:1048F:L1048F
 P:10492:: Like peahats, keeses animate as fast as they move.\n But keese beat their wings at half the rate.\n\n DASM.EXPR: Flyer_ObjDistTraveled\n
@@ -3685,7 +3685,7 @@ P:12494:L12494: Switch animation frames every screen frame.
 P:124A2:: Reset object state, shove info, and invincibility timer,\n because this monster can't get hurt nor die.\n
 P:124AC:ControlGleeokHeadFlight: DASM.EXPR: Flyer_ObjFlyingState
 P:124B2-124B9:ControlGleeokHeadFlight_JumpTable
-P:124BA:_Flyer_GleeokHeadDecideState: Go to the next flying state randomly:\n Random < $D0: 2\n Else:         3\n\n Set up 6 turns.\n
+P:124BA:Flyer_GleeokHeadDecideState: Go to the next flying state randomly:\n Random < $D0: 2\n Else:         3\n\n Set up 6 turns.\n
 P:124C3:L124C3
 P:124C6-124C9:GleeokNeckXAddrsLo
 P:124CA-124CD:GleeokNeckXAddrsHi
@@ -4232,10 +4232,10 @@ P:1315E:L1315E_Exit
 P:1315F:DestroyMonster_Bank4: Params:\n X: object index\n
 P:13179:_ShootIfWanted: Params:\n A: shot object type\n X: shooter object index\n\n Returns:\n C: 1 if succeeded\n Y: shot slot\n\n Description:\n The shot starts in state $10.\n
 P:1317B:: If the monster does not want to shoot, then return C=0.\n\n DASM.EXPR: ObjWantsToShoot
-P:13180:_ShootLimited: Params:\n [00]: shot object type\n\n Returns:\n C: 1 if succeeded\n Y: shot slot\n\n Description:\n The shot starts in state $10.\n\n If no slot is found, return C=0.\n
+P:13180:ShootLimited: Params:\n [00]: shot object type\n\n Returns:\n C: 1 if succeeded\n Y: shot slot\n\n Description:\n The shot starts in state $10.\n\n If no slot is found, return C=0.\n
 P:13185:: If the object type to shoot is a true shot (projectile),\n and we're at the limit of active shots (4), then return C=0.\n
 P:13192:: Else increase the number of active shots.\n
-P:13195:_Shoot: Params:\n [00]: shot object type\n [59]: EmptyMonsterSlot\n\n Returns:\n C: 1 if succeeded\n Y: shot slot\n\n Description:\n The shot starts in state $10.\n
+P:13195:Shoot: Params:\n [00]: shot object type\n [59]: EmptyMonsterSlot\n\n Returns:\n C: 1 if succeeded\n Y: shot slot\n\n Description:\n The shot starts in state $10.\n
 P:1319C:: Set state to $10 and reset timer, so that the shot moves right away.\n
 P:131AB:: Set the shot's direction and coordinates the same as the thrower's.\n
 P:131BA:: Return C=1.\n
@@ -4263,7 +4263,7 @@ P:13210:: DASM.EXPR: Flyer_ObjTurns
 P:13213:: DASM.EXPR: Flyer_ObjDistTraveled
 P:13216:: DASM.EXPR: Flyer_ObjFlyingState
 P:1321D:UpdateFairyObject: Params:\n X: object index\n
-P:13223:_DrawFairy
+P:13223:DrawFairy
 P:13229:: Every 4 frames, switch between the two sprite frames.\n
 P:13235:ControlFairyFlight: DASM.EXPR: Flyer_ObjFlyingState
 P:1323B-13242:ControlFairyFlight_JumpTable
@@ -4303,7 +4303,7 @@ P:132BF:: Up is not a component? Go finish up.
 P:132C3:: DASM.EXPR: Flyer_ObjOffsetY
 P:132C6:L132C6_End: Increase the distance traveled; and keep the object within\n the bounds of the room.\n\n DASM.EXPR: Flyer_ObjDistTraveled\n
 P:132CC:L132CC_Exit
-P:132CD:_BoundFlyer: Returns:\n A: original facing or the opposite\n [0F]: 0 if blocked\n
+P:132CD:BoundFlyer: Returns:\n A: original facing or the opposite\n [0F]: 0 if blocked\n
 P:132D4:: Check vertical boundaries, if object is not a boulder.\n
 P:132DE:L132DE: If movement wasn't restricted, then return.\n
 P:132E2:ReverseObjDir8: Get the opposite direction of the one the object is facing.\n
@@ -4892,7 +4892,7 @@ P:14BDD:: Else activate the room item, and play the "item appears" tune.\n
 P:14BE6:CheckSecretTriggerNone
 P:14BE7:CheckSecretTrigger: Returns:\n C: 1 if the condition for the secret was met\n
 P:14BEA-14BF9:CheckSecretTrigger_JumpTable
-P:14BFA:_CheckHasLivingMonsters: Look for monsters in slots $C to 1 that are not bubbles.\n If one is found, return.\n\n Else flag Link not paralyzed (to cancel the effects of a like-like),\n and set the all-dead-in-room flag.\n
+P:14BFA:CheckHasLivingMonsters: Look for monsters in slots $C to 1 that are not bubbles.\n If one is found, return.\n\n Else flag Link not paralyzed (to cancel the effects of a like-like),\n and set the all-dead-in-room flag.\n
 P:14BFD:L14BFD_Loop
 P:14C0E:L14C0E_Next
 P:14C19:L14C19_Exit
@@ -5437,8 +5437,8 @@ P:16664:: If (new command AND 3) = 0, go update door flags and masks,\n and rese
 P:1666F:L1666F: If the door command = 4 after incrementing it, then\n it was 3 (close door). So:\n 1. reset this door's flag\n 2. remove it from the opened door mask\n 3. reset the door command\n 4. go lay out doors in the play area map\n
 P:16675:: [09] door direction index
 P:1667A:: Remove the triggered door from opened door mask.
-P:16680:_L_SetOpenedDoorMaskAndResetCmdAndLayOutDoors
-P:16682:_L_ResetDoorCmdAndLayOutDoors: Reset door command
+P:16680:L_SetOpenedDoorMaskAndResetCmdAndLayOutDoors
+P:16682:L_ResetDoorCmdAndLayOutDoors: Reset door command
 P:16689:L16689: Door command <> 4.\n It must be 8, which means it was 7: open door.\n\n If the door is a shutter (7), then go add the door to the\n opened door mask, reset door command, and lay out doors.\n
 P:16694:: Else the door is not a shutter.\n\n\n [09] door direction index
 P:16699:: Get the next room's ID.\n
