@@ -18774,7 +18774,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>996</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>_ObjMovementFrame</Label>
+      <Label>ObjAnimFrame</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>20</Length>

@@ -104,7 +104,7 @@ R:0394-03A7:ObjGridOffset: Used in movement like walking.\n When grid offset = 0
 R:03A8-03BB:_ObjPosFrac
 R:03BC-03CF:_ObjQSpeedFrac
 R:03D0-03E3:ObjAnimCounter
-R:03E4-03F7:_ObjMovementFrame
+R:03E4-03F7:ObjAnimFrame
 R:03F8-0404:ObjInputDir: At the beginning of a frame, this will be set to 0 to 2 directions.\n
 R:0405-0411:ObjMetastate
 R:0413:_TriforceGlowCycle: TODO:\n 0: TriforceGlowCycle\n B: CaveFlags\n\n TODO: describe the cave flags\n
