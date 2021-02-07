@@ -118,7 +118,6 @@ R:041B:ScrolledLineCount
 R:041C:DemoLineTileVramAddrLo
 R:041D:DemoLineTileVramAddrHi
 R:041F:_Multi_041F: TODO:\n Mode 0: InitializedWaterfallAnimation\n Mode 5: ObjFlyingSpeedFrac\n Mode 5: Wanderer: turn rate\n Mode 5: vertical speed low byte for jumpers\n Mode E: CharBoardIndex\n
-R:0420-0422:_TitleWaveYs
 R:0423:: The VRAM address now points outside name field.\n So, wrap around to the beginning of name field.
 R:0426:StillHoldingButton
 R:0427:HeldButton

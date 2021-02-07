@@ -4514,14 +4514,6 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>1056</Address>
-      <AddressType>InternalRam</AddressType>
-      <Label>_TitleWaveYs</Label>
-      <Comment />
-      <Flags>None</Flags>
-      <Length>3</Length>
-    </CodeLabel>
-    <CodeLabel>
       <Address>124013</Address>
       <AddressType>PrgRom</AddressType>
       <Label>TurnOffVideoAndClearArtifacts</Label>
