@@ -4998,7 +4998,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>1050</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>DemoPhase0Subphase0Timer</Label>
+      <Label>DemoTimer</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -5065,7 +5065,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>1080</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>_DemoPhase0Subphase1Timer</Label>
+      <Label>DemoPhase0Subphase1Timer</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -24736,7 +24736,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>78124</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: (use ItemTakerObjSlots-1)</Comment>
+      <Comment> DASM.EXPR: ItemTakerObjSlots-1</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -30303,7 +30303,7 @@ For example:&#xD;
       <AddressType>SaveRam</AddressType>
       <Label />
       <Comment> Reset the new fire object's movement info.&#xD;
- Set quarter speed (q-speed) to $20 (half a pixel a second).&#xD;
+ Set quarter speed (q-speed) to $20 (half a pixel a frame).&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -44291,7 +44291,7 @@ For example:&#xD;
       <Label>L105BA_State0</Label>
       <Comment> State 0.&#xD;
 &#xD;
- Immediately go to state 1 with QSpeed $20 (half a pixel a second),&#xD;
+ Immediately go to state 1 with QSpeed $20 (half a pixel a frame),&#xD;
  and 5 frame timer.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -47219,7 +47219,7 @@ For example:&#xD;
 &#xD;
  Let's say the 16-bit speed is $0140. If we only took the high&#xD;
  byte to add to the coordinates, then the effective speed would&#xD;
- be 1 pixel a second instead of 1.25.&#xD;
+ be 1 pixel a frame instead of 1.25.&#xD;
 &#xD;
  By keeping a speed accumulator, we can turn speed $0140&#xD;
  into 1.25 pixels a frame over four frames, using this calculation:&#xD;
@@ -55519,7 +55519,7 @@ For example:&#xD;
       <Comment> If the direction we determined is not allowed for this trap, then&#xD;
  go draw and check collisions.&#xD;
 &#xD;
- MULTI: A344-1</Comment>
+ DASM.EXPR: TrapAllowedDirs-1</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -55962,7 +55962,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>25294</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_RupeeStashXs</Label>
+      <Label>RupeeStashXs</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>10</Length>
@@ -55970,7 +55970,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>25304</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_RupeeStashYs</Label>
+      <Label>RupeeStashYs</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>10</Length>
@@ -55981,8 +55981,7 @@ For example:&#xD;
       <Label />
       <Comment> Look up and set the coordinates for one rupee stash/rupee.&#xD;
 &#xD;
- MULTI: A2CE-1&#xD;
-</Comment>
+ DASM.EXPR: RupeeStashXs-1</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -55990,8 +55989,7 @@ For example:&#xD;
       <Address>25333</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> MULTI: A2D8-1&#xD;
-</Comment>
+      <Comment> DASM.EXPR: RupeeStashYs-1</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -73199,6 +73197,14 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> The volume begins and ends at $10.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>39868</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: DemoPhase0Subphase1Delays-1</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
