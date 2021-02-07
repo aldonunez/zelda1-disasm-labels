@@ -4500,20 +4500,6 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>1068</Address>
-      <AddressType>InternalRam</AddressType>
-      <Label>_Multi_042C</Label>
-      <Comment> TODO:&#xD;
- Mode 0: DemoPhase&#xD;
- Mode 5: ObjFlyingTurns&#xD;
- Mode 5: Thrower&#xD;
- Mode 5: Goriya's boomerang&#xD;
- Mode 5: Dodongo: bloated substate&#xD;
-</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
       <Address>124013</Address>
       <AddressType>PrgRom</AddressType>
       <Label>TurnOffVideoAndClearArtifacts</Label>
@@ -4862,20 +4848,6 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>1055</Address>
-      <AddressType>InternalRam</AddressType>
-      <Label>_Multi_041F</Label>
-      <Comment> TODO:&#xD;
- Mode 0: InitializedWaterfallAnimation&#xD;
- Mode 5: ObjFlyingSpeedFrac&#xD;
- Mode 5: Wanderer: turn rate&#xD;
- Mode 5: vertical speed low byte for jumpers&#xD;
- Mode E: CharBoardIndex&#xD;
-</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
       <Address>39107</Address>
       <AddressType>PrgRom</AddressType>
       <Label>UpdateWaterfallAnimation</Label>
@@ -4900,21 +4872,6 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  B: CaveFlags&#xD;
 &#xD;
  TODO: describe the cave flags&#xD;
-</Comment>
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
-      <Address>1042</Address>
-      <AddressType>InternalRam</AddressType>
-      <Label>_Multi_0412</Label>
-      <Comment> TODO:&#xD;
- Mode 0: TriforceGlowTimer&#xD;
- Mode 5: ObjFlyingPosFrac&#xD;
- Mode 5: Push timer for blocks, rocks, and gravestones (slot $B)&#xD;
- Mode 5: "wants to shoot" for walkers&#xD;
- Mode 5: vertical speed high byte for jumpers&#xD;
- Mode 10: TargetY&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -5059,17 +5016,6 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <AddressType>InternalRam</AddressType>
       <Label>DemoPhase0Subphase1Timer</Label>
       <Comment />
-      <Flags>None</Flags>
-      <Length>1</Length>
-    </CodeLabel>
-    <CodeLabel>
-      <Address>1079</Address>
-      <AddressType>InternalRam</AddressType>
-      <Label>_Multi_0437</Label>
-      <Comment> TODO:&#xD;
- Mode 0: DemoPhase0Subphase1Cycle&#xD;
- Mode 5: ObjFlyingDistTraveled&#xD;
-</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -5867,14 +5813,10 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>1092</Address>
-      <AddressType>InternalRam</AddressType>
-      <Label>_Multi_0444</Label>
-      <Comment> TODO:&#xD;
- Mode 0: (Demo) ItemTypes&#xD;
- Mode 5: ObjFlyingState&#xD;
- Mode 5: jump target Y&#xD;
-</Comment>
+      <Address>69255</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: TileObjRoomId</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -39375,8 +39317,7 @@ For example:&#xD;
       <Address>69253</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: ?&#xD;
- Store current room ID.&#xD;
+      <Comment> Store current room ID.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -39488,7 +39429,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Get the position of the stairs in this room, and set it for the object.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: TileObjRoomId</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -45549,7 +45491,8 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> Set the bloated timer according to the substate.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Dodongo_ObjBloatedSubstate</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -50694,7 +50637,7 @@ For example:&#xD;
       <Address>74924</Address>
       <AddressType>PrgRom</AddressType>
       <Label>ControlGleeokHeadFlight</Label>
-      <Comment />
+      <Comment> DASM.EXPR: Flyer_ObjFlyingState</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -50727,7 +50670,8 @@ For example:&#xD;
  and Random &lt; $20,&#xD;
  and there's no object (fireball) in slot $B,&#xD;
  then shoot a fireball $56.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: Flyer_ObjDistTraveled</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -73197,6 +73141,14 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> DASM.EXPR: DemoPhase0Subphase1Delays-1</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>69295</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: TileObjRoomId</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>

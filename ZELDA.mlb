@@ -107,7 +107,6 @@ R:03D0-03E3:ObjAnimCounter
 R:03E4-03F7:_ObjMovementFrame
 R:03F8-0404:ObjInputDir: At the beginning of a frame, this will be set to 0 to 2 directions.\n
 R:0405-0411:ObjMetastate
-R:0412:_Multi_0412: TODO:\n Mode 0: TriforceGlowTimer\n Mode 5: ObjFlyingPosFrac\n Mode 5: Push timer for blocks, rocks, and gravestones (slot $B)\n Mode 5: "wants to shoot" for walkers\n Mode 5: vertical speed high byte for jumpers\n Mode 10: TargetY\n
 R:0413:_TriforceGlowCycle: TODO:\n 0: TriforceGlowCycle\n B: CaveFlags\n\n TODO: describe the cave flags\n
 R:0415:_ScrolledScreenCount
 R:0417:DemoLineAttrVramAddrLo
@@ -117,20 +116,16 @@ R:041A:DemoTimer
 R:041B:ScrolledLineCount
 R:041C:DemoLineTileVramAddrLo
 R:041D:DemoLineTileVramAddrHi
-R:041F:_Multi_041F: TODO:\n Mode 0: InitializedWaterfallAnimation\n Mode 5: ObjFlyingSpeedFrac\n Mode 5: Wanderer: turn rate\n Mode 5: vertical speed low byte for jumpers\n Mode E: CharBoardIndex\n
 R:0423:: The VRAM address now points outside name field.\n So, wrap around to the beginning of name field.
 R:0426:StillHoldingButton
 R:0427:HeldButton
 R:0428:SubsequentButtonRepeat
 R:0429:ButtonRepeatTimer
 R:042A:ModeE_WrappedAroundBoardY
-R:042C:_Multi_042C: TODO:\n Mode 0: DemoPhase\n Mode 5: ObjFlyingTurns\n Mode 5: Thrower\n Mode 5: Goriya's boomerang\n Mode 5: Dodongo: bloated substate\n
 R:042D:DemoSubphase
 R:042E:_DemoLineTextIndex
 R:042F:_DemoItemRow
-R:0437:_Multi_0437: TODO:\n Mode 0: DemoPhase0Subphase1Cycle\n Mode 5: ObjFlyingDistTraveled\n
 R:0438:DemoPhase0Subphase1Timer
-R:0444:_Multi_0444: TODO:\n Mode 0: (Demo) ItemTypes\n Mode 5: ObjFlyingState\n Mode 5: jump target Y\n
 R:0451-045D:_ObjShootTimer: ObjShootTimer\n While this variable <> 0, a walking monster will not walk.\n When it reaches $10, it will shoot.\n
 R:0485-0491:ObjHP
 R:0492-049D:ObjUninitialized
@@ -2685,7 +2680,8 @@ P:10E71:L10E71_CheckDistance: If the distance >= $11, return.\n
 P:10E75:: If the input direction has no vertical component, then return.\n
 P:10E7C:: If this vertical input direction does not match the one needed\n to push the rock or gravestone, then return.\n
 P:10E81:: Set it to the object's direction. Go to the next state.\n
-P:10E85:: TODO: ?\n Store current room ID.\n
+P:10E85:: Store current room ID.\n
+P:10E87:: DASM.EXPR: TileObjRoomId
 P:10E8A:: Change from a gravestone tile to the gray floor tile.\n The gravestone object will be drawn above it.\n
 P:10E8C:: Gray floor tile
 P:10E91:L10E91_Exit
@@ -2693,12 +2689,13 @@ P:10E92:L10E92_State1: State 1.\n\n Move in the object's direction.\n
 P:10E99:: Draw the sprites one pixel above the object's location.\n
 P:10EA1:: If the object's grid offset (distance moved) <> $10 nor -$10,\n then return.\n
 P:10EAC:L10EAC: Flag the room visited.\n
+P:10EAF:: DASM.EXPR: TileObjRoomId
 P:10EBA:: If object is a rock ($62), go use a rock tile ($C8).\n
 P:10EC3:: If the object is a gravestone ($65), go use a gravestone tile ($BC).\n
 P:10EC9:: Else use an armos tile ($C0). Dead code?\n
 P:10ECB:L10ECB_ReplaceTiles: Change the tiles at the end location.\n
 P:10ED0:: Store the stairs tile in [00] for use in revealing the secret.\n
-P:10ED4:: Get the position of the stairs in this room, and set it for the object.\n
+P:10ED4:: Get the position of the stairs in this room, and set it for the object.\n\n DASM.EXPR: TileObjRoomId
 P:10EE0:RevealSecretTileObj: Params:\n A: the first tile of tile object\n X: object index\n
 P:10EEB:UpdateRockWall: If the secret in this room does not apply to the current quest,\n then return.\n
 P:10EF0:: If there is no detonating bomb (state $13) in slots $10 and $11,\n then return.\n
@@ -3155,7 +3152,7 @@ P:118FF:L118FF
 P:11900:UpdateDodongoState1_Bloated: DASM.EXPR: Dodongo_ObjBloatedSubstate
 P:11906-1190F:UpdateDodongoState1_Bloated_JumpTable
 P:11910:UpdateDodongoState1_Bloated_Sub_Wait: Bloated timer =>\n 0:     fall thru to set a new timer and check bomb hits\n 1:     go advance the substate\n other: go decrement Bloated timer\n\n DASM.EXPR: Dodongo_ObjBloatedTimer\n
-P:11918:: Set the bloated timer according to the substate.\n
+P:11918:: Set the bloated timer according to the substate.\n\n DASM.EXPR: Dodongo_ObjBloatedSubstate
 P:1191E:: DASM.EXPR: Dodongo_ObjBloatedTimer
 P:11921:: If substate <> 0, go decrement bloated timer.\n
 P:11925:: Deactivate the bomb in the first bomb slot ($10).\n
@@ -3683,10 +3680,10 @@ P:12466:: TODO:\n
 P:1246B:: Deal damage and cry out.\n
 P:12471:L12471_PlayParryTune
 P:12477:UpdateGleeokHead
-P:1247D:: If the low bit of the distance traveled is clear,\n and Random < $20,\n and there's no object (fireball) in slot $B,\n then shoot a fireball $56.\n
+P:1247D:: If the low bit of the distance traveled is clear,\n and Random < $20,\n and there's no object (fireball) in slot $B,\n then shoot a fireball $56.\n\n DASM.EXPR: Flyer_ObjDistTraveled
 P:12494:L12494: Switch animation frames every screen frame.
 P:124A2:: Reset object state, shove info, and invincibility timer,\n because this monster can't get hurt nor die.\n
-P:124AC:ControlGleeokHeadFlight
+P:124AC:ControlGleeokHeadFlight: DASM.EXPR: Flyer_ObjFlyingState
 P:124B2-124B9:ControlGleeokHeadFlight_JumpTable
 P:124BA:_Flyer_GleeokHeadDecideState: Go to the next flying state randomly:\n Random < $D0: 2\n Else:         3\n\n Set up 6 turns.\n
 P:124C3:L124C3
