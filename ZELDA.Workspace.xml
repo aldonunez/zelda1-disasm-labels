@@ -1947,7 +1947,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label>ObjStunTimer</Label>
       <Comment />
       <Flags>None</Flags>
-      <Length>14</Length>
+      <Length>13</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>1540</Address>
@@ -3905,7 +3905,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>124537</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>TryUpdateTriforcePositionMarker</Label>
+      <Label>UpdateTriforcePositionMarker</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -6549,8 +6549,9 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Comment> If the lifetime timer of the item &gt;= $F0 and even, then&#xD;
  return without drawing. This makes it flash at first.&#xD;
 &#xD;
+ [03A8][X] is used to count down the life of the item.&#xD;
 &#xD;
- MULTI: ObjPosFrac [03A8][X] is used to count down the life of the item.</Comment>
+ DASM.EXPR: Item_ObjItemLifetime</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -11158,10 +11159,10 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>84532</Address>
+      <Address>128643</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: draw Link?</Comment>
+      <Comment> DASM.EXPR: ObjRefId</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -12340,7 +12341,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>85196</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Cue transfer of bottom half of background palette for this mode.</Comment>
+      <Comment> Cue transfer of bottom half of background palette for this mode.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -13392,7 +13393,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>95572</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: ?</Comment>
+      <Comment> Silence the song.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -14277,7 +14278,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>1318</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>CaveEnteredRoomId</Label>
+      <Label>CaveSourceRoomId</Label>
       <Comment> The room ID where the player entered a cave.&#xD;
  When leaving a cave, the room ID will be set to this,&#xD;
  unless it's set to $FF. In this case StartRoomId will be used.</Comment>
@@ -18425,10 +18426,10 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>82977</Address>
+      <Address>130244</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Draw Link?</Comment>
+      <Comment> DASM.EXPR: RoomKillCount</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -19661,7 +19662,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>84892</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Here it's the target Y.</Comment>
+      <Comment> DASM.EXPR: StairsTargetY</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -19702,7 +19703,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>83520</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: TargetY</Comment>
+      <Comment> DASM.EXPR: StairsTargetY</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -20914,7 +20915,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>86258</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> RoomKillCount</Comment>
+      <Comment> DASM.EXPR: RoomKillCount</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -20922,7 +20923,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>86755</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> RoomKillCount</Comment>
+      <Comment> DASM.EXPR: RoomKillCount</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -20986,7 +20987,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>94353</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: get door attribute in direction we're facing</Comment>
+      <Comment> Get door type in direction we're facing</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -21538,8 +21539,9 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label />
       <Comment> Enter method 1-a.&#xD;
 &#xD;
+ Store the Y coordinate that we determined as the Target Y.&#xD;
 &#xD;
- MULTI: Store the Y coordinate that we determined as the Target Y [0412].</Comment>
+ DASM.EXPR: StairsTargetY</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -23023,7 +23025,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>125973</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> MULTI: TargetY</Comment>
+      <Comment> DASM.EXPR: StairsTargetY</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -23076,10 +23078,10 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>125960</Address>
-      <AddressType>PrgRom</AddressType>
-      <Label />
-      <Comment> TODO: ?</Comment>
+      <Address>74</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>ChaseLongTimer</Label>
+      <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -23788,7 +23790,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>124637</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>PlaceRoomItemOnMonster</Label>
+      <Label>AnimateRoomItemOnMonster</Label>
       <Comment> Put room item object where the first monster is.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -26219,9 +26221,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> If the sword is not blocked, then handle the sword if A is pressed.&#xD;
-&#xD;
-&#xD;
- SwordBlockedTimer</Comment>
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -26483,7 +26483,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Comment> Reverse the grid offset. Yield an offset for the same position&#xD;
  in the line, but in the opposite direction. For example,&#xD;
  -1 =&gt; 7&#xD;
- 3 =&gt; -5&#xD;
+  3 =&gt; -5&#xD;
 &#xD;
  Positive offset: -8 - -offset&#xD;
  Negative offset:  8 - -offset&#xD;
@@ -28909,7 +28909,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>1319</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>CellarEnteredRoomId</Label>
+      <Label>CellarSourceRoomId</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -31714,9 +31714,7 @@ For example:&#xD;
       <Label />
       <Comment> If it's not time to change the chase target, then&#xD;
  skip this and go update objects.&#xD;
-&#xD;
-&#xD;
- TODO: name</Comment>
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -32169,9 +32167,7 @@ For example:&#xD;
       <Address>128696</Address>
       <AddressType>PrgRom</AddressType>
       <Label>AnimateBoomerangAndCheckCollision</Label>
-      <Comment> TODO: is the sound effect part right?&#xD;
-&#xD;
- Decrement animation counter; and when it reaches 0:&#xD;
+      <Comment> Decrement animation counter; and when it reaches 0:&#xD;
  1. arm it again for 2 frames&#xD;
  2. advance the minor state within a cycle of 8&#xD;
  3. see if it's time to play the sound effect, if the boomerang belongs to Link&#xD;
@@ -32616,7 +32612,8 @@ For example:&#xD;
       <Address>128586</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Monster thrower object index</Comment>
+      <Comment> Monster thrower object index&#xD;
+ DASM.EXPR: ObjRefId</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -35026,7 +35023,7 @@ For example:&#xD;
       <Address>95923</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> If don't find either, skip drawing a boomerang.</Comment>
+      <Comment> If you don't find either, skip drawing a boomerang.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -38418,9 +38415,7 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> If the object is not a zora, then increase room kill count.&#xD;
-&#xD;
-&#xD;
- MULTI: RoomKillCount</Comment>
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -56633,7 +56628,9 @@ For example:&#xD;
       <Address>127537</Address>
       <AddressType>PrgRom</AddressType>
       <Label>Link_EndMoveAndDraw</Label>
-      <Comment />
+      <Comment> Description:&#xD;
+ Draw Link without animating by keeping the animation counter fixed.&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -64864,9 +64861,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>84904</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>F14BA8</Label>
+      <Label>AnimateAndDrawLinkBehindBackground</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -72096,7 +72093,7 @@ For example:&#xD;
       <Address>130207</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: DASM.EXPR: Item_ObjMonsterType</Comment>
+      <Comment> DASM.EXPR: Item_ObjMonsterType</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -73186,6 +73183,22 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> DASM.EXPR: PeaceCharIndex</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>6491</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The sound of one step lasts $C frames.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>6663</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> The volume begins and ends at $10.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>

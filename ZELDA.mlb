@@ -10,7 +10,8 @@ R:0026:StunCycle
 R:0027:DoorTimer
 R:0028-003B:ObjTimer
 R:003C:FluteTimer
-R:003D-004A:ObjStunTimer
+R:003D-0049:ObjStunTimer
+R:004A:ChaseLongTimer
 R:004B:MonstersFromEdgesLongTimer
 R:004C:SwordBlockedLongTimer
 R:004D:_RedLeeverLongTimer
@@ -180,8 +181,8 @@ R:0522:WhirlwindTeleportingState: 0: not teleporting\n 1: in source room\n 2: in
 R:0523:TeleportingLevelIndex: This index can take on any value. But there are 8 levels.\n At the point of use, this is AND'ed with 7.\n
 R:0524:SpawnCycle
 R:0525:CurEdgeSpawnCell: The previous cell that was checked to try to spawn\n a monster from the edge of the screen.\n\n High nibble specifies the square row, and the low nibble\n the square column.\n
-R:0526:CaveEnteredRoomId: The room ID where the player entered a cave.\n When leaving a cave, the room ID will be set to this,\n unless it's set to $FF. In this case StartRoomId will be used.
-R:0527:CellarEnteredRoomId
+R:0526:CaveSourceRoomId: The room ID where the player entered a cave.\n When leaving a cave, the room ID will be set to this,\n unless it's set to $FF. In this case StartRoomId will be used.
+R:0527:CellarSourceRoomId
 R:0528:SkippedDemo
 R:052A:WorldKillCycle: TODO: 0 to 9\n
 R:052B:RoomTileObjType
@@ -316,6 +317,7 @@ P:194B:L194B_ContinueArrowSfx
 P:194D:: DASM.EXPR: ArrowSfxNotes-1
 P:1952:L1952_PlayStairsSfx
 P:1959:L1959
+P:195B:: The sound of one step lasts $C frames.
 P:195D:L195D_ContinueStairsSfx
 P:196B:L196B: DASM.EXPR: StairsSfxNotes-1
 P:196E:L196E_PlaySfxNote
@@ -334,6 +336,7 @@ P:19E7:L19E7_PlayFlameSfx
 P:19EE:L19EE_ContinueFlameSfx
 P:19F7:: DASM.EXPR: FlameSfxNotes-1
 P:19FD:L19FD_PlaySeaSfx
+P:1A07:: The volume begins and ends at $10.
 P:1A09:L1A09_ContinueSeaSfx
 P:1A10:: SFX counter >= $BF. Increase volume fast.\n
 P:1A14:L1A14: SFX counter < $BF. Decrease volume slowly down to $10 --\n when (counter MOD 8) = 7.\n
@@ -4575,7 +4578,6 @@ P:14407:: If we haven't finished the last inner NT attribute row, then go fill m
 P:1440A:L1440A_CombineInnerOuter: Combine the NT attributes at current offset with the\n new ones we're filling; so that new (inner) attributes\n affect the top half of the row.
 P:1441B:: Go advance the offset and check if we're done.
 P:1441E:UpdateMode7SubmodeAndDrawLink
-P:14421:: TODO: Draw Link?
 P:14424:UpdateMode7ScrollSubmode
 P:14429-14438:UpdateMode7ScrollSubmode_JumpTable
 P:14439:UpdateMode7Scroll_Sub0
@@ -4665,7 +4667,7 @@ P:1462F:: If player touched any stairs tile instead of a cave or dungeon entranc
 P:14631:: TODO: ?
 P:14636:: TODO: ?
 P:1463B:: Set the target Y coordinate $10 pixels below current one.\n
-P:14640:: TODO: TargetY
+P:14640:: DASM.EXPR: StairsTargetY
 P:14643:L14643
 P:14646-14649:SpawnPosListAddrsLo
 P:1464A-1464D:SpawnPosListAddrsHi
@@ -4713,7 +4715,7 @@ P:147FA:: Multiply by $10 to get a height in pixels.
 P:147FE:: Add the first Y where Link can come out of underground.\n $4D is $50 (the second square row) - 3 (Link's offset above the row).
 P:14802:: If the player didn't step on a cave entrance to go underground,\n then he used the stairs. So, skip starting the exit effect (method 1-b).\n
 P:14804:: $24 is black entrance, and contrasts with $70 to $73 (stairs).
-P:14808:: Enter method 1-a.\n\n\n MULTI: Store the Y coordinate that we determined as the Target Y [0412].
+P:14808:: Enter method 1-a.\n\n Store the Y coordinate that we determined as the Target Y.\n\n DASM.EXPR: StairsTargetY
 P:1480E:: But have Link start walking out from $10 pixels below.
 P:14810:: Play walking sound effect.
 P:14815:L14815: This part is the same no matter if the player went\n underground by stairs or a cave entrance.\n
@@ -4813,7 +4815,6 @@ P:14A29:: If distance < $22, go return unwalkable.
 P:14A2B:L14A2B: Walkable
 P:14A2D:L14A2D_ReturnUnsafeToSpawn: Unwalkable
 P:14A2F:InitMode11: Decrease Link's invincibility timer. This is needed in submode 1.
-P:14A34:: TODO: draw Link?
 P:14A39:: Go handle submode 1.
 P:14A3B:: Submode 0.\n
 P:14A56:: Set the invincibility timer, so that Link will flash for a fixed amount of time.
@@ -4878,10 +4879,10 @@ P:14B90:: If player touched a stairs tile instead of a cave or dungeon entrance,
 P:14B92:: Update the position once every 4 frames.\n
 P:14B96:: If it's not time to change position, go draw.
 P:14B98:: Move Link down 1 pixel.
-P:14B9C:: TODO: Here it's the target Y.
+P:14B9C:: DASM.EXPR: StairsTargetY
 P:14B9F:: If Link hasn't reached the end of the walk, go draw.
 P:14BA1:L14BA1: Else go to the target mode.
-P:14BA8:F14BA8
+P:14BA8:AnimateAndDrawLinkBehindBackground
 P:14BAB:PutLinkBehindBackground: Change priority of Link sprites $12 and $13 to show them behind the background.
 P:14BBC:CheckUnderworldSecrets
 P:14BBF:: If there's no secret in this room, return.\n
@@ -4934,7 +4935,7 @@ P:14CC0:L14CC0_SelectTransferBufAndAdvanceSubmode
 P:14CC3:UpdateMode11Death_Sub4: Cue transfer of bottom half of play area attributes.
 P:14CC5:: Go set this TileBufSelector value, and advance submode.
 P:14CC8:UpdateMode11Death_Sub5
-P:14CCC:: TODO: Cue transfer of bottom half of background palette for this mode.
+P:14CCC:: Cue transfer of bottom half of background palette for this mode.
 P:14CCE:: Go set this TileBufSelector value, and advance submode.
 P:14CD1:UpdateMode11Death_Sub6
 P:14CD3:: Make sure we're using an even nametable number.
@@ -5137,7 +5138,7 @@ P:150E2:L150E2
 P:150E5:SaveKillCountOW
 P:150E8:: Put kill count from the room's flags in [02].
 P:150EC:: Reset kill count part of the room's flags.
-P:150F2:: RoomKillCount
+P:150F2:: DASM.EXPR: RoomKillCount
 P:150F8:: If RoomKillCount >= RoomFoeCount, go store the max kill count.
 P:150FA:: Limit RoomKillCount to 7.
 P:150FC:: Add it to kill count from flags.
@@ -5223,7 +5224,7 @@ P:152D4:L152D4
 P:152D7:SaveKillCountUW
 P:152DA:: Reset kill count part of the room's flags.
 P:152E1:: If no monsters were made in this room, go store the max kill count.
-P:152E3:: RoomKillCount
+P:152E3:: DASM.EXPR: RoomKillCount
 P:152E6:: If RoomKillCount = 0, go compare it to RoomFoeCount.
 P:152E8:: If the object template type is ...\n >= $32 and\n <> $3A and\n <> $3B and\n <  $49,\n then it refers to a non-recurring foe that shouldn't be made\n again. So, go store the max kill count for the room.\n 
 P:152FB:L152FB: Compare RoomKillCount and RoomFoeCount.\n
@@ -5740,7 +5741,7 @@ P:1707A:InitMode6
 P:17082:: If in UW,
 P:17084:: then clear the sprites that go above all the rest.
 P:17087:L17087
-P:17091:: TODO: get door attribute in direction we're facing
+P:17091:: Get door type in direction we're facing
 P:17094:: If the door attribute is "false wall",\n then play the "found secret" tune.
 P:1709B:: Play "found secret" tune.
 P:170A0:L170A0
@@ -5831,7 +5832,7 @@ P:17293:L17293: Decrease the counter for the next frame.\n
 P:17295:L17295_Exit
 P:17296-17299:AxisMasks:Indexed by reverse direction index.\n\nIs used in mapping a direction to a mask for its axis.\nFor example:\n- right masks off up and down\n- up masks off left and right\n
 P:1729A:Link_HandleInput: If state = 0, handle A and B buttons.\n
-P:172A1:: If the sword is not blocked, then handle the sword if A is pressed.\n\n\n SwordBlockedTimer
+P:172A1:: If the sword is not blocked, then handle the sword if A is pressed.\n
 P:172B1:L172B1: If B is pressed, handle the item.\n
 P:172BA:L172BA_CheckMovement: If player was shoved, return.\n
 P:172C0:: If in UW, then move correctly inside doorways.\n
@@ -5895,7 +5896,7 @@ P:173BF:: [01] holds the opposite of facing direction.
 P:173C6:: If Link had turned back and is facing a grid point that he\n had started walking from, then return.\n
 P:173D3:L173D3
 P:173D8:L173D8_ReverseDir: Reverse Link's direction.\n
-P:173DC:: Reverse the grid offset. Yield an offset for the same position\n in the line, but in the opposite direction. For example,\n -1 => 7\n 3 => -5\n\n Positive offset: -8 - -offset\n Negative offset:  8 - -offset\n
+P:173DC:: Reverse the grid offset. Yield an offset for the same position\n in the line, but in the opposite direction. For example,\n -1 => 7\n  3 => -5\n\n Positive offset: -8 - -offset\n Negative offset:  8 - -offset\n
 P:173E5:L173E5
 P:173F3:L173F3_Exit
 P:173F4:CheckWarps: If just came out of a cave, dungeon, or cellar; or if grid offset <> 0;\n then return.\n
@@ -5959,7 +5960,7 @@ P:17547:EndGameMode12
 P:1754A:: TODO: ?
 P:1754C:: Set OW (level 0).
 P:17552:: Set to type 2: dungeon level.
-P:17554:: TODO: ?
+P:17554:: Silence the song.
 P:17559:MaskCurPpuMaskGrayscale
 P:17560:CalcNextRoomByDir: Params:\n A: direction\n\n Returns:\n A: next room ID\n
 P:17562:: Set up the single-bit mask.
@@ -6035,7 +6036,7 @@ P:17696:L17696
 P:17697-176A6:SubmenuItemXs
 P:176A7:DrawSubmenuItems: Look for a magic boomerang, then a wooden boomerang.\n If you find one, then draw it.\n
 P:176A9:L176A9
-P:176B3:: If don't find either, skip drawing a boomerang.
+P:176B3:: If you don't find either, skip drawing a boomerang.
 P:176B5:L176B5_FoundBoomerang
 P:176B7:: [01] Y
 P:176BB:: [00] X
@@ -6329,7 +6330,7 @@ P:1E65E:: If we didn't get the same reading, then try again.
 P:1E666:: If we didn't get at least two of the same readings, then try again.
 P:1E668:: Combine the controller and expansion inputs.
 P:1E673:: Now ButtonsPressed means "down now instead of before".
-P:1E679:TryUpdateTriforcePositionMarker
+P:1E679:UpdateTriforcePositionMarker
 P:1E67B:: If in OW, then return.
 P:1E685:: If player hasn't gotten the compass, then return.
 P:1E68F:CalculateNextRoom
@@ -6346,7 +6347,7 @@ P:1E6C6:MarkRoomVisited
 P:1E6C9:: Visit state (UW)
 P:1E6CD:L1E6CD_Exit
 P:1E6CE:GetRoomFlags: Returns:\n A: flags for the room in level block world flags\n Y: room ID\n [$00:01]: address of level block world flags\n
-P:1E6DD:PlaceRoomItemOnMonster: Put room item object where the first monster is.\n
+P:1E6DD:AnimateRoomItemOnMonster: Put room item object where the first monster is.\n
 P:1E6E5:: Go draw the item at this position.
 P:1E6E8:L1E6E8_PopAndExit: Pop and return.\n
 P:1E6E9:L1E6E9
@@ -6360,7 +6361,7 @@ P:1E706:: Gibdo
 P:1E70A:: A monster is not carrying the item. So draw the item as usual.\n\n\n Room item is in object slot $13.
 P:1E70C:AnimateRoomItemObject: Pass item type to AnimateItemObject.
 P:1E70E:AnimateItemObject: Params:\n A: item type\n X: object index\n\n\n Save the item ID.
-P:1E70F:: If the lifetime timer of the item >= $F0 and even, then\n return without drawing. This makes it flash at first.\n\n\n MULTI: ObjPosFrac [03A8][X] is used to count down the life of the item.
+P:1E70F:: If the lifetime timer of the item >= $F0 and even, then\n return without drawing. This makes it flash at first.\n\n [03A8][X] is used to count down the life of the item.\n\n DASM.EXPR: Item_ObjItemLifetime
 P:1E717:: Pop and return, if timer >= $F0 and even.
 P:1E719:L1E719: Copy room item object position to sprite descriptor.\n
 P:1E71C:: Look up the item description for this item ID.\n Store the item value part of it in [04].\n\n\n Restore the item ID.
@@ -6570,9 +6571,8 @@ P:1EBF8:L1EBF8_Exit
 P:1EBF9:L1EBF9_StepOutside: We're stepping out of underground or cellar.\n\n\n If in UW, then go finish the mode.\n
 P:1EBFD:: If the player stepped on stairs instead of an opening, then\n go finish the mode.\n
 P:1EC03:: We're entering the OW room from a cave or dungeon.\n
-P:1EC08:: TODO: ?
 P:1EC0B:: Every 4 frames, move Link up 1 pixel.\n
-P:1EC15:: MULTI: TargetY
+P:1EC15:: DASM.EXPR: StairsTargetY
 P:1EC18:: If Link has reached the target position, go finish the mode.
 P:1EC1A:L1EC1A_Exit
 P:1EC1B:UpdateMode5Play: While the flute timer has not expired, return.\n
@@ -6600,7 +6600,7 @@ P:1EC8D:: If not updating anymore,
 P:1EC8F:: then we changed the mode, so don't update anything else.
 P:1EC92:L1EC92_CheckChaseTarget: If Link can be chased, then set his coordinates as the target.\n
 P:1EC9E:L1EC9E_UpdateWeapons: Update weapons and items.\n
-P:1ECBC:: If it's not time to change the chase target, then\n skip this and go update objects.\n\n\n TODO: name
+P:1ECBC:: If it's not time to change the chase target, then\n skip this and go update objects.\n
 P:1ECC0:: Set the chase long-timer to a random value between 0 and 7.\n
 P:1ECC6:: Switch the flag indicating whether Link is the target.\n If the value is 0 (Link *is* the target), then\n skip this and go update objects.\n
 P:1ECCE:: If Link's X has not changed since the last frame\n (when Link was the target), then XOR the chase target\n coordinates (which were Link's coordinates last frame).\n\n This ends up reflecting Link's coordinates across the room;\n so that monsters chase away from him.\n\n But if Link's X has changed since the last frame, then\n leave the chase target coordinates with his old coordinates.\n
@@ -6829,7 +6829,7 @@ P:1F21B:Link_EndMoveAndDraw_Bank1
 P:1F21E:L1F21E
 P:1F223:Link_EndMoveAndAnimate_Bank1
 P:1F229:Link_EndMoveAndDraw_Bank4
-P:1F231:Link_EndMoveAndDraw
+P:1F231:Link_EndMoveAndDraw: Description:\n Draw Link without animating by keeping the animation counter fixed.\n
 P:1F238:Link_EndMoveAndAnimateBetweenRooms
 P:1F23A:: If in UW, then return.
 P:1F23C:Link_EndMoveAndAnimate: Switches bank: 5\n\n If teleporting by whirlwind, then return.\n
@@ -7007,7 +7007,7 @@ P:1F635:L1F635_SetState40: Set state $40, and a time to move of $20 frames.\n\n 
 P:1F63E:L1F63E_AnimateBoomerang
 P:1F641:L1F641_CheckOtherStates: State $40 or $50. Return to thrower: $40 slow, $50 fast.\n\n The boomerang will now return. Reset the grid offset.\n
 P:1F646:: Get the horizontal and vertical directions and distances to the thrower.\n
-P:1F64A:: Monster thrower object index
+P:1F64A:: Monster thrower object index\n DASM.EXPR: ObjRefId
 P:1F64D:L1F64D
 P:1F650:: If the boomerang hasn't reached the thrower ([00] < 2),\n then go move towards the thrower, draw, and check collisions.\n
 P:1F656:: The boomerang has reached the thrower.\n\n Reset the distance to move.\n If this is a monster's boomerang, go handle the monster catching it.\n
@@ -7016,6 +7016,7 @@ P:1F665:: Make to set Link's animation counter to 1, so that he picks\n up the n
 P:1F66A:: Deactivate the boomerang.\n
 P:1F672:L1F672_CatchBoomerang: A monster caught the boomerang that it threw.\n\n Set a timer for the thrower based on a random value:\n < $30: $30\n < $70: $50\n Else:  $70\n
 P:1F682:L1F682_SetThrowerTimer
+P:1F683:: DASM.EXPR: ObjRefId
 P:1F689:: Reset the thrower's state to make it idle or restart its state machine.\n Destroy the monster's boomerang.\n
 P:1F691:L1F691_MoveTowardThrower: Move towards the thrower.\n\n Middle speed index 4 goes equally fast in X and Y axes.\n
 P:1F696:: Move vertically towards the thrower.\n
@@ -7024,7 +7025,7 @@ P:1F6A2:: Save speed index.
 P:1F6A7:: Move horizontally towards the thrower.\n
 P:1F6A8:: Restore speed index.
 P:1F6AF:: [0B] horizontal direction
-P:1F6B8:AnimateBoomerangAndCheckCollision: TODO: is the sound effect part right?\n\n Decrement animation counter; and when it reaches 0:\n 1. arm it again for 2 frames\n 2. advance the minor state within a cycle of 8\n 3. see if it's time to play the sound effect, if the boomerang belongs to Link\n
+P:1F6B8:AnimateBoomerangAndCheckCollision: Decrement animation counter; and when it reaches 0:\n 1. arm it again for 2 frames\n 2. advance the minor state within a cycle of 8\n 3. see if it's time to play the sound effect, if the boomerang belongs to Link\n
 P:1F6CE:: Boomerang effect
 P:1F6D3:DrawBoomerangAndCheckCollision: If the boomerang belongs to a monster, then check for\n collision with Link.\n\n If they collide, then set state $20 and animation counter 3.\n
 P:1F6E8:L1F6E8_CalcBoomerangFrame: The minor state (low 3 bits of state) is used to\n set the right frame in [0C] for this point in the spinning cycle.\n\n Reset [00] and [01]. These are the offsets for boomerang's position.\n In other words, don't offset the coordinate below.\n
@@ -7206,14 +7207,15 @@ P:1FC8B:: Go handle end metastates (4 and $14) specially.\n
 P:1FC94:DoNothing
 P:1FC95:UpdateMetaObjectEnd: Metastate = 4 or $14.\n\n If it's 4, go reset the metastate. The object is ready to update\n on its own.\n
 P:1FC9C:: Metastate = $14\n\n Copy the object type, so that it can be used in setting up\n a dropped item.\n
-P:1FC9F:: TODO: DASM.EXPR: Item_ObjMonsterType
+P:1FC9F:: DASM.EXPR: Item_ObjMonsterType
 P:1FCA2:: Certain objects don't advance the world kill cycle.\n
 P:1FCA6:: Child Gel
 P:1FCAA:: Red Keese
 P:1FCAE:: Advance the world kill cycle (0 to 9).\n
 P:1FCBA:L1FCBA
-P:1FCBD:: If the object is not a zora, then increase room kill count.\n\n\n MULTI: RoomKillCount
+P:1FCBD:: If the object is not a zora, then increase room kill count.\n
 P:1FCC0:: Zora
+P:1FCC4:: DASM.EXPR: RoomKillCount
 P:1FCC7:L1FCC7_DropItem: Turn this object into a dropped item.\n
 P:1FCCC:: Flag it uninitialized.
 P:1FCCF:: TODO: ?
