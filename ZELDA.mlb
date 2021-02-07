@@ -95,7 +95,7 @@ R:0349:RoomBoundDown
 R:034A:ObjectFirstUnwalkableTile
 R:034B:ShotCollidesWithLink
 R:034C:ActiveMonsterShots
-R:034D:_RoomAllDead
+R:034D:RoomAllDead
 R:034E:RoomObjCount
 R:034F-035E:ObjType
 R:035F:RoomObjTemplateType: TODO: Or RoomObjTemplate, or RoomMonsterTemplate,\n or RoomTemplateObjType\n
@@ -150,7 +150,7 @@ R:0504:LeftAlignHalfWidthObj
 R:0505:ItemTypeToLift
 R:0506:ItemLiftTimer
 R:0507:ChildDigdoggerCount
-R:0508:_SummonedWhirlwind
+R:0508:SummonedWhirlwind
 R:0509:TriforceFanfareActive
 R:050A:CreditsRow
 R:050B:CreditsTileOffset
@@ -5727,8 +5727,9 @@ P:17040:: TODO: ?
 P:17044:: Make Link face up by default.
 P:17048:: Put Link in the middle horizontally by default.
 P:1704C:: Put Link at StartY from level info by default.
-P:17054-1705D:_AllObjRoomBounds: Two sets of 5 elements:\n * left bound for objects\n * right bound for objects\n * up bound for objects\n * down bound for objects\n * first unwalkable tile\n\n The first set is for OW. The second is for UW.\n
-P:1705E:_SetupObjRoomBounds: Offset of second set of bounds.
+P:17054-17058:ObjectRoomBoundsOW: Two sets of 5 elements:\n * left bound for objects\n * right bound for objects\n * up bound for objects\n * down bound for objects\n * first unwalkable tile\n\n The first set is for OW. The second is for UW.\n
+P:17059-1705D:ObjectRoomBoundsUW
+P:1705E:SetupObjRoomBounds: Offset of second set of bounds.
 P:17062:: If in UW, use second of bounds, and go copy them.
 P:17064:: Reset DoorwayDir and use first set of bounds.\n\n\n Offset of first set of bounds.
 P:17068:L17068

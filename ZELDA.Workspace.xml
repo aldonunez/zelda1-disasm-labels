@@ -21552,7 +21552,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>94292</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_AllObjRoomBounds</Label>
+      <Label>ObjectRoomBoundsOW</Label>
       <Comment> Two sets of 5 elements:&#xD;
  * left bound for objects&#xD;
  * right bound for objects&#xD;
@@ -21563,12 +21563,12 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  The first set is for OW. The second is for UW.&#xD;
 </Comment>
       <Flags>None</Flags>
-      <Length>10</Length>
+      <Length>5</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>94302</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_SetupObjRoomBounds</Label>
+      <Label>SetupObjRoomBounds</Label>
       <Comment> Offset of second set of bounds.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -33030,7 +33030,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>1288</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>_SummonedWhirlwind</Label>
+      <Label>SummonedWhirlwind</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -36507,7 +36507,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>845</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>_RoomAllDead</Label>
+      <Label>RoomAllDead</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -73151,6 +73151,14 @@ For example:&#xD;
       <Comment> DASM.EXPR: TileObjRoomId</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>94297</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ObjectRoomBoundsUW</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>5</Length>
     </CodeLabel>
   </Labels>
   <TblMappings />
