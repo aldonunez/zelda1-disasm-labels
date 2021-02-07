@@ -20346,7 +20346,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>936</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>_ObjPosFrac</Label>
+      <Label>ObjPosFrac</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>20</Length>
@@ -32026,7 +32026,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>896</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>_ObjMovingLimit</Label>
+      <Label>ObjMovingLimit</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -41793,7 +41793,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>1105</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>_ObjShootTimer</Label>
+      <Label>ObjShootTimer</Label>
       <Comment> ObjShootTimer&#xD;
  While this variable &lt;&gt; 0, a walking monster will not walk.&#xD;
  When it reaches $10, it will shoot.&#xD;

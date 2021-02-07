@@ -99,9 +99,9 @@ R:034D:_RoomAllDead
 R:034E:RoomObjCount
 R:034F-035E:ObjType
 R:035F:RoomObjTemplateType: TODO: Or RoomObjTemplate, or RoomMonsterTemplate,\n or RoomTemplateObjType\n
-R:0380:_ObjMovingLimit
+R:0380:ObjMovingLimit
 R:0394-03A7:ObjGridOffset: Used in movement like walking.\n When grid offset = 0, an object is at an intersection point in the tile grid.\n Otherwise, the object is between points along a line.\n
-R:03A8-03BB:_ObjPosFrac
+R:03A8-03BB:ObjPosFrac
 R:03BC-03CF:ObjQSpeedFrac
 R:03D0-03E3:ObjAnimCounter
 R:03E4-03F7:ObjAnimFrame
@@ -126,7 +126,7 @@ R:042D:DemoSubphase
 R:042E:_DemoLineTextIndex
 R:042F:_DemoItemRow
 R:0438:DemoPhase0Subphase1Timer
-R:0451-045D:_ObjShootTimer: ObjShootTimer\n While this variable <> 0, a walking monster will not walk.\n When it reaches $10, it will shoot.\n
+R:0451-045D:ObjShootTimer: ObjShootTimer\n While this variable <> 0, a walking monster will not walk.\n When it reaches $10, it will shoot.\n
 R:0485-0491:ObjHP
 R:0492-049D:ObjUninitialized
 R:049E-04B1:ObjCollidedTile
