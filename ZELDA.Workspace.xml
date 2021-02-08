@@ -4866,7 +4866,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>1043</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>_TriforceGlowCycle</Label>
+      <Label>TriforceGlowCycle</Label>
       <Comment> TODO:&#xD;
  0: TriforceGlowCycle&#xD;
  B: CaveFlags&#xD;
@@ -5286,7 +5286,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>1045</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>_ScrolledScreenCount</Label>
+      <Label>ScrolledScreenCount</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -5743,7 +5743,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>1070</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>_DemoLineTextIndex</Label>
+      <Label>DemoLineTextIndex</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -5807,7 +5807,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>1071</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>_DemoItemRow</Label>
+      <Label>DemoItemRow</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -42856,7 +42856,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>77</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>_RedLeeverLongTimer</Label>
+      <Label>RedLeeverLongTimer</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -42943,7 +42943,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>1296</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>_ActiveRedLeeverCount</Label>
+      <Label>ActiveRedLeeverCount</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>

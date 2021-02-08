@@ -14,7 +14,7 @@ R:003D-0049:ObjStunTimer
 R:004A:ChaseLongTimer
 R:004B:MonstersFromEdgesLongTimer
 R:004C:SwordBlockedLongTimer
-R:004D:_RedLeeverLongTimer
+R:004D:RedLeeverLongTimer
 R:0050:HelpDropCount: When [50] HelpDropCount >= $A, specific items are dropped.\n See [51] HelpDropValue.\n
 R:0051:HelpDropValue: Determines which item to drop when [50] HelpDropCount >= $A.\n 0:     5 rupees\n other: bomb\n
 R:0052:ProcessedNarrowObj: Indicates whether object drawing routines wrote 1 sprite for\n a narrow / half-width object instead of 2 sprites for a\n wide / full-width one.
@@ -107,8 +107,8 @@ R:03D0-03E3:ObjAnimCounter
 R:03E4-03F7:ObjAnimFrame
 R:03F8-0404:ObjInputDir: At the beginning of a frame, this will be set to 0 to 2 directions.\n
 R:0405-0411:ObjMetastate
-R:0413:_TriforceGlowCycle: TODO:\n 0: TriforceGlowCycle\n B: CaveFlags\n\n TODO: describe the cave flags\n
-R:0415:_ScrolledScreenCount
+R:0413:TriforceGlowCycle: TODO:\n 0: TriforceGlowCycle\n B: CaveFlags\n\n TODO: describe the cave flags\n
+R:0415:ScrolledScreenCount
 R:0417:DemoLineAttrVramAddrLo
 R:0418:DemoLineAttrVramAddrHi
 R:0419:DemoLineIndex
@@ -123,8 +123,8 @@ R:0428:SubsequentButtonRepeat
 R:0429:ButtonRepeatTimer
 R:042A:ModeE_WrappedAroundBoardY
 R:042D:DemoSubphase
-R:042E:_DemoLineTextIndex
-R:042F:_DemoItemRow
+R:042E:DemoLineTextIndex
+R:042F:DemoItemRow
 R:0438:DemoPhase0Subphase1Timer
 R:0451-045D:ObjShootTimer: ObjShootTimer\n While this variable <> 0, a walking monster will not walk.\n When it reaches $10, it will shoot.\n
 R:0485-0491:ObjHP
@@ -158,7 +158,7 @@ R:050C:CreditsVramPage
 R:050D:CreditsVramLine
 R:050E:CreditsLineIndex
 R:050F:LamnolaViableDirMask
-R:0510:_ActiveRedLeeverCount
+R:0510:ActiveRedLeeverCount
 R:0511:GleeokDeadNeckMask
 R:0512:LinkParalyzed: Put the monster at the same location as Link.\n
 R:0513:UsedCandle
