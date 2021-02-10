@@ -4426,7 +4426,9 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <AddressType>SaveRam</AddressType>
       <Label />
       <Comment> Put the address of the profile's whole&#xD;
- WorldFlags block in [$0E:0F].</Comment>
+ WorldFlags block in [$0E:0F].&#xD;
+&#xD;
+ DASM.EXPR: #&lt;WorldFlags</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -14868,6 +14870,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <AddressType>PrgRom</AddressType>
       <Label>FillWalls</Label>
       <Comment> Load the address of WallTileList.&#xD;
+&#xD;
+ DASM.EXPR: #&lt;WallTileList&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -15992,7 +15996,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>91940</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Load the address of room column directory in [$02:03].</Comment>
+      <Comment> Load the address of room column directory in [$02:03].&#xD;
+ DASM.EXPR: #&lt;RoomLayoutsUW</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -17285,7 +17290,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> In UW, set the first address of column directory to start of UW cellar column heap.&#xD;
-</Comment>
+&#xD;
+ DASM.EXPR: #&lt;ColumnHeapUWCellar</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -21553,7 +21559,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>94292</Address>
       <AddressType>PrgRom</AddressType>
       <Label>ObjectRoomBoundsOW</Label>
-      <Comment> Two sets of 5 elements:&#xD;
+      <Comment> Description:&#xD;
+ Two sets of 5 elements:&#xD;
  * left bound for objects&#xD;
  * right bound for objects&#xD;
  * up bound for objects&#xD;
@@ -59013,7 +59020,7 @@ For example:&#xD;
       <Address>94655</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Set a grid offset appropriate for the distance to be traveled:&#xD;
+      <Comment> Set a grid offset appropriate for the distance to travel:&#xD;
    ($5D - $41) = $1C = ($100 - $E4)&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -68471,7 +68478,21 @@ For example:&#xD;
       <Address>3460</Address>
       <AddressType>PrgRom</AddressType>
       <Label>SongHeaderDemo0</Label>
-      <Comment />
+      <Comment> Description:&#xD;
+ Each song phrase is described by a header in this format:&#xD;
+&#xD;
+ 0: Note length table base&#xD;
+ 1: Song script address low&#xD;
+ 2: Song script address high&#xD;
+ 3: Triangle note offset in script&#xD;
+ 4: Square 0 note offset in script&#xD;
+ 5: Noise note offset in script&#xD;
+ 6: Envelope selector&#xD;
+ 7: TODO:&#xD;
+&#xD;
+ Note that the last byte of the "Item taken" header overlaps&#xD;
+ "End level", and "End level" overlaps "Overworld".&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -69481,7 +69502,7 @@ For example:&#xD;
       <Address>43444</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> DASM.EXPR: &lt;ThanksLinkText</Comment>
+      <Comment> DASM.EXPR: #&lt;ThanksText</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -69489,7 +69510,7 @@ For example:&#xD;
       <Address>43448</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> DASM.EXPR: &gt;ThanksLinkText</Comment>
+      <Comment> DASM.EXPR: #&gt;ThanksText</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -69768,7 +69789,7 @@ For example:&#xD;
       <Label>CreditsAttrs</Label>
       <Comment />
       <Flags>None</Flags>
-      <Length>8</Length>
+      <Length>24</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>44871</Address>
@@ -69949,7 +69970,7 @@ For example:&#xD;
       <Label>CreditsTextLines</Label>
       <Comment />
       <Flags>None</Flags>
-      <Length>1</Length>
+      <Length>414</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>1294</Address>
@@ -73159,6 +73180,86 @@ For example:&#xD;
       <Comment />
       <Flags>None</Flags>
       <Length>5</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>3595</Address>
+      <AddressType>SaveRam</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: #&gt;WorldFlags</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>39129</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: TitleWaveYs+3</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>39134</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: TitleWaveYs+4</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>39139</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: TitleWaveYs+5</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>39822</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: #&lt;DemoPhase0Subphase1Palettes</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>39828</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: #&gt;DemoPhase0Subphase1Palettes</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>91206</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: #&gt;WallTileList</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>91281</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: #&lt;(WallTileList + $4E)</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>91944</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: #&gt;RoomLayoutsUW</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>92988</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: #&gt;ColumnHeapUWCellar</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
     </CodeLabel>
   </Labels>
   <TblMappings />
