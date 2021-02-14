@@ -4164,7 +4164,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>95429</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Clear from $6530 to the end of Save RAM.</Comment>
+      <Comment> Clear from $6530 to the end of Save RAM.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -5118,7 +5118,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>36929</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment>TODO: Else, store $10 in TransferredDemoPatterns. Why?</Comment>
+      <Comment> Else, store $10, because it's convenient and not $A5.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -5613,7 +5613,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>37214</Address>
       <AddressType>PrgRom</AddressType>
       <Label>DemoLineAttrs</Label>
-      <Comment> TODO: How long?</Comment>
+      <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -5703,7 +5703,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>38658</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: $416?</Comment>
+      <Comment> UNKNOWN: It doesn't seem to be used.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -5908,7 +5908,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>38799</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: $430?</Comment>
+      <Comment> UNKNOWN: It doesn't seem to be used.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -7476,7 +7476,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>42877</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: This puts $067F in [$0E:0F].</Comment>
+      <Comment> This puts $067F in [$0E:0F].</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -8032,7 +8032,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>43045</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Copy HeartsValue and HeartsPartial to set B.</Comment>
+      <Comment> Copy HeartsValue and HeartsPartial to set B.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -8048,7 +8048,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>42689</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: I think this is called only for $067F put in [$0E:0F].</Comment>
+      <Comment> This seems to be called only for $067F put in [$0E:0F].</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -9676,10 +9676,10 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>40938</Address>
+      <Address>71073</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: ?</Comment>
+      <Comment> DASM.EXPR: Digdogger_ObjIsChild</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -10461,7 +10461,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>41205</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Add $10 or -$10 ($F0), depending on X passed in (0 or 3).</Comment>
+      <Comment> Add $10 or -$10 ($F0), depending on X passed in (0 or 3).</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -11922,7 +11922,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>3382</Address>
       <AddressType>SaveRam</AddressType>
       <Label />
-      <Comment> TODO: ?</Comment>
+      <Comment> UNKNOWN: Why? X is overwritten in the procedure.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -12652,7 +12652,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>85310</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Count down how long you see the spark.</Comment>
+      <Comment> Count down how long you see the spark.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -15820,7 +15820,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>95819</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Save Y=0?</Comment>
+      <Comment> Save Y=0</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -15880,7 +15880,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>95831</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Restore Y=0.</Comment>
+      <Comment> Restore Y=0.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -17395,13 +17395,13 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>83910</Address>
       <AddressType>PrgRom</AddressType>
       <Label>InitMode_EnterRoom</Label>
-      <Comment> TODO: Is also called for modes 9, $B, $C.&#xD;
-&#xD;
- Description:&#xD;
+      <Comment> Description:&#xD;
  Clears intraroom data.&#xD;
  Set up Link to walk into a room.&#xD;
  Decodes and lays out objects.&#xD;
  Switches from initializing the game mode to updating it.&#xD;
+&#xD;
+ This is called for modes 4, 9, $B, $C.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -19619,7 +19619,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>83510</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: ?</Comment>
+      <Comment> Stairs effect</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -20584,7 +20584,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>3875</Address>
       <AddressType>SaveRam</AddressType>
       <Label />
-      <Comment> TODO: Is this ever run?</Comment>
+      <Comment> UNKNOWN: This looks unreachable.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -20669,12 +20669,15 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>5394</Address>
       <AddressType>SaveRam</AddressType>
       <Label>WriteBlankPrioritySprites</Label>
-      <Comment> TODO: Why are their Y coordinates $3D and $DD?&#xD;
+      <Comment> UNKNOWN: Why are their Y coordinates $3D and $DD?&#xD;
  Those values are the highest and lowest that Link can normally take.&#xD;
 &#xD;
  Repeat two sprites in the first $10 records. They have&#xD;
  transparent tile $1C, priority 1 (behind BG), and X=0.&#xD;
  The first of the pair has Y=$3D, and the second one has Y=$DD.&#xD;
+&#xD;
+ These sprites are first in the list. So they are used for things&#xD;
+ that must be shown above everything else, including Link.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -21164,7 +21167,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>92196</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L16824</Label>
+      <Label>L16824_Found</Label>
       <Comment> The block was found in a column with an address at&#xD;
  offset %X in column table. So the column number would&#xD;
  be (%X/2), and X coordinate ((%X/2)*8). That means&#xD;
@@ -21205,7 +21208,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>92205</Address>
       <AddressType>PrgRom</AddressType>
-      <Label />
+      <Label>L1682D_SetType</Label>
       <Comment> Block object type</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -21644,10 +21647,10 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>84080</Address>
+      <Address>95872</Address>
       <AddressType>PrgRom</AddressType>
-      <Label />
-      <Comment> TODO: INC?</Comment>
+      <Label>SplitRoomId</Label>
+      <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -22413,7 +22416,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>84323</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Activate room tile object.</Comment>
+      <Comment> Activate room tile object.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -25826,10 +25829,6 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  [09]: 0 for Link damage type (none)&#xD;
  [0C]: 1 if objects collide&#xD;
  [034B]: ShotCollidesWithLink&#xD;
-&#xD;
- TODO:&#xD;
- Returns:&#xD;
- Y: 0&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -26706,12 +26705,12 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>94870</Address>
       <AddressType>PrgRom</AddressType>
       <Label>AxisMasks</Label>
-      <Comment>Indexed by reverse direction index.&#xD;
+      <Comment> Indexed by reverse direction index.&#xD;
 &#xD;
-Is used in mapping a direction to a mask for its axis.&#xD;
-For example:&#xD;
-- right masks off up and down&#xD;
-- up masks off left and right&#xD;
+ Is used in mapping a direction to a mask for its axis.&#xD;
+ For example:&#xD;
+ - right masks off up and down&#xD;
+ - up masks off left and right&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>4</Length>
@@ -27547,7 +27546,7 @@ For example:&#xD;
       <Address>127236</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Unknown object attribute</Comment>
+      <Comment> "Reverse when blocked" object attribute</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -27589,7 +27588,7 @@ For example:&#xD;
       <Address>127248</Address>
       <AddressType>PrgRom</AddressType>
       <Label>L1F110_Reverse</Label>
-      <Comment> TODO:&#xD;
+      <Comment> UNKNOWN:&#xD;
  This seems to be unused code triggered by object attribute $10.&#xD;
  But $10 is not used in the object attribute array at 07:FAEF.&#xD;
 </Comment>
@@ -27901,7 +27900,9 @@ For example:&#xD;
       <Address>25229</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: ?&#xD;
+      <Comment> Return, if the empty slot we found indicates it was initialized.&#xD;
+ I don't know how it would get in this state, because when&#xD;
+ a monster is destroyed, type is assigned 0, and it's uninitialized.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -28046,11 +28047,10 @@ For example:&#xD;
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>25284</Address>
+      <Address>71078</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: ?&#xD;
-</Comment>
+      <Comment> DASM.EXPR: Digdogger_ObjIsChild</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -28167,7 +28167,7 @@ For example:&#xD;
       <Address>127199</Address>
       <AddressType>PrgRom</AddressType>
       <Label>PlayerScreenEdgeBounds</Label>
-      <Comment>Up, down, left, right.&#xD;
+      <Comment> Up, down, left, right.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>4</Length>
@@ -29797,12 +29797,6 @@ For example:&#xD;
       <Label />
       <Comment> If [0E] is set, keep the original value in grid offset,&#xD;
  or else add the new amount to it.&#xD;
-&#xD;
- TODO:&#xD;
- But I'm not clear about where [0E] was last set.&#xD;
- At least with a player's shot, [0E] was last written in&#xD;
- 77E7 DrawObjectWithAnim to draw Link. It was set to&#xD;
- animation index 0. But is that always the case?&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -31134,9 +31128,11 @@ For example:&#xD;
       <Address>7843</Address>
       <AddressType>SaveRam</AddressType>
       <Label />
-      <Comment> TODO:&#xD;
- If the monster's attribute "reverse after hit Link" is set, then&#xD;
+      <Comment> If the monster's attribute "reverse after hit Link" is set, then&#xD;
  combine the shove direction with $40.&#xD;
+&#xD;
+ TODO:&#xD;
+ But the shoving routing doesn't read this flag.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -35431,8 +35427,9 @@ For example:&#xD;
       <Address>82209</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: ?&#xD;
- In UW, write $10 transparent sprites starting from index 0.&#xD;
+      <Comment> In UW, clear the first $10 sprites. This clears the submenu cursor.&#xD;
+&#xD;
+ UNKNOWN: But why not do this in OW, too?&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -35796,8 +35793,7 @@ For example:&#xD;
  Before the first frame of mode 5, the current object slot variable&#xD;
  was set to $B in 05:87B9 (InitMode_EnterRoom).&#xD;
 &#xD;
- TODO:&#xD;
- Can you call this the last slot for dynamically allocated objects?&#xD;
+ This can also be called the last slot for dynamically allocated objects.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -37493,14 +37489,13 @@ For example:&#xD;
       <Address>25072</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO:&#xD;
- Replace the last 3 color bytes (brown shades) that we just&#xD;
- copied to the dynamic transfer buf with ... (are they colors&#xD;
- for the pile of ashes?)&#xD;
+      <Comment> Replace the last 3 color bytes (brown shades) that we just&#xD;
+ copied to the dynamic transfer buf with the colors of the&#xD;
+ pile of ashes.&#xD;
 &#xD;
  Note that here the dynamic transfer buf is being written with&#xD;
  absolute offsets, instead of relative ones used in copying&#xD;
- the base palette row transfer record.&#xD;
+ the base/template palette row transfer record.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -37517,15 +37512,18 @@ For example:&#xD;
     <CodeLabel>
       <Address>25029</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_UnknownColorTriples</Label>
-      <Comment />
+      <Label>GanonColorTriples</Label>
+      <Comment> First: Ganon brown state&#xD;
+ Second: Ganon blue state&#xD;
+ Third: Ashes and Triforce&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>9</Length>
     </CodeLabel>
     <CodeLabel>
       <Address>25021</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>_UnknownPaletteTransferRecord</Label>
+      <Label>PaletteRow7TransferRecord</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>8</Length>
@@ -37618,8 +37616,7 @@ For example:&#xD;
       <Address>126191</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO:&#xD;
- If the object is autonomous and not checking collisions itself,&#xD;
+      <Comment> If the object is autonomous and not checking collisions itself,&#xD;
  then see about checking collisions and drawing on its behalf.&#xD;
 &#xD;
  Else go loop again.&#xD;
@@ -37639,7 +37636,7 @@ For example:&#xD;
       <Address>126209</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Skip drawing or self-draw?</Comment>
+      <Comment> Self-draw attribute</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -37647,8 +37644,7 @@ For example:&#xD;
       <Address>126206</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO:&#xD;
- If attribute = 0, then it indicates not to skip drawing. So, animate and draw.&#xD;
+      <Comment> If no attribute 1, then it indicates not to skip drawing. So, animate and draw.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -38212,10 +38208,11 @@ For example:&#xD;
       <Address>130762</Address>
       <AddressType>PrgRom</AddressType>
       <Label>InitTileObjOrItem</Label>
-      <Comment> TODO: Describe attribute $81. 1 is self-check collisions and draw.&#xD;
-&#xD;
- Set object attribute to $81, and go reset metastate and timer;&#xD;
+      <Comment> Set object attribute to $81, and go reset metastate and timer;&#xD;
  so that the object is ready to start updating itself.&#xD;
+&#xD;
+ Obj attr $81 = "Custom check collision and drawing"&#xD;
+              + "Reverse after hitting Link"&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -38414,7 +38411,7 @@ For example:&#xD;
       <Address>130255</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: ?</Comment>
+      <Comment> "Custom collision check and drawing" + "Reverse after hitting Link"</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -38635,8 +38632,7 @@ For example:&#xD;
       <Address>78010</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Is this really what [0627] represents?&#xD;
- If the global kill count = $10, set the dropped item to a fairy.&#xD;
+      <Comment> If the global kill count = $10, set the dropped item to a fairy.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -40145,8 +40141,7 @@ For example:&#xD;
       <Address>68994</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Why?&#xD;
- If the armos has died, then set object type to $5D.&#xD;
+      <Comment> If the armos has died, then set object type to $5D (dead dummy).&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -40803,7 +40798,7 @@ For example:&#xD;
  [04] := (weapon X + 6)&#xD;
  A    := (weapon Y + 8)&#xD;
 &#xD;
- TODO: Shouldn't it be based on the weapon's direction?&#xD;
+ Shouldn't it be based on the weapon's direction?&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -40816,7 +40811,7 @@ For example:&#xD;
  [04] := (weapon X + 8)&#xD;
  A    := (weapon Y + 6)&#xD;
 &#xD;
- TODO: Shouldn't it be based on the weapon's direction?&#xD;
+ Shouldn't it be based on the weapon's direction?&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -43409,7 +43404,7 @@ For example:&#xD;
       <Address>68081</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: The movement frame determines the frame image.</Comment>
+      <Comment> The animation frame determines the frame image.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -44335,10 +44330,7 @@ For example:&#xD;
       <Address>67070</Address>
       <AddressType>PrgRom</AddressType>
       <Label>Gel_MoveSplitting</Label>
-      <Comment> TODO:&#xD;
- Or call this BigShove like in Loz?&#xD;
-&#xD;
- Returns:&#xD;
+      <Comment> Returns:&#xD;
  C: 1 if blocked&#xD;
 &#xD;
  Set the speed to maximum.&#xD;
@@ -44649,8 +44641,7 @@ For example:&#xD;
       <Address>70732</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: ?&#xD;
-</Comment>
+      <Comment> Play Aquamentus/Gleeok/Ganon roar.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -45336,8 +45327,7 @@ For example:&#xD;
       <Address>70791</Address>
       <AddressType>PrgRom</AddressType>
       <Label>InitDodongo</Label>
-      <Comment> TODO: ?&#xD;
-</Comment>
+      <Comment> Play Dodongo/Gohma roar.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -46928,8 +46918,7 @@ For example:&#xD;
       <Address>73996</Address>
       <AddressType>PrgRom</AddressType>
       <Label>InitManhandla</Label>
-      <Comment> TODO: ?&#xD;
-</Comment>
+      <Comment> Play Digdogger/Manhandla/Patra roar.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -48182,8 +48171,7 @@ For example:&#xD;
       <Address>70746</Address>
       <AddressType>PrgRom</AddressType>
       <Label>InitDigdogger1</Label>
-      <Comment> TODO: ?&#xD;
-</Comment>
+      <Comment> Play Digdogger/Manhandla/Patra roar.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -49212,8 +49200,7 @@ For example:&#xD;
       <Address>73869</Address>
       <AddressType>PrgRom</AddressType>
       <Label>InitGleeok</Label>
-      <Comment> TODO: ?&#xD;
-</Comment>
+      <Comment> Play Aquamentus/Gleeok/Ganon roar.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -49353,7 +49340,7 @@ For example:&#xD;
       <Address>73919</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Is this a mistake? (+2)</Comment>
+      <Comment> UNKNOWN: Is this a mistake? (+2 instead of +1)</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -49361,8 +49348,7 @@ For example:&#xD;
       <Address>74081</Address>
       <AddressType>PrgRom</AddressType>
       <Label>InitGohma</Label>
-      <Comment> TODO: ?&#xD;
-</Comment>
+      <Comment> Play Dodongo/Gohma roar.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -50294,9 +50280,7 @@ For example:&#xD;
       <Address>75239</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO:&#xD;
-&#xD;
- [04D8] is the quarter horizontal distance from the head to the base.&#xD;
+      <Comment> [04D8] is the quarter horizontal distance from the head to the base.&#xD;
  It represents the reference distance from each segment to the base.&#xD;
  Multiples of it are used to mark the reference point of each segment.&#xD;
  Move every segment one pixel closer to its reference point.&#xD;
@@ -50524,7 +50508,7 @@ For example:&#xD;
       <Address>75336</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: seems to be a mistake. shout probably be ObjX+2,X</Comment>
+      <Comment> UNKNOWN: This should probably be ObjX+2, as with ObjY below.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -51903,7 +51887,7 @@ For example:&#xD;
       <Address>77572</Address>
       <AddressType>PrgRom</AddressType>
       <Label>L12F04_SkipLinkCollision</Label>
-      <Comment> If Ganon is not in state 0, then he's red.&#xD;
+      <Comment> If Ganon is not in state 0, then he's brown.&#xD;
  Go check collision with an arrow.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -51931,13 +51915,11 @@ For example:&#xD;
       <Address>77585</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: is red the right description of this color and state?&#xD;
-&#xD;
- If Ganon has died, according to the usual collision check rules&#xD;
+      <Comment> If Ganon has died according to the usual collision check rules&#xD;
  (HP = 0), then:&#xD;
  1. Restore HP to the initial value $F0&#xD;
  2. Set state to $FF to note that Ganon is vulnerable to silver arrows&#xD;
- 3. Change palette row 7 to make Ganon red&#xD;
+ 3. Change palette row 7 to make Ganon brown&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -52690,10 +52672,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>76988</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L12CBC</Label>
-      <Comment> TODO: Find out the sample. Add it to comment below, and to label.&#xD;
-&#xD;
- If timer = 1, then&#xD;
+      <Label>L12CBC_CheckTimeToShout</Label>
+      <Comment> If timer = 1, then play Boss hit/hurt sound effect.&#xD;
+ In this case, I think it means Ganon is shouting.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -53404,8 +53385,7 @@ For example:&#xD;
       <Address>76105</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: set [0601] to $40&#xD;
-</Comment>
+      <Comment> Play Digdogger/Manhandla/Patra roar.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -53996,8 +53976,7 @@ For example:&#xD;
       <Address>76048</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO:&#xD;
- Only the heads in slots 5 and $A have a direction and [0380][X] set.&#xD;
+      <Comment> Only the heads in slots 5 and $A have a direction and [0380][X] set.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -61054,7 +61033,7 @@ For example:&#xD;
       <Address>40936</Address>
       <AddressType>PrgRom</AddressType>
       <Label>DeleteSlot</Label>
-      <Comment />
+      <Comment> "Hurt" sound effect</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -65274,9 +65253,9 @@ For example:&#xD;
     <CodeLabel>
       <Address>92172</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L1680C</Label>
+      <Label>L1680C_LoopColumn</Label>
       <Comment />
-      <Flags>AutoJumpLabel</Flags>
+      <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
@@ -67210,7 +67189,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>5514</Address>
       <AddressType>SaveRam</AddressType>
-      <Label>Unknown_758A</Label>
+      <Label>Filler_6DFA</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>10</Length>
@@ -67218,7 +67197,7 @@ For example:&#xD;
     <CodeLabel>
       <Address>7905</Address>
       <AddressType>SaveRam</AddressType>
-      <Label>Unknown_7EE1</Label>
+      <Label>Filler_7751</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>31</Length>
@@ -70404,11 +70383,10 @@ For example:&#xD;
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>76944</Address>
+      <Address>67686</Address>
       <AddressType>PrgRom</AddressType>
-      <Label />
-      <Comment> TODO: Unnamed label is too far&#xD;
-</Comment>
+      <Label>L10866</Label>
+      <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -72912,7 +72890,9 @@ For example:&#xD;
       <Address>39127</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Are these used?&#xD;
+      <Comment> UNKNOWN:&#xD;
+ These don't seem to be used in the demo.&#xD;
+ Maybe the waterfall used to be bigger?&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -73258,6 +73238,70 @@ For example:&#xD;
       <AddressType>PrgRom</AddressType>
       <Label />
       <Comment> DASM.EXPR: #&gt;ColumnHeapUWCellar</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71083</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>L115AB</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>76159</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> Play Aquamentus/Gleeok/Ganon roar.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25038</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ReplaceGanonBrownPaletteRow</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25042</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>ReplaceGanonBluePaletteRow</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>7178</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>EmitSquareNoteWithDutyAndSweep0</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>7208</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>EmitSquareNoteWithDutyAndSweep1</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>7921</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>GetSongNoteLengthWithAbsIndex</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25048</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>L61D8</Label>
+      <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
