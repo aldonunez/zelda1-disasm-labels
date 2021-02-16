@@ -57,7 +57,7 @@ R:00E0:Paused
 R:00E1:MenuState: else start scrolling the menu.
 R:00E2:VScrollAddrLo
 R:00E3:IsSprite0CheckActive
-R:00E5:DeathTurns
+R:00E5:DeathModeCounter
 R:00E6:VScrollStartFrame
 R:00E8:CurColumn
 R:00E9:CurRow
@@ -178,6 +178,7 @@ R:0525:CurEdgeSpawnCell: The previous cell that was checked to try to spawn\n a 
 R:0526:CaveSourceRoomId: The room ID where the player entered a cave.\n When leaving a cave, the room ID will be set to this,\n unless it's set to $FF. In this case StartRoomId will be used.
 R:0527:CellarSourceRoomId
 R:0528:SkippedDemo
+R:0529:ForceSwordShot
 R:052A:WorldKillCycle: TODO: 0 to 9\n
 R:052B:RoomTileObjType
 R:052C:RoomTileObjX
@@ -850,7 +851,7 @@ P:6140:L6140_LoopTileObj
 P:6143:: Block
 P:6147:: Rock
 P:614B:: Gravestone
-P:614F:: TODO: Armos1?
+P:614F:: Armos1. But it seems to be unused, along with Armos2 ($67).
 P:6151:: If it doesn't match any, go check the next object.
 P:6153:L6153_Found
 P:6157:: If not active, go check the next object.
@@ -1547,7 +1548,7 @@ P:A274-A286:Mode1DeathCountsTransferBuf
 P:A287-A289:LinkColors
 P:A28A:InitMode1_Full
 P:A292-A29F:InitMode1_Full_JumpTable
-P:A2A0:UpdateMode0Demo_Sub1: For each save slot:\n   If file B is uncommitted and valid, then\n     Copy file B to file A (also marks file B committed)\n   If file A's static markers are wrong or file is invalid, then\n     Format file A\n\n TODO: This is also mode 1 submode 0 init.\n
+P:A2A0:UpdateMode0Demo_Sub1: For each save slot:\n   If file B is uncommitted and valid, then\n     Copy file B to file A (also marks file B committed)\n   If file A's static markers are wrong or file is invalid, then\n     Format file A\n\n This is also mode 1 submode 0 init.\n
 P:A2A3:: Reset CurSaveSlot.
 P:A2A5:: For every save file B (3):
 P:A2A7:LA2A7_LoopSlot
@@ -1608,8 +1609,8 @@ P:A410:LA410
 P:A414:: DASM.EXPR: $C0
 P:A416:: DASM.EXPR: $C0
 P:A41A:: Add IsSaveSlotActive byte to [$CF:CE].
-P:A41F:: Add DeathCount byte to [$CF:CE].
-P:A424:: TODO: Add byte at [[$CA:CB]] to [$CF:CE].
+P:A41F:: TODO: Add byte at [[$C8:C9]] to [$CF:CE].
+P:A424:: Add DeathCount byte to [$CF:CE].
 P:A429:: Add byte QuestNumber to [$CF:CE].
 P:A42B:AddAToCFCE
 P:A437:FormatFileB: Clear the name (to all spaces).
@@ -1641,9 +1642,9 @@ P:A495:: Restore ring offset.
 P:A497:: Point to the ring in the next save slot.
 P:A49C:: Point one row down in palette.
 P:A4A1:: 3 times.
-P:A4A3:: TODO: ?
+P:A4A3:: UNKNOWN: Why now?
 P:A4A6:: Cue transfer of menu palettes.
-P:A4B3:: TODO: $529?
+P:A4B3:: UNKNOWN: Why now?
 P:A4B6:LA4B6
 P:A4BD:InitMode1_Sub2
 P:A4C4:InitMode1_FillAndTransferSlotTiles: Copy the mode 1 line transfer buf template to\n dynamic transfer buf.
@@ -2300,7 +2301,7 @@ P:10614:L10614_CheckRoomBoundary: If blocked by the room boundary, then return C
 P:1061A:: Move.\n
 P:1061D:: Mask the grid offset with $F (to a square length),\n and return C=0.\n
 P:10628:L10628_Exit
-P:10629:Gel_CheckCollisions: TODO:\n CheckMonsterCollisions calls GetObjectMiddle which\n overwrites [02] and [03]. So, I don't know why these are set here.\n
+P:10629:Gel_CheckCollisions: CheckMonsterCollisions calls GetObjectMiddle which\n overwrites [02] and [03]. So, these assignments might be redundant.\n
 P:10634-10635:StatueRoomLayouts
 P:10636-10638:StatueFireballCounts
 P:10639-1063C:StatueFireballStartTimes
@@ -2407,7 +2408,7 @@ P:1083F:UpdateMonsterArrow: Set q-speed $80 (2 pixels a frame).\n
 P:10844:: If the timer has not expired, then go draw,\n and see if the shooter's still alive.\n
 P:10848:: If the arrow is sparking, then go update the base arrow.\n
 P:10851:: If the arrow is not flying, then\n go handle it bouncing off of Link's shield.\n
-P:10855:: TODO: But is this necessary?\n Set the moving direction in [0F].\n Then go update the base arrow.\n
+P:10855:: Set the moving direction in [0F].\n Then go update the base arrow.\n\n UNKNOWN:\n This doesn't seem to be needed. Removing the assignment\n doesn't affect the movement of the arrow.\n
 P:1085C:L1085C_CheckShooter: If the shooter is gone, then reset the arrow's object timer;\n so that it flies right away.\n\n DASM.EXPR: ObjRefId\n
 P:10866:L10866
 P:10869:L10869_UpdateBase
@@ -2471,7 +2472,7 @@ P:109C1:: If Random < $A0, then go use this t.\n
 P:109C7:: t := t AND $F\n
 P:109C9:L109C9_SetTimerAndAnimate
 P:109CB:Jumper_AnimateAndCheckCollisions
-P:109CE:: TODO: [0D] ?\n [0D] doesn't seem to be used.\n
+P:109CE:: UNKNOWN:\n [0D] doesn't seem to be used. The next place that it's read is in\n DrawObjectWithAnim, but after overwriting it.\n
 P:109D0:: If the monster is a boulder, then go animate, draw, check collision.\n
 P:109D7:: Draw a tektite.\n\n If state = 1, then go draw frame image 1, and check collisions.\n
 P:109DB:: If object timer < $21, go draw frame image 0, and check collisions.\n
@@ -2664,7 +2665,7 @@ P:10DE3-10DE9:PondHeartStartAngles
 P:10DEA:PondFairy_MoveHearts: Loop over each heart from object slot 2 to 9.\n\n Even though they are not standalone objects, their info\n is stored in those object slots.\n
 P:10DEC:L10DEC_LoopHeart: If the current heart's state <> 0, then go move it.\n Else we have to wait for it to come out at the right time.\n
 P:10DF0:: The current heart's state = 0.\n\n If object slot = 2, then go make it appear. This is the first\n heart to show up.\n
-P:10DF4:: Object slot <> 2. If the state of the heart in slot 2 = 0, then\n go start over.\n\n TODO:\n Is it possible to jump from here? This looks like an infinite loop.\n
+P:10DF4:: Object slot <> 2. If the state of the heart in slot 2 = 0, then\n go start over.\n\n The first heart -- in slot 2 -- is updated first, and set to state 1.\n So, you can't jump from here.\n
 P:10DF8:: Look up the starting angle of this heart with the index\n (object slot - 3). If the first heart has not reached this angle,\n then loop again.\n
 P:10DFD:: DASM.EXPR: ObjAngleWhole+2
 P:10E05:L10E05_SetUpHeart: Set up this heart. Set its state to 1.\n
@@ -2755,7 +2756,7 @@ P:10FD3:: Link's grid offset at $7F must be 2 ($7F - $7D).\n
 P:10FD8:L10FD8_ResetLinkAndRaftStateAndDraw
 P:10FDE:L10FDE_Draw: Save raft object slot.
 P:10FE3:: Restore raft object slot.
-P:10FE5:: TODO: Why animate the raft?\n
+P:10FE5:: This call seems to be used to put the raft's coordinates in [00], [01].\n
 P:10FE8:: Normal sprites, palette row 4 (Link).
 P:10FEA:: Raft item slot
 P:10FEF:UpdateFlyingGhini: If we have the magic clock, then don't move.\n
@@ -2794,7 +2795,7 @@ P:110D0-110DF:WallmasterDirsAndAttrsBottom
 P:110E0-110E1:WallmasterInitialXs
 P:110E2-110E3:WallmasterInitialYs
 P:110E4:UpdateWallmaster
-P:110EB:L110EB: State 0.\n\n If Link's object timer is active, then return.\n
+P:110EB:L110EB: State 0.\n\n All wallmasters share ObjTimer[1] to control when they each\n emerge from the walls.\n\n If the timer has not expired, then return.\n
 P:110EF:: If Link is halted, then return.\n
 P:110F5:L110F5_Exit
 P:110F6:L110F6_State0: State 0. Idle/Waiting inside wall\n\n If  (Link's X < $29 or >= $C8)\n and (Link's Y < $6D or >= $B5),\n then return.\n
@@ -2815,7 +2816,7 @@ P:1114E:: Look up and set Y coordinate according to the index returned.\n
 P:11153:: Set X coordinate to initial minor value returned.\n
 P:11155:L11155_SetUpToEmerge
 P:11157:: Look up and set the facing direction for the first step.\n\n DASM.EXPR: Wallmaster_ObjStep\n
-P:11161:: TODO: why object 1 timer?\n\n Set object slot 1's timer to $60, this monster's QSpeed to $18,\n and animation counter to 8.\n
+P:11161:: Wait $60 frames for the next wallmaster. Set this monster's\n QSpeed to $18, and animation counter to 8.\n
 P:1116F:: Reset grid offset, tiles crossed, and movement frame.\n
 P:11174:: DASM.EXPR: Wallmaster_ObjTilesCrossed
 P:1117A:: Start Wallmaster state 1.\n
@@ -2920,8 +2921,8 @@ P:113D6:: DASM.EXPR: ObjWantsToShoot
 P:113D9:L113D9_ZeroSpeed: Replace qspeed on the stack with 0.
 P:113DD:L113DD_SetSpeed: Pop and set the qspeed (0 or the speed for stalfos).
 P:113E1:L113E1_Exit
-P:113E2:InitMoldorm: Loop to make 10 moldrom segments, from 9 to 0, indexed by Y register.\n Object slots $A to 1 will be used.\n
-P:113E4:L113E4: Start at position ($80, $70).\n
+P:113E2:InitMoldorm: Loop to make 10 moldorm segments, from 9 to 0, indexed by Y register.\n Object slots $A to 1 will be used.\n
+P:113E4:L113E4_LoopSegment: Start at position ($80, $70).\n
 P:113EE:: Start with no direction, no deferred bounce direction,\n and ready to update.\n
 P:113F3:: DASM.EXPR: Moldorm_ObjBounceDir+1
 P:113FC:: Copy object attributes from the first monster slot.\n
@@ -2938,7 +2939,7 @@ P:11434:: Set minimum number of turns 1 for flying states.\n\n By setting this, 
 P:11436:: DASM.EXPR: Flyer_ObjTurns+5
 P:11439:: DASM.EXPR: Flyer_ObjTurns+10
 P:1143C:: The maximum speed for Moldorm is $80.
-P:11441:: TODO: Why 8 instead of 10?
+P:11441:: 8 instead of 10, because 8 is the max kill count to save.
 P:11447:InitAquamentus: Aquamentus is invincible to boomerang and fire.\n
 P:1144C:: Play Aquamentus/Gleeok/Ganon roar.
 P:11451:: The monster goes at ($B0, $80).\n
@@ -3403,7 +3404,7 @@ P:11E7E:L11E7E_SetDir: If the direction chosen = facing direction, then return.\
 P:11E82:: Else face toward Link.\n
 P:11E87-11E91:BlueWizzrobeTeleportOffsetsX
 P:11E92-11E9C:BlueWizzrobeTeleportOffsetsY
-P:11E9D:BlueWizzrobe_Move: TODO:\n Consider calling this function something like MoveSimple8.\n Also, consider deleting the references to BlueWizzrobe in\n teleport offsets above.\n\n Index the offsets using the direction value directly.\n
+P:11E9D:BlueWizzrobe_Move: Description:\n This procedure can be called MoveSimple8. But it's only used\n by blue wizzrobe and Ganon, which move alike.\n\n DASM.BELOW:\n Index the offsets using the direction value directly.\n
 P:11EAF:L11EAF_Exit
 P:11EB0-11EB3:BlueWizzrobeTeleportMaxOffsetsX
 P:11EB4-11EB7:BlueWizzrobeTeleportMaxOffsetsY
@@ -3576,7 +3577,7 @@ P:12201:: DASM.EXPR: Manhandla_ObjPrevFrame
 P:12206:: Copy the new value to the old variable, so that they're the same.\n\n DASM.EXPR: Manhandla_ObjPrevFrame
 P:12209:: If animation frame = 1, then go draw.\n\n The low bit of "frame image and sprite attributes" byte\n represents the animation frame.\n
 P:1220C:: If the random value for the next slot up < $E0,\n or there's an object in slot 7; then go draw.\n\n The second condition keeps the number of fireballs <= 4.\n
-P:12217:: TODO: Fireball object type $56
+P:12217:: Fireball object type $56 (unblockable)
 P:1221C:L1221C_Draw
 P:1221F:L1221F_TurnTowardLink
 P:12225:Manhandla_CheckCollisions: Check collisions, but never let them interfere with movement.\n
@@ -3616,7 +3617,7 @@ P:122D0:: Bit 5 of mask $A1 sets Carry now.
 P:122DC:L122DC_IncFrameAccum: To the frame accumulator, add:\n - a random value between 0 and 3\n - [03] the effective high speed byte calculated for this screen frame\n
 P:122E3:: DASM.EXPR: Manhandla_ObjFrameAccum
 P:122E6:: DASM.EXPR: Manhandla_ObjFrameAccum
-P:122EC:: TODO:\n I don't see why this is needed.\n
+P:122EC:: UNKNOWN: It seems that an RTS would be enough.\n
 P:122EF:Manhandla_Draw
 P:122F2:: Push the "frame image and sprite attributes" value.\n\n DASM.EXPR: Manhandla_ObjFrame
 P:122F6:: Bit 7 is the sprite attribute for vertical flipping, and can be\n passed along as is.\n
@@ -3685,11 +3686,11 @@ P:1242E:L1242E_LoopSprite
 P:12431:: Add 8 to the X coordinate for the next part.\n
 P:12438:: Loop counter
 P:1243C:: Restore the boss's X coordinate.\n
-P:12440:Gohma_HandleWeaponCollision: TODO:\n If hit by an arrow, then set the arrow to spark\n
+P:12440:Gohma_HandleWeaponCollision: If hit by an arrow, then set the arrow to spark.\n
 P:1244E:L1244E_CheckHitEye: If it did not hit part 3 nor 4, then go play the parry sound effect.\n
 P:12458:L12458_CheckEyeOpen: If the state of the eye is not 3, then go parry.\n\n DASM.EXPR: Gohma_ObjEyeState\n
 P:1245F:: If the direction of the arrow is not up, then go parry.\n
-P:12466:: TODO:\n
+P:12466:: Boss hit sound effect
 P:1246B:: Deal damage and cry out.\n
 P:12471:L12471_PlayParryTune
 P:12477:UpdateGleeokHead
@@ -3880,7 +3881,7 @@ P:12910:: Only the heads in slots 5 and $A have a direction and [0380][X] set.\n
 P:1291C:: Remember the object type, and set speed to (object type - $39):\n 1 or 2.\n
 P:1291F:: DASM.EXPR: Lamnola_Type
 P:12925:: DASM.EXPR: Lamnola_Speed
-P:12928:: TODO:\n Do the heads not count?\n
+P:12928:: 8 instead of 10, because 8 is the max kill count to save.
 P:1292E:InitPatra: Invincible to everything but sword.\n
 P:12933:: Start at location ($80, $70) and facing up.\n
 P:1293F:: Set flying speed $1F, and maximum $40.\n
@@ -3895,7 +3896,7 @@ P:12964:: Patra children are also only weak to the sword.
 P:1296F:InitGanon: Invincible to everything but sword and arrow.
 P:12974:: Halt Link.\n
 P:12978:: Set Link's timer to $40 for scene phase 0.\n
-P:1297A:: TODO: ?\n
+P:1297A:: Boss hit sound effect. But here it's more of a shout.
 P:1297F:: Play Aquamentus/Gleeok/Ganon roar.
 P:12987:UpdateZelda
 P:1298E:: State 0.\n\n If Link's X < $70 or >= $81, or Link's Y <> $95, then return.\n
@@ -4369,7 +4370,7 @@ P:133BF:: [05] holds the number of high bits of sine to use
 P:133C1:: First, rotate the X coordinate.\n\n Look up the sine for the current angle, and store it in [00].\n\n DASM.EXPR: ObjAngleWhole\n
 P:133CC:: Mutliply q-speed by [00].\n\n Q-speed has the default value $20 set when entering the room.\n
 P:133D4:: The absolute X increment for the current angle is now in [02:03].\n\n If angle >= $10, then the monster is in the top half of circle going left.\n\n DASM.EXPR: ObjAngleWhole\n
-P:133D7:: TODO: Why AND with $18?
+P:133D7:: UNKNOWN: Why AND with $18?
 P:133DD:: Subtract the product's fraction from the X coordinate fraction.\n
 P:133E6:: And subtract the product's whole part from the X coordinate with carry.\n
 P:133ED:L133ED_AddToX: Else angle < $10. So, the monster is in the bottom half of circle going right.\n Add the product's fraction to the X coordinate fraction.\n
@@ -4627,8 +4628,8 @@ P:144C3:: If the room isn't dark, then go finish up.
 P:144C5:: Set CurRow = 0 (was $FF) to signal to mode 4 that\n it might need to brighten the new room, because we\n scrolled from a dark one.\n\n This isn't a concern, if you enter a room by any other mode.
 P:144CC:UpdateMode7Scroll_Sub7
 P:144D1:: Reset to initialize the next mode.
-P:144D3:: TODO: [$010C] ?
-P:144D6:: TODO: [$E7] ?
+P:144D3:: UNKNOWN: [$010C] seems to be a variable that's no longer used.
+P:144D6:: UNKNOWN: [E7] seems to be used only for calculating NextRoomId.
 P:144D8:: Reset sprite-0 check, because we finished scrolling.
 P:144DA:: Go to mode 4 submode 1.
 P:144DF:UpdateMode7Scroll_Sub4: Transfer new room's attributes to NT 0.\n
@@ -4760,10 +4761,10 @@ P:148B8:L148B8
 P:148BB:: If in mode 9 (most caves), then\n reset object count and object list ID.\n
 P:148C7:L148C7_StoreObjCount: Store the object count.
 P:148CC:: If object count = 0 or object list ID = 0, then\n skip instantiating objects.\n
-P:148D2:: TODO: If object list ID (or call it object template ID?) >= $62,\n then it refers to a list. Go handle it.\n
-P:148D6:: TODO: Object list ID (or call it object template ID) refers to a\n repeated object.\n\n Set the object type at each element from 1 to Object Count\n to object list ID (or call it object template ID).\n
+P:148D2:: If object list ID / object template ID >= $62,\n then it refers to a list. Go handle it.\n
+P:148D6:: Object list ID / object template ID refers to a\n repeated object.\n\n Set the object type at each element from 1 to Object Count\n to object template ID.\n
 P:148D8:L148D8
-P:148E5:L148E5_PlaceList: TODO: Object list ID (or call it object template ID) refers to a\n list of object types.\n\n Get the index of the list itself by subtracting $62.\n
+P:148E5:L148E5_PlaceList: Object list ID / object template ID truly refers to a list of object types.\n\n Get the index of the list itself by subtracting $62.\n
 P:148EA:: Put the address of the list in [04:05].\n
 P:148F7:: Copy elements from the list to ObjType up to object count [03].\n
 P:148F9:L148F9
@@ -4964,13 +4965,13 @@ P:14CF9:: Go set the direction and redraw.
 P:14CFB:UpdateMode11Death_Sub8_AnimateFade
 P:14CFE:: If done, then go to the next submode.
 P:14D01:UpdateMode11Death_Sub9: Cue the transfer of the dead Link (grey) palette row.
-P:14D07:: TODO: Here [$E5] means more like spark timer.
+P:14D07:: In these two submodes, [E5] DeathModeCounter counts down\n how long the spark lasts.\n
 P:14D0B:: Go set a delay of $17 ($18-1) frames, and advance the submode.
 P:14D0D:UpdateMode11Death_SubA
 P:14D0F:: Delay until the timer expires, and we can show the spark.
 P:14D11:: The little spark tile.
-P:14D13:: TODO: Here [$E5] means more like spark timer.
-P:14D17:: TODO: If DeathTurns >= 6, use little spark tile $62.
+P:14D13:: How much time is left for the spark?
+P:14D17:: If counter/spark timer >= 6, use little spark tile $62.
 P:14D19:: Else use the big one.
 P:14D1B:L14D1B
 P:14D1D:: Use Link's Y for both sides.
@@ -5039,7 +5040,7 @@ P:14E40:: Switch to the boomerang slot.\n
 P:14E42:: If state in object slot <> 0 and high bit is clear, return.\n
 P:14E49:L14E49: Set state to $10 for boomerang.\n
 P:14E4D:: Set the farthest distance the boomerang can fly based on\n the type of boomerang.\n
-P:14E56:: Set up the boomerang.\n QSpeed = $C0 (3 pixels a frame)\n\n TODO:\n Each turning animation frame lasts 3 screen frames.\n
+P:14E56:: Set up the boomerang.\n QSpeed = $C0 (3 pixels a frame)\n\n The first turning animation frame lasts 3 screen frames, instead of 2.\n Maybe it's to make up for the fact that the first screen frame isn't seen.\n
 P:14E63:: See PlaceWeaponForPlayerStateAndAnim for the reason\n that Link's animation counter is set to 1.\n
 P:14E68:: If there's an input direction, then use it as the weapon's direction.\n It might be diagonal, with horizontal and vertical components.\n Else use Link's facing direction.\n
 P:14E6F:L14E6F
@@ -5132,7 +5133,7 @@ P:15080:InitModeB
 P:15085-15096:InitModeB_JumpTable
 P:15097:InitModeC
 P:1509C-150AD:InitModeC_JumpTable
-P:150AE:ModifyObjCountByHistoryOW:Look for the room in the history.\n
+P:150AE:ModifyObjCountByHistoryOW: Look for the room in the history.\n
 P:150B2:L150B2
 P:150B5:: If found, go check kill count in depth.
 P:150BA:: It wasn't found. Check the kill count in the room flags.\n
@@ -5317,7 +5318,6 @@ P:1642A:: Go test the next direction.
 P:1642C:: Else return an invalid door attribute.
 P:1642F:L1642F
 P:16434:L16434_ReachedTopWallBottom: Read a zero tile. Reached the bottom of a top wall.\n\n Set up A and X to move top and bottom offsets to the next column.\n
-P:16436:: TODO: I think that any value >= 4 would work here;\n so that we keep processing the wall tile list.
 P:1643A:: Go move top and bottom pointers.
 P:1643C:L1643C_DecBottomOffset: Subtract A=1 from bottom offset.\n
 P:1643F:: Go increment the wall tile list address, and continue.
@@ -5551,7 +5551,7 @@ P:1687D:: Every 4 frames, switch palettes.
 P:16883:: WhitePaletteBottomHalfTransferBuf
 P:16885:L16885
 P:16887:L16887_Exit
-P:16888:L16888_StartFillingHearts: Start filling hearts, and go to next submode.\n\n TODO: why 2?
+P:16888:L16888_StartFillingHearts: Start filling hearts, and go to next submode.\n\n UNKNOWN: Why 2? Either way, non-zero works.\n
 P:1688C:L1688C_IncSubmode
 P:1688F:UpdateMode12EndLevel_Sub2
 P:16894:: If finished filling hearts, then go set the timer for the next submode.
@@ -5644,7 +5644,7 @@ P:16AAF:: At the end of a column, we've reached the top of the next one.\n Move 
 P:16AB4:: Increment column index.
 P:16ABA:: If we have processed all columns, then return.
 P:16ABC:: Go process the next one.
-P:16ABF:CheckTileObject: Params:\n A: primary square\n\n Returns:\n A: primary square corresponding to tile object, else argument\n\n\n Find the index X corresponding to the primary square: $E5  => 0; $EA => 5.\n
+P:16ABF:CheckTileObject: Params:\n A: primary square\n\n Returns:\n A: primary square corresponding to tile object, else argument\n\n Tile object primary squares $E9 and $EA are unused; which\n means that tile object types $66 and $67 are unused.\n Instead, armos is represented by primary square $C0.\n\n\n Find the index X corresponding to the primary square: $E5  => 0; $EA => 5.\n
 P:16AC5:L16AC5
 P:16AC7:: If we found the primary, go handle it.
 P:16ACE:: If the primary isn't between $E5 to $EA, then return.
@@ -5958,12 +5958,14 @@ P:174FB:L174FB: Clear RAM from 0 to $EF.
 P:17503:: The first time looking for an edge cell to spawn a monster\n from, look here first.\n
 P:1750A:: These are part of the IsSaveFileActive array.\n\n Mode 1 Menu checks 5 elements of the array to see\n if the option can be chosen. The first 3 are the save\n slots. The last two are the register and eliminate options.\n\n So, theses two should always be set.
 P:17513-17516:NextRoomIdOffsets
+P:17517:CalculateNoNextRoom
+P:17519:: UNKNOWN: Write 0? But CalculateNextRoomForDoor reads [E7] instead.
 P:1751C:L1751C: Shift single-bit mask.
 P:1751F:: Go test next bit.
 P:17522:CalculateNextRoomForDoor: Params:\n [E7]: direction\n\n\n Map door bit/direction to an index as follows:\n 1: 3\n 2: 2\n 4: 1\n 8: 0\n\n Note that this is the opposite of the usual mapping.
 P:17524:: [00] holds a single-bit mask to compare
 P:17526:: Index
-P:17528:L17528: Compare argument to single-bit mask.
+P:17528:L17528: Compare direction argument to single-bit mask.
 P:1752C:: If they don't match, go try the next one.
 P:17531:: TODO: [$04E4] holds unique room ID.
 P:17534:: Look up offset used to calculate next room ID from current one.
@@ -5971,7 +5973,7 @@ P:1753A:: Adding the offset to RoomId yields the room ID in the desired directio
 P:17543:L17543
 P:17545:: If the next room ID is invalid, then fall thru, and reload OW.
 P:17547:EndGameMode12
-P:1754A:: TODO: ?
+P:1754A:: UNKNOWN: Mode 2 loads a level. But it doesn't depend on [E7].
 P:1754C:: Set OW (level 0).
 P:17552:: Set to type 2: dungeon level.
 P:17554:: Silence the song.
@@ -6091,7 +6093,7 @@ P:1777B:L1777B
 P:17781:: $1E is the cursor tile.\n
 P:17789:: Flash the cursor.\n Use palette rows 5 and 6 for 8 frames each.\n
 P:17795:: Flip the right sprite horizontally.\n
-P:1779A:: TODO:\n If input direction = [EF] item search direction in the previous frame, return.\n
+P:1779A:: Has the input changed? If input direction = [EF] item search\n direction in the previous frame, then return.\n
 P:177A1:: Copy input direction to X register.
 P:177A2:: If input direction = 0, up, or down; then we won't change\n the change the selected item slot forward or backward.\n\n Instead, jump to this routine to make sure an occupied slot\n is selected, then return.\n
 P:177A8:: Cue the "selection changed" tune.\n
@@ -6320,11 +6322,11 @@ P:1E573:L1E573_EnableNMI: Enable NMI.
 P:1E580:ResetPpuRegisters
 P:1E594:ClearNameTable: Params:\n A: Hi byte of starting VRAM address\n X: Tile number\n Y: Tile attribute byte\n
 P:1E59D:: Make sure to auto-increment VRAM by 1.
-P:1E5B0:: Fill one nametable with the tile.
-P:1E5B6:: TODO: ???
+P:1E5B0:: Fill one nametable with the tile.\n
+P:1E5B6:: UNKNOWN: Unused. Even so, it wouldn't make sense.
 P:1E5B8:L1E5B8
 P:1E5BC:L1E5BC_LoopTile
-P:1E5C5:: Fill the related attributes with the attribute byte.
+P:1E5C5:: Fill the related attributes with the attribute byte.\n
 P:1E5D9:L1E5D9_LoopAttr
 P:1E5DF:L1E5DF_RestoreX: Set X to the passed in value.\n Y was already its passed in value.
 P:1E5E2:TableJump
@@ -6352,7 +6354,7 @@ P:1E68F:CalculateNextRoom
 P:1E691:: If in OW, all directions are open.
 P:1E693:: Look up door attribute for player's direction.\n
 P:1E69F:: The same as [02].
-P:1E6A1:CalculateNextRoom_TableJump: TODO: Set [E7] to a door bit/direction bit.
+P:1E6A1:CalculateNextRoom_TableJump: Set [E7] to a door bit/direction.
 P:1E6A3:: A holds the door attribute.
 P:1E6A6-1E6B7:CalculateNextRoom_JumpTable
 P:1E6B8:CalculateNextRoomOW: Use player's direction bit.
@@ -6469,7 +6471,7 @@ P:1E8B4:: Write the end marker.\n
 P:1E8B9:: Update dynamic buffer length with 10 new bytes.\n
 P:1E8C0:: Restore object index.
 P:1E8C7:: Change the tiles in the play area map.\n
-P:1E8CA:: TODO: ?\n If [F7] is set, switch to bank 4, and reset [F7].\n
+P:1E8CA:: Switch to bank 4, if requested.\n
 P:1E8D3:L1E8D3
 P:1E8D8:FillTileMap: Params:\n [$0A]: tile\n
 P:1E8E2:L1E8E2_Loop
@@ -6500,8 +6502,7 @@ P:1E9D8:InitMode3
 P:1E9E5-1E9F6:InitMode3_JumpTable
 P:1E9F7:InitMode3_Sub0
 P:1E9F9:: TODO: [17] ?
-P:1EA00:ClearRoomHistory: Returns:\n A: 0\n\n TODO: Also resets [0529].\n
-P:1EA04:: TODO: [$0529]?\n From Loz/ItemObj.cpp:\n                // The original game skips checking hearts, and shoots, if [$529] is set.\n                // But, I haven't found any code that sets it.\n
+P:1EA00:ClearRoomHistory: Returns:\n A: 0\n\n Also resets [0529].\n
 P:1EA07:L1EA07_Loop: Clear the room history.\n
 P:1EA0E-1EA10:SaveSlotToPaletteRowOffset: Each element is the offset of a palette row starting from\n row 4. Index by save slot number.
 P:1EA11:InitMode3_Sub1
@@ -6735,7 +6736,7 @@ P:1EF8E:L1EF8E_FindSecretRoom
 P:1EF98:L1EF98_Found: Found.\n\n If it was the first room in the list, handle it specially.\n This room is the only one in Q1 with a flute secret. It's also\n the only one in the list without a flute secret in Q2.\n\n In Q2, go summon the whirlwind. In Q1, continue to reveal\n the secret.\n
 P:1EFA1:L1EFA1_Normal: For other rooms in the list:\n In Q1, go summon the whirlwind.\n In Q2, continue to reveal the secret.\n
 P:1EFA4:L1EFA4_RevealSecret: If the cycle of colors is complete or in progress, then return. The secret is already revealed.\n
-P:1EFA9:: TODO:\n Look for an empty slot from 8 to 0 (?!).\n\n TODO:\n Does it ever get to 0? Would it work? Would an object in that\n slot be updated?\n
+P:1EFA9:: Look for an empty slot from 9 to 1.\n
 P:1EFAB:L1EFAB_FindEmptySlot
 P:1EFB3:: If we find one, set up a flute secret object there.\n It will handle the rest.\n
 P:1EFB8:L1EFB8_Exit
@@ -6999,7 +7000,7 @@ P:1F5A6:L1F5A6_PlayerArrow
 P:1F5AD:L1F5AD_SetAttr
 P:1F5AF:: Copy the attribute to [05], and go draw.\n
 P:1F5B6:L1F5B6_CheckState20: If major state <> $20, go check other states.\n
-P:1F5BA:: State $2x. Spark.\n\n Change the state to $28, and decrement animation counter.\n If it hasn't reached 0, then go draw and check for collision\n (with Link, if this is a monster's boomerang).\n\n TODO: Why state $28?\n I thought that it was set to $28, so that the animation frame cycle will\n start over again when spinning.\n But when animation counter reaches 0, state will be set to $40.\n If the counter hasn't reached 0, then I don't *think* that\n any drawing code depends on the minor state.\n
+P:1F5BA:: State $2x. Spark.\n\n Change the state to $28, and decrement animation counter.\n If it hasn't reached 0, then go draw and check for collision\n (with Link, if this is a monster's boomerang).\n\n Minor state 8 selects the frame image and base sprite attribute\n for the spark.\n
 P:1F5C3:: Animation counter = 0.\n\n Set state to $40. It will become $50 below in\n HandleArrowOrBoomerangBlocked.\n
 P:1F5C7:: If this is an arrow (monster's or player's), then deactivate it.\n Else go handle the boomerang being blocked.\n
 P:1F5D2:L1F5D2_CheckBoomerangBlocked
@@ -7045,7 +7046,7 @@ P:1F6CE:: Boomerang effect
 P:1F6D3:DrawBoomerangAndCheckCollision: If the boomerang belongs to a monster, then check for\n collision with Link.\n\n If they collide, then set state $20 and animation counter 3.\n
 P:1F6E8:L1F6E8_CalcBoomerangFrame: The minor state (low 3 bits of state) is used to\n set the right frame in [0C] for this point in the spinning cycle.\n\n Reset [00] and [01]. These are the offsets for boomerang's position.\n In other words, don't offset the coordinate below.\n
 P:1F6FA:: Store the base sprite attribute for this point in the cycle in [04].\n
-P:1F700:: TODO: ?\n If base sprite attribute in [04] = 8, then leave [04] as it is.\n Else add the item value of the magic boomerang.\n\n But none of the values in the base sprite attributes array is 8.\n\n As far I can tell, the magic boomerang's item value (0 or 1) in\n the inventory will always be added to the base sprite attribute.\n\n So, palette row 4 or 5 will be chosen.\n
+P:1F700:: If base sprite attribute in [04] = 8, then leave [04] as is.\n Else add the item value of the magic boomerang.\n\n If not sparking, then the magic boomerang's item value (0 or 1)\n in the inventory will be added to the base sprite attribute.\n So, palette row 4 or 5 will be chosen.\n\n If sparking, then base sprite attribute 1 from element 8 is used.\n Adding the inventory value results in palette row 4 or 5.\n\n None of the values in the base sprite attributes array is 8.\n So, this branch will never be taken. Maybe this is left over from\n development.\n
 P:1F709:L1F709
 P:1F70F:: Boomerang item slot
 P:1F714:L1F714_OffsetAndDrawArrow: Params:\n Y: reverse direction index that the weapon is facing\n\n\n [00] and [01] will hold sprite X and Y.\n Begin with the horizontal and vertical offsets.\n
@@ -7095,7 +7096,7 @@ P:1F854:L1F854_Exit
 P:1F855:ResetObjState: Returns:\n A: 0\n\n If it's the room item, then deactivates it.\n
 P:1F85A:L1F85A_MakeSwordShot: Try to activate a sword shot.\n\n Switch to shot slot $E.\n
 P:1F85C:: If state <> 0, return. It's already activated.\n
-P:1F860:: If [0529] is set, go activate a sword shot regardless of hearts.\n\n TODO: But is this used?\n
+P:1F860:: If [0529] is set, go activate a sword shot regardless of hearts.\n\n UNKNOWN: But I haven't found any code that sets it.\n
 P:1F865:: If full hearts <> (heart containers - 1), return.\n
 P:1F876:: If partial heart is less than half full, return.\n
 P:1F87D:L1F87D_SetUp: Sword shot sound effect
@@ -7453,7 +7454,7 @@ S:0EC2:: Go emit it.
 S:0EC4:L6734_CheckPartial
 S:0EC6:: If partial heart is 0, go emit an empty heart tile.
 S:0ECA:: If partial heart at least half full, go emit a full heart tile.
-S:0ECE:: TODO: else, clear [$0529]
+S:0ECE:: else, clear [$0529]
 S:0ED1:: and use a half heart tile.
 S:0ED5:L6745_EmitEmptyHeart: Use an empty heart tile.
 S:0ED7:L6747_EmitChar
@@ -7816,7 +7817,7 @@ S:18B2:: If there is a right sprite, then go process it.
 S:18B4:: Put the object index in X again.
 S:18B7-18DB:Anim_ItemFrameOffsets: Maps an item slot to the offset of its first frame in ItemFrameTiles heap.
 S:18DC-190B:Anim_ItemFrameTiles
-S:190C:Anim_WriteStaticItemSpritesWithAttributes: A: sprite attributes\n X: cycle sprite index / object index\n Y: item slot\n [00]: X\n [01]: Y\n
+S:190C:Anim_WriteStaticItemSpritesWithAttributes: Params:\n A: sprite attributes\n X: cycle sprite index / object index\n Y: item slot\n [00]: X\n [01]: Y\n
 S:1911:: Reset horizontal flipping.
 S:1913:: Reset frame.
 S:1915:Anim_WriteItemSprites: Params:\n X: cycle sprite index / object index\n Y: item slot\n [00]: X\n [01]: Y\n [04]: left sprite attributes\n [05]: right sprite attributes\n [0C]: frame image\n [0F]: flip horizontally\n\n Returns:\n [52]: ProcessedNarrowObj\n\n\n Save the item slot passed in Y.
@@ -8003,10 +8004,10 @@ S:1E13:: Store in [0B] the vertical distance between the two objects.\n
 S:1E1D:: If distance >= vertical threshold in [0E], return 0.\n
 S:1E21:: If we get here, then the objects are close enough in both axes.\n Return 1.\n
 S:1E23:L7693_ReturnValue
-S:1E26:BeginShove: Params:\n X: caller's object index, a monster\n    the attacker, if monster attacks Link\n    else defender, if weapon attacks monster\n [00]: 0 if monster attacks Link (defender),\n       else weapon slot (attacker)\n [09]: damage type,\n       only if a monster is defending\n TODO:\n [0B]: direction\n\n Only monsters (and fire) call this routine.\n\n When monsters attack Link, they set [00] to 0 for Link's slot.\n\n On the other hand, if a weapon attacks a monster,\n the monster sets [00] to the weapon's slot.\n\n\n If a weapon attacks a monster, and the weapon's damage\n type matches the monster's invincibility mask;\n then return without shoving.\n\n If a monster attacks Link, then damage type will be 0.\n
+S:1E26:BeginShove: Params:\n X: caller's object index, a monster\n    the attacker, if monster attacks Link\n    else defender, if weapon attacks monster\n [00]: 0 if monster attacks Link (defender),\n       else weapon slot (attacker)\n [09]: damage type,\n       only if a monster is defending\n [0B]: direction,\n       only if a monster is defending\n\n Only monsters (and fire) call this routine.\n\n When monsters attack Link, they set [00] to 0 for Link's slot.\n\n On the other hand, if a weapon attacks a monster,\n the monster sets [00] to the weapon's slot.\n\n\n If a weapon attacks a monster, and the weapon's damage\n type matches the monster's invincibility mask;\n then return without shoving.\n\n If a monster attacks Link, then damage type will be 0.\n
 S:1E33:: [08], [04], and [05] are used in determining the direction to push Link,\n if he is defending. The goal is to push Link away from the monster.\n\n If instead a monster is defending, then all this calculation\n won't matter, because the shove direction will be set to the\n weapon's direction.\n\n As such, calculate a direction from the monster to the defender,\n assuming it's Link.\n\n Start with an assumption that the direction is vertical:\n Store 8 (up) in [08], monster Y in [04], and other Y in [05].\n
 S:1E40:: If the defender is Link and his grid offset <> 0 then\n use his usual object direction variable to determine\n which axis to check.\n
-S:1E51:: For monsters defending, or Link with grid offset = 0,\n check direction in [0B].\n\n For monsters defending, this won't matter. For Link with grid\n offset = 0, I believe the result will be arbitrary.\n\n TODO:\n Is [0B] always set if Link's grid offset = 0?\n It doesn't seem to be if candle fire attacks him.\n
+S:1E51:: For monsters defending, or Link with grid offset = 0,\n check direction in [0B].\n\n For monsters defending, this won't matter. For Link with grid\n offset = 0, I believe the result will be arbitrary.\n\n UNKNOWN:\n [0B] isn't always set, ifLink's grid offset = 0.\n For example, if fire attacks him.\n
 S:1E57:L76C7_CheckHorizontal: If the direction checked is left or right,\n set [08] to 2 (left), monster X in [04] and other X in [05].\n
 S:1E64:L76D4_CheckVertical: If the monster is down or right of the other object,\n then use the opposite direction already in [08].\n Else shift [08] right to turn it into the opposite\n direction up or down.\n\n Again assuming Link is the defender; after this, [08] points\n Link away from the monster.\n
 S:1E6C:: If a monster is the defender, go handle it separately.\n
@@ -8019,7 +8020,7 @@ S:1E8F:: If the attacker is a vire, then return.\n
 S:1E96:: Turn the attacker in the opposite direction.\n
 S:1E9D:L770D_Exit
 S:1E9E:L770E_MonsterDefender: A monster is the defender. A weapon is the attacker.\n\n Set the shove direction to the weapon's direction,\n instead of the direction passed in [0B].\n
-S:1EA3:: If the monster's attribute "reverse after hit Link" is set, then\n combine the shove direction with $40.\n\n TODO:\n But the shoving routing doesn't read this flag.\n
+S:1EA3:: If the monster's attribute "reverse after hit Link" is set, then\n combine the shove direction with $40.\n\n UNKNOWN:\n But the shoving routing doesn't read this flag.\n
 S:1EB0:: If the monster is invincible, then return without shoving.\n
 S:1EB5:: If the monster is not a Gohma, then go store the shove direction.\n
 S:1EC0:L7730_Gohma: This a Gohma, but if the current part [0F] is not an eye part (3 or 4),\n then return, so that the hit doesn't register.\n

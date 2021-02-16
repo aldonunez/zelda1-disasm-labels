@@ -780,7 +780,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
    If file A's static markers are wrong or file is invalid, then&#xD;
      Format file A&#xD;
 &#xD;
- TODO: This is also mode 1 submode 0 init.&#xD;
+ This is also mode 1 submode 0 init.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -2876,7 +2876,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>3790</Address>
       <AddressType>SaveRam</AddressType>
       <Label />
-      <Comment> TODO: else, clear [$0529]</Comment>
+      <Comment> else, clear [$0529]</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -4352,7 +4352,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>124342</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: ???</Comment>
+      <Comment> UNKNOWN: Unused. Even so, it wouldn't make sense.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -4360,7 +4360,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>124336</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Fill one nametable with the tile.</Comment>
+      <Comment> Fill one nametable with the tile.&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -4368,7 +4369,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>124357</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Fill the related attributes with the attribute byte.</Comment>
+      <Comment> Fill the related attributes with the attribute byte.&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -6559,7 +6561,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>6412</Address>
       <AddressType>SaveRam</AddressType>
       <Label>Anim_WriteStaticItemSpritesWithAttributes</Label>
-      <Comment> A: sprite attributes&#xD;
+      <Comment> Params:&#xD;
+ A: sprite attributes&#xD;
  X: cycle sprite index / object index&#xD;
  Y: item slot&#xD;
  [00]: X&#xD;
@@ -7323,7 +7326,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>42015</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> Add DeathCount byte to [$CF:CE].</Comment>
+      <Comment> TODO: Add byte at [[$C8:C9]] to [$CF:CE].</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -7331,7 +7334,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>42020</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Add byte at [[$CA:CB]] to [$CF:CE].</Comment>
+      <Comment> Add DeathCount byte to [$CF:CE].</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -7583,14 +7586,10 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>125444</Address>
+      <Address>95513</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: [$0529]?&#xD;
- From Loz/ItemObj.cpp:&#xD;
-                // The original game skips checking hearts, and shoots, if [$529] is set.&#xD;
-                // But, I haven't found any code that sets it.&#xD;
-</Comment>
+      <Comment> UNKNOWN: Write 0? But CalculateNextRoomForDoor reads [E7] instead.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -8433,7 +8432,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>42163</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: $529?</Comment>
+      <Comment> UNKNOWN: Why now?</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -8540,7 +8539,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>42147</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: ?</Comment>
+      <Comment> UNKNOWN: Why now?</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -12385,7 +12384,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>229</Address>
       <AddressType>InternalRam</AddressType>
-      <Label>DeathTurns</Label>
+      <Label>DeathModeCounter</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
@@ -12596,7 +12595,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>85271</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: If DeathTurns &gt;= 6, use little spark tile $62.</Comment>
+      <Comment> If counter/spark timer &gt;= 6, use little spark tile $62.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -12716,7 +12715,9 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>85255</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Here [$E5] means more like spark timer.</Comment>
+      <Comment> In these two submodes, [E5] DeathModeCounter counts down&#xD;
+ how long the spark lasts.&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -12724,7 +12725,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>85267</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Here [$E5] means more like spark timer.</Comment>
+      <Comment> How much time is left for the spark?</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -13019,7 +13020,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label>L16888_StartFillingHearts</Label>
       <Comment> Start filling hearts, and go to next submode.&#xD;
 &#xD;
- TODO: why 2?</Comment>
+ UNKNOWN: Why 2? Either way, non-zero works.&#xD;
+</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -13305,7 +13307,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>95562</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: ?</Comment>
+      <Comment> UNKNOWN: Mode 2 loads a level. But it doesn't depend on [E7].</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -13340,7 +13342,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Comment> Returns:&#xD;
  A: 0&#xD;
 &#xD;
- TODO: Also resets [0529].&#xD;
+ Also resets [0529].&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -14971,11 +14973,10 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Length>1</Length>
     </CodeLabel>
     <CodeLabel>
-      <Address>91190</Address>
+      <Address>95511</Address>
       <AddressType>PrgRom</AddressType>
-      <Label />
-      <Comment> TODO: I think that any value &gt;= 4 would work here;&#xD;
- so that we keep processing the wall tile list.</Comment>
+      <Label>CalculateNoNextRoom</Label>
+      <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -16763,6 +16764,10 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  Returns:&#xD;
  A: primary square corresponding to tile object, else argument&#xD;
 &#xD;
+ Tile object primary squares $E9 and $EA are unused; which&#xD;
+ means that tile object types $66 and $67 are unused.&#xD;
+ Instead, armos is represented by primary square $C0.&#xD;
+&#xD;
 &#xD;
  Find the index X corresponding to the primary square: $E5  =&gt; 0; $EA =&gt; 5.&#xD;
 </Comment>
@@ -17626,7 +17631,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>124577</Address>
       <AddressType>PrgRom</AddressType>
       <Label>CalculateNextRoom_TableJump</Label>
-      <Comment> TODO: Set [E7] to a door bit/direction bit.</Comment>
+      <Comment> Set [E7] to a door bit/direction.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -18217,7 +18222,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>83155</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: [$010C] ?</Comment>
+      <Comment> UNKNOWN: [$010C] seems to be a variable that's no longer used.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -18225,7 +18230,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>83158</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: [$E7] ?</Comment>
+      <Comment> UNKNOWN: [E7] seems to be used only for calculating NextRoomId.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -18291,7 +18296,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>95528</Address>
       <AddressType>PrgRom</AddressType>
       <Label>L17528</Label>
-      <Comment> Compare argument to single-bit mask.</Comment>
+      <Comment> Compare direction argument to single-bit mask.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -21743,7 +21748,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>86190</Address>
       <AddressType>PrgRom</AddressType>
       <Label>ModifyObjCountByHistoryOW</Label>
-      <Comment>Look for the room in the history.&#xD;
+      <Comment> Look for the room in the history.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -21946,7 +21951,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>84178</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: If object list ID (or call it object template ID?) &gt;= $62,&#xD;
+      <Comment> If object list ID / object template ID &gt;= $62,&#xD;
  then it refers to a list. Go handle it.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -21956,11 +21961,11 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>84182</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Object list ID (or call it object template ID) refers to a&#xD;
+      <Comment> Object list ID / object template ID refers to a&#xD;
  repeated object.&#xD;
 &#xD;
  Set the object type at each element from 1 to Object Count&#xD;
- to object list ID (or call it object template ID).&#xD;
+ to object template ID.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -21969,8 +21974,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>84197</Address>
       <AddressType>PrgRom</AddressType>
       <Label>L148E5_PlaceList</Label>
-      <Comment> TODO: Object list ID (or call it object template ID) refers to a&#xD;
- list of object types.&#xD;
+      <Comment> Object list ID / object template ID truly refers to a list of object types.&#xD;
 &#xD;
  Get the index of the list itself by subtracting $62.&#xD;
 </Comment>
@@ -26899,7 +26903,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>24911</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Armos1?</Comment>
+      <Comment> Armos1. But it seems to be unused, along with Armos2 ($67).</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -29714,7 +29718,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label />
       <Comment> If [0529] is set, go activate a sword shot regardless of hearts.&#xD;
 &#xD;
- TODO: But is this used?&#xD;
+ UNKNOWN: But I haven't found any code that sets it.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -30601,8 +30605,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
        else weapon slot (attacker)&#xD;
  [09]: damage type,&#xD;
        only if a monster is defending&#xD;
- TODO:&#xD;
- [0B]: direction&#xD;
+ [0B]: direction,&#xD;
+       only if a monster is defending&#xD;
 &#xD;
  Only monsters (and fire) call this routine.&#xD;
 &#xD;
@@ -30999,9 +31003,9 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  For monsters defending, this won't matter. For Link with grid&#xD;
  offset = 0, I believe the result will be arbitrary.&#xD;
 &#xD;
- TODO:&#xD;
- Is [0B] always set if Link's grid offset = 0?&#xD;
- It doesn't seem to be if candle fire attacks him.&#xD;
+ UNKNOWN:&#xD;
+ [0B] isn't always set, ifLink's grid offset = 0.&#xD;
+ For example, if fire attacks him.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -31131,7 +31135,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Comment> If the monster's attribute "reverse after hit Link" is set, then&#xD;
  combine the shove direction with $40.&#xD;
 &#xD;
- TODO:&#xD;
+ UNKNOWN:&#xD;
  But the shoving routing doesn't read this flag.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -31575,12 +31579,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  If it hasn't reached 0, then go draw and check for collision&#xD;
  (with Link, if this is a monster's boomerang).&#xD;
 &#xD;
- TODO: Why state $28?&#xD;
- I thought that it was set to $28, so that the animation frame cycle will&#xD;
- start over again when spinning.&#xD;
- But when animation counter reaches 0, state will be set to $40.&#xD;
- If the counter hasn't reached 0, then I don't *think* that&#xD;
- any drawing code depends on the minor state.&#xD;
+ Minor state 8 selects the frame image and base sprite attribute&#xD;
+ for the spark.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -32049,8 +32049,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Comment> Set up the boomerang.&#xD;
  QSpeed = $C0 (3 pixels a frame)&#xD;
 &#xD;
- TODO:&#xD;
- Each turning animation frame lasts 3 screen frames.&#xD;
+ The first turning animation frame lasts 3 screen frames, instead of 2.&#xD;
+ Maybe it's to make up for the fact that the first screen frame isn't seen.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -32184,16 +32184,19 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>128768</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: ?&#xD;
- If base sprite attribute in [04] = 8, then leave [04] as it is.&#xD;
+      <Comment> If base sprite attribute in [04] = 8, then leave [04] as is.&#xD;
  Else add the item value of the magic boomerang.&#xD;
 &#xD;
- But none of the values in the base sprite attributes array is 8.&#xD;
-&#xD;
- As far I can tell, the magic boomerang's item value (0 or 1) in&#xD;
- the inventory will always be added to the base sprite attribute.&#xD;
-&#xD;
+ If not sparking, then the magic boomerang's item value (0 or 1)&#xD;
+ in the inventory will be added to the base sprite attribute.&#xD;
  So, palette row 4 or 5 will be chosen.&#xD;
+&#xD;
+ If sparking, then base sprite attribute 1 from element 8 is used.&#xD;
+ Adding the inventory value results in palette row 4 or 5.&#xD;
+&#xD;
+ None of the values in the base sprite attributes array is 8.&#xD;
+ So, this branch will never be taken. Maybe this is left over from&#xD;
+ development.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -32947,12 +32950,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>126889</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO:&#xD;
- Look for an empty slot from 8 to 0 (?!).&#xD;
-&#xD;
- TODO:&#xD;
- Does it ever get to 0? Would it work? Would an object in that&#xD;
- slot be updated?&#xD;
+      <Comment> Look for an empty slot from 9 to 1.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -33713,8 +33711,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>125130</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: ?&#xD;
- If [F7] is set, switch to bank 4, and reset [F7].&#xD;
+      <Comment> Switch to bank 4, if requested.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -35272,8 +35269,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>96154</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO:&#xD;
- If input direction = [EF] item search direction in the previous frame, return.&#xD;
+      <Comment> Has the input changed? If input direction = [EF] item search&#xD;
+ direction in the previous frame, then return.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -39875,7 +39872,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>69605</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Why animate the raft?&#xD;
+      <Comment> This call seems to be used to put the raft's coordinates in [00], [01].&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -43331,8 +43328,9 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>68046</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: [0D] ?&#xD;
- [0D] doesn't seem to be used.&#xD;
+      <Comment> UNKNOWN:&#xD;
+ [0D] doesn't seem to be used. The next place that it's read is in&#xD;
+ DrawObjectWithAnim, but after overwriting it.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -44153,9 +44151,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>67113</Address>
       <AddressType>PrgRom</AddressType>
       <Label>Gel_CheckCollisions</Label>
-      <Comment> TODO:&#xD;
- CheckMonsterCollisions calls GetObjectMiddle which&#xD;
- overwrites [02] and [03]. So, I don't know why these are set here.&#xD;
+      <Comment> CheckMonsterCollisions calls GetObjectMiddle which&#xD;
+ overwrites [02] and [03]. So, these assignments might be redundant.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -46404,7 +46401,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>70626</Address>
       <AddressType>PrgRom</AddressType>
       <Label>InitMoldorm</Label>
-      <Comment> Loop to make 10 moldrom segments, from 9 to 0, indexed by Y register.&#xD;
+      <Comment> Loop to make 10 moldorm segments, from 9 to 0, indexed by Y register.&#xD;
  Object slots $A to 1 will be used.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -46413,7 +46410,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
     <CodeLabel>
       <Address>70628</Address>
       <AddressType>PrgRom</AddressType>
-      <Label>L113E4</Label>
+      <Label>L113E4_LoopSegment</Label>
       <Comment> Start at position ($80, $70).&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -46504,7 +46501,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>70721</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Why 8 instead of 10?</Comment>
+      <Comment> 8 instead of 10, because 8 is the max kill count to save.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -47277,7 +47274,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>74263</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Fireball object type $56</Comment>
+      <Comment> Fireball object type $56 (unblockable)</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -47532,8 +47529,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>74476</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO:&#xD;
- I don't see why this is needed.&#xD;
+      <Comment> UNKNOWN: It seems that an RTS would be enough.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -51457,11 +51453,11 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>73373</Address>
       <AddressType>PrgRom</AddressType>
       <Label>BlueWizzrobe_Move</Label>
-      <Comment> TODO:&#xD;
- Consider calling this function something like MoveSimple8.&#xD;
- Also, consider deleting the references to BlueWizzrobe in&#xD;
- teleport offsets above.&#xD;
+      <Comment> Description:&#xD;
+ This procedure can be called MoveSimple8. But it's only used&#xD;
+ by blue wizzrobe and Ganon, which move alike.&#xD;
 &#xD;
+ DASM.BELOW:&#xD;
  Index the offsets using the direction value directly.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -51695,8 +51691,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>76154</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: ?&#xD;
-</Comment>
+      <Comment> Boss hit sound effect. But here it's more of a shout.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -53212,8 +53207,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>74816</Address>
       <AddressType>PrgRom</AddressType>
       <Label>Gohma_HandleWeaponCollision</Label>
-      <Comment> TODO:&#xD;
- If hit by an arrow, then set the arrow to spark&#xD;
+      <Comment> If hit by an arrow, then set the arrow to spark.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -53251,8 +53245,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>74854</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO:&#xD;
-</Comment>
+      <Comment> Boss hit sound effect</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -53787,7 +53780,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>78807</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: Why AND with $18?</Comment>
+      <Comment> UNKNOWN: Why AND with $18?</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -53985,9 +53978,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>76072</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO:&#xD;
- Do the heads not count?&#xD;
-</Comment>
+      <Comment> 8 instead of 10, because 8 is the max kill count to save.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -54580,7 +54571,10 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label>L110EB</Label>
       <Comment> State 0.&#xD;
 &#xD;
- If Link's object timer is active, then return.&#xD;
+ All wallmasters share ObjTimer[1] to control when they each&#xD;
+ emerge from the walls.&#xD;
+&#xD;
+ If the timer has not expired, then return.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -54892,10 +54886,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>69985</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: why object 1 timer?&#xD;
-&#xD;
- Set object slot 1's timer to $60, this monster's QSpeed to $18,&#xD;
- and animation counter to 8.&#xD;
+      <Comment> Wait $60 frames for the next wallmaster. Set this monster's&#xD;
+ QSpeed to $18, and animation counter to 8.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -55787,9 +55779,12 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>67669</Address>
       <AddressType>PrgRom</AddressType>
       <Label />
-      <Comment> TODO: But is this necessary?&#xD;
- Set the moving direction in [0F].&#xD;
+      <Comment> Set the moving direction in [0F].&#xD;
  Then go update the base arrow.&#xD;
+&#xD;
+ UNKNOWN:&#xD;
+ This doesn't seem to be needed. Removing the assignment&#xD;
+ doesn't affect the movement of the arrow.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -56194,8 +56189,8 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Comment> Object slot &lt;&gt; 2. If the state of the heart in slot 2 = 0, then&#xD;
  go start over.&#xD;
 &#xD;
- TODO:&#xD;
- Is it possible to jump from here? This looks like an infinite loop.&#xD;
+ The first heart -- in slot 2 -- is updated first, and set to state 1.&#xD;
+ So, you can't jump from here.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -73301,6 +73296,14 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Address>25048</Address>
       <AddressType>PrgRom</AddressType>
       <Label>L61D8</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>1321</Address>
+      <AddressType>InternalRam</AddressType>
+      <Label>ForceSwordShot</Label>
       <Comment />
       <Flags>None</Flags>
       <Length>1</Length>
