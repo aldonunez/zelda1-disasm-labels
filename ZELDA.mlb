@@ -886,6 +886,9 @@ P:61EB:: Update the dynamic transfer buf length.\n
 P:61F0:: Replace the last 3 color bytes (brown shades) that we just\n copied to the dynamic transfer buf with the colors of the\n pile of ashes.\n\n Note that here the dynamic transfer buf is being written with\n absolute offsets, instead of relative ones used in copying\n the base/template palette row transfer record.\n
 P:61F2:L61F2_ReplaceColors
 P:61FC:: Switch back to the current object slot.\n
+P:6200:Unused_DrawAshes_Bank1: Description:\n This procedure is the same as DrawAshPile in bank 2 and\n Ganon_DrawAshes in bank 4.\n
+P:6208:Unused_ActivateRoomItem_Bank1: Description:\n This procedure is the same as Ganon_ActivateRoomItem in bank 4.\n
+P:621A:L621A
 P:621B-621E:LinkToSquareOffsetsX
 P:621F-6222:LinkToSquareOffsetsY
 P:6223:CheckPassiveTileObjects: Returns:\n X: 0\n\n\n If grid offset <> 0 or input direction = 0, return.\n
@@ -1167,6 +1170,8 @@ P:97B2:L97B2_AnimateNormal: Animate normal items (type < $30).\n
 P:97BC:L97BC_AnimateFinal: At the end of the list of items are special items for Link\n and the sheet of paper.\n
 P:97BF:L97BF_PopAndNextObject: Restore the index.
 P:97C1:L97C1_NextObject
+P:97C5:Unused_97C5
+P:97CD:L97CD
 P:97D8:AnimateStationaryFairy
 P:97DE:: Rely on the fact that 2 represents normal sprite\n attributes with palette 6.\n Shift the value to make it 4.
 P:97DF:: Every 4 frames, switch between 2 animation frames.
@@ -2022,6 +2027,7 @@ P:1000D:PlayBossDeathCryIfNeeded
 P:10015:InitMonsterShot: QSpeed $C0 (3 pixels a frame)
 P:10019:_InitMonsterShot_Unknown54: QSpeed $E0 (3.5 pixels a frame)
 P:1001B:L1001B
+P:10021:Unused_10021
 P:10025:InitWalker: If the facing direction was already set, then return.\n
 P:10029:: Calculate horizontal distance and direction away from chase target.\n Store the distance in [00].\n
 P:10033:L10033
@@ -2037,6 +2043,8 @@ P:1005E:: If type <> $40, then never use horizontal mirroring. Dead code?\n
 P:10069:L10069: Frame image 0
 P:1006E:UpdateCommonWanderer: Params:\n A: turn rate\n\n Set the turn rate. If being shoved, then shove and return.\n\n DASM.EXPR: ObjTurnRate\n
 P:10078:L10078: If we have the magic clock or the monster is stunned, then return.\n
+P:10082:Unused_10082
+P:1008D:L1008D: DASM.EXPR: ObjTurnRate
 P:10094:Wanderer_TargetPlayer: If turn timer <> 0, then decrement it.\n\n DASM.EXPR: ObjTurnTimer\n
 P:10099:: DASM.EXPR: ObjTurnTimer
 P:1009C:L1009C
@@ -3064,6 +3072,7 @@ P:116B0:: Set speed flag to 1 meaning decelerate.\n\n DASM.EXPR: Digdogger_ObjSp
 P:116B3:: Go set target speed to $0040 (or $0140 if this is a child).\n
 P:116B8:Digdogger_SlowDown: Subtract 1 from 16-bit speed.\n\n DASM.EXPR: Digdogger_ObjSpeedFrac
 P:116BB:: DASM.EXPR: Digdogger_ObjSpeedFrac
+P:116C2:: DASM.EXPR: Digdogger_ObjSpeedWhole
 P:116C5:L116C5: If the 16-bit speed has not reached the 16-bit target speed, then return.\n\n DASM.EXPR: Digdogger_ObjSpeedFrac
 P:116C8:: DASM.EXPR: Digdogger_ObjTargetSpeedFrac
 P:116CD:: DASM.EXPR: Digdogger_ObjSpeedWhole
@@ -5156,12 +5165,15 @@ P:15103:L15103_LimitCount: then limit it to 7.
 P:15105:L15105: Combine this new total and the room's flags.
 P:1510A:InitMode9
 P:1510F-15122:InitMode9_JumpTable
+P:15123:Unused_DrawObjectNotMirroredOverLink_Bank5: Description:\n This procedure is the same as DrawObjectNotMirroredOverLink\n in bank 4.\n
+P:15129:Unused_DrawObjectMirroredOverLink_Bank5: Description:\n This procedure is the same as DrawObjectMirroredOverLink\n in bank 4.\n
 P:1513F:Link_ModifyDirInDoorway: In a doorway (UW), you can only move in the direction\n that you entered it or the opposite.\n\n\n If not in a doorway nor moving, then return.\n
 P:15148:: If the facing direction is part of the input direction, then\n keep moving in the facing direction.\n
 P:1514F:: If the opposite of the facing direction is part of the input direction, then\n face the opposite direction.\n
 P:15157:: If neither direction matched input direction, then\n change input direction to facing direction.\n
 P:1515B:L1515B
 P:1515E:L1515E_Exit
+P:1515F:Unused_HideSpritesOverLink_Bank5: Description:\n This procedure is the same as HideSpritesOverLink in bank 4.\n
 P:15168-1516B:DoorwayRequiredCoord: To be considered within a doorway, one condition is that\n Link's perpendicular coordinate ([00]) has to match the doorway's\n (X=$78 for verticals, Y=$8D for horizontals).\n\n See GetPlayerCoordsForDirection.\n
 P:1516C-1516F:DoorwayBoundsMinOver: Player coordinate must be >= these bounds.\n Using these bounds; the player will be considered within the\n bounds of a doorway, if strictly inside or 1 pixel outside.\n
 P:15170-15173:DoorwayBoundsMaxOver: Player coordinate must be < these bounds.\n Using these bounds; the player will be considered within the\n bounds of a doorway, if strictly inside or 1 pixel outside.\n

@@ -73305,6 +73305,115 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
+    <CodeLabel>
+      <Address>25088</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Unused_DrawAshes_Bank1</Label>
+      <Comment> Description:&#xD;
+ This procedure is the same as DrawAshPile in bank 2 and&#xD;
+ Ganon_DrawAshes in bank 4.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25096</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Unused_ActivateRoomItem_Bank1</Label>
+      <Comment> Description:&#xD;
+ This procedure is the same as Ganon_ActivateRoomItem in bank 4.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>38853</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Unused_97C5</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>38861</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>L97CD</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>25114</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>L621A</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>86307</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Unused_DrawObjectNotMirroredOverLink_Bank5</Label>
+      <Comment> Description:&#xD;
+ This procedure is the same as DrawObjectNotMirroredOverLink&#xD;
+ in bank 4.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>86313</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Unused_DrawObjectMirroredOverLink_Bank5</Label>
+      <Comment> Description:&#xD;
+ This procedure is the same as DrawObjectMirroredOverLink&#xD;
+ in bank 4.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>86367</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Unused_HideSpritesOverLink_Bank5</Label>
+      <Comment> Description:&#xD;
+ This procedure is the same as HideSpritesOverLink in bank 4.&#xD;
+</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>65569</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Unused_10021</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>65677</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>L1008D</Label>
+      <Comment> DASM.EXPR: ObjTurnRate</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>65666</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label>Unused_10082</Label>
+      <Comment />
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>71362</Address>
+      <AddressType>PrgRom</AddressType>
+      <Label />
+      <Comment> DASM.EXPR: Digdogger_ObjSpeedWhole</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
   </Labels>
   <TblMappings />
 </DebugWorkspace>
