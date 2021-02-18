@@ -1799,7 +1799,7 @@ P:A90F:InitMode13_Sub0
 P:A91C:: Zelda is in object slot 1.
 P:A921:UpdateEndGameCurtainEffect
 P:A92D:: When the right curtain edge reaches the middle (< $11),\n go to the next submode.\n
-P:A933:: TODO: Why set the timer?\n
+P:A933:: UNKNOWN: This assignment looks unneeded.\n Nothing looks at this timer until it's set again in update/submode 0.\n
 P:A939:LA939_Exit
 P:A93A-A93E:PlayAreaAttr0TransferBuf
 P:A93F:InitMode13_Sub1
@@ -2068,7 +2068,7 @@ P:10127:: If not being shoved, then go handle other activities.\n
 P:1012B:L1012B_Exit
 P:1012C:L1012C_AfterMove: If speed = 0 or is between squares, then go try shooting.\n
 P:10138:: Store the truncated grid offset.\n
-P:1013B:: TODO: Which object gets in this state, and when?\n If state = $FF, go try shooting.\n
+P:1013B:: If Link's state = $FF, go try shooting.\n\n UNKNOWN: I don't see how Link can get in this state.\n
 P:10141:: Store in [00] the absolute vertical distance between\n the chase target and the walker.\n\n Store in [02] the vertical direction from the walker to\n the chase target.\n
 P:10153:L10153
 P:1015A:: Store in [01] the absolute horizontal distance between\n the chase target and the walker.\n\n Store in [03] the horizontal direction from the walker to\n the chase target.\n
@@ -2402,7 +2402,7 @@ P:10829:L10829_ZeroSpeed: Replace the speed that was pushed with 0.
 P:1082D:L1082D_SetSpeed: Set the speed to whatever was determined: 0 or the value passed in [01].\n
 P:10831:L10831_Exit
 P:10832:_ShootIfWanted2: Params:\n A: shot object type\n X: shooter object index\n\n Returns:\n C: 1 if succeeded\n Y: shot slot\n
-P:10835:: TODO:\n If succeeded, then set object timer to $80, and decrement [0437][X].\n\n TODO:\n What are object timer and [0437] used for?\n
+P:10835:: If succeeded, then set object timer to $80, and decrement [0437][X].\n\n UNKNOWN: [0437][X] only ever seems to be decremented.\n
 P:1083E:L1083E_Exit
 P:1083F:UpdateMonsterArrow: Set q-speed $80 (2 pixels a frame).\n
 P:10844:: If the timer has not expired, then go draw,\n and see if the shooter's still alive.\n
@@ -2656,8 +2656,8 @@ P:10DB8:: If not filling hearts anymore, then go to state 2,\n and set Link's ob
 P:10DBE:L10DBE_CheckState2: If state <> 2 (so, it's 3), then return.\n\n Note that the first time here is when we fall thru from 8DBC.\n In this case, A has $50 -- the value that Link's object timer\n was set to, and we'll return.\n
 P:10DC2:: State = 2.\n\n If Link's timer <> 0, then go draw Link and hearts.\n
 P:10DC6:: Else go to state 3, and unhalt Link.\n
-P:10DCC:L10DCC_DrawLinkAndHearts: TODO: but why, since Link is halted?\n\n Reset the input direction, so that Link doesn't animate\n when drawing him.
-P:10DD1:: Save and reset Link's state.\n\n TODO: but why, since Link is halted?\n
+P:10DCC:L10DCC_DrawLinkAndHearts: Reset the input direction, so that Link doesn't animate\n when drawing him.\n
+P:10DD1:: Save and reset Link's state.\n
 P:10DD9:: Restore Link's state.\n
 P:10DDF:: Restore the object slot.\n
 P:10DE2:L10DE2_Exit
@@ -2669,7 +2669,7 @@ P:10DF4:: Object slot <> 2. If the state of the heart in slot 2 = 0, then\n go s
 P:10DF8:: Look up the starting angle of this heart with the index\n (object slot - 3). If the first heart has not reached this angle,\n then loop again.\n
 P:10DFD:: DASM.EXPR: ObjAngleWhole+2
 P:10E05:L10E05_SetUpHeart: Set up this heart. Set its state to 1.\n
-P:10E07:: TODO: ?\n
+P:10E07:: UNKNOWN: I haven't seen anything depend on the heart's\n direction, let alone this value. Then again, Patra Child,\n which is also orbits, has an assignment like this one.\n
 P:10E0B:: Starting angle $18 (N).\n
 P:10E0D:: DASM.EXPR: ObjAngleWhole
 P:10E10:: This heart is right above the fairy. Set its X the same as the fairy's.\n
@@ -2914,7 +2914,7 @@ P:113B5:: If shoot timer = 0, then we're not shooting.\n Go set the qspeed.\n
 P:113B7:: If shoot timer <> $10, or we have the magic clock, or stunned;\n then go reset qspeed.\n
 P:113C2:: Try to shoot a sword shot.\n
 P:113C9:: If failed, then go set the qspeed.\n
-P:113CB:: TODO:\n Else set timer to $80, and decrement [0437][X].\n
+P:113CB:: Else set timer to $80, and decrement [0437][X].\n\n UNKNOWN: [0437] only ever seems to be decremented.\n Also, Stalfos doesn't care about the timer. This block seems\n copied and pasted from 8832 ("ShootIfWanted2").\n
 P:113D2:L113D2_CheckResult: We jump here if shooting failed. Jump again to set the qspeed.\n
 P:113D4:: Shooting succeeded.\n Reset "wants to shoot" flag and the speed.\n
 P:113D6:: DASM.EXPR: ObjWantsToShoot
@@ -2951,7 +2951,7 @@ P:1146E:: Set low target speed byte to $80.\n This assumes that the high byte is
 P:11470:: DASM.EXPR: Digdogger_ObjTargetSpeedFrac
 P:11473:: Set child count of 3.\n
 P:11479:InitDigdogger2
-P:1147C:: TODO:\n Change object type to $38 (Digdogger1).\n\n Probably to simplify a test.\n
+P:1147C:: Change object type to $38 (Digdogger1).\n\n UNKNOWN:\n Why? Everything seems to work as usual, if you leave it as $39.\n
 P:11481:: Set child count of 1.\n
 P:11487:InitDodongo: Play Dodongo/Gohma roar.
 P:1148C:: Randomly face left or right.\n
@@ -3008,7 +3008,7 @@ P:11587:L_Digdogger_AfterFlute: Params:\n Y: flute state\n\n If flute state = 2,
 P:1158A:: Flute state = 1.\n\n If this is a child digdogger, then go turn and move as usual.\n\n DASM.EXPR: Digdogger_ObjIsChild
 P:1158F:: Set object timer to $40, and increase flute state to 2.\n Then go check collisions as a big digdogger.\n
 P:11599:L11599_SplitUp: If the timer = 0, then skip the block below, and go split up.\n
-P:1159D:: Every 8 frames, switch between behaving as a big and little digdogger.\n\n TODO:\n But is this possible, given the following?\n a. all object timers run concurrently\n b. all object updates are paused until the flute timer expires\n c. the flute timer lasts longer\n
+P:1159D:: Every 8 frames, switch between behaving as a big and little digdogger.\n\n UNKNOWN:\n But is this possible, given the following?\n a. all object timers run concurrently\n b. all object updates are paused until the flute timer expires\n c. the flute timer lasts longer\n
 P:115A1:: DASM.EXPR: Digdogger_ObjIsChild
 P:115A6:: DASM.EXPR: Digdogger_ObjIsChild
 P:115AB:L115AB
@@ -3329,7 +3329,7 @@ P:11C9C:: Save the original Y, and temporarily add 6 to it.\n
 P:11CA4:: Check again at relative hotspot ($E, $E).\n
 P:11CA7:: Restore the original coordinates.\n
 P:11CAD:L11CAD_Exit
-P:11CAE:PolsVoice_GetCollidingTile: Returns:\n C: 0 if walkable\n [041F][X]: tile\n\n Use offset 0 from the hotspot.\n\n TODO: But where is [0F] set?\n
+P:11CAE:PolsVoice_GetCollidingTile: Returns:\n C: 0 if walkable\n [041F][X]: tile\n\n Use offset 0 from the hotspot.\n\n It looks like [0F] is still 0 from when ObjUninitialized was copied\n to it inside UpdateObject.\n
 P:11CB6:: Return C=0 if walkable.\n
 P:11CB9:: Remember the tile that the monster is over.\n\n DASM.EXPR: PolsVoice_ObjLastTile
 P:11CBD:PolsVoice_MoveX: Returns:\n Y: facing direction - 1 (so, 0 to 7)\n\n Add the X offset for the current direction to the X coordinate.\n
@@ -3799,9 +3799,9 @@ P:12715:L12715
 P:12718:: If this is the bottom segment, then go reset metastate and loop again.\n Gleeok can writhe when it's hit here, but it can't die.\n
 P:1271F:: If this neck has not died, then go loop again.\n
 P:12724:: This neck died. So, prepare to make a flying head.\n
-P:12726:: TODO: I don't see why this is needed, since it won't go in this obj slot.
+P:12726:: I don't see why this is needed, since it won't go in this obj slot.
 P:12729:: Save the segment object slot in X.
-P:1272B:: If the segment is not a head, then skip making a flying head.\n\n TODO:\n But how can we get here in this case, since earlier branches\n would have been taken to skip all this for all other segments?\n
+P:1272B:: If the segment is not a head, then skip making a flying head.\n\n But how can we get here in this case, since earlier branches\n would have been taken to skip all this for all other segments?\n This might be defensive coding.\n
 P:1272F:: The flying head will go in slot (neck index + 7).\n Switch the X register to it.\n
 P:12736:: Flag it uninitialized, so that it will be initialized next frame.\n
 P:1273B:: Copy the original head's coordinates to it.\n
@@ -3961,7 +3961,7 @@ P:12AE3:L12AE3_FindNonOpposite: Else it was blocked. So, load the facing directi
 P:12AE5:L12AE5_LoopFindNonOpposite: Shift right the copy of the direction.\n If the direction bit rolled off the low end, then roll it onto the high end.\n
 P:12AEA:L12AEA: If the current direction bit is not masked off, then go check the\n room boundary in this direction.\n Else we've reached the opposite direction. Loop again.\n
 P:12AF1:L12AF1_CheckTileCollision: We found a direction that was not blocked by the room boundary.\n Check tile collision. If blocked by a tile, then go look for another direction.\n
-P:12AF9:L12AF9_Exit: TODO: confirm this\n\n If there were a room that had lamnolas, and they could get\n surrounded on 3 sides, then the loop above would get stuck in\n an infinite loop.\n\n But, the only room with that configuration has those blocks\n blocked off with a push block, which can only be pushed after\n all monsters are killed.\n
+P:12AF9:L12AF9_Exit: If there were a room that had lamnolas, and they could get\n surrounded on 3 sides, then the loop above would get stuck in\n an infinite loop.\n\n But, the only room with that configuration has those blocks\n blocked off with a push block, which can only be pushed after\n all monsters are killed.\n\n I confirmed this by using the memory view to move the lamnolas\n in room $57 of Q1/L9 over the stairs in the middle of the room.\n
 P:12AFA:L12AFA_TurnTowardLink: Find the horizontal direction toward Link and store it in [02].\n
 P:12B07:L12B07: Find the vertical direction toward Link and store it in [03].\n
 P:12B14:L12B14: If the horizontal direction toward Link is not allowed, then\n go check the vertical direction.\n
@@ -3981,7 +3981,7 @@ P:12B54:L12B54_Up: If direction has an up component (8), then subtract offset fr
 P:12B56:: Bit 5 of mask $A1 sets Carry now.
 P:12B5E:: DASM.EXPR: Lamnola_Speed
 P:12B63:L12B63_Exit
-P:12B64:PatraManeuverTime: TODO:\n Was this intended to be an array of two elements?\n
+P:12B64-12B65:PatraManeuverTimes
 P:12B66:UpdatePatra
 P:12B69:: Reset flying distance traveled, so that we know what offset to\n apply to the children.\n
 P:12B6B:: DASM.EXPR: Flyer_ObjOffsetX
@@ -3997,7 +3997,7 @@ P:12B98:L12B98_TryChangeManeuver: If timer = 0 and the angle of patra child in s
 P:12B9A:: DASM.EXPR: ObjAngleWhole+3
 P:12B9F:: DASM.EXPR: Patra_ObjManeuverIndex
 P:12BA4:: DASM.EXPR: Patra_ObjManeuverIndex
-P:12BA8:: TODO:\n for this to make sense, Y must be 0 or 1. But where is is set?\n
+P:12BA8:: Y is only ever 0 at this point, even though there are two elements.\n Maybe the TYA instruction above was supposed to be a TAY.\n
 P:12BAD:L12BAD_Exit
 P:12BAE:ControlPatraFlight: DASM.EXPR: Flyer_ObjFlyingState
 P:12BB4-12BBB:ControlPatraFlight_JumpTable
@@ -4017,7 +4017,7 @@ P:12BE7:: Subtract 3 from the object slot to get the angle where the\n patra chi
 P:12BEB:: If the patra child in slot 2 has not reached the required angle,\n then return.\n\n DASM.EXPR: ObjAngleWhole+2
 P:12BF3:L12BF3_Ready: Once the patra child in the last slot (9) reaches here, advance\n the patra parent's state.\n
 P:12BF9:L12BF9: Go to state 1 to orbit.\n
-P:12BFB:: TODO: ?\n
+P:12BFB:: UNKNOWN: Nothing seems to read or write the direction after this\n -- not even collision detection.\n
 P:12BFF:: Set angle $18 (N).\n
 P:12C01:: DASM.EXPR: ObjAngleWhole
 P:12C04:: This location is right above Patra.\n Set X coordinate to Patra's.\n
@@ -4847,8 +4847,7 @@ P:14AB2:: Loop to look for an unopened shutter.\n The loop variable is a directi
 P:14AB6:L14AB6_LoopOpenedDoorBit: If the door for the direction bit is not opened, go see if it's a shutter.\n
 P:14ABC:L14ABC_NextLoopOpenedDoorBit: This door was opened. Shift the direction bit right.\n Loop until direction bit = 0.\n
 P:14AC2:L14AC2: If there were no unopened shutters, then turn off the shutter trigger.\n
-P:14AC8:L14AC8_TriggerIfShutter: Pass the direction bit as an argument to get the door attribute.\n
-P:14ACC:: TODO: Why not call it door type instead of door attribute?
+P:14AC8:L14AC8_TriggerIfShutter: Pass the direction bit as an argument to get the door type.\n
 P:14ACF:: If it's not a shutter, go loop again.\n
 P:14AD3:: If there's already a triggered door command, quit.\n
 P:14AD8:: Else set a command to open the door in this direction.\n
@@ -5188,7 +5187,7 @@ P:151D6:L151D6_TestDoorwayDoor:\n\n [0E] holds reverse index of doorway directio
 P:151D8:: Store input direction in [02] and [0C].\n
 P:151E1:: If input direction is not the doorway direction found, return.\n
 P:151E6:: Touch the door in the direction we found.\n
-P:151E9:: [0D] holds the door attribute.
+P:151E9:: [0D] holds the door type.
 P:151EB:: Can set [0E] to $FF, if a door blocks the way.
 P:151EE:: If blocked, then return and leave DoorwayDir as it was.\n
 P:151F2:: Set variables to doorway direction found.\n
@@ -5302,7 +5301,7 @@ P:16391-163B3:ColumnHeapUW9
 P:163B4-163C3:RoomLayoutUWCellar0
 P:163C4-163D3:RoomLayoutUWCellar1
 P:163D4-163F5:ColumnHeapUWCellar
-P:163F6:FindDoorAttrByDoorBit: Params:\n [02]: bitmask for target door.\n\n Returns:\n A: door attribute for desired direction in current room.\n [01]: same as [02] if found; $10 otherwise\n [03]: reverse direction index\n\n Door bits:\n 1: E\n 2: W\n 4: S\n 8: N\n\n\n Start with single-bit mask 1.
+P:163F6:FindDoorTypeByDoorBit: Params:\n [02]: bitmask for target door.\n\n Returns:\n A: door type for desired direction in current room.\n [01]: same as [02] if found; $10 otherwise\n [03]: reverse direction index\n\n Door bits:\n 1: E\n 2: W\n 4: S\n 8: N\n\n\n Start with single-bit mask 1.
 P:163FA:: Test 4 directions.
 P:163FE:L163FE_LoopDoorBit
 P:16400:: Get attr byte A for S/N doors.
@@ -5311,11 +5310,11 @@ P:1640E:L1640E: Store either attribute byte in [$00].
 P:16414:: If counter is even, then ...
 P:16416:: Isolate N/W doors.
 P:1641C:L1641C: Isolate S/E doors, if we jump here.
-P:16420:: Now [$00] holds isolated door attribute.\n\n\n Test mask passed in [$02] with current single-bit mask in [$01].
-P:16424:: If they match, then go return door attribute for current direction.
+P:16420:: Now [$00] holds isolated door type attribute.\n\n Test mask passed in [$02] with current single-bit mask in [$01].
+P:16424:: If they match, then go return door type for current direction.
 P:16426:: Shift the single-bit mask left.
 P:1642A:: Go test the next direction.
-P:1642C:: Else return an invalid door attribute.
+P:1642C:: Else return an invalid door type.
 P:1642F:L1642F
 P:16434:L16434_ReachedTopWallBottom: Read a zero tile. Reached the bottom of a top wall.\n\n Set up A and X to move top and bottom offsets to the next column.\n
 P:1643A:: Go move top and bottom pointers.
@@ -5372,15 +5371,15 @@ P:164FC:L_LayOutDoors_LoopHalves
 P:164FD:: Save the current direction index (door index).
 P:164FE:: [0B] holds direction index.
 P:16503:: [02] holds the direction (bit) for the current door.
-P:16508:: Begin looking for the door face for the door attribute.\n In general, use the door type as the provisional face;\n except turn 4 into 8.\n
-P:1650A:: If door attribute > 4, go use it as the provisional face.
-P:1650E:: Door attribute < 4, go process it.
-P:16512:: Door attribute = 4, go use 8 as the provisional face.
+P:16508:: Begin looking for the door face for the door type.\n In general, use the door type as the provisional face;\n except turn 4 into 8.\n
+P:1650A:: If door type > 4, go use it as the provisional face.
+P:1650E:: Door type < 4, go process it.
+P:16512:: Door type = 4, go use 8 as the provisional face.
 P:16514:L16514_SetPF9: We jump here if the door type is bombable and was opened.\n Change the provisional door face to value 9, which\n will become the "hole in the wall".\n
-P:16518:L16518_ClearFromOpenedMask: Door attribute < 4 (open or any wall), clear door bit from\n the mask of opened doors, because this is not a true door.\n
+P:16518:L16518_ClearFromOpenedMask: Door type < 4 (open or any wall), clear door bit from\n the mask of opened doors, because this is not a true door.\n
 P:16519:: [02] current direction
 P:16522:: Furthermore, if door type = 0, then use 4 as the provisional face.\n
-P:16528:L16528_DoneClosedPF: The door attribute (DA) has been mapped to a\n provisional door face value (PF) in %A as follows:\n\n DA PF Meaning\n -------------\n 0  4  open\n 1  1  wall\n 2  2  false wall\n 3  3  false wall 2\n 4  8  bombable\n 5  5  key\n 6  6  key 2\n 7  7  shutter\n\n Also at this point, the door bit in CurOpenedDoors\n has been cleared, if the type was "open" or any wall.\n\n\n Save the provisional face.
+P:16528:L16528_DoneClosedPF: The door type (DT) has been mapped to a\n provisional door face value (PF) in %A as follows:\n\n DT PF Meaning\n -------------\n 0  4  open\n 1  1  wall\n 2  2  false wall\n 3  3  false wall 2\n 4  8  bombable\n 5  5  key\n 6  6  key 2\n 7  7  shutter\n\n Also at this point, the door bit in CurOpenedDoors\n has been cleared, if the type was "open" or any wall.\n\n\n Save the provisional face.
 P:16529:: If the current direction points to a door that has been opened,\n then see if we need to set door flags.\n
 P:1652B:: [02] current door direction
 P:1652E:: Restore the provisional face.
@@ -5393,7 +5392,7 @@ P:1653A:: If provisional door face is for "key" or "bombable",
 P:1653D:: then set the door's flag.
 P:16541:: If the provisional door face = 8 (closed "bombable"),\n then go make it 9 (open "bombable").\n Else make it 4 (open "door").\n
 P:16545:L16545
-P:16547:L16547_DoneOpenPF: For opened doors, the provisional door face has become:\n\n DA PF Meaning\n -------------\n 0  4  open\n 1  1  wall\n 2  2  false wall\n 3  3  false wall 2\n 4  9  bombable\n 5  4  key\n 6  4  key 2\n 7  4  shutter\n\n\n If handling the first half [06], then calculate OpenDoorwayMask.\n
+P:16547:L16547_DoneOpenPF: For opened doors, the provisional door face has become:\n\n DT PF Meaning\n -------------\n 0  4  open\n 1  1  wall\n 2  2  false wall\n 3  3  false wall 2\n 4  9  bombable\n 5  4  key\n 6  4  key 2\n 7  4  shutter\n\n\n If handling the first half [06], then calculate OpenDoorwayMask.\n
 P:1654B:: [0B] direction index
 P:16555:L16555: If provisional door face < 4 (any wall), then go loop another half,\n because the visible door face is already a wall.\n
 P:16559:: For all other provisional face values, calculate:\n door face := provisional face - 3
@@ -5528,7 +5527,7 @@ P:167E3:: Write tile to (col, row+1).
 P:167EC:: Write tile to (col+1, row).
 P:167EE:: Go write tile to (col+1, row+1).
 P:167F1:FindAndCreatePushBlockObject: Reset block state and direction.\n
-P:167F7:: If the unique room ID is $21, then\n put the push block object at ($40, $80), and go set the type.\n\n TODO: Where is room layout $21 used?\n
+P:167F7:: If the unique room ID is $21, then\n put the push block object at ($40, $80), and go set the type.\n\n UNKNOWN:\n UW room layout $21 is the entrance room. But none of them\n have the push block flag set in LevelBlock attributes.\n
 P:16805:: Go set the object type and return.
 P:16808:L16808: Look for a block tile in row $A of play area, starting in column 4.\n
 P:1680C:L1680C_LoopColumn
@@ -5756,7 +5755,7 @@ P:17082:: If in UW,
 P:17084:: then clear the sprites that go above all the rest.
 P:17087:L17087
 P:17091:: Get door type in direction we're facing
-P:17094:: If the door attribute is "false wall",\n then play the "found secret" tune.
+P:17094:: If the door type is "false wall",\n then play the "found secret" tune.
 P:1709B:: Play "found secret" tune.
 P:170A0:L170A0
 P:170A1:: If the player is at an "open", "key", or "shutter" door,\n then the player walked all the way to the edge of the play\n area. So, use index 2 to set Link's relative position to 0.\n\n Otherwise, the player is at wall level. Link has to walk to the\n edge of the play area. So, set a relative position that\n reflects that distance: $28 or -$28.\n\n If walking in a decreasing direction (left or up), then\n Link's relative position is $28 and has to decrease to 0.\n\n If walking in an increasing direction (right or down), then\n Link's relative position is -$28 and has to increase to 0.\n
@@ -5765,9 +5764,9 @@ P:170AD:L170AD
 P:170B6:ResetInvObjState: Reset LadderSlot. No ladder is active.\n
 P:170BA:: Reset ObjState of all weapons.\n
 P:170BC:L170BC
-P:170C3:GetPassedDoorType: Returns door attr in direction Link's facing (mode 6),\n or opposite direction (other modes).\n\n Returns:\n A: door attribute\n Y: whether Link is facing an increasing direction (right or down)\n\n\n If Link's direction is right or down, then 1 will be returned.\n Else 0.
+P:170C3:GetPassedDoorType: Returns door type in direction Link's facing (mode 6),\n or opposite direction (other modes).\n\n Returns:\n A: door type\n Y: whether Link is facing an increasing direction (right or down)\n\n\n If Link's direction is right or down, then 1 will be returned.\n Else 0.
 P:170CC:L170CC
-P:170CE:: If in mode 6, use Link's direction to get a door attribute.\n Else use the opposite direction.
+P:170CE:: If in mode 6, use Link's direction to get a door type.\n Else use the opposite direction.
 P:170D9:L170D9
 P:170E1:CopyPlayAreaAttrsHalfToDynTransferBuf: Params:\n X: high PPU address\n A: low PPU address\n Y: end offset in PlayAreaAttrs to copy from\n
 P:170F1:L170F1
@@ -5967,7 +5966,7 @@ P:17524:: [00] holds a single-bit mask to compare
 P:17526:: Index
 P:17528:L17528: Compare direction argument to single-bit mask.
 P:1752C:: If they don't match, go try the next one.
-P:17531:: TODO: [$04E4] holds unique room ID.
+P:17531:: UNKNOWN: [$04E4] holds room layout. But it's unused.
 P:17534:: Look up offset used to calculate next room ID from current one.
 P:1753A:: Adding the offset to RoomId yields the room ID in the desired direction.
 P:17543:L17543
@@ -6026,9 +6025,9 @@ P:17623:: [02] holds door direction
 P:17627:L17627
 P:17632:L17632_WriteMapTile: Restore current room ID and dynamic buffer offset.\n
 P:17637:: The map marks are arranged in the same order as all the\n possible values of OpenDoorMask.\n\n Add $E2 for the first map mark tile, and store it in the\n dynamic transfer buf at the current offset.\n
-P:17641:CalcOpenDoorwayMask: Call for each direction index (3 to 0) to build an open doorway mask\n based on doorway type and room flags. Each call will shift the next\n doorway state bit into OpenDoorwayMask.\n\n Params:\n A: door attribute\n X: direction index\n\n Returns:\n A: untouched\n
-P:17643:: Save door attribute.
-P:17646:: If door attribute < 4 (open or any wall), go shift the appropriate bit.
+P:17641:CalcOpenDoorwayMask: Call for each direction index (3 to 0) to build an open doorway mask\n based on doorway type and room flags. Each call will shift the next\n doorway state bit into OpenDoorwayMask.\n\n Params:\n A: door type\n X: direction index\n\n Returns:\n A: untouched\n
+P:17643:: Save door type.
+P:17646:: If door type < 4 (open or any wall), go shift the appropriate bit.
 P:17648:: Else we have to find out the walkability from the room flags.\n
 P:17649:: Save direction index.
 P:1764B:: Save Y=0
@@ -6040,10 +6039,10 @@ P:17656:L17656
 P:17657:: Restore Y=0.
 P:17659:: Restore direction index in X.
 P:1765A:L1765A_ShiftIntoMask
-P:17663:: Restore door attribute.
-P:17665:L17665_ByDoorType: The door attribute indicates the walkability.\n
-P:17667:: If door attribute is "open", carry is set, and go shift a 1 into the mask.
-P:1766A:: Door attribute is a wall, carry is clear, and go shift a 0 into the mask.
+P:17663:: Restore door type.
+P:17665:L17665_ByDoorType: The door type indicates the walkability.\n
+P:17667:: If door type is "open", carry is set, and go shift a 1 into the mask.
+P:1766A:: Door type is a wall, carry is clear, and go shift a 0 into the mask.
 P:1766C:AddDoorFlagsToCurOpenedDoors
 P:17671:L17671_LoopDoorBit
 P:1767C:L1767C
@@ -6218,7 +6217,7 @@ P:19BDC-19CD7:LevelInfoUW9
 P:19CD8-19D65:CommonDataBlock_Bank6
 P:1A000-1A07F:TransferBufAddrs
 P:1A080:TransferCurTileBuf
-P:1A08F:: TODO: Why put $3F in [$0300]? Is it the maximum size of dynamic transfer buf?
+P:1A08F:: UNKNOWN:\n $3D is the maximum size of the dynamic transfer buf. Is this\n $3F related? [0300] is only ever written.\n
 P:1A09E:: Empty the tile buffer.
 P:1A0A2:ContinueTransferTileBuf:\n\n Save VRAM address high byte.
 P:1A0A7:: Read low byte of VRAM address.
@@ -6352,13 +6351,13 @@ P:1E67B:: If in OW, then return.
 P:1E685:: If player hasn't gotten the compass, then return.
 P:1E68F:CalculateNextRoom
 P:1E691:: If in OW, all directions are open.
-P:1E693:: Look up door attribute for player's direction.\n
+P:1E693:: Look up door type for player's direction.\n
 P:1E69F:: The same as [02].
 P:1E6A1:CalculateNextRoom_TableJump: Set [E7] to a door bit/direction.
-P:1E6A3:: A holds the door attribute.
+P:1E6A3:: A holds the door type.
 P:1E6A6-1E6B7:CalculateNextRoom_JumpTable
 P:1E6B8:CalculateNextRoomOW: Use player's direction bit.
-P:1E6BA:: Use "open" door attribute.
+P:1E6BA:: Use "open" door type.
 P:1E6BE-1E6C5:LevelMasks
 P:1E6C6:MarkRoomVisited
 P:1E6C9:: Visit state (UW)
@@ -6643,7 +6642,7 @@ P:1ED7D:L1ED7D_FinishUpdatePlay: These actions are done after Link is updated, r
 P:1ED89:UpdateHeartsAndRupees
 P:1EDA0:UpdatePlayer
 P:1EDA5:: If Link is halted, then return.\n
-P:1EDAD:: TODO:\n\n If Link is paralyzed (by a like-like), then\n reset input direction.\n\n As far as I can tell, ObjInputDir could have been set to 0,\n instead of masking with $F0 for the same effect.\n
+P:1EDAD:: If Link is paralyzed (by a like-like), then\n reset input direction.\n\n As far as I can tell, ObjInputDir could have been set to 0,\n instead of masking with $F0 for the same effect.\n
 P:1EDBA:L1EDBA
 P:1EDC5:Link_EndMoveAndAnimateInRoom
 P:1EDC9:: If in mode $A, then return.
