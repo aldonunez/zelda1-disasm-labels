@@ -1112,8 +1112,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  A: tile&#xD;
  [049E][X]: tile&#xD;
 &#xD;
-&#xD;
- Use -8 ($F8) for the hotspot offset, if it's Link.</Comment>
+ DASM.BELOW: Use -8 ($F8) for the hotspot offset, if it's Link.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -1155,8 +1154,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
 &#xD;
  If no walkable direction is found, then stop moving.&#xD;
 &#xD;
-&#xD;
- if is player&#xD;
+ DASM.BELOW: if is player&#xD;
    if at doorway&#xD;
      go handle a walkable direction&#xD;
    if blocked by door&#xD;
@@ -3355,8 +3353,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  If CurRow = PrevRow, does nothing. After a row is copied,&#xD;
  PrevRow is assigned CurRow.&#xD;
 &#xD;
-&#xD;
- If CurRow is valid, then copy row.</Comment>
+ DASM.BELOW: If CurRow is valid, then copy row.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -3769,8 +3766,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Comment> Params:&#xD;
  A: room ID&#xD;
 &#xD;
-&#xD;
- Push the room ID.</Comment>
+ DASM.BELOW: Push the room ID.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -3925,8 +3921,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Comment> Returns:&#xD;
  A: 0 if compass of current level is missing.&#xD;
 &#xD;
-&#xD;
- Check compasses.</Comment>
+ DASM.BELOW: Check compasses.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -3937,8 +3932,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Comment> Returns:&#xD;
  A: 0 if map of current level is missing.&#xD;
 &#xD;
-&#xD;
- Check maps.</Comment>
+ DASM.BELOW: Check maps.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -4139,8 +4133,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Comment> Returns:&#xD;
  C: 1 if cleared; 0 if already cleared&#xD;
 &#xD;
-&#xD;
- If already cleared, then return false.</Comment>
+ DASM.BELOW: If already cleared, then return false.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -6023,7 +6016,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  [0343]: LeftSpriteOffset&#xD;
  [0344]: RightSpriteOffset&#xD;
 &#xD;
- If not currently invincible, then leave the attributes alone.&#xD;
+ DASM.BELOW: If not currently invincible, then leave the attributes alone.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -6183,8 +6176,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  Returns:&#xD;
  [52]: ProcessedNarrowObj&#xD;
 &#xD;
-&#xD;
- Save the item slot passed in Y.</Comment>
+ DASM.BELOW: Save the item slot passed in Y.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -6241,8 +6233,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  Returns:&#xD;
  [52]: ProcessedNarrowObj&#xD;
 &#xD;
-&#xD;
- Store the object index in [08].</Comment>
+ DASM.BELOW: Store the object index in [08].</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -6382,8 +6373,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  [0343]: LeftSpriteOffset&#xD;
  [0344]: RightSpriteOffset&#xD;
 &#xD;
-&#xD;
- All wide items that we process have mirrored sides.</Comment>
+ DASM.BELOW: All wide items that we process have mirrored sides.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -6437,8 +6427,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  A: item type&#xD;
  X: object index&#xD;
 &#xD;
-&#xD;
- Save the item ID.</Comment>
+ DASM.BELOW: Save the item ID.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -6449,8 +6438,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Comment> Look up the item description for this item ID.&#xD;
  Store the item value part of it in [04].&#xD;
 &#xD;
-&#xD;
- Restore the item ID.</Comment>
+ DASM.BELOW: Restore the item ID.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -6470,8 +6458,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  X: object index&#xD;
  [04]: item type&#xD;
 &#xD;
-&#xD;
- If the lifetime timer of the item &gt;= $F0, then return;&#xD;
+ DASM.BELOW: If the lifetime timer of the item &gt;= $F0, then return;&#xD;
  so that the player can't pick it up right away.&#xD;
 &#xD;
  [03A8][X] is used to count down the life of the item.&#xD;
@@ -11541,8 +11528,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label>DrawStatusBarPotion</Label>
       <Comment> We have a potion to draw.&#xD;
 &#xD;
-&#xD;
- Potion item slot.</Comment>
+ DASM.BELOW: Potion item slot.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -11667,7 +11653,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  [0343]: LeftSpriteOffset&#xD;
  [0344]: RightSpriteOffset&#xD;
 &#xD;
- If [0F] = 0, write the sprite pair with no further processing.&#xD;
+ DASM.BELOW: If [0F] = 0, write the sprite pair with no further processing.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -11950,8 +11936,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label>L1F2E3_CheckWarps</Label>
       <Comment> If in mode 5, check warps.&#xD;
 &#xD;
-&#xD;
- Set X to 0 to refer to Link object.</Comment>
+ DASM.BELOW: Set X to 0 to refer to Link object.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -12149,8 +12134,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  A: low PPU address&#xD;
  Y: end offset in PlayAreaAttrs to copy from&#xD;
 &#xD;
-&#xD;
- Use nametable 2.</Comment>
+ DASM.BELOW: Use nametable 2.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -12162,8 +12146,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  A: low PPU address&#xD;
  Y: end offset in PlayAreaAttrs to copy from&#xD;
 &#xD;
-&#xD;
- Low byte $D0 mean destination PPU address of $23D0, $27D0, $2BD0, or $2FD0.</Comment>
+ DASM.BELOW: Low byte $D0 mean destination PPU address of $23D0, $27D0, $2BD0, or $2FD0.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -12468,6 +12451,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  Returns:&#xD;
  Z: 1 if done updating&#xD;
 &#xD;
+ DASM.BELOW:&#xD;
  ObjTimer[12] is the world fade timer. Every 10 frames,&#xD;
  we step to the next half palette. There are 4 steps to fading.&#xD;
 </Comment>
@@ -12837,8 +12821,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Comment> Params:&#xD;
  [0505]: item type&#xD;
 &#xD;
-&#xD;
- Set item X the same as Link's.</Comment>
+ DASM.BELOW: Set item X the same as Link's.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -12873,8 +12856,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Comment> Params:&#xD;
  [0505]: item type&#xD;
 &#xD;
-&#xD;
- We're dealing with Link object.</Comment>
+ DASM.BELOW: We're dealing with Link object.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -14460,8 +14442,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  A: low PPU address&#xD;
  Y: end offset in PlayAreaAttrs to copy from&#xD;
 &#xD;
-&#xD;
- High byte of destination PPU address for play area attributes.</Comment>
+ DASM.BELOW: High byte of destination PPU address for play area attributes.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -15041,8 +15022,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  4: S&#xD;
  8: N&#xD;
 &#xD;
-&#xD;
- Start with single-bit mask 1.</Comment>
+ DASM.BELOW: Start with single-bit mask 1.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -15298,8 +15278,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  6  2   1   key 2&#xD;
  7  3   1   shutter&#xD;
 &#xD;
-&#xD;
- Get the direction index.</Comment>
+ DASM.BELOW: Get the direction index.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -15526,8 +15505,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  Also at this point, the door bit in CurOpenedDoors&#xD;
  has been cleared, if the type was "open" or any wall.&#xD;
 &#xD;
-&#xD;
- Save the provisional face.</Comment>
+ DASM.BELOW: Save the provisional face.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -15710,8 +15688,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  6  4  key 2&#xD;
  7  4  shutter&#xD;
 &#xD;
-&#xD;
- If handling the first half [06], then calculate OpenDoorwayMask.&#xD;
+ DASM.BELOW: If handling the first half [06], then calculate OpenDoorwayMask.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -15752,8 +15729,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Comment> The current direction points to a door that has been opened.&#xD;
  It can only be "bombable", "key", "key 2", or "shutter".&#xD;
 &#xD;
-&#xD;
- Save provisional door face in Y register.</Comment>
+ DASM.BELOW: Save provisional door face in Y register.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -16229,8 +16205,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  Primary is a tile used for the whole square.&#xD;
  Primary &lt; $70 or &gt;= $F3.&#xD;
 &#xD;
-&#xD;
- Write tile to (col, row).</Comment>
+ DASM.BELOW: Write tile to (col, row).</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -16655,8 +16630,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  [$0D]: square index&#xD;
  [$00:01]: pointer to play area&#xD;
 &#xD;
-&#xD;
- Get square index.</Comment>
+ DASM.BELOW: Get square index.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -16770,8 +16744,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  means that tile object types $66 and $67 are unused.&#xD;
  Instead, armos is represented by primary square $C0.&#xD;
 &#xD;
-&#xD;
- Find the index X corresponding to the primary square: $E5  =&gt; 0; $EA =&gt; 5.&#xD;
+ DASM.BELOW: Find the index X corresponding to the primary square: $E5  =&gt; 0; $EA =&gt; 5.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -16836,8 +16809,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  Square index refers to a set of 4 tile indexes in secondary squares table.&#xD;
  Square index &lt; $10.&#xD;
 &#xD;
-&#xD;
- X := (square index * 4)</Comment>
+ DASM.BELOW: X := (square index * 4)</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -17485,8 +17457,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Comment> After the last submode (5 or 6), sprite-0 check was enabled.&#xD;
  So, set the appropriate mirroring for scrolling during mode update.&#xD;
 &#xD;
-&#xD;
- TODO: [$F3] ?</Comment>
+ DASM.BELOW: TODO: [$F3] ?</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -17799,8 +17770,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label>L14348_Vertical</Label>
       <Comment> Scrolling up or down.&#xD;
 &#xD;
-&#xD;
- This will mean PPU address $2BC0.</Comment>
+ DASM.BELOW: This will mean PPU address $2BC0.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -17810,8 +17780,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label>L14358_Horizontal</Label>
       <Comment> Scrolling left or right.&#xD;
 &#xD;
-&#xD;
- This will mean PPU address $2BD0, 64 pixels down from&#xD;
+ DASM.BELOW: This will mean PPU address $2BD0, 64 pixels down from&#xD;
  the top of NT 2. See submode 2 for an explanation of&#xD;
  offsets and mirroring for vertical scrolling.</Comment>
       <Flags>None</Flags>
@@ -17824,8 +17793,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Comment> Transfer half of a room's play area attributes to nametable 2.&#xD;
  The top half in submode 3, and the bottom half in submode 4.&#xD;
 &#xD;
-&#xD;
- Test player's direction for up (8).</Comment>
+ DASM.BELOW: Test player's direction for up (8).</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -17872,8 +17840,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  A: low PPU address + $18&#xD;
  Y: end offset of second half of play area NT attributes&#xD;
 &#xD;
-&#xD;
- This is the offset of the end of the second half of play area NT attributes.</Comment>
+ DASM.BELOW: This is the offset of the end of the second half of play area NT attributes.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -17915,8 +17882,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label />
       <Comment> Scrolling up.&#xD;
 &#xD;
-&#xD;
- Lay out the next room now, because we had to transfer&#xD;
+ DASM.BELOW: Lay out the next room now, because we had to transfer&#xD;
  the current one to NT 2 earlier. Up is the only direction&#xD;
  that draws the current room to NT 2.</Comment>
       <Flags>None</Flags>
@@ -17999,8 +17965,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label>InitMode7_Finish</Label>
       <Comment> Finish initializing this mode, and start updating it.&#xD;
 &#xD;
-&#xD;
- Set current room to next room.</Comment>
+ DASM.BELOW: Set current room to next room.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -18064,8 +18029,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label>L14471_ScrollUp</Label>
       <Comment> Scrolling up.&#xD;
 &#xD;
-&#xD;
- Start scrolling from $2800, the top of play area in NT 2 (current room).</Comment>
+ DASM.BELOW: Start scrolling from $2800, the top of play area in NT 2 (current room).</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -18331,8 +18295,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  end of the play area; so that we don't write to a part of&#xD;
  the scroll region.&#xD;
 &#xD;
-&#xD;
- $A0 in UW.</Comment>
+ DASM.BELOW: $A0 in UW.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -18342,8 +18305,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label />
       <Comment> Scrolling down.&#xD;
 &#xD;
-&#xD;
- Start scrolling from $2100, the top of play area in NT 0 (current room).</Comment>
+ DASM.BELOW: Start scrolling from $2100, the top of play area in NT 0 (current room).</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -18386,8 +18348,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label />
       <Comment> Facing up or down.&#xD;
 &#xD;
-&#xD;
- Assume animation frame 3 (up).</Comment>
+ DASM.BELOW: Assume animation frame 3 (up).</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -18397,8 +18358,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label>SetUpHorizontalWalkingSprites</Label>
       <Comment> Facing left or right.&#xD;
 &#xD;
-&#xD;
- Assume animation frame 0 (legs apart).</Comment>
+ DASM.BELOW: Assume animation frame 0 (legs apart).</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -18497,8 +18457,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  If the object is not mirrored, then it's horizontally flippable.&#xD;
  But Link uses [0F] for flipping without checking [0C].&#xD;
 &#xD;
-&#xD;
- [0D] holds frame.</Comment>
+ DASM.BELOW: [0D] holds frame.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -18608,8 +18567,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label>L1F340_HandleMagicShield</Label>
       <Comment> Magic shield.&#xD;
 &#xD;
-&#xD;
- Look at the left tile.</Comment>
+ DASM.BELOW: Look at the left tile.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -19019,8 +18977,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label />
       <Comment> Transfer bottom half.&#xD;
 &#xD;
-&#xD;
- Save low byte of PPU address of top of play area attributes.</Comment>
+ DASM.BELOW: Save low byte of PPU address of top of play area attributes.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -19089,8 +19046,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Comment> Params:&#xD;
  [E7]: direction&#xD;
 &#xD;
-&#xD;
- Map door bit/direction to an index as follows:&#xD;
+ DASM.BELOW: Map door bit/direction to an index as follows:&#xD;
  1: 3&#xD;
  2: 2&#xD;
  4: 1&#xD;
@@ -19148,8 +19104,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label />
       <Comment> Scrolling left.&#xD;
 &#xD;
-&#xD;
- $81 in UW.</Comment>
+ DASM.BELOW: $81 in UW.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -19191,8 +19146,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label>L1438A_DarkenRoom</Label>
       <Comment> Going from room with light to a dark room.&#xD;
 &#xD;
-&#xD;
- The next room will not be lit yet.</Comment>
+ DASM.BELOW: The next room will not be lit yet.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -19466,8 +19420,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Comment> Params:&#xD;
  Y: a point in the cycle (0 to $B)&#xD;
 &#xD;
-&#xD;
- Copy water palette (palette row 3) transfer buf to dynamic&#xD;
+ DASM.BELOW: Copy water palette (palette row 3) transfer buf to dynamic&#xD;
  transfer buf.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -20271,8 +20224,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  X: object index&#xD;
  [0F]: direction&#xD;
 &#xD;
-&#xD;
- Positive limit is 8 for Link.</Comment>
+ DASM.BELOW: Positive limit is 8 for Link.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -20611,8 +20563,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  * entering in mode 4 (method 2)&#xD;
  * leaving in mode 6&#xD;
 &#xD;
-&#xD;
- If relative position reaches 0, 8, or -8; then go to the next mode.</Comment>
+ DASM.BELOW: If relative position reaches 0, 8, or -8; then go to the next mode.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -20952,8 +20903,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  A: door type&#xD;
  Y: whether Link is facing an increasing direction (right or down)&#xD;
 &#xD;
-&#xD;
- If Link's direction is right or down, then 1 will be returned.&#xD;
+ DASM.BELOW: If Link's direction is right or down, then 1 will be returned.&#xD;
  Else 0.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -21276,8 +21226,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  ("open", "wall", or "false"), then it would produce non-sensical&#xD;
  values for the door face.&#xD;
 &#xD;
-&#xD;
- If triggered door type &gt;= 5 (keys and shutter), play door sound.&#xD;
+ DASM.BELOW: If triggered door type &gt;= 5 (keys and shutter), play door sound.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -22174,8 +22123,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  Returns:&#xD;
  C: 1 if unwalkable&#xD;
 &#xD;
-&#xD;
- Save %Y.</Comment>
+ DASM.BELOW: Save %Y.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -22229,8 +22177,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  Returns:&#xD;
  C: 1 if unwalkable&#xD;
 &#xD;
-&#xD;
- Get the absolute X distance to Link.&#xD;
+ DASM.BELOW: Get the absolute X distance to Link.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -22651,8 +22598,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label>L17889_MakeHeartContainerOW</Label>
       <Comment> Try to make the heart container in OW.&#xD;
 &#xD;
-&#xD;
- Heart container</Comment>
+ DASM.BELOW: Heart container</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -22950,8 +22896,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label />
       <Comment> Reset DoorwayDir and use first set of bounds.&#xD;
 &#xD;
-&#xD;
- Offset of first set of bounds.</Comment>
+ DASM.BELOW: Offset of first set of bounds.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -22995,8 +22940,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label>L1EBF9_StepOutside</Label>
       <Comment> We're stepping out of underground or cellar.&#xD;
 &#xD;
-&#xD;
- If in UW, then go finish the mode.&#xD;
+ DASM.BELOW: If in UW, then go finish the mode.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -23159,8 +23103,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Comment> Choose a palette transfer buf for a tile object that has sprites.&#xD;
  Rock, gravestone, Armos1, Armos2&#xD;
 &#xD;
-&#xD;
- Ghost palette row</Comment>
+ DASM.BELOW: Ghost palette row</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -23243,8 +23186,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Comment> It's a rock tile object.&#xD;
  Choose palette based on inner palette attribute to match it.&#xD;
 &#xD;
-&#xD;
- Brown palette row</Comment>
+ DASM.BELOW: Brown palette row</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -23698,8 +23640,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label />
       <Comment> A monster is not carrying the item. So draw the item as usual.&#xD;
 &#xD;
-&#xD;
- Room item is in object slot $13.</Comment>
+ DASM.BELOW: Room item is in object slot $13.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -23906,8 +23847,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
 &#xD;
  First, check the exceptions. If the item is a map, compass, or triforce; then go handle them.&#xD;
 &#xD;
-&#xD;
- Map item slot</Comment>
+ DASM.BELOW: Map item slot</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -24099,8 +24039,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Comment> Class 1. We have a type of item with an amount.&#xD;
  Item value is the amount to add.&#xD;
 &#xD;
-&#xD;
- Heart container item slot</Comment>
+ DASM.BELOW: Heart container item slot</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -25033,8 +24972,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  Delay and turn randomly a number of times.&#xD;
  The go to state 1. After each turn, delay $10 frames.&#xD;
 &#xD;
-&#xD;
- Delay until timer = 0.&#xD;
+ DASM.BELOW: Delay until timer = 0.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -25180,8 +25118,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  Turn towards the player a number of times.&#xD;
  Then go to state 1. After each turn delay $10 frames.&#xD;
 &#xD;
-&#xD;
- Delay until timer = 0.&#xD;
+ DASM.BELOW: Delay until timer = 0.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -25468,8 +25405,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  Y: direction of boundary that was crossed&#xD;
  [0F]: original direction, or 0 if boundary was crossed&#xD;
 &#xD;
-&#xD;
- Checking left direction.</Comment>
+ DASM.BELOW: Checking left direction.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -25540,8 +25476,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  Y: direction of boundary that was crossed&#xD;
  [0F]: original direction, or 0 if boundary was crossed&#xD;
 &#xD;
-&#xD;
- Checking up direction.</Comment>
+ DASM.BELOW: Checking up direction.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -25788,8 +25723,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  [00]: object X&#xD;
  [01]: object Y&#xD;
 &#xD;
-&#xD;
- Set [0C] mirrored.</Comment>
+ DASM.BELOW: Set [0C] mirrored.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -26033,8 +25967,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  If the coordinate crosses (&lt;) the boundary, then&#xD;
  go mask buttons.&#xD;
 &#xD;
-&#xD;
- Get coordinate in [02].</Comment>
+ DASM.BELOW: Get coordinate in [02].</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -26222,8 +26155,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Comment> In a doorway (UW), you can only move in the direction&#xD;
  that you entered it or the opposite.&#xD;
 &#xD;
-&#xD;
- If not in a doorway nor moving, then return.&#xD;
+ DASM.BELOW: If not in a doorway nor moving, then return.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -26379,8 +26311,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Comment> Grid offset = 0, so A = 0 here.&#xD;
  Reset some variables.&#xD;
 &#xD;
-&#xD;
- [0B] holds input direction count.&#xD;
+ DASM.BELOW: [0B] holds input direction count.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -26620,8 +26551,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
 &#xD;
  Handle special cases for doors.&#xD;
 &#xD;
-&#xD;
- 1. Link at horizontal doors.&#xD;
+ DASM.BELOW: 1. Link at horizontal doors.&#xD;
 &#xD;
  If Link's X = $20 or $D0 then&#xD;
    If Link's Y = $85 and facing down then&#xD;
@@ -26668,8 +26598,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label />
       <Comment> At this point, Link_GoStraightWhenDiagInput is true.&#xD;
 &#xD;
-&#xD;
- 2. Link at top door.&#xD;
+ DASM.BELOW: 2. Link at top door.&#xD;
 &#xD;
  If Link's X &lt;&gt; $78 or Link's Y &lt;&gt; $5D then&#xD;
    Go set object direction and input direction to object&#xD;
@@ -26927,8 +26856,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  Returns:&#xD;
  [0F]: untouched, or 0&#xD;
 &#xD;
-&#xD;
- Look for a tile object among objects 1 to 12 that can block&#xD;
+ DASM.BELOW: Look for a tile object among objects 1 to 12 that can block&#xD;
  the player's movement.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -27138,8 +27066,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
 &#xD;
  Otherwise, [0F] will be changed from 0 to the door's direction.&#xD;
 &#xD;
-&#xD;
- If already in a doorway, go handle it separately.&#xD;
+ DASM.BELOW: If already in a doorway, go handle it separately.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -27762,8 +27689,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Comment> Returns:&#xD;
  X: 0&#xD;
 &#xD;
-&#xD;
- If grid offset &lt;&gt; 0 or input direction = 0, return.&#xD;
+ DASM.BELOW: If grid offset &lt;&gt; 0 or input direction = 0, return.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -27940,8 +27866,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label>L62B7_ChooseObjType</Label>
       <Comment> Choose the right object type for the tile.&#xD;
 &#xD;
-&#xD;
- Armos</Comment>
+ DASM.BELOW: Armos</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -28164,8 +28089,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Comment> If the single moving direction is vertical, use Y.&#xD;
  Else use X coordinate.&#xD;
 &#xD;
-&#xD;
- Call this to get a single moving direction.</Comment>
+ DASM.BELOW: Call this to get a single moving direction.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -28248,8 +28172,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  Returns:&#xD;
  [0F]: movement direction or 0&#xD;
 &#xD;
-&#xD;
- If the ladder's not in use, return.&#xD;
+ DASM.BELOW: If the ladder's not in use, return.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -28742,8 +28665,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label />
       <Comment> Add appropriate offset to player's position to set the ladder's position.&#xD;
 &#xD;
-&#xD;
- Call this for the reverse direction index.</Comment>
+ DASM.BELOW: Call this for the reverse direction index.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -28753,8 +28675,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label />
       <Comment> Set the ladder object's type. Reset shove params and invincibility timer.&#xD;
 &#xD;
-&#xD;
- Ladder</Comment>
+ DASM.BELOW: Ladder</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -29243,8 +29164,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  A: $10 for right and down&#xD;
  X: object index&#xD;
 &#xD;
-&#xD;
- Set the offset choices to:&#xD;
+ DASM.BELOW: Set the offset choices to:&#xD;
   $10 for right and down in [01]&#xD;
  -$10 for left and up in [02]&#xD;
 </Comment>
@@ -29273,8 +29193,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  A: chosen value, or 0 if not horizontal&#xD;
  C: 0&#xD;
 &#xD;
-&#xD;
- Set default value 0 in default address 0.&#xD;
+ DASM.BELOW: Set default value 0 in default address 0.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -29585,8 +29504,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Comment> Set Y to the right item slot to pass to the routine to write sprites:&#xD;
  sword or rod&#xD;
 &#xD;
-&#xD;
- Sword slot</Comment>
+ DASM.BELOW: Sword slot</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -29782,8 +29700,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  [0E]: $80 if blocked&#xD;
  [0F]: moving direction, or 0 if boundary was crossed&#xD;
 &#xD;
-&#xD;
- If a boundary was crossed, go set [0E] to $80 instead of moving.&#xD;
+ DASM.BELOW: If a boundary was crossed, go set [0E] to $80 instead of moving.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -29841,8 +29758,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Comment> Set the sprite attributes to (base attribute OR (frame counter AND 3)).&#xD;
  This makes the shot flash by cycling all the palettes, one each frame.&#xD;
 &#xD;
-&#xD;
- Call this only to get reverse direction index.</Comment>
+ DASM.BELOW: Call this only to get reverse direction index.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -30149,8 +30065,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  - Third turn:  loop index = 1, negate Y offset [03]&#xD;
  - Fourth turn: doesn't matter&#xD;
 &#xD;
-&#xD;
- Get the loop index.</Comment>
+ DASM.BELOW: Get the loop index.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -30203,8 +30118,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
 &#xD;
  Fails if no empty slot was found, or the blue candle was already used.&#xD;
 &#xD;
-&#xD;
- Look in slots $10 and $11. If none are empty, return.&#xD;
+ DASM.BELOW: Look in slots $10 and $11. If none are empty, return.&#xD;
  Otherwise, X will have the empty slot found.&#xD;
 &#xD;
  Note that it's possible that we fail to find an empty slot,&#xD;
@@ -30389,8 +30303,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label>L1F8C5_DrawAndCheckCollisions</Label>
       <Comment> Advance the animation counter, and draw.&#xD;
 &#xD;
-&#xD;
- 4 frames in every animation cycle.</Comment>
+ DASM.BELOW: 4 frames in every animation cycle.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -30515,8 +30428,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  [0A]: horizontal distance&#xD;
  [0B]: vertical distance&#xD;
 &#xD;
-&#xD;
- Use the same threshold value horizontally and vertically.&#xD;
+ DASM.BELOW: Use the same threshold value horizontally and vertically.&#xD;
  Copy it to [0D] for horizontal threshold, and [0E] for vertical one.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -30543,8 +30455,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  [0A]: horizontal distance&#xD;
  [0B]: vertical distance&#xD;
 &#xD;
-&#xD;
- Reset [06] to indicate no collision by default.&#xD;
+ DASM.BELOW: Reset [06] to indicate no collision by default.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -30617,8 +30528,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  On the other hand, if a weapon attacks a monster,&#xD;
  the monster sets [00] to the weapon's slot.&#xD;
 &#xD;
-&#xD;
- If a weapon attacks a monster, and the weapon's damage&#xD;
+ DASM.BELOW: If a weapon attacks a monster, and the weapon's damage&#xD;
  type matches the monster's invincibility mask;&#xD;
  then return without shoving.&#xD;
 &#xD;
@@ -30636,8 +30546,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  [0D]: damage points high byte&#xD;
  [0E]: damage points low byte&#xD;
 &#xD;
-&#xD;
- If object type is not whirlwind, then make the "hurt" sound effect.&#xD;
+ DASM.BELOW: If object type is not whirlwind, then make the "hurt" sound effect.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -31812,8 +31721,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Comment> Params:&#xD;
  Y: reverse direction index that the weapon is facing&#xD;
 &#xD;
-&#xD;
- [00] and [01] will hold sprite X and Y.&#xD;
+ DASM.BELOW: [00] and [01] will hold sprite X and Y.&#xD;
  Begin with the horizontal and vertical offsets.&#xD;
 </Comment>
       <Flags>None</Flags>
@@ -32227,8 +32135,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  [0A]: vertical direction from origin to target&#xD;
  [0B]: horizontal direction from origin to target&#xD;
 &#xD;
-&#xD;
- Handle the horizontal.&#xD;
+ DASM.BELOW: Handle the horizontal.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -32248,8 +32155,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  [00]: the original value + 1, if &lt; 8 pixels between origin and target&#xD;
  [0A]: the direction from origin to target&#xD;
 &#xD;
-&#xD;
- If the origin coordinate already &gt;= target coordinate, then&#xD;
+ DASM.BELOW: If the origin coordinate already &gt;= target coordinate, then&#xD;
  the direction in [0A] is already correct. Otherwise, shift it right&#xD;
  to flip it.&#xD;
 &#xD;
@@ -32359,8 +32265,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  Returns:&#xD;
  Y: speed index (0 to 8) for the angle&#xD;
 &#xD;
-&#xD;
- TODO: call it speed index or angle?&#xD;
+ DASM.BELOW: TODO: call it speed index or angle?&#xD;
  Store the middle speed index in [00]. It will be changed to the&#xD;
  right speed index to use incrementally.&#xD;
  Lower speed indexes yield faster X speeds and lower Y speeds.&#xD;
@@ -32905,8 +32810,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label>L1EFB9_FluteSecretNotFound</Label>
       <Comment> Not found.&#xD;
 &#xD;
-&#xD;
- Pop and throw away the quest number.&#xD;
+ DASM.BELOW: Pop and throw away the quest number.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -33074,8 +32978,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Comment> Params:&#xD;
  X: object index&#xD;
 &#xD;
-&#xD;
- Set the whirlwind's Y to Link's, X to 0, and type $2E.&#xD;
+ DASM.BELOW: Set the whirlwind's Y to Link's, X to 0, and type $2E.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -33404,8 +33307,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Comment> Params:&#xD;
  X: object index of the tile object&#xD;
 &#xD;
-&#xD;
- First tile of stairs</Comment>
+ DASM.BELOW: First tile of stairs</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -33429,8 +33331,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  X: object index&#xD;
  [F7]: not 0 to switch to bank 4 before returning&#xD;
 &#xD;
-&#xD;
- First, cue the transfer of the 4 tiles to nametable 0.&#xD;
+ DASM.BELOW: First, cue the transfer of the 4 tiles to nametable 0.&#xD;
 &#xD;
  [05] holds the first tile.</Comment>
       <Flags>None</Flags>
@@ -33480,8 +33381,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  [00]: high byte of PPU address&#xD;
  [01]: low byte of PPU address&#xD;
 &#xD;
-&#xD;
- Turn the 16-bit value 08YY into the PPU address&#xD;
+ DASM.BELOW: Turn the 16-bit value 08YY into the PPU address&#xD;
  ($2000 + (YY * 4)) by multiplying it by 4.&#xD;
 &#xD;
  Each row of tiles is 32 tiles (and bytes) long, and 8 pixels tall.&#xD;
@@ -33896,8 +33796,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  [00]: X&#xD;
  [01]: Y&#xD;
 &#xD;
-&#xD;
- Set frame image = minor state - 2.&#xD;
+ DASM.BELOW: Set frame image = minor state - 2.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -33912,8 +33811,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  [00]: X&#xD;
  [01]: Y&#xD;
 &#xD;
-&#xD;
- [0C] frame image</Comment>
+ DASM.BELOW: [0C] frame image</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -34249,8 +34147,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Comment> Params:&#xD;
  A: vertical velocity of menu scrolling&#xD;
 &#xD;
-&#xD;
- [00] holds the vertical velocity of menu scrolling.</Comment>
+ DASM.BELOW: [00] holds the vertical velocity of menu scrolling.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -34650,8 +34547,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  Y: offset from the third element in dynamic transfer buf&#xD;
     to write at (between 1 and $10)&#xD;
 &#xD;
-&#xD;
- Save dynamic transfer buf offset.</Comment>
+ DASM.BELOW: Save dynamic transfer buf offset.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -35313,8 +35209,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label />
       <Comment> Move the selection in the input direction.&#xD;
 &#xD;
-&#xD;
- Save the input direction.</Comment>
+ DASM.BELOW: Save the input direction.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -35341,8 +35236,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Comment> If the new item slot = old item slot, go cancel the&#xD;
  "selection changed" tune.&#xD;
 &#xD;
-&#xD;
- Pop selected item slot.</Comment>
+ DASM.BELOW: Pop selected item slot.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -35544,8 +35438,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  have this piece. So, go loop again, and leave the tile in the&#xD;
  empty state.&#xD;
 &#xD;
-&#xD;
- [06] level test mask</Comment>
+ DASM.BELOW: [06] level test mask</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -35903,8 +35796,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  2. If there is more than one fireball made in a frame,&#xD;
     then two of them will come from the same statue.&#xD;
 &#xD;
-&#xD;
- Save the fireball pattern.</Comment>
+ DASM.BELOW: Save the fireball pattern.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -36013,8 +35905,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  Add it to the fireball index in X register to get the index of&#xD;
  the coordinate we want within each coordinate list.&#xD;
 &#xD;
-&#xD;
- Pattern</Comment>
+ DASM.BELOW: Pattern</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -36150,8 +36041,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  A: object type&#xD;
  X: shooter's object index&#xD;
 &#xD;
-&#xD;
- [00] holds the object type.</Comment>
+ DASM.BELOW: [00] holds the object type.</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -37010,8 +36900,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label />
       <Comment> Write the transfer record header for the door.&#xD;
 &#xD;
-&#xD;
- VRAM address high byte of door</Comment>
+ DASM.BELOW: VRAM address high byte of door</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -37051,8 +36940,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  vertically. The point of this routine is to access them&#xD;
  horizontally in order to transfer them to a nametable.&#xD;
 &#xD;
-&#xD;
- For the direction index in [09], look up the base offset of the&#xD;
+ DASM.BELOW: For the direction index in [09], look up the base offset of the&#xD;
  set of 4 indexes in HorizontalDoorFaceIndexes that point to&#xD;
  the door face tiles at [02:03].&#xD;
 </Comment>
@@ -37303,8 +37191,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Label />
       <Comment> Else the door is not a shutter.&#xD;
 &#xD;
-&#xD;
- [09] door direction index</Comment>
+ DASM.BELOW: [09] door direction index</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -37660,8 +37547,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  [02]: center X&#xD;
  [03]: center Y&#xD;
 &#xD;
-&#xD;
- Start with offset 8 for X and Y in [02] and [03].&#xD;
+ DASM.BELOW: Start with offset 8 for X and Y in [02] and [03].&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -37750,7 +37636,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  Returns:&#xD;
  [00]: weapon slot&#xD;
 &#xD;
- If the weapon slot holds food (high bit of state is set), then return.&#xD;
+ DASM.BELOW: If the weapon slot holds food (high bit of state is set), then return.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -37768,7 +37654,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  Returns:&#xD;
  [00]: weapon slot&#xD;
 &#xD;
- [00] holds the weapon slot</Comment>
+ DASM.BELOW: [00] holds the weapon slot</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -37785,7 +37671,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  Returns:&#xD;
  [00]: weapon slot&#xD;
 &#xD;
- [00] holds the weapon slot</Comment>
+ DASM.BELOW: [00] holds the weapon slot</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -37803,7 +37689,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  [00]: weapon slot&#xD;
  [06]: 1 if objects collide&#xD;
 &#xD;
- [00] holds the weapon slot</Comment>
+ DASM.BELOW: [00] holds the weapon slot</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -37821,6 +37707,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  [00]: weapon slot&#xD;
  [06]: 1 if objects collide&#xD;
 &#xD;
+ DASM.BELOW:&#xD;
  [00] holds the weapon slot</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -37859,7 +37746,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
       <Comment> If the monster is a wallmaster or like-like and there's a hit&#xD;
  (using [0C] flag), then set the monster's capture flag.&#xD;
 &#xD;
- Wallmaster object type</Comment>
+ DASM.BELOW: Wallmaster object type</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
     </CodeLabel>
@@ -39181,8 +39068,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  C: 1 if there is a mismatch between current quest&#xD;
     and quest number for the secret in the room&#xD;
 &#xD;
-&#xD;
- The quest secret is in the high two bits.&#xD;
+ DASM.BELOW: The quest secret is in the high two bits.&#xD;
 </Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -41098,6 +40984,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  Returns:&#xD;
  [06]: 1 if objects collide&#xD;
 &#xD;
+ DASM.BELOW:&#xD;
  [07] damage points</Comment>
       <Flags>None</Flags>
       <Length>1</Length>
@@ -43620,6 +43507,7 @@ Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
  A: acceleration&#xD;
  Y: max speed high byte&#xD;
 &#xD;
+ DASM.BELOW:&#xD;
  [00] holds the acceleration</Comment>
       <Flags>None</Flags>
       <Length>1</Length>

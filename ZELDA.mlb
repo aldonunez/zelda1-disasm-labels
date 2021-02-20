@@ -801,7 +801,7 @@ P:4DB0:: This block is done. Increment the block index.\n
 P:4DB4-56B3:DemoSpritePatterns
 P:56B4-5ED3:DemoBackgroundPatterns
 P:6000:InitWhirlwind: Params:\n A: Y coordinate\n X: object index\n
-P:6002:SetUpWhirlwind: Params:\n X: object index\n\n\n Set the whirlwind's Y to Link's, X to 0, and type $2E.\n
+P:6002:SetUpWhirlwind: Params:\n X: object index\n\n DASM.BELOW: Set the whirlwind's Y to Link's, X to 0, and type $2E.\n
 P:6010-6017:WhirlwindPrevRoomIdList
 P:6018:UpdateWhirlwind_Full: Get Link's halted state.\n
 P:601D:: Add 2 to whirlwind X.\n
@@ -846,7 +846,7 @@ P:6129:: Halt Link (state $40).
 P:612D:: Whirlwind object goes in slot 9 in destination room.
 P:612F:: Get Y coordinate of whirlwind in this destination.
 P:613B:L613B
-P:613E:CheckTileObjectsBlocking: Params:\n [0F]: movement direction\n\n Returns:\n [0F]: untouched, or 0\n\n\n Look for a tile object among objects 1 to 12 that can block\n the player's movement.\n
+P:613E:CheckTileObjectsBlocking: Params:\n [0F]: movement direction\n\n Returns:\n [0F]: untouched, or 0\n\n DASM.BELOW: Look for a tile object among objects 1 to 12 that can block\n the player's movement.\n
 P:6140:L6140_LoopTileObj
 P:6143:: Block
 P:6147:: Rock
@@ -891,7 +891,7 @@ P:6208:Unused_ActivateRoomItem_Bank1: Description:\n This procedure is the same 
 P:621A:L621A
 P:621B-621E:LinkToSquareOffsetsX
 P:621F-6222:LinkToSquareOffsetsY
-P:6223:CheckPassiveTileObjects: Returns:\n X: 0\n\n\n If grid offset <> 0 or input direction = 0, return.\n
+P:6223:CheckPassiveTileObjects: Returns:\n X: 0\n\n DASM.BELOW: If grid offset <> 0 or input direction = 0, return.\n
 P:622D:: Compare the collided tile with tiles $BC to $C3.\n These are tiles for gravestone and armos squares.\n
 P:622F:: [02] holds the collided tile.
 P:6236:L6236_NextTile
@@ -917,7 +917,7 @@ P:62AB:: If there's truly an object there, return without instantiating an objec
 P:62B0:: If there was an initialized object at that location, return.
 P:62B2:: If there was never an object there, go instantiate one.
 P:62B4:L62B4_NextObjAtLocation
-P:62B7:L62B7_ChooseObjType: Choose the right object type for the tile.\n\n\n Armos
+P:62B7:L62B7_ChooseObjType: Choose the right object type for the tile.\n\n DASM.BELOW: Armos
 P:62B9:: [02] collided tile
 P:62BD:: If tile >= $C0, then instantiate an armos.
 P:62BF:: Flying Ghini
@@ -2146,7 +2146,7 @@ P:102A1:: [0E] holds animation index
 P:102A3:: [08] holds object index
 P:102A5:: Sprite $10: left sprite under Link
 P:102AA:: Sprite $11: right sprite under Link
-P:102AF:ShootFireball: Params:\n A: object type\n X: shooter's object index\n\n\n [00] holds the object type.
+P:102AF:ShootFireball: Params:\n A: object type\n X: shooter's object index\n\n DASM.BELOW: [00] holds the object type.
 P:102B1:: Return, if there's no empty slot.\n
 P:102B6:: Save the shooter's object index.
 P:102B8:: Switch to and save the new object's slot.
@@ -2319,7 +2319,7 @@ P:10648-1064F:StatueYs: A list of coordinates divided into sets for each pattern
 P:10650:UpdateStatues: If person fireballs are enabled (from the two fires), then\n go make fireballs with pattern 2.\n
 P:10657:: Else if the room layout has two or four statues that shoot fireballs,\n then go shoot fireballs with the corresponding pattern in Y register:\n - layout $23: pattern 1: 2 statues\n - layout $24: pattern 0: 4 statues\n
 P:1065C:L1065C
-P:10665:L10665_Shoot: Look for an empty monster slot.\n If none is found, return.\n\n Later, for each fireball, we'll call a routine to make the fireball\n object. This routine takes a shooter object, and instantiates\n a fireball object at the shooter's location.\n\n The object slot we set up here will behave as the shooter.\n For each fireball index, this object slot will have its coordinates\n changed.\n\n Note that this means that:\n 1. The first fireball made will be its own shooter.\n    Practically, there's nothing special about this.\n 2. If there is more than one fireball made in a frame,\n    then two of them will come from the same statue.\n\n\n Save the fireball pattern.
+P:10665:L10665_Shoot: Look for an empty monster slot.\n If none is found, return.\n\n Later, for each fireball, we'll call a routine to make the fireball\n object. This routine takes a shooter object, and instantiates\n a fireball object at the shooter's location.\n\n The object slot we set up here will behave as the shooter.\n For each fireball index, this object slot will have its coordinates\n changed.\n\n Note that this means that:\n 1. The first fireball made will be its own shooter.\n    Practically, there's nothing special about this.\n 2. If there is more than one fireball made in a frame,\n    then two of them will come from the same statue.\n\n DASM.BELOW: Save the fireball pattern.
 P:1066C:: Restore the fireball pattern.
 P:1066F:: If we found a slot, but it < 6, return.\n
 P:10673:: Store the object slot in [0A].\n Store fireball pattern in [0B].\n
@@ -2330,7 +2330,7 @@ P:10683:: If it was not 0, then this fireball index has to keep waiting\n to mak
 P:10686:: If the random value for this fireball index >= $F0, go loop again.\n This fireball index will wait another $100 frames.\n
 P:1068C:: Else choose one of four start times for the fireball based on\n the random value.\n
 P:10692:: DASM.EXPR: Statue_ObjFireballTimer
-P:10695:: The coordinate lists are divided into sets for each pattern.\n\n Look up the index of the base of the set for the pattern in use.\n Add it to the fireball index in X register to get the index of\n the coordinate we want within each coordinate list.\n\n\n Pattern
+P:10695:: The coordinate lists are divided into sets for each pattern.\n\n Look up the index of the base of the set for the pattern in use.\n Add it to the fireball index in X register to get the index of\n the coordinate we want within each coordinate list.\n\n DASM.BELOW: Pattern
 P:1069D:: Save the fireball index.
 P:1069F:: Get Link's coordinates into [00] and [01].\n
 P:106A4:: Switch to the new fireball's object slot.\n
@@ -2494,7 +2494,7 @@ P:10A03:Jumper_GetKind: Returns:\n Y: 0: blue tektite\n    1: red tektite\n    2
 P:10A10:L10A10_Exit
 P:10A11:Jumper_PointBoulderDownward
 P:10A20:L10A20_Exit
-P:10A21:Jumper_MoveY: Params:\n A: acceleration\n Y: max speed high byte\n\n [00] holds the acceleration
+P:10A21:Jumper_MoveY: Params:\n A: acceleration\n Y: max speed high byte\n\n DASM.BELOW:\n [00] holds the acceleration
 P:10A23:: [02] holds the max speed high byte
 P:10A25:: Add the high speed byte to the Y coordinate.\n\n DASM.EXPR: Jumper_ObjSpeedWholeY\n
 P:10A2C:: Add the acceleration to the speed fraction (low byte).\n\n DASM.EXPR: Jumper_ObjSpeedFracY\n
@@ -2728,7 +2728,7 @@ P:10F13:: If there is no standing fire (state $22) in slots $10 and $11,\n then 
 P:10F24:L10F24_FoundFire: Store the fire's object slot in [00].\n
 P:10F26:: If the standing fire's timer >= 2, return.\n
 P:10F2D:: If the tile object and weapon collide, then reveal the secret.\n
-P:10F32:RevealAndFlagSecretStairsObj: Params:\n X: object index of the tile object\n\n\n First tile of stairs
+P:10F32:RevealAndFlagSecretStairsObj: Params:\n X: object index of the tile object\n\n DASM.BELOW: First tile of stairs
 P:10F34:RevealAndFlagSecretTileObj: Params:\n A: the first tile of tile object\n X: object index\n
 P:10F37:: Flag the secret found in this room.\n
 P:10F3A:: Secret found/taken
@@ -2737,7 +2737,7 @@ P:10F3F:CheckTileObjWeaponCollision: Params:\n X: object index\n Y: weapon objec
 P:10F4F:: Put the tile object's midpoint coordinates in [02] and [03].\n
 P:10F52:: 10 pixel collision threshold
 P:10F57-10F59:SecretQuestNumbers
-P:10F5A:IsQuestSecretMismatch: Returns:\n C: 1 if there is a mismatch between current quest\n    and quest number for the secret in the room\n\n\n The quest secret is in the high two bits.\n
+P:10F5A:IsQuestSecretMismatch: Returns:\n C: 1 if there is a mismatch between current quest\n    and quest number for the secret in the room\n\n DASM.BELOW: The quest secret is in the high two bits.\n
 P:10F63:: If it's 0, then return C=0.\n
 P:10F65:: Look up a quest number (0 or 1) indexed by quest secret (0 or 1).\n
 P:10F69:: If the save slot's quest number matches the room's\n secret quest number, then return C=0.\n
@@ -4337,7 +4337,7 @@ P:132F9:L132F9_DeferBounce: If the object is segment 5 or $A of moldorm (a head)
 P:13301:L13301
 P:13304:: DASM.EXPR: Moldorm_ObjBounceDir
 P:13307:L13307_Exit
-P:13308:Flyer_Chase: Description:\n Turn towards the player a number of times.\n Then go to state 1. After each turn delay $10 frames.\n\n\n Delay until timer = 0.\n
+P:13308:Flyer_Chase: Description:\n Turn towards the player a number of times.\n Then go to state 1. After each turn delay $10 frames.\n\n DASM.BELOW: Delay until timer = 0.\n
 P:1330A:: If timer is not expired, then return.
 P:1330C:: Decrease the turn counter.\n Once there are no more turns, go to flying state 1.\n\n DASM.EXPR: Flyer_ObjTurns
 P:13311:L13311_SetFlyingState1
@@ -4363,7 +4363,7 @@ P:13369:: We didn't find a direction to switch to.\n So turn left once; to one t
 P:1336A:L1336A_SetDir8ForIndex: Apply the new direction.\n
 P:1336F:L1336F_Exit
 P:13370:L13370_TestDir: If (test direction OR target direction) < 7, then allow this turn.\n Else go try the next test direction.\n\n For 3/5 of the arrangements of angles between Link and\n objects; this test yields a turn towards Link. The rest of\n the time, the object will keep going in its original direction\n or turn away from Link.\n
-P:13378:Flyer_Wander: Description:\n Delay and turn randomly a number of times.\n The go to state 1. After each turn, delay $10 frames.\n\n\n Delay until timer = 0.\n
+P:13378:Flyer_Wander: Description:\n Delay and turn randomly a number of times.\n The go to state 1. After each turn, delay $10 frames.\n\n DASM.BELOW: Delay until timer = 0.\n
 P:1337C:: Decrease the turn counter.\n Once there are no more turns, go to flying state 1.\n\n DASM.EXPR: Flyer_ObjTurns
 P:13384:L13384: Set a delay of $10 frames.\n
 P:13388:TurnRandomlyDir8: Turn according to a random value:\n >= $A0: don't turn\n >= $50: turn right\n Else:   turn left\n
@@ -4446,7 +4446,7 @@ P:1411F:: Once vertical scroll >= $F0, switch to NT0.\n
 P:14121:: In UW, clear the first $10 sprites. This clears the submenu cursor.\n\n UNKNOWN: But why not do this in OW, too?\n
 P:14128:L14128: We reached the end. So, reset hardware vertical scroll\n and submenu state.\n
 P:1412E:: Move the position markers 2 pixels down, because we\n overshot and reached vertical scroll $F2.\n
-P:14130:MovePositionMarkers: Params:\n A: vertical velocity of menu scrolling\n\n\n [00] holds the vertical velocity of menu scrolling.
+P:14130:MovePositionMarkers: Params:\n A: vertical velocity of menu scrolling\n\n DASM.BELOW: [00] holds the vertical velocity of menu scrolling.
 P:14132:: If Link's position marker is visible, then move it by the velocity in [00].\n
 P:1413F:L1413F: If in UW and have the compass, then move the triforce position marker.\n
 P:14151:L14151_Exit
@@ -4461,7 +4461,7 @@ P:141AB:: [06] level test bit
 P:141AD:L141AD_LoopPiece: Inner loop.\n Each level bit will make 3 triforce tile slots be\n checked and replaced.\n
 P:141AF:: [07] inner loop counter
 P:141B1:L141B1_LoopTile: Get the offset into the submenu triforce transfer buffers of\n the current tile slot.\n
-P:141B4:: If the level test bit is not in the triforce mask, then we don't\n have this piece. So, go loop again, and leave the tile in the\n empty state.\n\n\n [06] level test mask
+P:141B4:: If the level test bit is not in the triforce mask, then we don't\n have this piece. So, go loop again, and leave the tile in the\n empty state.\n\n DASM.BELOW: [06] level test mask
 P:141BB:: We have the triforce piece.\n\n If the base/empty tile already in the transfer buf = $E5 or $E6,\n then make it $F5. These are tiles that were half full, and now\n need to be full.\n\n Else replace it with the one at the current triforce tile slot\n in the replacement list.\n
 P:141CC:L141CC_ReplaceWithF5
 P:141CE:L141CE
@@ -4546,20 +4546,20 @@ P:14333:: then you DO have to account for the status bar.\n So, add $100 (by inc
 P:14336:L14336
 P:1433A:L1433A_IncSubmode
 P:1433C:L1433C
-P:1433D:InitMode7_Sub3And4_TransferPlayAreaAttrsToNT2: Transfer half of a room's play area attributes to nametable 2.\n The top half in submode 3, and the bottom half in submode 4.\n\n\n Test player's direction for up (8).
+P:1433D:InitMode7_Sub3And4_TransferPlayAreaAttrsToNT2: Transfer half of a room's play area attributes to nametable 2.\n The top half in submode 3, and the bottom half in submode 4.\n\n DASM.BELOW: Test player's direction for up (8).
 P:14343:: Test player's direction for down (4).
-P:14348:L14348_Vertical: Scrolling up or down.\n\n\n This will mean PPU address $2BC0.
+P:14348:L14348_Vertical: Scrolling up or down.\n\n DASM.BELOW: This will mean PPU address $2BC0.
 P:1434A:L1434A_TransferHalfPlayAreaAttrs: This is the offset of the end of the first half of play area NT attributes.
 P:14350:: If in submode 4 instead of 3,
 P:14352:: then refer to bottom half of NT attributes.
 P:14355:L14355
-P:14358:L14358_Horizontal: Scrolling left or right.\n\n\n This will mean PPU address $2BD0, 64 pixels down from\n the top of NT 2. See submode 2 for an explanation of\n offsets and mirroring for vertical scrolling.
+P:14358:L14358_Horizontal: Scrolling left or right.\n\n DASM.BELOW: This will mean PPU address $2BD0, 64 pixels down from\n the top of NT 2. See submode 2 for an explanation of\n offsets and mirroring for vertical scrolling.
 P:1435A:: Go continue setting up transfer of attributes.
 P:1435C:InitMode7_Sub5: Reset fade cycle, in case we don't need to fade.
 P:14365:: If direction is horizontal,
 P:14367:: then cue transfer of a row of blanks above the play area.\n This should lead to clean vertical scrolling without visual\n artifacts.\n\n TODO: But, maybe it doesn't work, because its address\n $28E0 is in NT 2, which will become a mirror of NT 0 below\n in this submode.
 P:1436B:L1436B_Vertical
-P:1436F:: Scrolling up.\n\n\n Lay out the next room now, because we had to transfer\n the current one to NT 2 earlier. Up is the only direction\n that draws the current room to NT 2.
+P:1436F:: Scrolling up.\n\n DASM.BELOW: Lay out the next room now, because we had to transfer\n the current one to NT 2 earlier. Up is the only direction\n that draws the current room to NT 2.
 P:14371:: Save current room ID.
 P:14372:: Lay out the next room.
 P:14379:: Restore current room ID.
@@ -4567,14 +4567,14 @@ P:1437C:L1437C_CheckDark: Scrolling in any direction.\n
 P:14381:: If the next room is not dark, then go finish up and start updating.
 P:14383:: The next room is dark.\n
 P:14388:: If the current room is dark by default, go see if it was lit up.
-P:1438A:L1438A_DarkenRoom: Going from room with light to a dark room.\n\n\n The next room will not be lit yet.
+P:1438A:L1438A_DarkenRoom: Going from room with light to a dark room.\n\n DASM.BELOW: The next room will not be lit yet.
 P:1438F:: Start a fade-to-black cycle.
 P:14397:L14397_CheckIfLit
 P:1439A:: If it was lit, then go start a fade-to-black cycle.
 P:1439C:: Not lit. Dark to dark. Nothing to do.\n Go finish initializing, and begin updating the mode.
 P:1439E:InitMode7_Sub6
 P:143A1:: If we're still fading, then return.
-P:143A3:InitMode7_Finish: Finish initializing this mode, and start updating it.\n\n\n Set current room to next room.
+P:143A3:InitMode7_Finish: Finish initializing this mode, and start updating it.\n\n DASM.BELOW: Set current room to next room.
 P:143AD:L143AD_Exit
 P:143AE-143B1:Sprite0Descriptor
 P:143B2:WriteAndEnableSprite0
@@ -4604,23 +4604,23 @@ P:14439:UpdateMode7Scroll_Sub0
 P:1443B:: Reset low byte of VScroll address for vertical scrolling.
 P:1443D:: Reset horizontal scroll offset for horizontal scrolling.
 P:14443:: If scrolling up, go handle it.
-P:1444A:: Scrolling down.\n\n\n Start scrolling from $2100, the top of play area in NT 0 (current room).
+P:1444A:: Scrolling down.\n\n DASM.BELOW: Start scrolling from $2100, the top of play area in NT 0 (current room).
 P:1444E:: Start past the first row, because the scrolling process first increments it.
 P:14452:L14452_Inc2Submodes: From submode 0 go to submode 2.
-P:14457:L14457_ScrollHorizontal: Scrolling left or right.\n\n Keep in mind that columns will not be copied if CurColumn\n is not between 1 and $20.\n\n Set up a starting column number well past the beginning or\n end of the play area; so that we don't write to a part of\n the scroll region.\n\n\n $A0 in UW.
+P:14457:L14457_ScrollHorizontal: Scrolling left or right.\n\n Keep in mind that columns will not be copied if CurColumn\n is not between 1 and $20.\n\n Set up a starting column number well past the beginning or\n end of the play area; so that we don't write to a part of\n the scroll region.\n\n DASM.BELOW: $A0 in UW.
 P:1445D:: $E0 in OW.
 P:1445F:L1445F
-P:14464:: Scrolling left.\n\n\n $81 in UW.
+P:14464:: Scrolling left.\n\n DASM.BELOW: $81 in UW.
 P:1446A:: $41 in OW.
 P:1446C:L1446C_SetColumn: Set CurColumn to the value we determined.
 P:1446E:: Go to submode 2.
-P:14471:L14471_ScrollUp: Scrolling up.\n\n\n Start scrolling from $2800, the top of play area in NT 2 (current room).
+P:14471:L14471_ScrollUp: Scrolling up.\n\n DASM.BELOW: Start scrolling from $2800, the top of play area in NT 2 (current room).
 P:14475:: Start past the last row, because the scrolling process first decrements it.
 P:1447E:UpdateMode7Scroll_Sub1
-P:14484:ChooseAttrSourceAndDestForSubmode: Results:\n A: low PPU address\n Y: end offset in PlayAreaAttrs to copy from\n\n\n Low byte $D0 mean destination PPU address of $23D0, $27D0, $2BD0, or $2FD0.
+P:14484:ChooseAttrSourceAndDestForSubmode: Results:\n A: low PPU address\n Y: end offset in PlayAreaAttrs to copy from\n\n DASM.BELOW: Low byte $D0 mean destination PPU address of $23D0, $27D0, $2BD0, or $2FD0.
 P:14486:: This is the offset of the end of the first half of play area NT attributes.
 P:1448A:: Return.
-P:1448C:GetPlayAreaAttrsBottomHalfInfo: Params:\n A: low PPU address\n\n Returns:\n A: low PPU address + $18\n Y: end offset of second half of play area NT attributes\n\n\n This is the offset of the end of the second half of play area NT attributes.
+P:1448C:GetPlayAreaAttrsBottomHalfInfo: Params:\n A: low PPU address\n\n Returns:\n A: low PPU address + $18\n Y: end offset of second half of play area NT attributes\n\n DASM.BELOW: This is the offset of the end of the second half of play area NT attributes.
 P:1448F:: Add $18 to point to the bottom half of NT attributes in PPU memory.
 P:14491:L14491
 P:14492:UpdateMode7Scroll_Sub2: Calculates a VScrollingStartFrame value that enables\n immediate vertical scrolling in the next frame and submode.\n
@@ -4648,12 +4648,12 @@ P:144E8:UpdateMode7Scroll_Sub4And5_TransferNTAttrs: This will be PPU address $23
 P:144EA:: Ending offset of first half of attributes.
 P:144EE:: If in submode 4,
 P:144F0:: then transfer top half.
-P:144F2:: Transfer bottom half.\n\n\n Save low byte of PPU address of top of play area attributes.
+P:144F2:: Transfer bottom half.\n\n DASM.BELOW: Save low byte of PPU address of top of play area attributes.
 P:144F7:: If scrolling horizontally,
 P:144FB:: then don't use NT 1 anymore.
 P:144FD:L144FD: Restore low byte of PPU address of top of play area attributes.
-P:14501:CueTransferPlayAreaAttrsHalfAndAdvanceSubmodeNT0: Params:\n A: low PPU address\n Y: end offset in PlayAreaAttrs to copy from\n\n\n High byte of destination PPU address for play area attributes.
-P:14506:CopyColumnOrRowToTileBuf: Copies a row if CurRow is valid. Otherwise, tries to copy a column.\n\n If CurRow = PrevRow, does nothing. After a row is copied,\n PrevRow is assigned CurRow.\n\n\n If CurRow is valid, then copy row.
+P:14501:CueTransferPlayAreaAttrsHalfAndAdvanceSubmodeNT0: Params:\n A: low PPU address\n Y: end offset in PlayAreaAttrs to copy from\n\n DASM.BELOW: High byte of destination PPU address for play area attributes.
+P:14506:CopyColumnOrRowToTileBuf: Copies a row if CurRow is valid. Otherwise, tries to copy a column.\n\n If CurRow = PrevRow, does nothing. After a row is copied,\n PrevRow is assigned CurRow.\n\n DASM.BELOW: If CurRow is valid, then copy row.
 P:1450C:: unless CurRow = LastRow, then don't repeat
 P:14515:L14515_CheckColumn: If 0 < CurColumn < $21, then copy column.
 P:14520:L14520_Exit
@@ -4824,10 +4824,10 @@ P:149F6:: Cave
 P:149FD:: cave dweller object type = $6A + (cave index)\n
 P:14A00:: Replace first non-Link object type with the cave dweller type.
 P:14A03:L14A03_Exit
-P:14A04:IsSafeToSpawn: Params:\n X: object index\n\n Returns:\n C: 1 if unwalkable\n\n\n Save %Y.
+P:14A04:IsSafeToSpawn: Params:\n X: object index\n\n Returns:\n C: 1 if unwalkable\n\n DASM.BELOW: Save %Y.
 P:14A09:: Restore %Y.
 P:14A11:: If the tile at the object's hotspot is unwalkable, return unwalkable.
-P:14A13:IsDistanceSafeToSpawn: Params:\n X: object index\n\n Returns:\n C: 1 if unwalkable\n\n\n Get the absolute X distance to Link.\n
+P:14A13:IsDistanceSafeToSpawn: Params:\n X: object index\n\n Returns:\n C: 1 if unwalkable\n\n DASM.BELOW: Get the absolute X distance to Link.\n
 P:14A1D:: If distance > $22, return walkable.
 P:14A1F:: Get the absolute Y distance to Link.\n
 P:14A29:: If distance < $22, go return unwalkable.
@@ -4944,7 +4944,7 @@ P:14C7D:UpdateMode11Death_Full
 P:14C82-14C9B:UpdateMode11Death_Full_JumpTable
 P:14C9C:UpdateMode11Death_Sub1: Submode 1 prepares bottom half of play area attributes.\n\n Play death tune.
 P:14CA1:UpdateMode11Death_Sub0: Submode 0 prepares top half of play area attributes.\n
-P:14CA4:CueTransferPlayAreaAttrsHalfAndAdvanceSubmodeNT2: Params:\n A: low PPU address\n Y: end offset in PlayAreaAttrs to copy from\n\n\n Use nametable 2.
+P:14CA4:CueTransferPlayAreaAttrsHalfAndAdvanceSubmodeNT2: Params:\n A: low PPU address\n Y: end offset in PlayAreaAttrs to copy from\n\n DASM.BELOW: Use nametable 2.
 P:14CA6:CueTransferPlayAreaAttrsHalfAndAdvanceSubmode: Params:\n X: high PPU address\n A: low PPU address\n Y: end offset in PlayAreaAttrs to copy from\n
 P:14CAC:UpdateMode11Death_Sub2: Updates all play area tiles.\n
 P:14CB4:L14CB4: Modify the transfer record, so that it changes nametable 2.
@@ -5030,7 +5030,7 @@ P:14DDA:: If in OW or button mask <> 0, return.\n
 P:14DE2:: Mask off input directions perpendicular to player's facing.\n
 P:14DEC:L14DEC
 P:14DF3:L14DF3_Exit
-P:14DF4:L14DF4_PositiveDir: The direction is positive.\n\n If the coordinate crosses (<) the boundary, then\n go mask buttons.\n\n\n Get coordinate in [02].
+P:14DF4:L14DF4_PositiveDir: The direction is positive.\n\n If the coordinate crosses (<) the boundary, then\n go mask buttons.\n\n DASM.BELOW: Get coordinate in [02].
 P:14DFB:L14DFB_ExcludeNone: The coordinate is not crossed; then set mask $FF,\n so that no button is excluded.\n
 P:14DFD:: [01] holds button mask.
 P:14DFF:L14DFF_Exit
@@ -5098,7 +5098,7 @@ P:14F61:EndPrepareMode
 P:14F72:L14F72_Exit
 P:14F73:L14F73_CheckCaveEdge
 P:14F76:: If the player touched the edge of the screen and triggered\n a transition to another mode, then go set up the right mode.\n
-P:14F7B:CheckLadder: Params:\n [0F]: movement direction\n\n Returns:\n [0F]: movement direction or 0\n\n\n If the ladder's not in use, return.\n
+P:14F7B:CheckLadder: Params:\n [0F]: movement direction\n\n Returns:\n [0F]: movement direction or 0\n\n DASM.BELOW: If the ladder's not in use, return.\n
 P:14F7F:: If the ladder is done (state 0), go put away the ladder.\n
 P:14F83:: If the ladder is facing vertically, calculate the vertical distance\n between the ladder and Link.\n If Link's X no longer matches the ladder's, go put the ladder away.\n
 P:14F9A:L14F9A: If instead it's facing horizontally, calculate the horizontal distance\n between the ladder and Link.\n If Link's Y no longer matches the ladder's, go put the ladder away.\n
@@ -5167,7 +5167,7 @@ P:1510A:InitMode9
 P:1510F-15122:InitMode9_JumpTable
 P:15123:Unused_DrawObjectNotMirroredOverLink_Bank5: Description:\n This procedure is the same as DrawObjectNotMirroredOverLink\n in bank 4.\n
 P:15129:Unused_DrawObjectMirroredOverLink_Bank5: Description:\n This procedure is the same as DrawObjectMirroredOverLink\n in bank 4.\n
-P:1513F:Link_ModifyDirInDoorway: In a doorway (UW), you can only move in the direction\n that you entered it or the opposite.\n\n\n If not in a doorway nor moving, then return.\n
+P:1513F:Link_ModifyDirInDoorway: In a doorway (UW), you can only move in the direction\n that you entered it or the opposite.\n\n DASM.BELOW: If not in a doorway nor moving, then return.\n
 P:15148:: If the facing direction is part of the input direction, then\n keep moving in the facing direction.\n
 P:1514F:: If the opposite of the facing direction is part of the input direction, then\n face the opposite direction.\n
 P:15157:: If neither direction matched input direction, then\n change input direction to facing direction.\n
@@ -5179,7 +5179,7 @@ P:1516C-1516F:DoorwayBoundsMinOver: Player coordinate must be >= these bounds.\n
 P:15170-15173:DoorwayBoundsMaxOver: Player coordinate must be < these bounds.\n Using these bounds; the player will be considered within the\n bounds of a doorway, if strictly inside or 1 pixel outside.\n
 P:15174:DoorwayBoundsMinUnder: Player coordinate must be >= these bounds.\n Using these bounds; the player will be considered within the\n bounds of a doorway, if strictly inside except for 1 or 2 pixels\n at the edge.\n
 P:15178:DoorwayBoundsMaxUnder: Player coordinate must be < these bounds.\n Using these bounds; the player will be considered within the\n bounds of a doorway, if strictly inside except for 1 or 2 pixels\n at the edge.\n
-P:1517C:CheckDoorway: Params:\n [0F]: moving direction\n\n Returns:\n [0E]: reverse index of doorway direction found, or $FF if blocked\n [0F]: untouched, or changed from 0 to a moving direction\n\n When not at or in a doorway, this function leaves\n [0F] moving direction as is.\n\n When blocked by a door, [0E] will be set to $FF. But [0F]\n will be left as is, assuming that it had been reset before this\n routine by BoundByRoom.\n\n Otherwise, [0F] will be changed from 0 to the door's direction.\n\n\n If already in a doorway, go handle it separately.\n
+P:1517C:CheckDoorway: Params:\n [0F]: moving direction\n\n Returns:\n [0E]: reverse index of doorway direction found, or $FF if blocked\n [0F]: untouched, or changed from 0 to a moving direction\n\n When not at or in a doorway, this function leaves\n [0F] moving direction as is.\n\n When blocked by a door, [0E] will be set to $FF. But [0F]\n will be left as is, assuming that it had been reset before this\n routine by BoundByRoom.\n\n Otherwise, [0F] will be changed from 0 to the door's direction.\n\n DASM.BELOW: If already in a doorway, go handle it separately.\n
 P:15180:L15180_SearchOverflowBounds: Not in a doorway. Look for a doorway that Link might be in.\n\n To match a doorway:\n 1. Link's [00] coordinate has to match the doorway's\n    (X=$78 for verticals, Y=$8D for horizontals)\n 2. Link's [01] coordinate has to >=  min bound, and < max bound\n\n The "overflow" bounds are used that consider 1 pixel outside\n a doorway to be part of it.\n
 P:15187:L15187_LoopOverflowBounds: [00] is Link's Y, if facing horizontally; else X.
 P:1518E:: [01] is Link's X, if facing horizontally; else Y.
@@ -5266,7 +5266,7 @@ P:1533D:: Shift the sound effect index to the low end of the byte.
 P:15345:: If the room has no boss sound effect, go turn off any that might be playing.
 P:15347:: Add the flag to repeat
 P:1534D:L1534D: Silence sample and tune1.
-P:15400:WriteDoorFaceTileHorizontally: Params:\n [02:03]: address of door tiles for direction and face\n [04]: count of tiles remaining\n [07]: current index (0 to 3) of the tile to copy\n       to the dynamic transfer buf\n [09]: door direction index\n\n Returns:\n Z: 1 if wrote the last tile / [04] became 0\n [04]: original value - 1\n [07]: original value + 1\n\n The door face tile list at [02:03] has pairs of tiles arranged\n vertically. The point of this routine is to access them\n horizontally in order to transfer them to a nametable.\n\n\n For the direction index in [09], look up the base offset of the\n set of 4 indexes in HorizontalDoorFaceIndexes that point to\n the door face tiles at [02:03].\n
+P:15400:WriteDoorFaceTileHorizontally: Params:\n [02:03]: address of door tiles for direction and face\n [04]: count of tiles remaining\n [07]: current index (0 to 3) of the tile to copy\n       to the dynamic transfer buf\n [09]: door direction index\n\n Returns:\n Z: 1 if wrote the last tile / [04] became 0\n [04]: original value - 1\n [07]: original value + 1\n\n The door face tile list at [02:03] has pairs of tiles arranged\n vertically. The point of this routine is to access them\n horizontally in order to transfer them to a nametable.\n\n DASM.BELOW: For the direction index in [09], look up the base offset of the\n set of 4 indexes in HorizontalDoorFaceIndexes that point to\n the door face tiles at [02:03].\n
 P:15405:: Add [07] to the base offset we got above. This yields one\n of four consecutive indexes into HorizontalDoorFaceIndexes.\n
 P:15406:: Current index of a tile, abstractly (0 to 3)
 P:15409:: With that index, look up the index to use with the door face\n list of tiles at [02:03].\n
@@ -5313,7 +5313,7 @@ P:16391-163B3:ColumnHeapUW9
 P:163B4-163C3:RoomLayoutUWCellar0
 P:163C4-163D3:RoomLayoutUWCellar1
 P:163D4-163F5:ColumnHeapUWCellar
-P:163F6:FindDoorTypeByDoorBit: Params:\n [02]: bitmask for target door.\n\n Returns:\n A: door type for desired direction in current room.\n [01]: same as [02] if found; $10 otherwise\n [03]: reverse direction index\n\n Door bits:\n 1: E\n 2: W\n 4: S\n 8: N\n\n\n Start with single-bit mask 1.
+P:163F6:FindDoorTypeByDoorBit: Params:\n [02]: bitmask for target door.\n\n Returns:\n A: door type for desired direction in current room.\n [01]: same as [02] if found; $10 otherwise\n [03]: reverse direction index\n\n Door bits:\n 1: E\n 2: W\n 4: S\n 8: N\n\n DASM.BELOW: Start with single-bit mask 1.
 P:163FA:: Test 4 directions.
 P:163FE:L163FE_LoopDoorBit
 P:16400:: Get attr byte A for S/N doors.
@@ -5391,11 +5391,11 @@ P:16514:L16514_SetPF9: We jump here if the door type is bombable and was opened.
 P:16518:L16518_ClearFromOpenedMask: Door type < 4 (open or any wall), clear door bit from\n the mask of opened doors, because this is not a true door.\n
 P:16519:: [02] current direction
 P:16522:: Furthermore, if door type = 0, then use 4 as the provisional face.\n
-P:16528:L16528_DoneClosedPF: The door type (DT) has been mapped to a\n provisional door face value (PF) in %A as follows:\n\n DT PF Meaning\n -------------\n 0  4  open\n 1  1  wall\n 2  2  false wall\n 3  3  false wall 2\n 4  8  bombable\n 5  5  key\n 6  6  key 2\n 7  7  shutter\n\n Also at this point, the door bit in CurOpenedDoors\n has been cleared, if the type was "open" or any wall.\n\n\n Save the provisional face.
+P:16528:L16528_DoneClosedPF: The door type (DT) has been mapped to a\n provisional door face value (PF) in %A as follows:\n\n DT PF Meaning\n -------------\n 0  4  open\n 1  1  wall\n 2  2  false wall\n 3  3  false wall 2\n 4  8  bombable\n 5  5  key\n 6  6  key 2\n 7  7  shutter\n\n Also at this point, the door bit in CurOpenedDoors\n has been cleared, if the type was "open" or any wall.\n\n DASM.BELOW: Save the provisional face.
 P:16529:: If the current direction points to a door that has been opened,\n then see if we need to set door flags.\n
 P:1652B:: [02] current door direction
 P:1652E:: Restore the provisional face.
-P:16533:: The current direction points to a door that has been opened.\n It can only be "bombable", "key", "key 2", or "shutter".\n\n\n Save provisional door face in Y register.
+P:16533:: The current direction points to a door that has been opened.\n It can only be "bombable", "key", "key 2", or "shutter".\n\n DASM.BELOW: Save provisional door face in Y register.
 P:16534:: Get the direction index.
 P:16536:: Put direction index in X.
 P:16537:: Restore provisional door face value.
@@ -5404,12 +5404,12 @@ P:1653A:: If provisional door face is for "key" or "bombable",
 P:1653D:: then set the door's flag.
 P:16541:: If the provisional door face = 8 (closed "bombable"),\n then go make it 9 (open "bombable").\n Else make it 4 (open "door").\n
 P:16545:L16545
-P:16547:L16547_DoneOpenPF: For opened doors, the provisional door face has become:\n\n DT PF Meaning\n -------------\n 0  4  open\n 1  1  wall\n 2  2  false wall\n 3  3  false wall 2\n 4  9  bombable\n 5  4  key\n 6  4  key 2\n 7  4  shutter\n\n\n If handling the first half [06], then calculate OpenDoorwayMask.\n
+P:16547:L16547_DoneOpenPF: For opened doors, the provisional door face has become:\n\n DT PF Meaning\n -------------\n 0  4  open\n 1  1  wall\n 2  2  false wall\n 3  3  false wall 2\n 4  9  bombable\n 5  4  key\n 6  4  key 2\n 7  4  shutter\n\n DASM.BELOW: If handling the first half [06], then calculate OpenDoorwayMask.\n
 P:1654B:: [0B] direction index
 P:16555:L16555: If provisional door face < 4 (any wall), then go loop another half,\n because the visible door face is already a wall.\n
 P:16559:: For all other provisional face values, calculate:\n door face := provisional face - 3
 P:1655D:: Furthermore, if the latest provisional door face >= 3, then\n subtract one.\n
-P:16562:L16562: Now Y holds the door face index (DFC closed, DFO opened) for the door type (DT).\n\n DT DFC DFO Meaning\n ------------------\n 0  1   1   open\n 4  4   5   bombable\n 5  2   1   key\n 6  2   1   key 2\n 7  3   1   shutter\n\n\n Get the direction index.
+P:16562:L16562: Now Y holds the door face index (DFC closed, DFO opened) for the door type (DT).\n\n DT DFC DFO Meaning\n ------------------\n 0  1   1   open\n 4  4   5   bombable\n 5  2   1   key\n 6  2   1   key 2\n 7  3   1   shutter\n\n DASM.BELOW: Get the direction index.
 P:16567:: If handling the second half, then offset to the second half\n of the tiles.\n
 P:1656B:: Advance destination tile address to the second half of door.
 P:16571:: Advance source tile address to the second half of door.
@@ -5449,7 +5449,7 @@ P:16614:L16614
 P:1661D:: The command to close a key door or bombable wall does not\n do anything.\n
 P:16631:L16631: TriggeredDoorCmd >= 5 or door type = 7\n\n Shutters and the commands to open a door always change\n tiles.\n
 P:16634:L16634_LoopTransferRec: Copy [06] to [04] for the call to write tiles below.\n We need to remember how many tiles need to be copied\n in each transfer record.\n
-P:16638:: Write the transfer record header for the door.\n\n\n VRAM address high byte of door
+P:16638:: Write the transfer record header for the door.\n\n DASM.BELOW: VRAM address high byte of door
 P:1663E:: VRAM address low byte of door
 P:16644:: 2 for 2 tiles
 P:1664A:L1664A: Write two tiles in a short loop indexed by [04].\n
@@ -5465,12 +5465,12 @@ P:1667A:: Remove the triggered door from opened door mask.
 P:16680:L_SetOpenedDoorMaskAndResetCmdAndLayOutDoors
 P:16682:L_ResetDoorCmdAndLayOutDoors: Reset door command
 P:16689:L16689: Door command <> 4.\n It must be 8, which means it was 7: open door.\n\n If the door is a shutter (7), then go add the door to the\n opened door mask, reset door command, and lay out doors.\n
-P:16694:: Else the door is not a shutter.\n\n\n [09] door direction index
+P:16694:: Else the door is not a shutter.\n\n DASM.BELOW: [09] door direction index
 P:16699:: Get the next room's ID.\n
 P:1669F:: Flip the door direction index.\n
 P:166A3:: Set the door flag for the opposite door in the next room.\n
 P:166AA:L166AA: Add the door to the opened door mask, reset door command,\n and lay out doors.\n
-P:166B1:PrepareWriteHorizontalDoorTransferRecords: Params:\n [08]: 0 if closed\n\n Returns:\n X: current length of dynamic transfer buf\n [00]: door VRAM address high byte\n [01]: door VRAM address low byte\n [02:03]: address of door tiles for direction and face\n [05]: 2, the number of transfer records to write\n [06]: 2, the number of tiles in each record\n [07]: 0, the first index of a tile to transfer\n [09]: door direction index\n\n Note that this routine is called with triggered doors:\n doors that can change state. Their door type numbers are >= 4.\n\n If this routine were ever called with a fixed door\n ("open", "wall", or "false"), then it would produce non-sensical\n values for the door face.\n\n\n If triggered door type >= 5 (keys and shutter), play door sound.\n
+P:166B1:PrepareWriteHorizontalDoorTransferRecords: Params:\n [08]: 0 if closed\n\n Returns:\n X: current length of dynamic transfer buf\n [00]: door VRAM address high byte\n [01]: door VRAM address low byte\n [02:03]: address of door tiles for direction and face\n [05]: 2, the number of transfer records to write\n [06]: 2, the number of tiles in each record\n [07]: 0, the first index of a tile to transfer\n [09]: door direction index\n\n Note that this routine is called with triggered doors:\n doors that can change state. Their door type numbers are >= 4.\n\n If this routine were ever called with a fixed door\n ("open", "wall", or "false"), then it would produce non-sensical\n values for the door face.\n\n DASM.BELOW: If triggered door type >= 5 (keys and shutter), play door sound.\n
 P:166BD:: Door sound
 P:166C3:L166C3: Calculate the door face index in three parts.\n\n First, turn door type 4 into 8, and 1 into 4\n (provisional face index in Y register).\n
 P:166C9:L166C9
@@ -5534,7 +5534,7 @@ P:167CF:: Write tile+1 to (col, row+1).
 P:167D8:: Write tile+2 to (col+1, row).
 P:167DC:L167DC_WriteLastTile
 P:167DD:: Write last tile to (col+1, row+1).
-P:167E0:L167E0_WriteType2: Type 2 square.\n Primary is a tile used for the whole square.\n Primary < $70 or >= $F3.\n\n\n Write tile to (col, row).
+P:167E0:L167E0_WriteType2: Type 2 square.\n Primary is a tile used for the whole square.\n Primary < $70 or >= $F3.\n\n DASM.BELOW: Write tile to (col, row).
 P:167E3:: Write tile to (col, row+1).
 P:167EC:: Write tile to (col+1, row).
 P:167EE:: Go write tile to (col+1, row+1).
@@ -5655,7 +5655,7 @@ P:16AAF:: At the end of a column, we've reached the top of the next one.\n Move 
 P:16AB4:: Increment column index.
 P:16ABA:: If we have processed all columns, then return.
 P:16ABC:: Go process the next one.
-P:16ABF:CheckTileObject: Params:\n A: primary square\n\n Returns:\n A: primary square corresponding to tile object, else argument\n\n Tile object primary squares $E9 and $EA are unused; which\n means that tile object types $66 and $67 are unused.\n Instead, armos is represented by primary square $C0.\n\n\n Find the index X corresponding to the primary square: $E5  => 0; $EA => 5.\n
+P:16ABF:CheckTileObject: Params:\n A: primary square\n\n Returns:\n A: primary square corresponding to tile object, else argument\n\n Tile object primary squares $E9 and $EA are unused; which\n means that tile object types $66 and $67 are unused.\n Instead, armos is represented by primary square $C0.\n\n DASM.BELOW: Find the index X corresponding to the primary square: $E5  => 0; $EA => 5.\n
 P:16AC5:L16AC5
 P:16AC7:: If we found the primary, go handle it.
 P:16ACE:: If the primary isn't between $E5 to $EA, then return.
@@ -5667,7 +5667,7 @@ P:16AE3:: Get current row in play area where we'll put a square.
 P:16AE5:: Store the Y coordinate of tile object ((row * $10) + $40).
 P:16AEF:: Restore primary square.
 P:16AF0:L16AF0_Exit
-P:16AF1:WriteSquareOW: Params:\n A: primary square\n Y: offset from [$00:01]\n [$0D]: square index\n [$00:01]: pointer to play area\n\n\n Get square index.
+P:16AF1:WriteSquareOW: Params:\n A: primary square\n Y: offset from [$00:01]\n [$0D]: square index\n [$00:01]: pointer to play area\n\n DASM.BELOW: Get square index.
 P:16AF5:: If square index < $10, go handle a secondary square.
 P:16AF7:: Type 1 square.\n Primary is the first tile. Next 3 tiles in CHR form the rest of the square.\n Square index >= $10.\n
 P:16AF8:: Write tile+0 to (col, row).
@@ -5675,7 +5675,7 @@ P:16AFD:: Write tile+1 to (col, row+1).
 P:16B06:: Write tile+2 to (col+1, row).
 P:16B0A:L16B0A_WriteLastTile
 P:16B0B:: Write last tile to (col+1, row+1).
-P:16B0E:L16B0E_WriteType3: Type 3 square.\n Square index refers to a set of 4 tile indexes in secondary squares table.\n Square index < $10.\n\n\n X := (square index * 4)
+P:16B0E:L16B0E_WriteType3: Type 3 square.\n Square index refers to a set of 4 tile indexes in secondary squares table.\n Square index < $10.\n\n DASM.BELOW: X := (square index * 4)
 P:16B15:: Write tile+0 to (col, row).
 P:16B1C:: Write tile+1 to (col, row+1).
 P:16B27:: Write tile+2 to (col+1, row).
@@ -5758,7 +5758,7 @@ P:17054-17058:ObjectRoomBoundsOW: Description:\n Two sets of 5 elements:\n * lef
 P:17059-1705D:ObjectRoomBoundsUW
 P:1705E:SetupObjRoomBounds: Offset of second set of bounds.
 P:17062:: If in UW, use second of bounds, and go copy them.
-P:17064:: Reset DoorwayDir and use first set of bounds.\n\n\n Offset of first set of bounds.
+P:17064:: Reset DoorwayDir and use first set of bounds.\n\n DASM.BELOW: Offset of first set of bounds.
 P:17068:L17068
 P:1706A:L1706A
 P:17077-17079:LeavingRoomRelativePositions
@@ -5776,7 +5776,7 @@ P:170AD:L170AD
 P:170B6:ResetInvObjState: Reset LadderSlot. No ladder is active.\n
 P:170BA:: Reset ObjState of all weapons.\n
 P:170BC:L170BC
-P:170C3:GetPassedDoorType: Returns door type in direction Link's facing (mode 6),\n or opposite direction (other modes).\n\n Returns:\n A: door type\n Y: whether Link is facing an increasing direction (right or down)\n\n\n If Link's direction is right or down, then 1 will be returned.\n Else 0.
+P:170C3:GetPassedDoorType: Returns door type in direction Link's facing (mode 6),\n or opposite direction (other modes).\n\n Returns:\n A: door type\n Y: whether Link is facing an increasing direction (right or down)\n\n DASM.BELOW: If Link's direction is right or down, then 1 will be returned.\n Else 0.
 P:170CC:L170CC
 P:170CE:: If in mode 6, use Link's direction to get a door type.\n Else use the opposite direction.
 P:170D9:L170D9
@@ -5862,7 +5862,7 @@ P:172B1:L172B1: If B is pressed, handle the item.\n
 P:172BA:L172BA_CheckMovement: If player was shoved, return.\n
 P:172C0:: If in UW, then move correctly inside doorways.\n
 P:172C7:L172C7: Change directions according to whether the player is at an intersection point\n (grid offset = 0) or between points along a line (grid offset <> 0).\n
-P:172CF:Link_ModifyDirAtGridPoint: Grid offset = 0, so A = 0 here.\n Reset some variables.\n\n\n [0B] holds input direction count.\n
+P:172CF:Link_ModifyDirAtGridPoint: Grid offset = 0, so A = 0 here.\n Reset some variables.\n\n DASM.BELOW: [0B] holds input direction count.\n
 P:172D1:: [0C] holds walkable direction count.
 P:172D3:: Reset this. We'll figure out if needs to be set again.
 P:172D5:: Look for walkable directions that are components of the\n input directions.\n\n Keep track of how many and which directions were input\n directions and walkable.\n
@@ -5883,11 +5883,11 @@ P:17303:: There were more than one input directions.\n\n If none were walkable, 
 P:1730A:L1730A: Two input directions, and at least one of them is walkable.\n\n Make Link go straight in one direction on the next grid line.\n
 P:1730D:: If in OW or only one direction of the two is walkable, then go set\n object direction and input direction to last walkable direction\n found, and set Link's speed.\n\n Also, *RESET* Link_GoStraightWhenDiagInput.\n
 P:1730F:: [0D] holds last walkable direction found.
-P:17319:: In UW. There are two input directions, and they're both walkable.\n\n Normally, turn to the direction that's perpendicular to object\n direction. But keep going straight after that, while diagonal\n input is held.\n\n Handle special cases for doors.\n\n\n 1. Link at horizontal doors.\n\n If Link's X = $20 or $D0 then\n   If Link's Y = $85 and facing down then\n     Go set object direction and input direction to object\n     direction, and set Link's speed. Also, *RESET*\n     Link_GoStraightWhenDiagInput.\n   Else\n     Go turn to the perpendicular direction\n
+P:17319:: In UW. There are two input directions, and they're both walkable.\n\n Normally, turn to the direction that's perpendicular to object\n direction. But keep going straight after that, while diagonal\n input is held.\n\n Handle special cases for doors.\n\n DASM.BELOW: 1. Link at horizontal doors.\n\n If Link's X = $20 or $D0 then\n   If Link's Y = $85 and facing down then\n     Go set object direction and input direction to object\n     direction, and set Link's speed. Also, *RESET*\n     Link_GoStraightWhenDiagInput.\n   Else\n     Go turn to the perpendicular direction\n
 P:17323:L17323
 P:1732F:L1732F_SetLinkDirToObjDir
 P:17333:L17333: If allowed to turn when input is diagonal (2 directions), then\n go take the direction perpendicular to object direction.\n
-P:17339:: At this point, Link_GoStraightWhenDiagInput is true.\n\n\n 2. Link at top door.\n\n If Link's X <> $78 or Link's Y <> $5D then\n   Go set object direction and input direction to object\n   direction, and set Link's speed. Also, *SET*\n   Link_GoStraightWhenDiagInput.\n
+P:17339:: At this point, Link_GoStraightWhenDiagInput is true.\n\n DASM.BELOW: 2. Link at top door.\n\n If Link's X <> $78 or Link's Y <> $5D then\n   Go set object direction and input direction to object\n   direction, and set Link's speed. Also, *SET*\n   Link_GoStraightWhenDiagInput.\n
 P:1733B:: Also do it if in OW. But if in OW, we returned already.
 P:17349:: If object direction is vertical then\n   Go set object direction and input direction to object\n   direction, and set Link's speed. Also, *SET*\n   Link_GoStraightWhenDiagInput.\n
 P:1734D:L1734D: Find the input direction that's perpendicular to the\n object's direction.\n
@@ -5956,7 +5956,7 @@ P:1749B:L1749B
 P:1749F:L1749F_LoadLevel: Load a level.\n\n Shift right by two to get the level number.\n
 P:174A5:: Remember where we came from.
 P:174A8:: Target mode is 2 to load a level.
-P:174AC:InitSaveRam: Returns:\n C: 1 if cleared; 0 if already cleared\n\n\n If already cleared, then return false.
+P:174AC:InitSaveRam: Returns:\n C: 1 if cleared; 0 if already cleared\n\n DASM.BELOW: If already cleared, then return false.
 P:174BA:L174BA: Since we're clearing save RAM, treat file B as committed.
 P:174C5:: Clear from $6530 to the end of Save RAM.
 P:174CF:L174CF
@@ -5973,7 +5973,7 @@ P:17517:CalculateNoNextRoom
 P:17519:: UNKNOWN: Write 0? But CalculateNextRoomForDoor reads [E7] instead.
 P:1751C:L1751C: Shift single-bit mask.
 P:1751F:: Go test next bit.
-P:17522:CalculateNextRoomForDoor: Params:\n [E7]: direction\n\n\n Map door bit/direction to an index as follows:\n 1: 3\n 2: 2\n 4: 1\n 8: 0\n\n Note that this is the opposite of the usual mapping.
+P:17522:CalculateNextRoomForDoor: Params:\n [E7]: direction\n\n DASM.BELOW: Map door bit/direction to an index as follows:\n 1: 3\n 2: 2\n 4: 1\n 8: 0\n\n Note that this is the opposite of the usual mapping.
 P:17524:: [00] holds a single-bit mask to compare
 P:17526:: Index
 P:17528:L17528: Compare direction argument to single-bit mask.
@@ -6015,8 +6015,8 @@ P:175C0:L175C0
 P:175D1:L175D1_DoneRotate: Exclude rooms that are not part of this level, and certain rooms\n that should never be marked visited in the submenu map.\n\n First calculate the map row:\n ((current menu scrolling value) / 2) - $D\n
 P:175DA:L175DA_MaskRooms: For each element ($10) in the row, starting from $F:\n If the current row is set in the submenu map mask,\n then replace the tile with $F5, a blank map tile.\n
 P:175E7:L175E7
-P:175EB:HasCompass: Returns:\n A: 0 if compass of current level is missing.\n\n\n Check compasses.
-P:175EF:HasMap: Returns:\n A: 0 if map of current level is missing.\n\n\n Check maps.
+P:175EB:HasCompass: Returns:\n A: 0 if compass of current level is missing.\n\n DASM.BELOW: Check compasses.
+P:175EF:HasMap: Returns:\n A: 0 if map of current level is missing.\n\n DASM.BELOW: Check maps.
 P:175F1:L175F1
 P:175F3:: If in OW, then return.
 P:175F6:: Base the level number on zero.
@@ -6025,7 +6025,7 @@ P:175FC:: then check the level 9 variables.
 P:175FE:L175FE: Sanitize the zero-based level number.
 P:17604:: Return the item value for the current level.
 P:17607:L17607_Exit
-P:17608:Submenu_WriteScanningMapRoomMark: Params:\n Y: offset from the third element in dynamic transfer buf\n    to write at (between 1 and $10)\n\n\n Save dynamic transfer buf offset.
+P:17608:Submenu_WriteScanningMapRoomMark: Params:\n Y: offset from the third element in dynamic transfer buf\n    to write at (between 1 and $10)\n\n DASM.BELOW: Save dynamic transfer buf offset.
 P:1760A:: Call this to load the address of level block world flags.
 P:1760D:: Save current room ID.
 P:17610:: Temporarily set current room ID to the room ID we're scanning,\n in order to look up its information.\n
@@ -6108,10 +6108,10 @@ P:1779A:: Has the input changed? If input direction = [EF] item search\n directi
 P:177A1:: Copy input direction to X register.
 P:177A2:: If input direction = 0, up, or down; then we won't change\n the change the selected item slot forward or backward.\n\n Instead, jump to this routine to make sure an occupied slot\n is selected, then return.\n
 P:177A8:: Cue the "selection changed" tune.\n
-P:177AD:: Move the selection in the input direction.\n\n\n Save the input direction.
+P:177AD:: Move the selection in the input direction.\n\n DASM.BELOW: Save the input direction.
 P:177AE:: Save selected item slot.
 P:177B2:: Restore the input direction.
-P:177B6:: If the new item slot = old item slot, go cancel the\n "selection changed" tune.\n\n\n Pop selected item slot.
+P:177B6:: If the new item slot = old item slot, go cancel the\n "selection changed" tune.\n\n DASM.BELOW: Pop selected item slot.
 P:177BC:: Else the selection changed. The new slot should have an item.\n If it does not, then cancel the "selection changed" tune.\n
 P:177C4:L177C4_CancelTune
 P:177C7:L177C7
@@ -6162,7 +6162,7 @@ P:17876:: If the room item is a triforce piece,\n the move it left 8 pixels.
 P:1787B:: Room item
 P:1787D:: Triforce piece
 P:17888:L17888
-P:17889:L17889_MakeHeartContainerOW: Try to make the heart container in OW.\n\n\n Heart container
+P:17889:L17889_MakeHeartContainerOW: Try to make the heart container in OW.\n\n DASM.BELOW: Heart container
 P:1788D:: Load the coordinates of the heart container in\n OW room $5F.\n
 P:17891:: If in mode 5, and in room $5F, then go store the coordinates\n in the object slot.\n
 P:1789D:L1789D: Else deactivate the object.\n
@@ -6386,13 +6386,13 @@ P:1E6F9:: If there's a room item, and object 1 is a like-like, stalfos, or gibdo
 P:1E6FE:: Like-Like
 P:1E702:: Stalfos
 P:1E706:: Gibdo
-P:1E70A:: A monster is not carrying the item. So draw the item as usual.\n\n\n Room item is in object slot $13.
+P:1E70A:: A monster is not carrying the item. So draw the item as usual.\n\n DASM.BELOW: Room item is in object slot $13.
 P:1E70C:AnimateRoomItemObject: Pass item type to AnimateItemObject.
-P:1E70E:AnimateItemObject: Params:\n A: item type\n X: object index\n\n\n Save the item ID.
+P:1E70E:AnimateItemObject: Params:\n A: item type\n X: object index\n\n DASM.BELOW: Save the item ID.
 P:1E70F:: If the lifetime timer of the item >= $F0 and even, then\n return without drawing. This makes it flash at first.\n\n [03A8][X] is used to count down the life of the item.\n\n DASM.EXPR: Item_ObjItemLifetime
 P:1E717:: Pop and return, if timer >= $F0 and even.
 P:1E719:L1E719: Copy room item object position to sprite descriptor.\n
-P:1E71C:: Look up the item description for this item ID.\n Store the item value part of it in [04].\n\n\n Restore the item ID.
+P:1E71C:: Look up the item description for this item ID.\n Store the item value part of it in [04].\n\n DASM.BELOW: Restore the item ID.
 P:1E71D:: X now has item ID.
 P:1E723:: If item descriptor is $30, go set item value to $FF.
 P:1E725:: only take the item value part of the descriptor.
@@ -6416,7 +6416,7 @@ P:1E774:: Add palette offset to item value / sprite attribute we started with.
 P:1E776:: If item slot is 0 and palette is 6,
 P:1E77E:: then make the item slot $20, a special slot to differentiate the image of the master sword.
 P:1E780:: Go write the sprites.
-P:1E783:DrawStatusBarPotion: We have a potion to draw.\n\n\n Potion item slot.
+P:1E783:DrawStatusBarPotion: We have a potion to draw.\n\n DASM.BELOW: Potion item slot.
 P:1E788:: Go draw the potion.
 P:1E78A:DrawStatusBarItemsAndEnsureItemSelected: Draws the selected item and the sword in the status bar.\n Before drawing the item, it ensures that SelectedItemSlot\n refers to an occupied, equippable item slot.\n\n This accounts for the fallback behavior between potions\n and letters and the two boomerangs.\n\n Start at slot zero. Normally, it would be used to\n check swords. When it's used as the selected item index;\n it's a pseudo-slot used for checking boomerangs.\n
 P:1E78D:: If pseudo-slot zero is chosen, then go check boomerangs.
@@ -6452,9 +6452,9 @@ P:1E7FE:CheckLiftItem
 P:1E801:: If there's no item to lift, then return.
 P:1E806:: If the item lift timer has expired, go return to normal.
 P:1E808:: Set player state to halted.\n
-P:1E80C:SetUpAndDrawLinkLiftingItem: Params:\n [0505]: item type\n\n\n Set item X the same as Link's.
+P:1E80C:SetUpAndDrawLinkLiftingItem: Params:\n [0505]: item type\n\n DASM.BELOW: Set item X the same as Link's.
 P:1E810:: Set item's Y $10 pixels above Link's.
-P:1E817:DrawLinkLiftingItem: Params:\n [0505]: item type\n\n\n We're dealing with Link object.
+P:1E817:DrawLinkLiftingItem: Params:\n [0505]: item type\n\n DASM.BELOW: We're dealing with Link object.
 P:1E81C:: Set 0 sprite attributes. 0 was returned above.
 P:1E81F:: Set frame 0.
 P:1E821:: Point to Link's sprites.
@@ -6468,7 +6468,7 @@ P:1E84F:: If in UW, play the level's song again.\n
 P:1E859:L1E859_Exit
 P:1E85A:GetUniqueRoomId: Returns:\n A: unique room ID\n Y: room ID\n
 P:1E85F:: Unique room ID in both OW and UW.
-P:1E862:ChangeTileObjTiles: Params:\n A: first tile\n X: object index\n [F7]: not 0 to switch to bank 4 before returning\n\n\n First, cue the transfer of the 4 tiles to nametable 0.\n\n [05] holds the first tile.
+P:1E862:ChangeTileObjTiles: Params:\n A: first tile\n X: object index\n [F7]: not 0 to switch to bank 4 before returning\n\n DASM.BELOW: First, cue the transfer of the 4 tiles to nametable 0.\n\n [05] holds the first tile.
 P:1E864:: Save object index.
 P:1E868:: [03] holds the X coordinate.
 P:1E86C:: [02] holds the Y coordinate.
@@ -6501,7 +6501,7 @@ P:1E983:L1E983_ClearCounts
 P:1E999:L1E999_InitSubmodes
 P:1E9A1:InitMode7
 P:1E9AB:: If not checking sprite 0, return.
-P:1E9AD:: After the last submode (5 or 6), sprite-0 check was enabled.\n So, set the appropriate mirroring for scrolling during mode update.\n\n\n TODO: [$F3] ?
+P:1E9AD:: After the last submode (5 or 6), sprite-0 check was enabled.\n So, set the appropriate mirroring for scrolling during mode update.\n\n DASM.BELOW: TODO: [$F3] ?
 P:1E9B3:: If player is facing horizontally, then enable vertical mirroring;\n else horizontal mirroring.
 P:1E9B9:: horizontal mirroring
 P:1E9BD:L1E9BD_SetVertical: vertical mirroring
@@ -6539,11 +6539,11 @@ P:1EA82:: Go cue the transfer of this palette row. The selector is in X.
 P:1EA84:L1EA84_NextSpecialBoss
 P:1EA87:: If it doesn't match any boss type, go copy and transfer level palette row 7.
 P:1EA89:L1EA89_InOW: In OW.\n\n If the room is 0F and we just walked in instead of\n coming out of underground; then play "secret found" tune.\n
-P:1EA98:L1EA98_ChooseTileObjPalette: Choose a palette transfer buf for a tile object that has sprites.\n Rock, gravestone, Armos1, Armos2\n\n\n Ghost palette row
+P:1EA98:L1EA98_ChooseTileObjPalette: Choose a palette transfer buf for a tile object that has sprites.\n Rock, gravestone, Armos1, Armos2\n\n DASM.BELOW: Ghost palette row
 P:1EA9F:: If tile object type is gravestone ($65), go cue transfer buf $20.
 P:1EAA3:: If tile object type is Armos1 ($66), go see if the room's attributes should override transfer buf $20.
 P:1EAA7:: If type is not rock ($62) (so Armos2), go set the right selector.
-P:1EAA9:: It's a rock tile object.\n Choose palette based on inner palette attribute to match it.\n\n\n Brown palette row
+P:1EAA9:: It's a rock tile object.\n Choose palette based on inner palette attribute to match it.\n\n DASM.BELOW: Brown palette row
 P:1EAAB:L1EAAB_UseXOrGreenPalette
 P:1EAB2:: If the room's inner palette attribute is odd, go cue transfer buf chosen above ($20 if Armos1, else $24).
 P:1EAB4:: Green palette row
@@ -6587,7 +6587,7 @@ P:1EBBA:: go to next mode, and reset Link's relative position.
 P:1EBBD:L1EBBD: Else go play level song, next mode, and reset Link's relative position.
 P:1EBC0:UpdateMode4and6EnterLeave
 P:1EBC2:: If UndergroundExitType is set, go step out of underground (or cellar).
-P:1EBC4:: We're walking from room to room:\n * entering in mode 4 (method 2)\n * leaving in mode 6\n\n\n If relative position reaches 0, 8, or -8; then go to the next mode.
+P:1EBC4:: We're walking from room to room:\n * entering in mode 4 (method 2)\n * leaving in mode 6\n\n DASM.BELOW: If relative position reaches 0, 8, or -8; then go to the next mode.
 P:1EBD6:: Pass direction in [0F] to MoveObject.
 P:1EBD8:: Link object index.
 P:1EBE0-1EBE9:LevelSongIds
@@ -6595,7 +6595,7 @@ P:1EBEA:L1EBEA_GoToNextModePlayLevelSong
 P:1EBEF:: Play the song for the level.
 P:1EBF2:L1EBF2_GoToNextModeResetGridOffset
 P:1EBF8:L1EBF8_Exit
-P:1EBF9:L1EBF9_StepOutside: We're stepping out of underground or cellar.\n\n\n If in UW, then go finish the mode.\n
+P:1EBF9:L1EBF9_StepOutside: We're stepping out of underground or cellar.\n\n DASM.BELOW: If in UW, then go finish the mode.\n
 P:1EBFD:: If the player stepped on stairs instead of an opening, then\n go finish the mode.\n
 P:1EC03:: We're entering the OW room from a cave or dungeon.\n
 P:1EC0B:: Every 4 frames, move Link up 1 pixel.\n
@@ -6664,7 +6664,7 @@ P:1EDD7:EnsureObjectAligned: Params:\n X: 0\n\n Ensure that, if grid offset = 0,
 P:1EDEA:L1EDEA_Exit
 P:1EDEB-1EDF3:WalkableTiles
 P:1EDF4:GetCollidableTileStill: Params:\n X: object index\n\n Returns:\n A: tile\n [049E][X]: tile\n
-P:1EDFA:GetCollidingTileMoving: Params:\n X: object index\n [0F]: direction\n\n Returns:\n A: tile\n [049E][X]: tile\n\n\n Use -8 ($F8) for the hotspot offset, if it's Link.
+P:1EDFA:GetCollidingTileMoving: Params:\n X: object index\n [0F]: direction\n\n Returns:\n A: tile\n [049E][X]: tile\n\n DASM.BELOW: Use -8 ($F8) for the hotspot offset, if it's Link.
 P:1EDFE:: If it's not Link,
 P:1EE00:: then use -$10 ($F0) for the hotspot offset.
 P:1EE02:L1EE02: If direction is up, left, or 0,\n then use the offset we determined above.
@@ -6751,7 +6751,7 @@ P:1EFA9:: Look for an empty slot from 9 to 1.\n
 P:1EFAB:L1EFAB_FindEmptySlot
 P:1EFB3:: If we find one, set up a flute secret object there.\n It will handle the rest.\n
 P:1EFB8:L1EFB8_Exit
-P:1EFB9:L1EFB9_FluteSecretNotFound: Not found.\n\n\n Pop and throw away the quest number.\n
+P:1EFB9:L1EFB9_FluteSecretNotFound: Not found.\n\n DASM.BELOW: Pop and throw away the quest number.\n
 P:1EFBA:L1EFBA_SummonWhirlwind: Summon the whirlwind.\n
 P:1EFC2:: Restore the bank at the beginning of the routine.
 P:1EFC7:L1EFC7_FlagFluteUsed: Flag that we used the flute.\n
@@ -6785,7 +6785,7 @@ P:1F07C:: Restore Link's object index.
 P:1F07E:L1F07E_CheckTiles: This code applies to all objects.\n
 P:1F081:: The player will check for the ladder.\n
 P:1F08A:: CheckLadder
-P:1F08D:MoveObject: Params:\n X: object index\n [0F]: direction\n\n\n Positive limit is 8 for Link.
+P:1F08D:MoveObject: Params:\n X: object index\n [0F]: direction\n\n DASM.BELOW: Positive limit is 8 for Link.
 P:1F08F:: Negative limit is -8 for Link.
 P:1F093:: If the object isn't Link,
 P:1F095:: then use $10 and -$10.
@@ -6799,7 +6799,7 @@ P:1F0C1:L1F0C1_Down: Down\n
 P:1F0CB:L1F0CB_Right: Right\n
 P:1F0D5:L1F0D5_Left: Left\n
 P:1F0DF-1F0E2:PlayerScreenEdgeBounds: Up, down, left, right.\n
-P:1F0E3:Walker_CheckTileCollision: Params:\n [0E]: $FF, if blocked by a door\n [0F]: movement direction\n\n Returns:\n [0F]: untouched, or changed if blocked or need to change\n\n Summary:\n\n For the player: if at a doorway or walkable tile, check the screen edge.\n Then allow movement or go to the next room. Otherwise,\n check passive tile objects and stop moving.\n\n For other objects: First, if moving, test the colliding tile for\n walkability. Otherwise search for a walkable direction starting\n from input direction.\n\n When you find a walkable direction, see if it makes the object\n cross a boundary. If it doesn't, then make this direction\n the objection direction. Otherwise, keep looping.\n\n If no walkable direction is found, then stop moving.\n\n\n if is player\n   if at doorway\n     go handle a walkable direction\n   if blocked by door\n     return\n
+P:1F0E3:Walker_CheckTileCollision: Params:\n [0E]: $FF, if blocked by a door\n [0F]: movement direction\n\n Returns:\n [0F]: untouched, or changed if blocked or need to change\n\n Summary:\n\n For the player: if at a doorway or walkable tile, check the screen edge.\n Then allow movement or go to the next room. Otherwise,\n check passive tile objects and stop moving.\n\n For other objects: First, if moving, test the colliding tile for\n walkability. Otherwise search for a walkable direction starting\n from input direction.\n\n When you find a walkable direction, see if it makes the object\n cross a boundary. If it doesn't, then make this direction\n the objection direction. Otherwise, keep looping.\n\n If no walkable direction is found, then stop moving.\n\n DASM.BELOW: if is player\n   if at doorway\n     go handle a walkable direction\n   if blocked by door\n     return\n
 P:1F0EE:L1F0EE
 P:1F0F2:L1F0F2_CheckGridOffset: If grid offset <> 0, return.\n
 P:1F0F7:: Grid offset = 0.\n The object is at a point between cells in the grid.\n So, we can check tiles for collision.\n\n Reset [0E] alternate direction search step.\n
@@ -6822,7 +6822,7 @@ P:1F152:: The object is Link. We end up here regardless of walkability.\n\n If n
 P:1F15C:: If grid offset <> 0, return.\n
 P:1F161:CheckScreenEdge
 P:1F163:: If not moving, then return.\n
-P:1F168:: If the single moving direction is vertical, use Y.\n Else use X coordinate.\n\n\n Call this to get a single moving direction.
+P:1F168:: If the single moving direction is vertical, use Y.\n Else use X coordinate.\n\n DASM.BELOW: Call this to get a single moving direction.
 P:1F174:L1F174
 P:1F176:: If Link's coordinate does not match the screen edge coordinate\n in the single moving direction, then return.\n
 P:1F17D:: We're moving to the next screen.\n Make sure Link faces the single moving direction.\n
@@ -6875,10 +6875,10 @@ P:1F29B:: If in OW and tile is not water (as in < $8D or >= $99), then\n go chec
 P:1F2A5:L1F2A5_CheckWaterOW
 P:1F2AD:L1F2AD_SetUpLadder: Look for an empty monster slot.\n If none found, or input dir = 0, or input direction <> facing direction,\n then go check warps and animate.\n
 P:1F2BD:: X register now holds the ladder's slot.\n Set ladder slot to empty slot found.\n Set ladder's direction to input direction.\n
-P:1F2C1:: Add appropriate offset to player's position to set the ladder's position.\n\n\n Call this for the reverse direction index.
-P:1F2D4:: Set the ladder object's type. Reset shove params and invincibility timer.\n\n\n Ladder
+P:1F2C1:: Add appropriate offset to player's position to set the ladder's position.\n\n DASM.BELOW: Call this for the reverse direction index.
+P:1F2D4:: Set the ladder object's type. Reset shove params and invincibility timer.\n\n DASM.BELOW: Ladder
 P:1F2DF:: Set the initial state of the ladder.\n
-P:1F2E3:L1F2E3_CheckWarps: If in mode 5, check warps.\n\n\n Set X to 0 to refer to Link object.
+P:1F2E3:L1F2E3_CheckWarps: If in mode 5, check warps.\n\n DASM.BELOW: Set X to 0 to refer to Link object.
 P:1F2EB:: Save the last collided tile.
 P:1F2F7:: Set X to 0 to refer to Link object.
 P:1F2FA:: Restore the last collided tile.
@@ -6899,7 +6899,7 @@ P:1F337:: If it already has a shield, then return.
 P:1F339:: Save the sprite's original tile.
 P:1F33B:: Add $50 to change 8 to $58 for one frame, and $A to $5A for the other frame.
 P:1F33D:: Go apply the change.
-P:1F340:L1F340_HandleMagicShield: Magic shield.\n\n\n Look at the left tile.
+P:1F340:L1F340_HandleMagicShield: Magic shield.\n\n DASM.BELOW: Look at the left tile.
 P:1F345:: If facing right,
 P:1F347:: then look at the right tile instead.
 P:1F349:L1F349
@@ -6924,7 +6924,7 @@ P:1F387:: If grid offset is a multiple of 8, reset it.\n
 P:1F391:DrawSwordShotOrMagicShot: Prepare the sprite position.\n
 P:1F394:: If the direction is horizontal, move the sprites down 3 pixels.\n
 P:1F3A2:L1F3A2_Flash
-P:1F3A3:: Set the sprite attributes to (base attribute OR (frame counter AND 3)).\n This makes the shot flash by cycling all the palettes, one each frame.\n\n\n Call this only to get reverse direction index.
+P:1F3A3:: Set the sprite attributes to (base attribute OR (frame counter AND 3)).\n This makes the shot flash by cycling all the palettes, one each frame.\n\n DASM.BELOW: Call this only to get reverse direction index.
 P:1F3B0:: Set [0C] to the correct frame for the direction: horizontal or vertical.\n
 P:1F3B5:: If the direction is left, flip the right facing image by setting [0F] to 1.\n
 P:1F3BB:L1F3BB: If this a monster's shot, choose the item slot for drawing based on object type.\n   $57 (sword shot) => $22\n   other (presumably $58 or $59, magic shot) => $23\n
@@ -6955,7 +6955,7 @@ P:1F459:: Add the object's Y (the center of the spread) and the\n current offset
 P:1F460:: If in UW, and (sprite Y < $3E or >= $E8), then skip this corner.\n
 P:1F46C:L1F46C_Draw: Draw the corner.\n Pass [0C] = frame 2 (spread shot), Y = $23 (sword 2).\n
 P:1F475:L1F475_NextCorner: Prepare to process the next corner.\n\n First, restore X offset [02] and Y offset [03].\n
-P:1F47B:: Take turns negating X offset or Y offset for the next round.\n - First turn:  loop index = 3, negate Y offset [03]\n - Second turn: loop index = 2, negate X offset [02]\n - Third turn:  loop index = 1, negate Y offset [03]\n - Fourth turn: doesn't matter\n\n\n Get the loop index.
+P:1F47B:: Take turns negating X offset or Y offset for the next round.\n - First turn:  loop index = 3, negate Y offset [03]\n - Second turn: loop index = 2, negate X offset [02]\n - Third turn:  loop index = 1, negate Y offset [03]\n - Fourth turn: doesn't matter\n\n DASM.BELOW: Get the loop index.
 P:1F47E:: The first two loop indexes coincide with offset from address 0.
 P:1F480:: But for loop index 1,
 P:1F482:: make the offset 3 to negate the Y offset.
@@ -7060,7 +7060,7 @@ P:1F6FA:: Store the base sprite attribute for this point in the cycle in [04].\n
 P:1F700:: If base sprite attribute in [04] = 8, then leave [04] as is.\n Else add the item value of the magic boomerang.\n\n If not sparking, then the magic boomerang's item value (0 or 1)\n in the inventory will be added to the base sprite attribute.\n So, palette row 4 or 5 will be chosen.\n\n If sparking, then base sprite attribute 1 from element 8 is used.\n Adding the inventory value results in palette row 4 or 5.\n\n None of the values in the base sprite attributes array is 8.\n So, this branch will never be taken. Maybe this is left over from\n development.\n
 P:1F709:L1F709
 P:1F70F:: Boomerang item slot
-P:1F714:L1F714_OffsetAndDrawArrow: Params:\n Y: reverse direction index that the weapon is facing\n\n\n [00] and [01] will hold sprite X and Y.\n Begin with the horizontal and vertical offsets.\n
+P:1F714:L1F714_OffsetAndDrawArrow: Params:\n Y: reverse direction index that the weapon is facing\n\n DASM.BELOW: [00] and [01] will hold sprite X and Y.\n Begin with the horizontal and vertical offsets.\n
 P:1F71E:: Arrow item slot
 P:1F720:L_DrawArrowOrBoomerang: Add the weapon's true coordinates to offsets in [00] and [01].\n
 P:1F72E:: If state = $2x (spark), use palette row 5 to write sprites.\n Otherwise, use the sprite attributes we already calculated.\n
@@ -7089,7 +7089,7 @@ P:1F7EB:L1F7EB_CalcSwordAttrs: The weapon is the sword.\n To calculate the sprit
 P:1F7F2:L1F7F2_SetAttrs: Set sprite attributes to the calculated value above.\n
 P:1F7F5:: If the direction is left, set [0F] to flip horizontally.\n
 P:1F7FB:L1F7FB: If state = 1, return. Don't show the weapon.\n
-P:1F803:: Set Y to the right item slot to pass to the routine to write sprites:\n sword or rod\n\n\n Sword slot
+P:1F803:: Set Y to the right item slot to pass to the routine to write sprites:\n sword or rod\n\n DASM.BELOW: Sword slot
 P:1F809:: Rod slot
 P:1F80B:L1F80B
 P:1F80E:: If state <> 3, return.\n
@@ -7118,7 +7118,7 @@ P:1F89D:: Add grid offset after the move to the original.\n This makes it contin
 P:1F8A4:: If the absolute value of grid offset < $10, go draw.\n \n Once the absolute value of grid offset = $10,\n make the fire stand instead of move.\n Set state $22 and last $3F frames.\n
 P:1F8B1:L1F8B1_StandingFie: Check a standing fire.\n\n If time has run out, deactivate the item and return.\n
 P:1F8B5:: If in UW, update the candle to brighten the room if needed.\n
-P:1F8C5:L1F8C5_DrawAndCheckCollisions: Advance the animation counter, and draw.\n\n\n 4 frames in every animation cycle.
+P:1F8C5:L1F8C5_DrawAndCheckCollisions: Advance the animation counter, and draw.\n\n DASM.BELOW: 4 frames in every animation cycle.
 P:1F8D0:: A: frame 0
 P:1F8D2:: [0C]: not mirrored
 P:1F8D4:: Y: animation index $40 (but will use $41)
@@ -7159,8 +7159,8 @@ P:1F9AE:DrawBomb: Draw the bomb or dust cloud.\n
 P:1F9B4:: If minor state = 2, we drew a bomb. So, return.\n
 P:1F9BC:: Otherwise, we drew one dust cloud. Go draw the others.\n
 P:1F9BF:DrawBombOrCloudAt: Params:\n X: object index\n [00]: X\n [01]: Y\n
-P:1F9C2:DrawBombOrCloudNoFlashing: Params:\n X: object index\n [00]: X\n [01]: Y\n\n\n Set frame image = minor state - 2.\n
-P:1F9C9:DrawCloud: Params:\n A: frame image (1 to 3)\n X: object index\n [00]: X\n [01]: Y\n\n\n [0C] frame image
+P:1F9C2:DrawBombOrCloudNoFlashing: Params:\n X: object index\n [00]: X\n [01]: Y\n\n DASM.BELOW: Set frame image = minor state - 2.\n
+P:1F9C9:DrawCloud: Params:\n A: frame image (1 to 3)\n X: object index\n [00]: X\n [01]: Y\n\n DASM.BELOW: [0C] frame image
 P:1F9CD:: [0F] no horizontal flipping
 P:1F9CF:: Write sprites with blue sprite palette row and bomb item slot.\n
 P:1F9D4:: Bomb item slot
@@ -7196,10 +7196,10 @@ P:1FA54:: Once the counter reaches 0, and if object is the player,\n animate Lin
 P:1FA5B:L1FA5B: Roll over the counter (6 frames).\n
 P:1FA62:SetUpWalkingSprites: Set up sprite position in the descriptors.\n
 P:1FA65:: Set up horizontal flipping.\n
-P:1FA6B:: Facing up or down.\n\n\n Assume animation frame 3 (up).
+P:1FA6B:: Facing up or down.\n\n DASM.BELOW: Assume animation frame 3 (up).
 P:1FA71:: If down, then use animation frame 2 (down).
 P:1FA72:Anim_SetObjHFlipForSpriteDescriptor: Use the movement frame as the value for horizontal flipping.\n\n Params:\n X: object index\n\n Returns:\n [0F]: flip horizontal, based on ObjMovementFrame\n
-P:1FA78:SetUpHorizontalWalkingSprites: Facing left or right.\n\n\n Assume animation frame 0 (legs apart).
+P:1FA78:SetUpHorizontalWalkingSprites: Facing left or right.\n\n DASM.BELOW: Assume animation frame 0 (legs apart).
 P:1FA7F:: If walking frame 1, then animation frame 1 (legs together).
 P:1FA80:L1FA80
 P:1FA86:: Facing left. Flip horizontally.
@@ -7308,7 +7308,7 @@ P:1FEE8-1FEF3:PondCycleColors
 P:1FEF4:UpdateFluteSecret: If secret color cycle >= $C, return.\n
 P:1FEFB:: 7 of every 8 frames, return.\n
 P:1FF03:: So, every 8 frames:\n 1. Increment the secret color cycle count.\n 2. Change the water palette.\n\n But when the count = $B, go reveal the stairs.\n
-P:1FF0A:CueTransferPondPaletteRow: Params:\n Y: a point in the cycle (0 to $B)\n\n\n Copy water palette (palette row 3) transfer buf to dynamic\n transfer buf.
+P:1FF0A:CueTransferPondPaletteRow: Params:\n Y: a point in the cycle (0 to $B)\n\n DASM.BELOW: Copy water palette (palette row 3) transfer buf to dynamic\n transfer buf.
 P:1FF0E:L1FF0E_CopyBytes
 P:1FF19:: Patch byte 3 of palette row with the right color in the cycle.
 P:1FF21:: If the index is $A,
@@ -7477,7 +7477,7 @@ S:0F05:L6775_LoopSprite
 S:0F13:L6783_AddPriority
 S:0F1B:L678B_NextSprite
 S:0F23:: UNKNOWN: This looks unreachable.
-S:0F29:BoundDirectionHorizontally: Params:\n X: object index\n [0F]: direction\n\n Returns:\n Y: direction of boundary that was crossed\n [0F]: original direction, or 0 if boundary was crossed\n\n\n Checking left direction.
+S:0F29:BoundDirectionHorizontally: Params:\n X: object index\n [0F]: direction\n\n Returns:\n Y: direction of boundary that was crossed\n [0F]: original direction, or 0 if boundary was crossed\n\n DASM.BELOW: Checking left direction.
 S:0F2D:: [00] holds X coordinate
 S:0F33:: If object slot >= $D (items and weapons) or object type = $5C (boomerang),\n then add $B to X coordinate.\n
 S:0F45:L67B5_Left: Check left boundary.\n If X coordinate crosses (<) left bound, go reset the direction.\n
@@ -7486,7 +7486,7 @@ S:0F4E:: If object is the player, skip this.
 S:0F59:: If not boomerang type, skip this.
 S:0F62:L67D2_Right: Check right boundary.\n If X coordinate is within (<) right bound, return and leave direction alone.\n
 S:0F6B:BoundDirectionReturn: If the reference direction in Y register is 0, then\n return and leave direction alone.\n Else reset the target direction.\n
-S:0F73:BoundDirectionVertically: Params:\n X: object index\n [0F]: direction\n\n Returns:\n Y: direction of boundary that was crossed\n [0F]: original direction, or 0 if boundary was crossed\n\n\n Checking up direction.
+S:0F73:BoundDirectionVertically: Params:\n X: object index\n [0F]: direction\n\n Returns:\n Y: direction of boundary that was crossed\n [0F]: original direction, or 0 if boundary was crossed\n\n DASM.BELOW: Checking up direction.
 S:0F77:: [00] holds Y coordinate
 S:0F7D:: If object slot >= $D (items and weapons) or object type = $5C (boomerang),\n then add $F to X coordinate.\n
 S:0F8F:L67FF_Up: Check up boundary.\n If Y coordinate crosses (<) up bound, go reset the direction.\n
@@ -7519,13 +7519,13 @@ S:1013:GetOppositeDir: Params:\n A: direction\n\n Returns:\n A: opposite directi
 S:1015:L6885_Loop
 S:101F:Abs: Params:\n A: value\n\n Returns:\n A: absolute value\n
 S:1021:Negate: Params:\n A: value\n\n Returns:\n A: result\n
-S:1027:MoveShot: Params:\n A: direction\n X: object index\n [0E]: 0 to change grid offset, else leave it as is\n\n Returns:\n [0E]: $80 if blocked\n [0F]: moving direction, or 0 if boundary was crossed\n\n\n If a boundary was crossed, go set [0E] to $80 instead of moving.\n
+S:1027:MoveShot: Params:\n A: direction\n X: object index\n [0E]: 0 to change grid offset, else leave it as is\n\n Returns:\n [0E]: $80 if blocked\n [0F]: moving direction, or 0 if boundary was crossed\n\n DASM.BELOW: If a boundary was crossed, go set [0E] to $80 instead of moving.\n
 S:102C:: Move the object as if grid offset were 0.\n
 S:1039:: If [0E] is set, keep the original value in grid offset,\n or else add the new amount to it.\n
 S:1045:L68B5_ReturnBlocked
-S:104A:GetDirectionsAndDistancesToTarget: Params:\n A: object index of target\n X: object index of origin\n [00]: 0\n\n Returns:\n [00]: the number of axes where the distance <= 8\n [03]: distance X\n [04]: distance Y\n [0A]: vertical direction from origin to target\n [0B]: horizontal direction from origin to target\n\n\n Handle the horizontal.\n
+S:104A:GetDirectionsAndDistancesToTarget: Params:\n A: object index of target\n X: object index of origin\n [00]: 0\n\n Returns:\n [00]: the number of axes where the distance <= 8\n [03]: distance X\n [04]: distance Y\n [0A]: vertical direction from origin to target\n [0B]: horizontal direction from origin to target\n\n DASM.BELOW: Handle the horizontal.\n
 S:105E:: Handle the vertical.\n
-S:106F:_CalcDiagonalSpeedIndex: Params:\n Y: middle speed index (4)\n [03]: horizontal distance\n [04]: vertical distance\n [0A]: vertical direction\n [0B]: horizontal direction\n\n Returns:\n Y: speed index (0 to 8) for the angle\n\n\n TODO: call it speed index or angle?\n Store the middle speed index in [00]. It will be changed to the\n right speed index to use incrementally.\n Lower speed indexes yield faster X speeds and lower Y speeds.\n Higher speed indexes yield faster Y speeds and lower X speeds.\n
+S:106F:_CalcDiagonalSpeedIndex: Params:\n Y: middle speed index (4)\n [03]: horizontal distance\n [04]: vertical distance\n [0A]: vertical direction\n [0B]: horizontal direction\n\n Returns:\n Y: speed index (0 to 8) for the angle\n\n DASM.BELOW: TODO: call it speed index or angle?\n Store the middle speed index in [00]. It will be changed to the\n right speed index to use incrementally.\n Lower speed indexes yield faster X speeds and lower Y speeds.\n Higher speed indexes yield faster Y speeds and lower X speeds.\n
 S:1071:: Assuming horizontal distance >= vertical distance, the\n index offset in [01] is negative (-1) to go towards the X axis.\n
 S:1075:: TODO:\n If horizontal distance [03] < vertical distance [04], swap [03] and [04],\n and store positive speed index 1 in [01] to go towards the Y axis.\n\n The point is to put the greater value in [03] and the lesser one in [04],\n and use a speed index offset (1 or -1) that will point us in the direction\n of the farther distance faster.\n
 S:1087:L68F7_Swap: TODO: call it speed index or angle?\n If the difference in distances is within 8 pixels,\n return the speed index (angle) we have.\n
@@ -7538,7 +7538,7 @@ S:10AE:: If in major state $50, use this speed as is.\n
 S:10B6:: Else, in major state $40, go at half the speed.\n
 S:10B9:: Once we've traveled the target amount of time, set state $50 to go faster.\n In major state $40, ObjMovingLimit is a timer to change the state to $50.\n
 S:10C2:L6932_Exit
-S:10C3:GetOneDirectionAndDistanceToTarget: Params:\n A: target coordinate\n Y: origin coordinate\n [00]: a value\n [0A]: the decreasing direction on the coordinates' axis (2 or 8)\n\n Returns:\n A: the distance from origin to target\n [00]: the original value + 1, if < 8 pixels between origin and target\n [0A]: the direction from origin to target\n\n\n If the origin coordinate already >= target coordinate, then\n the direction in [0A] is already correct. Otherwise, shift it right\n to flip it.\n\n After this, [02] will >= [01].\n
+S:10C3:GetOneDirectionAndDistanceToTarget: Params:\n A: target coordinate\n Y: origin coordinate\n [00]: a value\n [0A]: the decreasing direction on the coordinates' axis (2 or 8)\n\n Returns:\n A: the distance from origin to target\n [00]: the original value + 1, if < 8 pixels between origin and target\n [0A]: the direction from origin to target\n\n DASM.BELOW: If the origin coordinate already >= target coordinate, then\n the direction in [0A] is already correct. Otherwise, shift it right\n to flip it.\n\n After this, [02] will >= [01].\n
 S:10D1:L6941_Subtract: If the difference between the coordinates < 9, increment [00].\n
 S:10DD:WieldBomb: If there are no bombs in inventory, return.\n
 S:10E2:: Look in slot $10. If it's empty or there's a fire\n (state = 0, or major state <> $10), then\n go activate a bomb.\n
@@ -7551,13 +7551,13 @@ S:1112:: Start in state $11.\n
 S:1114:PlaceWeaponForPlayerStateAndAnimAndWeaponState: Params:\n A: initial state\n X: object index\n
 S:1116:PlaceWeaponForPlayerStateAndAnim: Set player's animation counter to 1, so that it will roll over\n as soon as possible, causing movement frame to become 0 (legs apart),\n which is how we want to end item-use animations.\n\n Set player's state to $10 (wielding sword/item).\n
 S:111B:PlaceWeaponForPlayerState
-S:111F:PlaceWeapon: Places the weapon $10 pixels away from the player in the\n player's direction.\n\n Params:\n A: $10 for right and down\n X: object index\n\n\n Set the offset choices to:\n  $10 for right and down in [01]\n -$10 for left and up in [02]\n
+S:111F:PlaceWeapon: Places the weapon $10 pixels away from the player in the\n player's direction.\n\n Params:\n A: $10 for right and down\n X: object index\n\n DASM.BELOW: Set the offset choices to:\n  $10 for right and down in [01]\n -$10 for left and up in [02]\n
 S:1125:: Set object's direction to the player's.\n
 S:1129:: Set object's X to player's X + offset for direction.\n
 S:1130:: Set object's Y to player's Y + offset for direction.\n
 S:1132:: Shift player's direction, so that it behaves like a horizontal if it's vertical.
 S:113B:L69AB_Exit
-S:113C:ChooseOffsetForDirectionH: Params:\n A: direction\n [01]: value for right\n [02]: value for left\n\n Returns:\n A: chosen value, or 0 if not horizontal\n C: 0\n\n\n Set default value 0 in default address 0.\n
+S:113C:ChooseOffsetForDirectionH: Params:\n A: direction\n [01]: value for right\n [02]: value for left\n\n Returns:\n A: chosen value, or 0 if not horizontal\n C: 0\n\n DASM.BELOW: Set default value 0 in default address 0.\n
 S:1142:: If vertical, go choose slot 0 (value 0).
 S:1144:: Direction is horizontal. Increment index to 1.
 S:1147:: If direction is right, go choose slot 1.
@@ -7565,7 +7565,7 @@ S:1149:: Direction is left. Increment index to 2.
 S:114A:L69BA_GetValue: Load the offset for the calculated index.
 S:114D:: Clear carry in preparation for adding offset to another value.
 S:114E:L69BE_Exit
-S:114F:WieldCandle: Returns:\n X: last object slot tested, regardless of whether it's empty\n\n Fails if no empty slot was found, or the blue candle was already used.\n\n\n Look in slots $10 and $11. If none are empty, return.\n Otherwise, X will have the empty slot found.\n\n Note that it's possible that we fail to find an empty slot,\n but the caller might find slot X occupied by a fire made earlier.\n
+S:114F:WieldCandle: Returns:\n X: last object slot tested, regardless of whether it's empty\n\n Fails if no empty slot was found, or the blue candle was already used.\n\n DASM.BELOW: Look in slots $10 and $11. If none are empty, return.\n Otherwise, X will have the empty slot found.\n\n Note that it's possible that we fail to find an empty slot,\n but the caller might find slot X occupied by a fire made earlier.\n
 S:115A:L69CA_NotInUse: If we have the blue candle and it was used, then return.\n
 S:1166:: Set the candle used.\n
 S:116B:: Reset the new fire object's movement info.\n Set quarter speed (q-speed) to $20 (half a pixel a frame).\n
@@ -7587,7 +7587,7 @@ S:11D2:L6A42_Clear: At times $12 and $D, shift left to make the low bit 0.\n
 S:11DB:L6A4B_SetMask: Only at times $16, $11, $12, $D do we commit the mask\n we calculated.\n
 S:11DD:L6A4D_Exit
 S:11DE:UpdatePlayerPositionMarker: Return if mode 9 or whirlwind teleporting.
-S:11ED:UpdatePositionMarker: Params:\n A: room ID\n\n\n Push the room ID.
+S:11ED:UpdatePositionMarker: Params:\n A: room ID\n\n DASM.BELOW: Push the room ID.
 S:11EE:: Sanitize the row of the room ID.
 S:11F0:: The rows in status bar map are 4 pixels tall.
 S:11F2:: Add $17 pixels to Y coordinate.
@@ -7646,7 +7646,7 @@ S:1335:: Switch to room item object slot $13.\n
 S:1337:: If room item object wasn't activated, then return.\n
 S:133B:: Pass RoomItemId, also known as [98][$13] and ObjDir[$13],\n to try to take the item.\n\n DASM.EXPR: ObjRoomItemId
 S:133D:: [04] holds the item type.
-S:133F:TryTakeItem: Params:\n X: object index\n [04]: item type\n\n\n If the lifetime timer of the item >= $F0, then return;\n so that the player can't pick it up right away.\n\n [03A8][X] is used to count down the life of the item.\n DASM.EXPR: Item_ObjItemLifetime\n
+S:133F:TryTakeItem: Params:\n X: object index\n [04]: item type\n\n DASM.BELOW: If the lifetime timer of the item >= $F0, then return;\n so that the player can't pick it up right away.\n\n [03A8][X] is used to count down the life of the item.\n DASM.EXPR: Item_ObjItemLifetime\n
 S:1346:: If Y distance between Link and the item >= 9, return.\n
 S:1355:: If X distance between Link and the item >= 9, return.\n
 S:1361:: In case this is the room item, set state to $FF to deactivate it.\n
@@ -7662,7 +7662,7 @@ S:1391:L6C01_SkipLift: Look up the item slot and sprite attributes by the item t
 S:1399:: [0A] holds the item value from the low nibble of descriptor.\n
 S:139F:: Check the high nibble which specifies the item's class.\n\n A: item class\n X: item type\n Y: item slot\n
 S:13A1:: Go check classes 1 and 2.
-S:13A3:: Class 0. We have an item of a type that's unique or complex.\n\n First, check the exceptions. If the item is a map, compass, or triforce; then go handle them.\n\n\n Map item slot
+S:13A3:: Class 0. We have an item of a type that's unique or complex.\n\n First, check the exceptions. If the item is a map, compass, or triforce; then go handle them.\n\n DASM.BELOW: Map item slot
 S:13A7:: Compass item slot
 S:13AB:: Triforce pieces item slot
 S:13AF:: Triforce of Power item slot
@@ -7672,7 +7672,7 @@ S:13B8:L6C28_Exit
 S:13B9:L6C29_Take5Rupees: For 5 Rupees, perform the action for 1 rupee 5 times.\n
 S:13C2:L6C32_CheckClass1: A: item class\n X: item type\n Y: item slot\n
 S:13C4:: Go check class 2 items.
-S:13C6:: Class 1. We have a type of item with an amount.\n Item value is the amount to add.\n\n\n Heart container item slot
+S:13C6:: Class 1. We have a type of item with an amount.\n Item value is the amount to add.\n\n DASM.BELOW: Heart container item slot
 S:13CA:: 5 Rupees item slot
 S:13CE:: Rupee item slot
 S:13D2:: Heart item slot
@@ -7731,7 +7731,7 @@ S:14A3:TakeOneRupee: Play "rupee taken" tune.
 S:14AB:L6D1B_Exit
 S:14AC:PlayKeyTakenTune: Stop playing tune 2.
 S:14B1:: Play "key taken" tune.
-S:14B7:AnimateWorldFading: Params:\n [$051C]: cycle number\n\n Returns:\n Z: 1 if done updating\n\n ObjTimer[12] is the world fade timer. Every 10 frames,\n we step to the next half palette. There are 4 steps to fading.\n
+S:14B7:AnimateWorldFading: Params:\n [$051C]: cycle number\n\n Returns:\n Z: 1 if done updating\n\n DASM.BELOW:\n ObjTimer[12] is the world fade timer. Every 10 frames,\n we step to the next half palette. There are 4 steps to fading.\n
 S:14B9:: If the timer hasn't expired, then only delay (return).
 S:14BE:: If the cycle number is negative, then this is a reverse fade.
 S:14C2:: Map cycle value with hex digits XY to offset (X0 + Y*8).
@@ -7770,7 +7770,7 @@ S:1565:: Else allow exit.
 S:1566:L6DD6_Match
 S:1568:: If this isn't the last step, then go advance the step, but repeat the room.
 S:156A:L6DDA_PlaySecretTune: Play secret tune, and let the player leave the maze.\n
-S:1570:MapScreenPosToPpuAddr: Params:\n [02]: Y\n [03]: X\n\n Returns:\n [00]: high byte of PPU address\n [01]: low byte of PPU address\n\n\n Turn the 16-bit value 08YY into the PPU address\n ($2000 + (YY * 4)) by multiplying it by 4.\n\n Each row of tiles is 32 tiles (and bytes) long, and 8 pixels tall.\n This is why the Y coordinate is multiplied by 4 (= 32 / 8).\n
+S:1570:MapScreenPosToPpuAddr: Params:\n [02]: Y\n [03]: X\n\n Returns:\n [00]: high byte of PPU address\n [01]: low byte of PPU address\n\n DASM.BELOW: Turn the 16-bit value 08YY into the PPU address\n ($2000 + (YY * 4)) by multiplying it by 4.\n\n Each row of tiles is 32 tiles (and bytes) long, and 8 pixels tall.\n This is why the Y coordinate is multiplied by 4 (= 32 / 8).\n
 S:1580:: Now divide X coordinate by 8, because each tile is 8 pixels wide.\n
 S:1585:: Combine the low address of the row with the column to get\n the final low byte of PPU address.\n
 S:158A-1593:Filler_6DFA
@@ -7779,12 +7779,12 @@ S:1613-16DE:ObjAnimFrameHeap
 S:16DF-17AA:ObjAnimAttrHeap
 S:17AB-17D3:SpriteOffsets
 S:17D4:AnimateAndDrawObjectWalking
-S:17DB:DrawObjectMirrored: Params:\n A: frame image\n X: object index\n [00]: object X\n [01]: object Y\n\n\n Set [0C] mirrored.
+S:17DB:DrawObjectMirrored: Params:\n A: frame image\n X: object index\n [00]: object X\n [01]: object Y\n\n DASM.BELOW: Set [0C] mirrored.
 S:17DF:DrawObjectNotMirrored: Params:\n A: frame image\n X: object index\n [00]: object X\n [01]: object Y\n [0F]: flip horizontally\n
 S:17E1:: Set [0C] not mirrored.
 S:17E3:: Set animation index = object type + 1.\n
 S:17E6:DrawObjectWithType: Params:\n A: frame\n X: object index/cycle sprite index\n Y: object type\n [00]: object X\n [01]: object Y\n [0C]: mirrored\n [0F]: flip horizontally\n\n Note:\n If the object is not mirrored, then it's horizontally flippable.\n\n The animation index of most objects is (object type + 1),\n to make up for the fact that Link uses two animation indexes.\n
-S:17E7:DrawObjectWithAnim: Params:\n A: frame\n X: object index/cycle sprite index\n Y: animation index\n [00]: object X\n [01]: object Y\n [0C]: mirrored\n [0F]: flip horizontally\n\n Note:\n If the object is not mirrored, then it's horizontally flippable.\n But Link uses [0F] for flipping without checking [0C].\n\n\n [0D] holds frame.
+S:17E7:DrawObjectWithAnim: Params:\n A: frame\n X: object index/cycle sprite index\n Y: animation index\n [00]: object X\n [01]: object Y\n [0C]: mirrored\n [0F]: flip horizontally\n\n Note:\n If the object is not mirrored, then it's horizontally flippable.\n But Link uses [0F] for flipping without checking [0C].\n\n DASM.BELOW: [0D] holds frame.
 S:17E9:: [0E] holds animation index.
 S:17EB:: [08] holds object index/cycle sprite index
 S:17ED:: Set the left and right sprite record offsets for CurSpriteIndex.\n
@@ -7807,10 +7807,10 @@ S:1838:L70A8_UseTableAttr: Look up the sprite attribute.
 S:183E:: If it's Link, write the sprites. He's never mirrored.\n
 S:1842:: For other objects, the caller controls mirroring and flipping.\n\n If mirrored [0C], then draw it mirrored.\n Else draw it horizontally flippable, controlled by [0F].\n
 S:1849:L70B9_DrawHalfWidth: Mark the object narrow (half-width).
-S:184E:Anim_WriteHorizontallyFlippableSpritePair: Params:\n [00]: Object X\n [01]: Object Y\n [02]: Left tile\n [03]: Right tile\n [04]: Left attributes\n [05]: Right attributes\n [07]: Has two sides\n [08]: Cycle sprite index\n [0A]: X separation\n [0F]: Flip horizontally\n [0343]: LeftSpriteOffset\n [0344]: RightSpriteOffset\n\n If [0F] = 0, write the sprite pair with no further processing.\n
+S:184E:Anim_WriteHorizontallyFlippableSpritePair: Params:\n [00]: Object X\n [01]: Object Y\n [02]: Left tile\n [03]: Right tile\n [04]: Left attributes\n [05]: Right attributes\n [07]: Has two sides\n [08]: Cycle sprite index\n [0A]: X separation\n [0F]: Flip horizontally\n [0343]: LeftSpriteOffset\n [0344]: RightSpriteOffset\n\n DASM.BELOW: If [0F] = 0, write the sprite pair with no further processing.\n
 S:1852:: Otherwise, reverse the two sides.\n
 S:185C:: Set the horizontal flip sprite attributes.\n
-S:1868:Anim_WriteSpritePair: Params:\n [00]: Object X\n [01]: Object Y\n [02]: Left tile\n [03]: Right tile\n [04]: Left attributes\n [05]: Right attributes\n [07]: Has two sides\n [08]: Cycle sprite index\n [0A]: X separation\n [0343]: LeftSpriteOffset\n [0344]: RightSpriteOffset\n\n If not currently invincible, then leave the attributes alone.\n
+S:1868:Anim_WriteSpritePair: Params:\n [00]: Object X\n [01]: Object Y\n [02]: Left tile\n [03]: Right tile\n [04]: Left attributes\n [05]: Right attributes\n [07]: Has two sides\n [08]: Cycle sprite index\n [0A]: X separation\n [0343]: LeftSpriteOffset\n [0344]: RightSpriteOffset\n\n DASM.BELOW: If not currently invincible, then leave the attributes alone.\n
 S:186D:: For both left and right sprites, indexed by Y register:\n
 S:186F:: Toss out the palette bits of the sprite attributes.
 S:1877:: Patch the bottom 2 bits of the invincibility timer.
@@ -7831,10 +7831,10 @@ S:18DC-190B:Anim_ItemFrameTiles
 S:190C:Anim_WriteStaticItemSpritesWithAttributes: Params:\n A: sprite attributes\n X: cycle sprite index / object index\n Y: item slot\n [00]: X\n [01]: Y\n
 S:1911:: Reset horizontal flipping.
 S:1913:: Reset frame.
-S:1915:Anim_WriteItemSprites: Params:\n X: cycle sprite index / object index\n Y: item slot\n [00]: X\n [01]: Y\n [04]: left sprite attributes\n [05]: right sprite attributes\n [0C]: frame image\n [0F]: flip horizontally\n\n Returns:\n [52]: ProcessedNarrowObj\n\n\n Save the item slot passed in Y.
+S:1915:Anim_WriteItemSprites: Params:\n X: cycle sprite index / object index\n Y: item slot\n [00]: X\n [01]: Y\n [04]: left sprite attributes\n [05]: right sprite attributes\n [0C]: frame image\n [0F]: flip horizontally\n\n Returns:\n [52]: ProcessedNarrowObj\n\n DASM.BELOW: Save the item slot passed in Y.
 S:191B:: Determine the left and right sprite offsets for current sprite index.
 S:192A:: Restore the item slot passed in.
-S:192C:Anim_WriteSpecificItemSprites: Params:\n X: cycle sprite index / object index\n Y: item slot\n [00]: X\n [01]: Y\n [04]: left sprite attributes\n [05]: right sprite attributes\n [0C]: frame\n [0F]: flip horizontally\n [0343]: LeftSpriteOffset\n [0344]: RightSpriteOffset\n\n Returns:\n [52]: ProcessedNarrowObj\n\n\n Store the object index in [08].
+S:192C:Anim_WriteSpecificItemSprites: Params:\n X: cycle sprite index / object index\n Y: item slot\n [00]: X\n [01]: Y\n [04]: left sprite attributes\n [05]: right sprite attributes\n [0C]: frame\n [0F]: flip horizontally\n [0343]: LeftSpriteOffset\n [0344]: RightSpriteOffset\n\n Returns:\n [52]: ProcessedNarrowObj\n\n DASM.BELOW: Store the object index in [08].
 S:192E:: Assume the object has two sides.
 S:1932:: Both sides are usually separated by 8 pixels.
 S:193A:: Get the frame.
@@ -7853,7 +7853,7 @@ S:196C:: If tile < $6C, go mark this a slim object.
 S:1972:: Tile >= $7C. Can flip horizontally.
 S:1975:L71E5__Slim
 S:1977:: Both sides of slim objects overlap one pixel.
-S:1979:Anim_WriteMirroredSpritePair: Params:\n X: cycle sprite index / object index\n [00]: X\n [01]: Y\n [02]: left tile\n [03]: right tile\n [04]: left sprite attributes\n [05]: right sprite attributes\n [0343]: LeftSpriteOffset\n [0344]: RightSpriteOffset\n\n\n All wide items that we process have mirrored sides.
+S:1979:Anim_WriteMirroredSpritePair: Params:\n X: cycle sprite index / object index\n [00]: X\n [01]: Y\n [02]: left tile\n [03]: right tile\n [04]: left sprite attributes\n [05]: right sprite attributes\n [0343]: LeftSpriteOffset\n [0344]: RightSpriteOffset\n\n DASM.BELOW: All wide items that we process have mirrored sides.
 S:197B:: Make the right side the same as the left.
 S:197D:: Flip the right side horizontally.
 S:1986:Anim_SetSpriteDescriptorRedPaletteRow: Returns:\n A: 2\n [04]: left sprite attributes\n [05]: right sprite attributes\n
@@ -7876,11 +7876,11 @@ S:1A08:: This monster is dying.\n\n If it's a goriya that threw a boomerang, the
 S:1A0C:: Red Goriya
 S:1A14:: Get the object slot of this goriya's boomerang.\n DASM.EXPR: ObjRefId
 S:1A1C:L728C_Exit
-S:1A1D:L728D_CheckCaptors: If the monster is a wallmaster or like-like and there's a hit\n (using [0C] flag), then set the monster's capture flag.\n\n Wallmaster object type
+S:1A1D:L728D_CheckCaptors: If the monster is a wallmaster or like-like and there's a hit\n (using [0C] flag), then set the monster's capture flag.\n\n DASM.BELOW: Wallmaster object type
 S:1A21:: LikeLike object type
 S:1A29:: DASM.EXPR: ObjCaptureTimer
 S:1A2C:L729C_Exit2
-S:1A2D:GetObjectMiddle: Params:\n X: object index\n\n Returns:\n [02]: center X\n [03]: center Y\n\n\n Start with offset 8 for X and Y in [02] and [03].\n
+S:1A2D:GetObjectMiddle: Params:\n X: object index\n\n Returns:\n [02]: center X\n [03]: center Y\n\n DASM.BELOW: Start with offset 8 for X and Y in [02] and [03].\n
 S:1A33:: If object attribute $40 is set, make X offset 4.\n
 S:1A36:: Half width (for collision detection)
 S:1A3A:: Cut the X offset [02] in half.
@@ -7905,7 +7905,7 @@ S:1B39:L73A9_Exit
 S:1B3A:L73AA_HarmLink
 S:1B3D:: Flag collision with [0C], even though [06] was already set.\n
 S:1B3F:: Unpack the damage points for the monster's type.\n The low nibble is the high byte.\n (Damage points byte AND $F0) is the low byte.\n
-S:1B4F:Link_BeHarmed: Params:\n X: object index of the attacker\n [0D]: damage points high byte\n [0E]: damage points low byte\n\n\n If object type is not whirlwind, then make the "hurt" sound effect.\n
+S:1B4F:Link_BeHarmed: Params:\n X: object index of the attacker\n [0D]: damage points high byte\n [0E]: damage points low byte\n\n DASM.BELOW: If object type is not whirlwind, then make the "hurt" sound effect.\n
 S:1B5B:: For every level of ring (1 or 2), divide the 16-bit damage amount in [0E:0D] by 2.\n
 S:1B67:L73D7_ResetHelp: Reset values used in special item drops.\n
 S:1B70:: If heart partial >= low damage points byte, then simply\n subtract the damage byte from heart partial.\n Else go borrow from full hearts.\n
@@ -7913,7 +7913,7 @@ S:1B7D:: If full hearts >= high damage points byte, then simply\n subtract the d
 S:1B90:L7400_BorrowHeart: This isn't a simple case of borrowing. For example, supposing:\n   full heart=4 partial heart=$70\n The straightforward way to subtract $80 would yield $3F0.\n But the method here yields $3EF, because partial heart is\n considered full when = $FF instead of $100.\n
 S:1B9D:: If we can't borrow from full hearts, then Link died.
 S:1BA9:L7419_HandleDied: Link died.\n\n Set full hearts, partial heart, and Link's object state to 0.\n Make Link face down.\n Go to mode $11.\n
-S:1BC2:CheckMonsterBoomerangOrFoodCollision: Params:\n X: monster slot\n Y: weapon slot\n [02]: monster mid X\n [03]: monster mid Y\n\n Returns:\n [00]: weapon slot\n\n If the weapon slot holds food (high bit of state is set), then return.\n
+S:1BC2:CheckMonsterBoomerangOrFoodCollision: Params:\n X: monster slot\n Y: weapon slot\n [02]: monster mid X\n [03]: monster mid Y\n\n Returns:\n [00]: weapon slot\n\n DASM.BELOW: If the weapon slot holds food (high bit of state is set), then return.\n
 S:1BC8:: [00] holds the weapon slot
 S:1BCA:: Set boomerang damage type (2) in [09].\n
 S:1BCE:: Set collision threshold $A in both axes.\n
@@ -7945,7 +7945,7 @@ S:1C79:: Increase the help drop counter, if not at max ($A).\n
 S:1C81:: If the help drop counter has reached the max, and damage type = bomb (8);\n then set [51] HelpDropValue in order to drop a bomb next time.\n
 S:1C8F:L74FF_SetDyingMetastate: Set the dying metastate, and reset some object info.\n
 S:1C96:ResetShoveInfoAndInvincibilityTimer: Params:\n A: 0\n
-S:1C9D:CheckMonsterSwordShotOrMagicShotCollision: Params:\n X: monster slot\n Y: weapon slot\n [02]: monster mid X\n [03]: monster mid Y\n\n Returns:\n [00]: weapon slot\n\n [00] holds the weapon slot
+S:1C9D:CheckMonsterSwordShotOrMagicShotCollision: Params:\n X: monster slot\n Y: weapon slot\n [02]: monster mid X\n [03]: monster mid Y\n\n Returns:\n [00]: weapon slot\n\n DASM.BELOW: [00] holds the weapon slot
 S:1C9F:: Set magic shot damage type ($10) in [09].\n
 S:1CA3:: If the shot is a sword shot that's spreading out, then return.\n
 S:1CA9:: Set horizontal collision threshold $C.\n
@@ -7957,7 +7957,7 @@ S:1CCE:: If no collision, then return.\n
 S:1CD2:: Else handle blocking the shot.\n
 S:1CD4:: Shot object slot
 S:1CDB:L754B_Exit
-S:1CDC:CheckMonsterBombOrFireCollision: Params:\n X: monster slot\n Y: weapon slot\n [02]: monster mid X\n [03]: monster mid Y\n\n Returns:\n [00]: weapon slot\n\n [00] holds the weapon slot
+S:1CDC:CheckMonsterBombOrFireCollision: Params:\n X: monster slot\n Y: weapon slot\n [02]: monster mid X\n [03]: monster mid Y\n\n Returns:\n [00]: weapon slot\n\n DASM.BELOW: [00] holds the weapon slot
 S:1CDE:: Set up parameters for a fire.\n
 S:1CE0:: [09] holds fire damage type
 S:1CE4:: [07] holds $10 damage points
@@ -7973,16 +7973,16 @@ S:1D13:: If the objects do not collide, then return.\n
 S:1D1B:: If the monster is weak to the damage type, then shove it.\n
 S:1D25:L7595_Exit
 S:1D26-1D28:SwordDamagePoints
-S:1D29:CheckMonsterSwordCollision: Params:\n X: monster slot\n Y: weapon slot\n [02]: monster mid X\n [03]: monster mid Y\n\n Returns:\n [00]: weapon slot\n [06]: 1 if objects collide\n\n [00] holds the weapon slot
+S:1D29:CheckMonsterSwordCollision: Params:\n X: monster slot\n Y: weapon slot\n [02]: monster mid X\n [03]: monster mid Y\n\n Returns:\n [00]: weapon slot\n [06]: 1 if objects collide\n\n DASM.BELOW: [00] holds the weapon slot
 S:1D2B::Set sword damage type (1) in [09].\n
 S:1D2F:: If the sword is not fully extended, then return.\n
 S:1D36:: Look up and set the damage points for the sword type.\n
 S:1D39:: DASM.EXPR: SwordDamagePoints-1
-S:1D3C:CheckMonsterStabbingCollision: Params:\n A: damage points\n X: monster slot\n Y: weapon slot\n [02]: monster mid X\n [03]: monster mid Y\n [09]: damage type\n\n Returns:\n [06]: 1 if objects collide\n\n [07] damage points
+S:1D3C:CheckMonsterStabbingCollision: Params:\n A: damage points\n X: monster slot\n Y: weapon slot\n [02]: monster mid X\n [03]: monster mid Y\n [09]: damage type\n\n Returns:\n [06]: 1 if objects collide\n\n DASM.BELOW:\n [07] damage points
 S:1D3E:: If Link's direction is vertical, then set collision thresholds accordingly:\n [0D] := $C\n [0E] := $10\n
 S:1D4D:L75BD_Horizontal: Else switch it:\n [0D] := $10\n [0E] := $C\n
 S:1D58:: If no collision, then return.\n
-S:1D5F:CheckMonsterArrowOrRodCollision: Params:\n X: monster slot\n Y: weapon slot\n [02]: monster mid X\n [03]: monster mid Y\n\n Returns:\n [00]: weapon slot\n [06]: 1 if objects collide\n\n [00] holds the weapon slot
+S:1D5F:CheckMonsterArrowOrRodCollision: Params:\n X: monster slot\n Y: weapon slot\n [02]: monster mid X\n [03]: monster mid Y\n\n Returns:\n [00]: weapon slot\n [06]: 1 if objects collide\n\n DASM.BELOW:\n [00] holds the weapon slot
 S:1D64:: If the weapon is a rod, then\n go check a stabbing collision using rod parameters.\n
 S:1D6A:: [09] holds sword damage type
 S:1D6C:: Pass $20 damage points.
@@ -8007,15 +8007,15 @@ S:1DD1:CheckMonsterSlenderWeaponCollision2: Params:\n X: monster object slot\n [
 S:1DD3:: If Link is facing vertically, then:\n [04] := (weapon X + 6)\n A    := (weapon Y + 8)\n\n Shouldn't it be based on the weapon's direction?\n
 S:1DEA:L765A_CheckHorizontal: Else Link is facing horizontally.\n [04] := (weapon X + 8)\n A    := (weapon Y + 6)\n\n Shouldn't it be based on the weapon's direction?\n
 S:1DF8:: The A register will be copied to [05] and used here.\n
-S:1DFB:DoObjectsCollide: Params:\n A: collision distance threshold (objects collide if nearer in X and Y)\n [00]: weapon object slot (unused)\n [02]: object 1 mid X\n [03]: object 1 mid Y\n [04]: object 2 mid X\n [05]: object 2 mid Y\n\n Returns:\n A: 1 if objects collide\n Y: weapon object slot\n Z: 0 if objects collide\n [06]: 1 if objects collide\n [0A]: horizontal distance\n [0B]: vertical distance\n\n\n Use the same threshold value horizontally and vertically.\n Copy it to [0D] for horizontal threshold, and [0E] for vertical one.\n
-S:1DFF:DoObjectsCollideWithThresholds: Params:\n [00]: weapon or Link object slot (unused)\n [02]: object 1 mid X\n [03]: object 1 mid Y\n [04]: object 2 mid X\n [05]: object 2 mid Y\n [0D]: horizontal threshold\n [0E]: vertical threshold\n\n Returns:\n A: 1 if objects collide\n Y: weapon or Link object slot (copied from [00])\n Z: 0 if objects collide\n [06]: 1 if objects collide\n [0A]: horizontal distance\n [0B]: vertical distance\n\n\n Reset [06] to indicate no collision by default.\n
+S:1DFB:DoObjectsCollide: Params:\n A: collision distance threshold (objects collide if nearer in X and Y)\n [00]: weapon object slot (unused)\n [02]: object 1 mid X\n [03]: object 1 mid Y\n [04]: object 2 mid X\n [05]: object 2 mid Y\n\n Returns:\n A: 1 if objects collide\n Y: weapon object slot\n Z: 0 if objects collide\n [06]: 1 if objects collide\n [0A]: horizontal distance\n [0B]: vertical distance\n\n DASM.BELOW: Use the same threshold value horizontally and vertically.\n Copy it to [0D] for horizontal threshold, and [0E] for vertical one.\n
+S:1DFF:DoObjectsCollideWithThresholds: Params:\n [00]: weapon or Link object slot (unused)\n [02]: object 1 mid X\n [03]: object 1 mid Y\n [04]: object 2 mid X\n [05]: object 2 mid Y\n [0D]: horizontal threshold\n [0E]: vertical threshold\n\n Returns:\n A: 1 if objects collide\n Y: weapon or Link object slot (copied from [00])\n Z: 0 if objects collide\n [06]: 1 if objects collide\n [0A]: horizontal distance\n [0B]: vertical distance\n\n DASM.BELOW: Reset [06] to indicate no collision by default.\n
 S:1E05:: Store in [0A] the horizontal distance between the two objects.\n
 S:1E0F:: If distance >= horizontal threshold in [0D], return 0.\n
 S:1E13:: Store in [0B] the vertical distance between the two objects.\n
 S:1E1D:: If distance >= vertical threshold in [0E], return 0.\n
 S:1E21:: If we get here, then the objects are close enough in both axes.\n Return 1.\n
 S:1E23:L7693_ReturnValue
-S:1E26:BeginShove: Params:\n X: caller's object index, a monster\n    the attacker, if monster attacks Link\n    else defender, if weapon attacks monster\n [00]: 0 if monster attacks Link (defender),\n       else weapon slot (attacker)\n [09]: damage type,\n       only if a monster is defending\n [0B]: direction,\n       only if a monster is defending\n\n Only monsters (and fire) call this routine.\n\n When monsters attack Link, they set [00] to 0 for Link's slot.\n\n On the other hand, if a weapon attacks a monster,\n the monster sets [00] to the weapon's slot.\n\n\n If a weapon attacks a monster, and the weapon's damage\n type matches the monster's invincibility mask;\n then return without shoving.\n\n If a monster attacks Link, then damage type will be 0.\n
+S:1E26:BeginShove: Params:\n X: caller's object index, a monster\n    the attacker, if monster attacks Link\n    else defender, if weapon attacks monster\n [00]: 0 if monster attacks Link (defender),\n       else weapon slot (attacker)\n [09]: damage type,\n       only if a monster is defending\n [0B]: direction,\n       only if a monster is defending\n\n Only monsters (and fire) call this routine.\n\n When monsters attack Link, they set [00] to 0 for Link's slot.\n\n On the other hand, if a weapon attacks a monster,\n the monster sets [00] to the weapon's slot.\n\n DASM.BELOW: If a weapon attacks a monster, and the weapon's damage\n type matches the monster's invincibility mask;\n then return without shoving.\n\n If a monster attacks Link, then damage type will be 0.\n
 S:1E33:: [08], [04], and [05] are used in determining the direction to push Link,\n if he is defending. The goal is to push Link away from the monster.\n\n If instead a monster is defending, then all this calculation\n won't matter, because the shove direction will be set to the\n weapon's direction.\n\n As such, calculate a direction from the monster to the defender,\n assuming it's Link.\n\n Start with an assumption that the direction is vertical:\n Store 8 (up) in [08], monster Y in [04], and other Y in [05].\n
 S:1E40:: If the defender is Link and his grid offset <> 0 then\n use his usual object direction variable to determine\n which axis to check.\n
 S:1E51:: For monsters defending, or Link with grid offset = 0,\n check direction in [0B].\n\n For monsters defending, this won't matter. For Link with grid\n offset = 0, I believe the result will be arbitrary.\n\n UNKNOWN:\n [0B] isn't always set, ifLink's grid offset = 0.\n For example, if fire attacks him.\n
